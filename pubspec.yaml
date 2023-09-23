@@ -8,6 +8,7 @@ environment:
   flutter: 3.15.0-15.2.pre
 
 dependencies:
+  collection: ^1.18.0
   dynamic_color: ^1.6.7
   flutter:
     sdk: flutter
