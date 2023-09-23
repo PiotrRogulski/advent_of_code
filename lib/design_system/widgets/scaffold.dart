@@ -18,6 +18,8 @@ class AocScaffold extends HookWidget {
   Widget build(BuildContext context) {
     final titleScale = useState<double>(1);
 
+    final safeArea = MediaQuery.paddingOf(context);
+
     // ignore: use_design_system_item_AocScaffold
     return Scaffold(
       body: NotificationListener(
@@ -46,6 +48,9 @@ class AocScaffold extends HookWidget {
               ),
             ),
             ...bodySlivers,
+            SliverToBoxAdapter(
+              child: SizedBox(height: safeArea.bottom),
+            ),
           ],
         ),
       ),
