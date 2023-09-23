@@ -5,6 +5,9 @@ import 'package:advent_of_code/router/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+part 'branches/home.dart';
+part 'branches/settings.dart';
+part 'branches/years.dart';
 part 'routes.g.dart';
 
 final navigatorKeys = (
@@ -54,50 +57,5 @@ class MainRoute extends StatefulShellRouteData {
       routerState: state,
       navigationShell: navigationShell,
     );
-  }
-}
-
-class HomeBranch extends StatefulShellBranchData {
-  const HomeBranch();
-
-  static final $navigatorKey = navigatorKeys.branches.home;
-}
-
-class YearsBranch extends StatefulShellBranchData {
-  const YearsBranch();
-
-  static final $navigatorKey = navigatorKeys.branches.years;
-}
-
-class SettingsBranch extends StatefulShellBranchData {
-  const SettingsBranch();
-
-  static final $navigatorKey = navigatorKeys.branches.settings;
-}
-
-class HomeRoute extends GoRouteData {
-  const HomeRoute();
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const HomePage();
-  }
-}
-
-class YearsRoute extends GoRouteData {
-  const YearsRoute();
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const YearsPage();
-  }
-}
-
-class SettingsRoute extends GoRouteData {
-  const SettingsRoute();
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const SettingsPage();
   }
 }
