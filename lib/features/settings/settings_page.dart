@@ -1,4 +1,5 @@
 import 'package:advent_of_code/design_system/page.dart';
+import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends AocPage<void> {
@@ -10,11 +11,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: Container(),
+    return const AocScaffold(
+      title: 'Settings',
     );
   }
 }
