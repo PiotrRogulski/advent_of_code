@@ -20,6 +20,8 @@ class AocScaffold extends HookWidget {
 
     final safeArea = MediaQuery.paddingOf(context);
 
+    final scrollController = useScrollController();
+
     // ignore: use_design_system_item_AocScaffold
     return Scaffold(
       body: NotificationListener(
@@ -34,15 +36,24 @@ class AocScaffold extends HookWidget {
           return false;
         },
         child: CustomScrollView(
+          controller: scrollController,
           slivers: [
             SliverAppBar.large(
               flexibleSpace: SafeArea(
-                child: Center(
-                  child: Text(
-                    title,
-                    style: Theme.of(context).textTheme.displayLarge?.apply(
-                          fontSizeFactor: titleScale.value,
-                        ),
+                child: GestureDetector(
+                  onTap: () => scrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOutCubicEmphasized,
+                  ),
+                  behavior: HitTestBehavior.opaque,
+                  child: Center(
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.displayLarge?.apply(
+                            fontSizeFactor: titleScale.value,
+                          ),
+                    ),
                   ),
                 ),
               ),
