@@ -9,11 +9,31 @@ class AocTheme {
 
   static ThemeData light = _makeTheme(Brightness.light);
 
-  static ThemeData _makeTheme(Brightness brightness) => ThemeData.from(
-        colorScheme: _makeColorScheme(brightness),
-      ).copyWith(
-        splashFactory: InkSparkle.splashFactory,
-      );
+  static ThemeData _makeTheme(Brightness brightness) {
+    final colorScheme = _makeColorScheme(brightness);
+    return ThemeData.from(
+      colorScheme: colorScheme,
+    ).copyWith(
+      splashFactory: InkSparkle.splashFactory,
+      listTileTheme: const ListTileThemeData(
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 32,
+          vertical: 8,
+        ),
+      ),
+      cardTheme: CardTheme(
+        clipBehavior: Clip.antiAlias,
+        elevation: 0,
+        color: colorScheme.surfaceVariant,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: colorScheme.outline,
+          ),
+          borderRadius: const BorderRadius.all(Radius.circular(24)),
+        ),
+      ),
+    );
+  }
 
   static ColorScheme _makeColorScheme(Brightness brightness) {
     final scheme = SchemeFidelity(
@@ -27,8 +47,6 @@ class AocTheme {
       ...scheme.tertiaryPalette.asList,
       ...scheme.neutralPalette.asList,
       ...scheme.neutralVariantPalette.asList,
-    ]).toColorScheme(
-      brightness: brightness,
-    );
+    ]).toColorScheme(brightness: brightness).harmonized();
   }
 }
