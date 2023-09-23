@@ -18,6 +18,7 @@ class AocScaffold extends HookWidget {
   Widget build(BuildContext context) {
     final titleScale = useState<double>(1);
 
+    // ignore: use_design_system_item_AocScaffold
     return Scaffold(
       body: NotificationListener(
         onNotification: (notification) {

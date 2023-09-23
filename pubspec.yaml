@@ -22,7 +22,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   go_router_builder: ^2.3.3
-  leancode_lint: ^6.0.0
+  leancode_lint:
+    git:
+      url: https://github.com/leancodepl/flutter_corelibrary
+      path: packages/leancode_lint
 
 dependency_overrides:
   material_color_utilities: ^0.8.0
