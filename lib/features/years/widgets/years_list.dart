@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +16,9 @@ class SliverYearsList extends StatelessWidget {
         childCount: 25,
         (context, index) {
           return _YearTile(
-            year: index,
+            year: 2000 + index,
             progress: index / 24,
+            completeProgress: pow(index / 24, 2).toDouble(),
           );
         },
       ),
@@ -27,10 +30,12 @@ class _YearTile extends StatelessWidget {
   const _YearTile({
     required this.year,
     required this.progress,
+    required this.completeProgress,
   });
 
   final int year;
   final double progress;
+  final double completeProgress;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,7 @@ class _YearTile extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Year ${year + 1}'),
+                      Text(year.toString()),
                       if (progress == 1)
                         const AocIcon(
                           AocIcons.check,
@@ -59,7 +64,10 @@ class _YearTile extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: _ProgressBar(progress: progress),
+                  child: _ProgressBar(
+                    progress: progress,
+                    completeProgress: completeProgress,
+                  ),
                 ),
               ],
             ),
@@ -81,11 +89,14 @@ class _YearTile extends StatelessWidget {
 class _ProgressBar extends HookWidget {
   const _ProgressBar({
     required this.progress,
+    required this.completeProgress,
   });
 
   final double progress;
+  final double completeProgress;
 
   static const _height = 8.0;
+  static final _borderRadius = BorderRadius.circular(_height / 2);
 
   @override
   Widget build(BuildContext context) {
@@ -109,18 +120,29 @@ class _ProgressBar extends HookWidget {
     return Row(
       children: [
         Expanded(
-          child: LinearProgressIndicator(
-            minHeight: _height,
-            backgroundColor: colors.surface,
-            value: progress,
-            borderRadius: BorderRadius.circular(_height / 2),
+          child: Stack(
+            children: [
+              LinearProgressIndicator(
+                minHeight: _height,
+                backgroundColor: colors.surface,
+                value: progress,
+                borderRadius: _borderRadius,
+                color: Theme.of(context).disabledColor,
+              ),
+              LinearProgressIndicator(
+                minHeight: _height,
+                backgroundColor: Colors.transparent,
+                value: completeProgress,
+                borderRadius: _borderRadius,
+              ),
+            ],
           ),
         ),
         const SizedBox(width: 8),
         SizedBox(
           width: percentWidth,
           child: Text(
-            formatter.format(progress),
+            formatter.format(completeProgress),
           ),
         ),
       ],

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class SliverYearsGrid extends StatelessWidget {
           return _YearTile(
             year: 2000 + index,
             progress: index / 24,
+            completeProgress: pow(index / 24, 2).toDouble(),
           );
         },
       ),
@@ -28,10 +31,12 @@ class _YearTile extends StatelessWidget {
   const _YearTile({
     required this.year,
     required this.progress,
+    required this.completeProgress,
   });
 
   final int year;
   final double progress;
+  final double completeProgress;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +48,7 @@ class _YearTile extends StatelessWidget {
             child: Center(
               child: _ProgressIndicator(
                 progress: progress,
+                completeProgress: completeProgress,
               ),
             ),
           ),
@@ -83,9 +89,11 @@ class _YearTile extends StatelessWidget {
 class _ProgressIndicator extends StatelessWidget {
   const _ProgressIndicator({
     required this.progress,
+    required this.completeProgress,
   });
 
   final double progress;
+  final double completeProgress;
 
   static const _size = 96.0;
 
@@ -93,7 +101,7 @@ class _ProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    if (progress == 1.0) {
+    if (completeProgress == 1.0) {
       return AocIcon(
         AocIcons.check,
         color: colors.primary,
@@ -103,11 +111,26 @@ class _ProgressIndicator extends StatelessWidget {
 
     return SizedBox.square(
       dimension: _size,
-      child: CircularProgressIndicator(
-        value: progress,
-        strokeWidth: 8,
-        strokeCap: StrokeCap.round,
-        backgroundColor: colors.surface,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: CircularProgressIndicator(
+              value: progress,
+              strokeWidth: 8,
+              strokeCap: StrokeCap.round,
+              backgroundColor: colors.surface,
+              color: Theme.of(context).disabledColor,
+            ),
+          ),
+          Positioned.fill(
+            child: CircularProgressIndicator(
+              value: completeProgress,
+              strokeWidth: 8,
+              strokeCap: StrokeCap.round,
+              backgroundColor: Colors.transparent,
+            ),
+          ),
+        ],
       ),
     );
   }
