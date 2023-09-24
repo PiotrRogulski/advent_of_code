@@ -1,7 +1,10 @@
 import 'package:advent_of_code/design_system/theme.dart';
+import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:advent_of_code/global_providers.dart';
 import 'package:advent_of_code/router/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class AocApp extends StatelessWidget {
   const AocApp({super.key});
@@ -19,11 +22,16 @@ class _App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      themeMode: ThemeMode.dark,
-      theme: AocTheme.light,
-      darkTheme: AocTheme.dark,
-      routerConfig: router,
+    return Observer(
+      builder: (context) {
+        final themeMode = context.read<SettingsStore>().themeMode;
+        return MaterialApp.router(
+          themeMode: themeMode,
+          theme: AocTheme.light,
+          darkTheme: AocTheme.dark,
+          routerConfig: router,
+        );
+      },
     );
   }
 }
