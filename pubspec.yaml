@@ -20,6 +20,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.6
+  flutter_gen_runner: ^5.3.2
   flutter_test:
     sdk: flutter
   go_router_builder: ^2.3.3
@@ -33,3 +34,8 @@ dependency_overrides:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: MaterialSymbolsRounded
+      fonts:
+        - asset: assets/fonts/MaterialSymbolsRounded.ttf
