@@ -106,16 +106,12 @@ class _DestinationIcon extends HookWidget {
       initialValue: selected ? 1 : 0,
     );
 
-    useEffect(
-      () {
-        if (selected) {
-          animationController.forward();
-        } else {
-          animationController.reverse();
-        }
-        return null;
+    useValueChanged(
+      selected,
+      (_, __) => switch (selected) {
+        true => animationController.forward(),
+        false => animationController.reverse(),
       },
-      [selected],
     );
 
     final animation = useAnimation(
