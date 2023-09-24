@@ -4,53 +4,57 @@ import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:advent_of_code/router/routes.dart';
 import 'package:flutter/material.dart';
 
-class YearPage extends MaterialPage<void> {
-  YearPage({required int year})
-      : super(
-          child: YearScreen(
+class DayPage extends MaterialPage<void> {
+  DayPage({
+    required int year,
+    required int day,
+  }) : super(
+          child: DayScreen(
             year: year,
+            day: day,
           ),
         );
 }
 
-class YearScreen extends StatelessWidget {
-  const YearScreen({
+class DayScreen extends StatelessWidget {
+  const DayScreen({
     super.key,
     required this.year,
+    required this.day,
   });
 
   final int year;
+  final int day;
 
   @override
   Widget build(BuildContext context) {
-    final yearData = getYear(year);
+    final dayData = getDay(year, day);
 
     return AocScaffold(
-      key: PageStorageKey(year),
-      title: 'Year $year',
+      title: '$day – $year',
       bodySlivers: [
         SliverAdaptiveList(
-          items: yearData.days.entries,
-          listItemBuilder: (context, entry) {
-            final MapEntry(key: day, value: dayData) = entry;
+          items: dayData.parts.keys,
+          listItemBuilder: (context, part) {
             return Card(
               margin: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 8,
               ),
               child: ListTile(
-                title: Text('Day $day'),
-                onTap: () => DayRoute(year: year, day: day).go(context),
+                title: Text('Part $part'),
+                onTap: () =>
+                    PartRoute(year: year, day: day, part: part).go(context),
               ),
             );
           },
-          gridItemBuilder: (context, entry) {
-            final MapEntry(key: day, value: dayData) = entry;
+          gridItemBuilder: (context, part) {
             return Card(
               child: InkWell(
-                onTap: () => DayRoute(year: year, day: day).go(context),
+                onTap: () =>
+                    PartRoute(year: year, day: day, part: part).go(context),
                 child: Center(
-                  child: Text('Day $day'),
+                  child: Text('Part $day'),
                 ),
               ),
             );

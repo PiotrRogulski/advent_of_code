@@ -32,6 +32,18 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
                 GoRouteData.$route(
                   path: ':year',
                   factory: $YearRouteExtension._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: ':day',
+                      factory: $DayRouteExtension._fromState,
+                      routes: [
+                        GoRouteData.$route(
+                          path: ':part',
+                          factory: $PartRouteExtension._fromState,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -94,6 +106,47 @@ extension $YearRouteExtension on YearRoute {
 
   String get location => GoRouteData.$location(
         '/years/${Uri.encodeComponent(year.toString())}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $DayRouteExtension on DayRoute {
+  static DayRoute _fromState(GoRouterState state) => DayRoute(
+        year: int.parse(state.pathParameters['year']!),
+        day: int.parse(state.pathParameters['day']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/years/${Uri.encodeComponent(year.toString())}/${Uri.encodeComponent(day.toString())}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $PartRouteExtension on PartRoute {
+  static PartRoute _fromState(GoRouterState state) => PartRoute(
+        year: int.parse(state.pathParameters['year']!),
+        day: int.parse(state.pathParameters['day']!),
+        part: int.parse(state.pathParameters['part']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/years/${Uri.encodeComponent(year.toString())}/${Uri.encodeComponent(day.toString())}/${Uri.encodeComponent(part.toString())}',
       );
 
   void go(BuildContext context) => context.go(location);

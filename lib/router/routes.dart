@@ -1,4 +1,6 @@
 import 'package:advent_of_code/design_system/theme.dart';
+import 'package:advent_of_code/features/day_part/day_page.dart';
+import 'package:advent_of_code/features/day_part/part_page.dart';
 import 'package:advent_of_code/features/home/home_page.dart';
 import 'package:advent_of_code/features/settings/settings_page.dart';
 import 'package:advent_of_code/features/years/year_page.dart';
@@ -39,7 +41,19 @@ final router = GoRouter(
         TypedGoRoute<YearsRoute>(
           path: '/years',
           routes: [
-            TypedGoRoute<YearRoute>(path: ':year'),
+            TypedGoRoute<YearRoute>(
+              path: ':year',
+              routes: [
+                TypedGoRoute<DayRoute>(
+                  path: ':day',
+                  routes: [
+                    TypedGoRoute<PartRoute>(
+                      path: ':part',
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       ],
