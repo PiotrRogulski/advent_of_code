@@ -28,6 +28,12 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
             GoRouteData.$route(
               path: '/years',
               factory: $YearsRouteExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: ':year',
+                  factory: $YearRouteExtension._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -69,6 +75,25 @@ extension $YearsRouteExtension on YearsRoute {
 
   String get location => GoRouteData.$location(
         '/years',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $YearRouteExtension on YearRoute {
+  static YearRoute _fromState(GoRouterState state) => YearRoute(
+        year: int.parse(state.pathParameters['year']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/years/${Uri.encodeComponent(year.toString())}',
       );
 
   void go(BuildContext context) => context.go(location);

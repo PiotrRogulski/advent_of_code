@@ -1,6 +1,7 @@
 import 'package:advent_of_code/design_system/theme.dart';
 import 'package:advent_of_code/features/home/home_page.dart';
 import 'package:advent_of_code/features/settings/settings_page.dart';
+import 'package:advent_of_code/features/years/year_page.dart';
 import 'package:advent_of_code/features/years/years_page.dart';
 import 'package:advent_of_code/router/app_shell.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,12 @@ final router = GoRouter(
     ),
     TypedStatefulShellBranch<YearsBranch>(
       routes: [
-        TypedGoRoute<YearsRoute>(path: '/years'),
+        TypedGoRoute<YearsRoute>(
+          path: '/years',
+          routes: [
+            TypedGoRoute<YearRoute>(path: ':year'),
+          ],
+        ),
       ],
     ),
     TypedStatefulShellBranch<SettingsBranch>(
