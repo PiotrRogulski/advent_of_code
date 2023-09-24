@@ -6,6 +6,9 @@ custom_lint:
       AocScaffold:
         - instead_of: Scaffold
           from_package: flutter
+      AocIcon:
+        - instead_of: Icon
+          from_package: flutter
 
 analyzer:
   plugins:

@@ -1,5 +1,6 @@
 import 'package:advent_of_code/common/extensions/brightness.dart';
 import 'package:advent_of_code/design_system/icons.dart';
+import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
@@ -68,7 +69,7 @@ class AocAppShell extends StatelessWidget {
 
 class _Destination extends NavigationDestination {
   _Destination({
-    required IconData icon,
+    required AocIconData icon,
     required super.label,
     required int index,
     required int currentIndex,
@@ -88,7 +89,7 @@ class _DestinationIcon extends HookWidget {
     required this.currentIndex,
   });
 
-  final IconData icon;
+  final AocIconData icon;
   final int index;
   final int currentIndex;
 
@@ -129,13 +130,11 @@ class _DestinationIcon extends HookWidget {
 
     final fill = animation;
 
-    return Transform.translate(
-      offset: const Offset(0, -2),
-      child: Icon(
-        icon,
-        color: color,
-        fill: fill,
-      ),
+    return AocIcon(
+      icon,
+      size: 24,
+      color: color,
+      fill: fill,
     );
   }
 }

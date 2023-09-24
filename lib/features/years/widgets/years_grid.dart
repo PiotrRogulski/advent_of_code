@@ -1,3 +1,5 @@
+import 'package:advent_of_code/design_system/icons.dart';
+import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:flutter/material.dart';
 
 class SliverYearsGrid extends StatelessWidget {
@@ -92,10 +94,10 @@ class _ProgressIndicator extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     if (progress == 1.0) {
-      return Icon(
-        Icons.check_rounded,
+      return AocIcon(
+        AocIcons.check,
         color: colors.primary,
-        size: _size,
+        size: _size * 1.25,
       );
     }
 

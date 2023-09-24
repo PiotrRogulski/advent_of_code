@@ -11,7 +11,8 @@ class AocIconData extends IconData {
 final class AocIcons {
   AocIcons._();
 
-  static const IconData calendar_month = AocIconData(0xEBCC);
-  static const IconData home = AocIconData(0xE88A);
-  static const IconData settings = AocIconData(0xE8B8);
+  static const calendar_month = AocIconData(0xEBCC);
+  static const check = AocIconData(0xE5CA);
+  static const home = AocIconData(0xE88A);
+  static const settings = AocIconData(0xE8B8);
 }

@@ -97,7 +97,7 @@ for line in "${lines[@]}"; do
     fi
   fi
 
-  echo "  static const IconData $name = AocIconData(0x$codepoint);" >>"$OUTPUT_FILE"
+  echo "  static const $name = AocIconData(0x$codepoint);" >>"$OUTPUT_FILE"
 done
 
 cat <<EOF >>"$OUTPUT_FILE"
