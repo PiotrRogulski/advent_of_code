@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
+import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:advent_of_code/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -12,17 +11,15 @@ class SliverYearsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        childCount: 25,
-        (context, index) {
-          return _YearTile(
-            year: 2000 + index,
-            progress: index / 24,
-            completeProgress: pow(index / 24, 2).toDouble(),
-          );
-        },
-      ),
+    return SliverList.list(
+      children: [
+        for (final MapEntry(key: year, value: days) in allYears.entries)
+          _YearTile(
+            year: year,
+            progress: days.progress,
+            completeProgress: days.completeProgress,
+          ),
+      ],
     );
   }
 }
