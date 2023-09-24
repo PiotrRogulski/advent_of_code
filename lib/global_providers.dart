@@ -1,3 +1,4 @@
+import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,11 @@ class AocProviders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [],
+      providers: [
+        Provider(
+          create: (context) => SettingsStore(),
+        ),
+      ],
       child: child,
     );
   }
