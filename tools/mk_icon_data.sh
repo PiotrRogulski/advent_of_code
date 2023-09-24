@@ -69,6 +69,7 @@ class AocIconData extends IconData {
       : super(fontFamily: FontFamily.materialSymbolsRounded);
 }
 
+@staticIconProvider
 final class AocIcons {
   AocIcons._();
 
