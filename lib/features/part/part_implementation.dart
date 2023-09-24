@@ -1,5 +1,5 @@
-import 'package:advent_of_code/features/day_task/part_input.dart';
-import 'package:advent_of_code/features/day_task/part_output.dart';
+import 'package:advent_of_code/features/part/part_input.dart';
+import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class PartImplementation<I extends PartInput, O extends PartOutput> {

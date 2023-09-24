@@ -1,6 +1,6 @@
-import 'package:advent_of_code/features/day_task/part_implementation.dart';
-import 'package:advent_of_code/features/day_task/part_input.dart';
-import 'package:advent_of_code/features/day_task/part_output.dart';
+import 'package:advent_of_code/features/part/part_implementation.dart';
+import 'package:advent_of_code/features/part/part_input.dart';
+import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:meta/meta.dart';
 
 @immutable
