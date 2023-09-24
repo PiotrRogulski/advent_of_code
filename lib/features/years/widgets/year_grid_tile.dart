@@ -1,35 +1,7 @@
-import 'dart:math';
+part of '../years_page.dart';
 
-import 'package:advent_of_code/design_system/icons.dart';
-import 'package:advent_of_code/design_system/widgets/icon.dart';
-import 'package:advent_of_code/router/routes.dart';
-import 'package:flutter/material.dart';
-
-class SliverYearsGrid extends StatelessWidget {
-  const SliverYearsGrid({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 150,
-      ),
-      delegate: SliverChildBuilderDelegate(
-        childCount: 25,
-        (context, index) {
-          return _YearTile(
-            year: 2000 + index,
-            progress: index / 24,
-            completeProgress: pow(index / 24, 2).toDouble(),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class _YearTile extends StatelessWidget {
-  const _YearTile({
+class _YearGridTile extends StatelessWidget {
+  const _YearGridTile({
     required this.year,
     required this.progress,
     required this.completeProgress,
@@ -96,43 +68,47 @@ class _ProgressIndicator extends StatelessWidget {
   final double progress;
   final double completeProgress;
 
-  static const _size = 96.0;
-
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    if (completeProgress == 1.0) {
-      return AocIcon(
-        AocIcons.check,
-        color: colors.primary,
-        size: _size * 1.25,
-      );
-    }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final size = constraints.biggest.shortestSide * 0.75;
 
-    return SizedBox.square(
-      dimension: _size,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: CircularProgressIndicator(
-              value: progress,
-              strokeWidth: 8,
-              strokeCap: StrokeCap.round,
-              backgroundColor: colors.surface,
-              color: Theme.of(context).disabledColor,
-            ),
+        if (completeProgress == 1.0) {
+          return AocIcon(
+            AocIcons.check,
+            color: colors.primary,
+            size: size * 1.25,
+          );
+        }
+
+        return SizedBox.square(
+          dimension: size,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: CircularProgressIndicator(
+                  value: progress,
+                  strokeWidth: 8,
+                  strokeCap: StrokeCap.round,
+                  backgroundColor: colors.surface,
+                  color: Theme.of(context).disabledColor,
+                ),
+              ),
+              Positioned.fill(
+                child: CircularProgressIndicator(
+                  value: completeProgress,
+                  strokeWidth: 8,
+                  strokeCap: StrokeCap.round,
+                  backgroundColor: Colors.transparent,
+                ),
+              ),
+            ],
           ),
-          Positioned.fill(
-            child: CircularProgressIndicator(
-              value: completeProgress,
-              strokeWidth: 8,
-              strokeCap: StrokeCap.round,
-              backgroundColor: Colors.transparent,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
