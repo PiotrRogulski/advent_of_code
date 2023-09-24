@@ -8,8 +8,8 @@ class StringOutput extends PartOutput {
   final String value;
 }
 
-class NumericOutput extends PartOutput {
+class NumericOutput<T extends num> extends PartOutput {
   const NumericOutput(this.value);
 
-  final num value;
+  final T value;
 }

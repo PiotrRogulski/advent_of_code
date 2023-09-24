@@ -3,7 +3,11 @@ import 'package:advent_of_code/features/day_task/part_output.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class PartImplementation<I extends PartInput, O extends PartOutput> {
-  const PartImplementation();
+  const PartImplementation(this.partInfo);
+
+  final ({int year, int day, int part}) partInfo;
+
+  bool get completed;
 
   @protected
   O runInternal(I inputData);

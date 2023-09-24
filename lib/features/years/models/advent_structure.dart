@@ -4,15 +4,6 @@ import 'package:advent_of_code/features/day_task/part_output.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class AdventData {
-  const AdventData({
-    required this.years,
-  });
-
-  final Map<int, YearData> years;
-}
-
-@immutable
 class YearData {
   const YearData({
     required this.days,
@@ -33,7 +24,7 @@ class DayData {
     required this.parts,
   });
 
-  final Map<int, PartData> parts;
+  final Map<int, PartImplementation> parts;
 
   bool get complete => parts.values.every((part) => part.completed);
 
@@ -44,9 +35,9 @@ class DayData {
 class PartData<I extends PartInput, O extends PartOutput> {
   const PartData({
     required this.completed,
-    required this.implementationBuilder,
+    required this.implementation,
   });
 
   final bool completed;
-  final PartImplementation<I, O> Function(String) implementationBuilder;
+  final PartImplementation<I, O> implementation;
 }
