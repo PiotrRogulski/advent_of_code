@@ -1,3 +1,4 @@
+import 'package:advent_of_code/design_system/theme.dart';
 import 'package:advent_of_code/features/home/home_page.dart';
 import 'package:advent_of_code/features/settings/settings_page.dart';
 import 'package:advent_of_code/features/years/years_page.dart';
@@ -22,7 +23,7 @@ final navigatorKeys = (
 final router = GoRouter(
   navigatorKey: navigatorKeys.root,
   routes: $appRoutes,
-  initialLocation: const HomeRoute().location,
+  initialLocation: const YearsRoute().location,
 );
 
 @TypedStatefulShellRoute<MainRoute>(
@@ -53,9 +54,11 @@ class MainRoute extends StatefulShellRouteData {
     GoRouterState state,
     StatefulNavigationShell navigationShell,
   ) {
-    return AocAppShell(
-      routerState: state,
-      navigationShell: navigationShell,
+    return FontOpticalSizeAdjuster(
+      child: AocAppShell(
+        routerState: state,
+        navigationShell: navigationShell,
+      ),
     );
   }
 }

@@ -12,4 +12,7 @@ class FontFamily {
 
   /// Font family: MaterialSymbolsRounded
   static const String materialSymbolsRounded = 'MaterialSymbolsRounded';
+
+  /// Font family: RobotoFlex
+  static const String robotoFlex = 'RobotoFlex';
 }

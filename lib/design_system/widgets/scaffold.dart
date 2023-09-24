@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -21,6 +23,19 @@ class AocScaffold extends HookWidget {
     final safeArea = MediaQuery.paddingOf(context);
 
     final scrollController = useScrollController();
+
+    final baseTextStyle = Theme.of(context).textTheme.displayLarge;
+    final baseVariations = baseTextStyle?.fontVariations ?? <FontVariation>[];
+    final textStyle = baseTextStyle?.apply(
+      fontSizeFactor: titleScale.value,
+      fontVariations: [
+        for (final FontVariation(:axis, :value) in baseVariations)
+          FontVariation(
+            axis,
+            axis == 'opsz' ? value * titleScale.value : value,
+          ),
+      ],
+    );
 
     // ignore: use_design_system_item_AocScaffold
     return Scaffold(
@@ -50,9 +65,7 @@ class AocScaffold extends HookWidget {
                   child: Center(
                     child: Text(
                       title,
-                      style: Theme.of(context).textTheme.displayLarge?.apply(
-                            fontSizeFactor: titleScale.value,
-                          ),
+                      style: textStyle,
                     ),
                   ),
                 ),

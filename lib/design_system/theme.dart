@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
@@ -11,8 +14,20 @@ class AocTheme {
 
   static ThemeData _makeTheme(Brightness brightness) {
     final colorScheme = _makeColorScheme(brightness);
+
+    final typography = Typography.material2021(
+      colorScheme: colorScheme,
+    );
+    final baseTextTheme = switch (brightness) {
+      Brightness.light => typography.black,
+      Brightness.dark => typography.white,
+    };
+
     return ThemeData.from(
       colorScheme: colorScheme,
+      textTheme: baseTextTheme.apply(
+        fontFamily: FontFamily.robotoFlex,
+      ),
     ).copyWith(
       splashFactory: InkSparkle.splashFactory,
       listTileTheme: const ListTileThemeData(
@@ -49,4 +64,51 @@ class AocTheme {
       ...scheme.neutralVariantPalette.asList,
     ]).toColorScheme(brightness: brightness).harmonized();
   }
+}
+
+class FontOpticalSizeAdjuster extends StatelessWidget {
+  const FontOpticalSizeAdjuster({
+    super.key,
+    required this.child,
+  });
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final baseTheme = Theme.of(context);
+    final textTheme = baseTheme.textTheme;
+
+    return Theme(
+      data: baseTheme.copyWith(
+        textTheme: textTheme.copyWith(
+          displayLarge: textTheme.displayLarge?.withOpticalSize,
+          displayMedium: textTheme.displayMedium?.withOpticalSize,
+          displaySmall: textTheme.displaySmall?.withOpticalSize,
+          headlineLarge: textTheme.headlineLarge?.withOpticalSize,
+          headlineMedium: textTheme.headlineMedium?.withOpticalSize,
+          headlineSmall: textTheme.headlineSmall?.withOpticalSize,
+          titleLarge: textTheme.titleLarge?.withOpticalSize,
+          titleMedium: textTheme.titleMedium?.withOpticalSize,
+          titleSmall: textTheme.titleSmall?.withOpticalSize,
+          bodyLarge: textTheme.bodyLarge?.withOpticalSize,
+          bodyMedium: textTheme.bodyMedium?.withOpticalSize,
+          bodySmall: textTheme.bodySmall?.withOpticalSize,
+          labelLarge: textTheme.labelLarge?.withOpticalSize,
+          labelMedium: textTheme.labelMedium?.withOpticalSize,
+          labelSmall: textTheme.labelSmall?.withOpticalSize,
+        ),
+      ),
+      child: child,
+    );
+  }
+}
+
+extension on TextStyle {
+  TextStyle get withOpticalSize => copyWith(
+        fontVariations: [
+          ...?fontVariations,
+          if (fontSize case final size?) FontVariation.opticalSize(size),
+        ],
+      );
 }

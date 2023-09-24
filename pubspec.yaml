@@ -43,3 +43,6 @@ flutter:
     - family: MaterialSymbolsRounded
       fonts:
         - asset: assets/fonts/MaterialSymbolsRounded.ttf
+    - family: RobotoFlex
+      fonts:
+        - asset: assets/fonts/RobotoFlex.ttf
