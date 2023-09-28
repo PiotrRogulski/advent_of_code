@@ -1,4 +1,5 @@
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
+import 'package:advent_of_code/features/day_part/widgets/input_view.dart';
 import 'package:advent_of_code/features/part/use_part_input.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:flutter/material.dart';
@@ -54,12 +55,10 @@ class PartScreen extends HookWidget {
               child: const Text('Run'),
             ),
           ),
-        // TODO: replace with rich input view
-        SliverToBoxAdapter(
-          child: Text(
-            inputData.toString(),
+        if (inputData case final data?)
+          SliverPartInputView(
+            inputData: data,
           ),
-        ),
       ],
     );
   }
