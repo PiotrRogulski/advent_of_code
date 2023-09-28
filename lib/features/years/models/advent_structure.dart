@@ -1,6 +1,4 @@
 import 'package:advent_of_code/features/part/part_implementation.dart';
-import 'package:advent_of_code/features/part/part_input.dart';
-import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -29,15 +27,4 @@ class DayData {
   bool get complete => parts.values.every((part) => part.completed);
 
   bool get inProgress => parts.isNotEmpty;
-}
-
-@immutable
-class PartData<I extends PartInput, O extends PartOutput> {
-  const PartData({
-    required this.completed,
-    required this.implementation,
-  });
-
-  final bool completed;
-  final PartImplementation<I, O> implementation;
 }
