@@ -14,6 +14,7 @@ class Y2022D1P1
   ListInput<List<int>> parseInput(String rawData) {
     return ListInput(
       rawData
+          .trim()
           .split('\n\n')
           .map((e) => e.split('\n').map(int.parse).toList())
           .toList(),
@@ -39,6 +40,7 @@ class Y2022D1P2
   ListInput<List<int>> parseInput(String rawData) {
     return ListInput(
       rawData
+          .trim()
           .split('\n\n')
           .map((e) => e.split('\n').map(int.parse).toList())
           .toList(),
