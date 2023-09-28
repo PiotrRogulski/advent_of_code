@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:advent_of_code/features/part/part_input.dart';
+import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 
 class SliverPartInputView extends StatelessWidget {
@@ -41,8 +42,8 @@ class SliverPartInputView extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: DefaultTextStyle.merge(
                   style: const TextStyle(
-                    fontFamily: 'monospace',
-                    height: 1,
+                    fontFamily: FontFamily.jetBrainsMono,
+                    height: 1.2,
                   ),
                   child: switch (inputData) {
                     RawStringInput(:final value) =>

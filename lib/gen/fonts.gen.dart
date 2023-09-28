@@ -10,6 +10,9 @@
 class FontFamily {
   FontFamily._();
 
+  /// Font family: JetBrainsMono
+  static const String jetBrainsMono = 'JetBrainsMono';
+
   /// Font family: MaterialSymbolsRounded
   static const String materialSymbolsRounded = 'MaterialSymbolsRounded';
 

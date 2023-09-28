@@ -53,3 +53,6 @@ flutter:
     - family: RobotoFlex
       fonts:
         - asset: assets/fonts/RobotoFlex.ttf
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono.ttf
