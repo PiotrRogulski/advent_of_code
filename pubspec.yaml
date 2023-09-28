@@ -43,6 +43,9 @@ dependency_overrides:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/inputs/y2022/
+
   fonts:
     - family: MaterialSymbolsRounded
       fonts:
