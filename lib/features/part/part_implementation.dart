@@ -12,13 +12,11 @@ abstract class PartImplementation<I extends PartInput, O extends PartOutput> {
   @protected
   O runInternal(I inputData);
 
-  @protected
   I parseInput(String rawData);
 
   @nonVirtual
-  Future<O> run(String rawData) async {
-    final inputData = parseInput(rawData);
-    final result = await compute(runInternal, inputData);
+  Future<O> run(I data) async {
+    final result = await compute(runInternal, data);
     return result;
   }
 }
