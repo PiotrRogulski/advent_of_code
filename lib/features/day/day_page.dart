@@ -39,16 +39,20 @@ class DayScreen extends HookWidget {
       title: '$day – $year',
       bodySlivers: [
         if (inputData case final data?)
-          SliverList.builder(
-            itemCount: parts.length,
-            itemBuilder: (context, index) {
-              final part = parts[index].value;
-              return PartStatus(
-                part: part,
-                data: data,
-                index: index,
-              );
-            },
+          SliverPadding(
+            padding: const EdgeInsets.all(16),
+            sliver: SliverList.separated(
+              itemCount: parts.length,
+              itemBuilder: (context, index) {
+                final part = parts[index].value;
+                return PartStatus(
+                  part: part,
+                  data: data,
+                  index: index,
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+            ),
           ),
         if (inputData case final data?)
           SliverDayInputView(

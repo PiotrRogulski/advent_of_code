@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
@@ -17,44 +18,22 @@ class SliverDayInputView extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     return SliverToBoxAdapter(
-      child: Card(
+      child: AocExpansionCard(
+        title: 'Input data',
         margin: const EdgeInsets.all(16),
-        child: ExpansionTile(
-          title: const Text('Input data'),
-          maintainState: true,
-          expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-          expandedAlignment: Alignment.topCenter,
-          children: [
-            Card(
-              margin: const EdgeInsets.only(
-                left: 8,
-                right: 8,
-                bottom: 8,
-              ),
-              color: colors.surface,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  color: colors.outline,
-                ),
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.all(16),
-                child: DefaultTextStyle.merge(
-                  style: const TextStyle(
-                    fontFamily: FontFamily.jetBrainsMono,
-                    height: 1.2,
-                  ),
-                  child: switch (inputData) {
-                    RawStringInput(:final value) =>
-                      _RawStringData(value: value),
-                    ListInput(:final values) => _ListData(values: values),
-                  },
-                ),
-              ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.all(16),
+          child: DefaultTextStyle.merge(
+            style: const TextStyle(
+              fontFamily: FontFamily.jetBrainsMono,
+              height: 1.2,
             ),
-          ],
+            child: switch (inputData) {
+              RawStringInput(:final value) => _RawStringData(value: value),
+              ListInput(:final values) => _ListData(values: values),
+            },
+          ),
         ),
       ),
     );

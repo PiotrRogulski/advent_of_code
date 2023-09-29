@@ -1,8 +1,10 @@
+import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class PartStatus extends StatelessWidget {
+class PartStatus extends HookWidget {
   const PartStatus({
     super.key,
     required this.part,
@@ -16,17 +18,21 @@ class PartStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: replace with rich output view & progress indicator
-    return FilledButton.tonal(
-      onPressed: () async {
-        final output = await part.run(data);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(output.toString()),
-          ),
-        );
-      },
-      child: Text('Run part ${index + 1}'),
+    final controller = useMemoized(ExpansionTileController.new);
+
+    Future<void> onPressed() async {
+      final output = await part.run(data);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(output.toString()),
+        ),
+      );
+    }
+
+    return AocExpansionCard(
+      title: 'Part ${index + 1}',
+      controller: controller,
+      // FIXME: add child
     );
   }
 }
