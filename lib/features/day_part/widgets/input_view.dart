@@ -23,6 +23,7 @@ class SliverPartInputView extends StatelessWidget {
           title: const Text('Input data'),
           maintainState: true,
           expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+          expandedAlignment: Alignment.topCenter,
           children: [
             Card(
               margin: const EdgeInsets.only(
