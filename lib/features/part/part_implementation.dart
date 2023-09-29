@@ -11,8 +11,13 @@ abstract class PartImplementation<I extends PartInput, O extends PartOutput> {
   O runInternal(I inputData);
 
   @nonVirtual
-  Future<O> run(I data) async {
+  Future<({O data, Duration runDuration})> run(I data) async {
+    final stopwatch = Stopwatch()..start();
     final result = await compute(runInternal, data);
-    return result;
+    stopwatch.stop();
+    return (
+      data: result,
+      runDuration: stopwatch.elapsed,
+    );
   }
 }

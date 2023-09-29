@@ -19,13 +19,16 @@ abstract class _PartStatusStore with Store {
   @readonly
   var _running = false;
 
-  @readonly
-  PartOutput? _output;
+  final _runs = ObservableList<({PartOutput data, Duration runDuration})>();
+
+  @computed
+  List<({PartOutput data, Duration runDuration})> get runs => _runs.toList();
 
   @action
   Future<void> run() async {
     _running = true;
-    _output = await part.run(data);
+    final result = await part.run(data);
+    _runs.insert(0, result);
     _running = false;
   }
 }

@@ -22,6 +22,8 @@ class PartStatus extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     final controller = useMemoized(ExpansionTileController.new);
 
     final store = useMemoized(
@@ -36,38 +38,56 @@ class PartStatus extends HookWidget {
         return AocExpansionCard(
           title: 'Part ${index + 1}',
           controller: controller,
-          padding: const EdgeInsets.all(16),
-          child: switch ((store.running, store.output)) {
-            (true, _) => const Center(
-                child: CircularProgressIndicator(),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Stack(
+            children: [
+              Column(
+                children: switch (store.runs) {
+                  [] => [
+                      // FIXME: unify tiles
+                      ListTile(
+                        title: const Text('Not run'),
+                        subtitle: const Text('Run to see the result'),
+                        contentPadding: EdgeInsets.zero,
+                        trailing: IconButton(
+                          onPressed: store.run,
+                          icon: const AocIcon(
+                            AocIcons.play_circle,
+                            size: 32,
+                          ),
+                        ),
+                      ),
+                    ],
+                  final runs => [
+                      for (final (index, run) in runs.indexed)
+                        ListTile(
+                          title: Text(run.data.toString()),
+                          subtitle: Text(run.runDuration.toString()),
+                          contentPadding: EdgeInsets.zero,
+                          trailing: index == 0
+                              ? IconButton(
+                                  onPressed: store.run,
+                                  icon: const AocIcon(
+                                    AocIcons.play_circle,
+                                    size: 32,
+                                  ),
+                                )
+                              : null,
+                        ),
+                    ],
+                },
               ),
-            (_, null) => Center(
-                child: IconButton(
-                  onPressed: store.run,
-                  icon: const AocIcon(
-                    AocIcons.play_circle,
-                    size: 32,
+              if (store.running)
+                Positioned.fill(
+                  child: ColoredBox(
+                    color: colors.surface.withOpacity(0.5),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
                 ),
-              ),
-            (_, final output) => Row(
-                children: [
-                  // TODO: rich output view
-                  Expanded(
-                    child: Text(
-                      output.toString(),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: store.run,
-                    icon: const AocIcon(
-                      AocIcons.play_circle,
-                      size: 32,
-                    ),
-                  ),
-                ],
-              ),
-          },
+            ],
+          ),
         );
       },
     );

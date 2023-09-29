@@ -9,6 +9,16 @@ part of 'part_status_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$PartStatusStore on _PartStatusStore, Store {
+  Computed<List<({PartOutput data, Duration runDuration})>>? _$runsComputed;
+
+  @override
+  List<({PartOutput data, Duration runDuration})> get runs =>
+      (_$runsComputed ??=
+              Computed<List<({PartOutput data, Duration runDuration})>>(
+                  () => super.runs,
+                  name: '_PartStatusStore.runs'))
+          .value;
+
   late final _$_runningAtom =
       Atom(name: '_PartStatusStore._running', context: context);
 
@@ -27,24 +37,6 @@ mixin _$PartStatusStore on _PartStatusStore, Store {
     });
   }
 
-  late final _$_outputAtom =
-      Atom(name: '_PartStatusStore._output', context: context);
-
-  PartOutput? get output {
-    _$_outputAtom.reportRead();
-    return super._output;
-  }
-
-  @override
-  PartOutput? get _output => output;
-
-  @override
-  set _output(PartOutput? value) {
-    _$_outputAtom.reportWrite(value, super._output, () {
-      super._output = value;
-    });
-  }
-
   late final _$runAsyncAction =
       AsyncAction('_PartStatusStore.run', context: context);
 
@@ -56,7 +48,7 @@ mixin _$PartStatusStore on _PartStatusStore, Store {
   @override
   String toString() {
     return '''
-
+runs: ${runs}
     ''';
   }
 }

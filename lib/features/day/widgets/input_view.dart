@@ -15,8 +15,6 @@ class SliverDayInputView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-
     return SliverToBoxAdapter(
       child: AocExpansionCard(
         title: 'Input data',
