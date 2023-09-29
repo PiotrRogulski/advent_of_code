@@ -6,12 +6,14 @@ class AocExpansionCard extends StatelessWidget {
     required this.title,
     this.controller,
     this.margin,
+    this.padding = EdgeInsets.zero,
     this.child,
   });
 
   final String title;
   final ExpansionTileController? controller;
   final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry padding;
   final Widget? child;
 
   @override
@@ -40,7 +42,14 @@ class AocExpansionCard extends StatelessWidget {
               ),
               borderRadius: const BorderRadius.all(Radius.circular(16)),
             ),
-            child: child,
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOutCubicEmphasized,
+              child: Padding(
+                padding: padding,
+                child: child,
+              ),
+            ),
           ),
         ],
       ),
