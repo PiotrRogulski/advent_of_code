@@ -4,8 +4,8 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 
-class SliverPartInputView extends StatelessWidget {
-  const SliverPartInputView({
+class SliverDayInputView extends StatelessWidget {
+  const SliverDayInputView({
     super.key,
     required this.inputData,
   });

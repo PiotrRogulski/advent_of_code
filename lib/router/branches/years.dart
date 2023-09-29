@@ -37,16 +37,3 @@ class DayRoute extends GoRouteData {
     return DayPage(year: year, day: day);
   }
 }
-
-class PartRoute extends GoRouteData {
-  const PartRoute({required this.year, required this.day, required this.part});
-
-  final int year;
-  final int day;
-  final int part;
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return PartPage(year: year, day: day, part: part);
-  }
-}

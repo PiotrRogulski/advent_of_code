@@ -32,7 +32,7 @@ class YearScreen extends StatelessWidget {
         SliverAdaptiveList(
           items: yearData.days.entries,
           listItemBuilder: (context, entry) {
-            final MapEntry(key: day, value: dayData) = entry;
+            final day = entry.key;
             return Card(
               margin: const EdgeInsets.symmetric(
                 horizontal: 16,
@@ -45,7 +45,7 @@ class YearScreen extends StatelessWidget {
             );
           },
           gridItemBuilder: (context, entry) {
-            final MapEntry(key: day, value: dayData) = entry;
+            final day = entry.key;
             return Card(
               child: InkWell(
                 onTap: () => DayRoute(year: year, day: day).go(context),

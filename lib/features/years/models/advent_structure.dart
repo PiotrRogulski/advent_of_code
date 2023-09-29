@@ -1,4 +1,6 @@
 import 'package:advent_of_code/features/part/part_implementation.dart';
+import 'package:advent_of_code/features/part/part_input.dart';
+import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -17,12 +19,15 @@ class YearData {
 }
 
 @immutable
-class DayData {
-  const DayData({
-    required this.parts,
-  });
+abstract class DayData<I extends PartInput> {
+  const DayData({required this.year, required this.day});
 
-  final Map<int, PartImplementation> parts;
+  final int year;
+  final int day;
+
+  Map<int, PartImplementation<I, PartOutput>> get parts;
+
+  I parseInput(String rawData);
 
   bool get complete => parts.values.every((part) => part.completed);
 
