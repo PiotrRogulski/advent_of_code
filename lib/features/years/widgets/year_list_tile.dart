@@ -94,22 +94,25 @@ class _ProgressBar extends HookWidget {
     return Row(
       children: [
         Expanded(
-          child: Stack(
-            children: [
-              LinearProgressIndicator(
-                minHeight: _height,
-                backgroundColor: colors.surface,
-                value: progress,
-                borderRadius: _borderRadius,
-                color: Theme.of(context).disabledColor,
-              ),
-              LinearProgressIndicator(
-                minHeight: _height,
-                backgroundColor: Colors.transparent,
-                value: completeProgress,
-                borderRadius: _borderRadius,
-              ),
-            ],
+          child: ClipRRect(
+            borderRadius: _borderRadius,
+            child: Stack(
+              children: [
+                LinearProgressIndicator(
+                  minHeight: _height,
+                  backgroundColor: colors.surface,
+                  value: progress,
+                  borderRadius: _borderRadius,
+                  color: Theme.of(context).disabledColor,
+                ),
+                LinearProgressIndicator(
+                  minHeight: _height,
+                  backgroundColor: Colors.transparent,
+                  value: completeProgress,
+                  borderRadius: _borderRadius,
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(width: 8),
