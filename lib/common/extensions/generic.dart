@@ -7,3 +7,7 @@ extension GenericX<T> on T {
     return this;
   }
 }
+
+extension GenericNonnullX<T extends Object> on T {
+  U apply<U>(U Function(T) f) => f(this);
+}
