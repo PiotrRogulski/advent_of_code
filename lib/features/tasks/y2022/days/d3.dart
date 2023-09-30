@@ -38,7 +38,7 @@ class _P1 extends PartImplementation<_I, _O> {
           )
           .map((t) => (t.$1.characters.toSet(), t.$2.characters.toSet()))
           .map((t) => (t.$1 & t.$2).first)
-          .map(_charValue(uppercaseBase: 27, lowercaseBase: 1))
+          .map(_charValue)
           .sum,
     );
   }
@@ -58,24 +58,19 @@ class _P2 extends PartImplementation<_I, _O> {
                 .reduce((acc, e) => acc & e)
                 .single,
           )
-          .map(_charValue(uppercaseBase: 27, lowercaseBase: 1))
+          .map(_charValue)
           .sum,
     );
   }
 }
 
-int Function(String) _charValue({
-  required int uppercaseBase,
-  required int lowercaseBase,
-}) {
-  return (c) {
-    return switch ((
-      c.compareTo('A') * c.compareTo('Z'),
-      c.compareTo('a') * c.compareTo('z'),
-    )) {
-      (<= 0, _) => c.codeUnitAt(0) - 'A'.codeUnitAt(0) + uppercaseBase,
-      (_, <= 0) => c.codeUnitAt(0) - 'a'.codeUnitAt(0) + lowercaseBase,
-      _ => throw ArgumentError.value(c, 'c', 'Not a letter'),
-    };
+int _charValue(String c) {
+  return switch ((
+    c.compareTo('A') * c.compareTo('Z'),
+    c.compareTo('a') * c.compareTo('z'),
+  )) {
+    (<= 0, _) => c.codeUnitAt(0) - 'A'.codeUnitAt(0) + 27,
+    (_, <= 0) => c.codeUnitAt(0) - 'a'.codeUnitAt(0) + 1,
+    _ => throw ArgumentError.value(c, 'c', 'Not a letter'),
   };
 }
