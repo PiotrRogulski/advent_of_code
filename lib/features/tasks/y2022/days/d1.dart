@@ -23,13 +23,13 @@ class Y2022D1 extends DayData<_I> {
 
   @override
   Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const Y2022D1P1(),
-        2: const Y2022D1P2(),
+        1: const _P1(),
+        2: const _P2(),
       };
 }
 
-class Y2022D1P1 extends PartImplementation<_I, _O> {
-  const Y2022D1P1();
+class _P1 extends PartImplementation<_I, _O> {
+  const _P1();
 
   @override
   bool get completed => false;
@@ -42,8 +42,8 @@ class Y2022D1P1 extends PartImplementation<_I, _O> {
   }
 }
 
-class Y2022D1P2 extends PartImplementation<_I, _O> {
-  const Y2022D1P2();
+class _P2 extends PartImplementation<_I, _O> {
+  const _P2();
 
   @override
   bool get completed => false;
