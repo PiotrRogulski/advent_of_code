@@ -17,10 +17,13 @@ abstract class _PartStatusStore with Store {
   @readonly
   var _running = false;
 
-  final _runs = ObservableList<({PartOutput data, Duration runDuration})>();
+  final _runs = ObservableList<RunInfo>();
 
   @computed
-  List<({PartOutput data, Duration runDuration})> get runs => _runs.toList();
+  List<RunInfo> get runs => _runs.toList();
+
+  @readonly
+  ({Object error, StackTrace stackTrace})? _error;
 
   @action
   Future<void> run(PartInput data) async {

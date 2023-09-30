@@ -1,7 +1,9 @@
+import 'package:advent_of_code/common/widgets/error_stacktrace_dialog.dart';
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:advent_of_code/features/day/store/part_status_store.dart';
+import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -30,17 +32,16 @@ class PartStatus extends HookWidget {
         return AocExpansionCard(
           title: 'Part ${index + 1}',
           controller: controller,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Stack(
             children: [
               Column(
                 children: switch (store.runs) {
                   [] => [
-                      // FIXME: unify tiles
                       ListTile(
                         title: const Text('Not run'),
                         subtitle: const Text('Run to see the result'),
-                        contentPadding: EdgeInsets.zero,
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 16),
                         trailing: IconButton(
                           onPressed: () => store.run(data),
                           icon: const AocIcon(
@@ -52,10 +53,8 @@ class PartStatus extends HookWidget {
                     ],
                   final runs => [
                       for (final (index, run) in runs.indexed)
-                        ListTile(
-                          title: Text(run.data.toString()),
-                          subtitle: Text(run.runDuration.toString()),
-                          contentPadding: EdgeInsets.zero,
+                        _RunInfoTile(
+                          run: run,
                           trailing: index == 0
                               ? IconButton(
                                   onPressed: () => store.run(data),
@@ -84,4 +83,67 @@ class PartStatus extends HookWidget {
       },
     );
   }
+}
+
+class _RunInfoTile extends StatelessWidget {
+  const _RunInfoTile({
+    required this.run,
+    required this.trailing,
+  });
+
+  final RunInfo run;
+  final Widget? trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    return switch (run.error) {
+      null => ListTile(
+          title: Text(run.data.toString()),
+          subtitle: Text(run.runDuration.toString()),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          trailing: trailing,
+        ),
+      (:final error, :final stackTrace) => ListTile(
+          onTap: () {
+            _showErrorDetails(
+              context,
+              error: error,
+              stackTrace: stackTrace,
+            );
+          },
+          leading: AocIcon(
+            AocIcons.error,
+            color: colors.error,
+            size: 32,
+          ),
+          title: Text(
+            'An error occurred',
+            style: TextStyle(
+              color: colors.error,
+            ),
+          ),
+          subtitle: const Text('Tap to see error details'),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          trailing: trailing,
+        ),
+    };
+  }
+}
+
+Future<void> _showErrorDetails(
+  BuildContext context, {
+  required Object? error,
+  required StackTrace stackTrace,
+}) async {
+  await showDialog<void>(
+    context: context,
+    builder: (context) {
+      return ErrorStackTraceDialog(
+        error: error,
+        stackTrace: stackTrace,
+      );
+    },
+  );
 }

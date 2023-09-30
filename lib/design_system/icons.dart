@@ -14,6 +14,7 @@ final class AocIcons {
 
   static const calendar_month = AocIconData(0xEBCC);
   static const check = AocIconData(0xE5CA);
+  static const error = AocIconData(0xE000);
   static const home = AocIconData(0xE88A);
   static const play_circle = AocIconData(0xE1C4);
   static const settings = AocIconData(0xE8B8);
