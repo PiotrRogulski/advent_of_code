@@ -14,10 +14,6 @@ class _YearListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
-      ),
       child: Stack(
         children: [
           ListTile(

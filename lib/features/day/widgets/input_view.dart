@@ -16,22 +16,38 @@ class SliverDayInputView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: AocExpansionCard(
-        title: 'Input data',
-        margin: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.all(16),
-          child: DefaultTextStyle.merge(
-            style: const TextStyle(
-              fontFamily: FontFamily.jetBrainsMono,
-              height: 1.2,
-            ),
-            child: switch (inputData) {
-              RawStringInput(:final value) => _RawStringData(value: value),
-              ListInput(:final values) => _ListData(values: values),
-            },
+      child: DayInputView(
+        inputData: inputData,
+      ),
+    );
+  }
+}
+
+class DayInputView extends StatelessWidget {
+  const DayInputView({
+    super.key,
+    required this.inputData,
+  });
+
+  final PartInput inputData;
+
+  @override
+  Widget build(BuildContext context) {
+    return AocExpansionCard(
+      title: 'Input data',
+      child: SingleChildScrollView(
+        key: PageStorageKey(inputData),
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.all(16),
+        child: DefaultTextStyle.merge(
+          style: const TextStyle(
+            fontFamily: FontFamily.jetBrainsMono,
+            height: 1.2,
           ),
+          child: switch (inputData) {
+            RawStringInput(:final value) => _RawStringData(value: value),
+            ListInput(:final values) => _ListData(values: values),
+          },
         ),
       ),
     );

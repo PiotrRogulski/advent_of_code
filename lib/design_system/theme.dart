@@ -45,11 +45,12 @@ class AocTheme {
         clipBehavior: Clip.antiAlias,
         elevation: 0,
         color: colorScheme.surfaceVariant,
+        margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           side: BorderSide(
             color: colorScheme.outline,
           ),
-          borderRadius: const BorderRadius.all(Radius.circular(24)),
+          borderRadius: BorderRadius.circular(24),
         ),
       ),
     );

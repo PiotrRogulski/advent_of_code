@@ -34,10 +34,6 @@ class YearScreen extends StatelessWidget {
           listItemBuilder: (context, entry) {
             final day = entry.key;
             return Card(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
-              ),
               child: ListTile(
                 title: Text('Day $day'),
                 onTap: () => DayRoute(year: year, day: day).go(context),
