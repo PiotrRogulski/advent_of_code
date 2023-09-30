@@ -41,7 +41,8 @@ class AocScaffold extends HookWidget {
     return Scaffold(
       body: NotificationListener(
         onNotification: (notification) {
-          if (notification case ScrollMetricsNotification(:final metrics)) {
+          if (notification
+              case ScrollMetricsNotification(:final metrics, depth: 0)) {
             final newValue =
                 (metrics.pixels / (_expandedHeight - _collapsedHeight))
                     .clamp(0, 1)
