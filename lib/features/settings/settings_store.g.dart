@@ -25,10 +25,27 @@ mixin _$SettingsStore on _SettingsStoreBase, Store {
     });
   }
 
+  late final _$useSystemThemeAtom =
+      Atom(name: '_SettingsStoreBase.useSystemTheme', context: context);
+
+  @override
+  bool get useSystemTheme {
+    _$useSystemThemeAtom.reportRead();
+    return super.useSystemTheme;
+  }
+
+  @override
+  set useSystemTheme(bool value) {
+    _$useSystemThemeAtom.reportWrite(value, super.useSystemTheme, () {
+      super.useSystemTheme = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-themeMode: ${themeMode}
+themeMode: ${themeMode},
+useSystemTheme: ${useSystemTheme}
     ''';
   }
 }

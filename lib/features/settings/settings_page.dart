@@ -1,3 +1,4 @@
+import 'package:advent_of_code/common/extensions/list.dart';
 import 'package:advent_of_code/design_system/page.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
@@ -19,23 +20,31 @@ class SettingsScreen extends StatelessObserverWidget {
     return AocScaffold(
       title: 'Settings',
       bodySlivers: [
-        SliverList.list(
-          children: [
-            Card(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
+        SliverPadding(
+          padding: const EdgeInsets.all(16),
+          sliver: SliverList.list(
+            children: [
+              Card(
+                child: SwitchListTile(
+                  title: const Text('Dark mode'),
+                  onChanged: (value) {
+                    settingsStore.themeMode =
+                        value ? ThemeMode.dark : ThemeMode.light;
+                  },
+                  value: settingsStore.themeMode == ThemeMode.dark,
+                ),
               ),
-              child: SwitchListTile(
-                title: const Text('Dark mode'),
-                onChanged: (value) {
-                  settingsStore.themeMode =
-                      value ? ThemeMode.dark : ThemeMode.light;
-                },
-                value: settingsStore.themeMode == ThemeMode.dark,
+              Card(
+                child: SwitchListTile(
+                  title: const Text('Use system theme'),
+                  onChanged: (value) {
+                    settingsStore.useSystemTheme = value;
+                  },
+                  value: settingsStore.useSystemTheme,
+                ),
               ),
-            ),
-          ],
+            ].spaced(height: 16),
+          ),
         ),
       ],
     );

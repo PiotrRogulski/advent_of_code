@@ -8,12 +8,17 @@ import 'package:material_color_utilities/material_color_utilities.dart';
 class AocTheme {
   static const _seedColor = Color(0xFF00FF00);
 
-  static ThemeData dark = _makeTheme(Brightness.dark);
+  static ThemeData dark(ColorScheme? systemScheme) =>
+      _makeTheme(Brightness.dark, systemScheme);
 
-  static ThemeData light = _makeTheme(Brightness.light);
+  static ThemeData light(ColorScheme? systemScheme) =>
+      _makeTheme(Brightness.light, systemScheme);
 
-  static ThemeData _makeTheme(Brightness brightness) {
-    final colorScheme = _makeColorScheme(brightness);
+  static ThemeData _makeTheme(
+    Brightness brightness,
+    ColorScheme? systemScheme,
+  ) {
+    final colorScheme = systemScheme ?? _makeColorScheme(brightness);
 
     final typography = Typography.material2021(
       colorScheme: colorScheme,
