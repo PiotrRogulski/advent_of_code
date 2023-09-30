@@ -5,12 +5,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 I? useDayInput<I extends PartInput>(DayData<I> dayData) {
   final path = 'assets/inputs/y${dayData.year}/d${dayData.day}';
-  final rawInputData = useFuture(
-    useMemoized(() => rootBundle.loadString(path), [dayData.year, dayData.day]),
-  ).data;
+  final snapshot = useFuture(
+    useMemoized(
+      () => rootBundle.loadString(path).then(dayData.parseInput),
+      [dayData.year, dayData.day],
+    ),
+  );
 
-  return switch (rawInputData) {
-    final data? => dayData.parseInput(data),
-    null => null,
-  };
+  return snapshot.data;
 }
