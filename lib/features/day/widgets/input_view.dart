@@ -47,6 +47,9 @@ class DayInputView extends StatelessWidget {
           child: switch (inputData) {
             RawStringInput(:final value) => _RawStringData(value: value),
             ListInput(:final values) => _ListData(values: values),
+            ObjectInput(:final toRichString) => _RawStringData(
+                value: toRichString(),
+              ),
           },
         ),
       ),

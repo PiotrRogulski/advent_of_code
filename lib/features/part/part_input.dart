@@ -21,3 +21,18 @@ class ListInput<T> extends PartInput {
   @override
   List<Object?> get props => [values];
 }
+
+class ObjectInput<T> extends PartInput {
+  const ObjectInput(
+    this.value, {
+    this.stringifier,
+  });
+
+  final T value;
+  final String Function(T)? stringifier;
+
+  String toRichString() => stringifier?.call(value) ?? value.toString();
+
+  @override
+  List<Object?> get props => [value];
+}
