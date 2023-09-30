@@ -1,5 +1,4 @@
 import 'package:advent_of_code/common/widgets/breakpoint_selector.dart';
-import 'package:advent_of_code/common/widgets/sliver_side_by_side.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:advent_of_code/features/day/store/part_status_store.dart';
 import 'package:advent_of_code/features/day/use_day_input.dart';
@@ -119,16 +118,24 @@ class _SliverBodySideBySide extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.all(8),
-      sliver: SliverSideBySide(
-        leftChild: _SliverPartList(
-          padding: const EdgeInsets.all(8),
-          stores: stores,
-          inputData: inputData,
-        ),
-        rightChild: _SliverInputView(
-          padding: const EdgeInsets.all(8),
-          inputData: inputData,
-        ),
+      sliver: SliverCrossAxisGroup(
+        slivers: [
+          SliverCrossAxisExpanded(
+            flex: 1,
+            sliver: _SliverPartList(
+              padding: const EdgeInsets.all(8),
+              stores: stores,
+              inputData: inputData,
+            ),
+          ),
+          SliverCrossAxisExpanded(
+            flex: 1,
+            sliver: _SliverInputView(
+              padding: const EdgeInsets.all(8),
+              inputData: inputData,
+            ),
+          ),
+        ],
       ),
     );
   }
