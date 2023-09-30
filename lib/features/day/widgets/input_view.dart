@@ -4,6 +4,7 @@ import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 class SliverDayInputView extends StatelessWidget {
   const SliverDayInputView({
@@ -23,7 +24,7 @@ class SliverDayInputView extends StatelessWidget {
   }
 }
 
-class DayInputView extends StatelessWidget {
+class DayInputView extends HookWidget {
   const DayInputView({
     super.key,
     required this.inputData,
@@ -33,11 +34,25 @@ class DayInputView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final wrapText = useState(false);
+
     return AocExpansionCard(
       title: 'Input data',
+      trailing: Row(
+        children: [
+          Text(
+            'Wrap',
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+          Checkbox(
+            value: wrapText.value,
+            onChanged: (value) => wrapText.value = value!,
+          ),
+        ],
+      ),
       child: SingleChildScrollView(
         key: PageStorageKey(inputData),
-        scrollDirection: Axis.horizontal,
+        scrollDirection: wrapText.value ? Axis.vertical : Axis.horizontal,
         padding: const EdgeInsets.all(16),
         child: DefaultTextStyle.merge(
           style: const TextStyle(

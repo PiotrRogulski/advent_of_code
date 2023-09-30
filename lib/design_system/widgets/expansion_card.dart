@@ -4,6 +4,7 @@ class AocExpansionCard extends StatelessWidget {
   const AocExpansionCard({
     super.key,
     required this.title,
+    this.trailing,
     this.controller,
     this.margin,
     this.padding = EdgeInsets.zero,
@@ -11,6 +12,7 @@ class AocExpansionCard extends StatelessWidget {
   });
 
   final String title;
+  final Widget? trailing;
   final ExpansionTileController? controller;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry padding;
@@ -23,7 +25,13 @@ class AocExpansionCard extends StatelessWidget {
     return Card(
       margin: margin,
       child: ExpansionTile(
-        title: Text(title),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title),
+            if (trailing != null) trailing!,
+          ],
+        ),
         controller: controller,
         maintainState: true,
         expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
