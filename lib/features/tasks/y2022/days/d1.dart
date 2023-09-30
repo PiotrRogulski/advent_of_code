@@ -32,7 +32,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1();
 
   @override
-  bool get completed => false;
+  bool get completed => true;
 
   @override
   _O runInternal(_I inputData) {
@@ -46,7 +46,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2();
 
   @override
-  bool get completed => false;
+  bool get completed => true;
 
   @override
   _O runInternal(_I inputData) {
