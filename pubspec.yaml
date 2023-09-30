@@ -41,6 +41,10 @@ dependency_overrides:
   material_color_utilities: ^0.8.0
   meta: ^1.10.0
 
+flutter_gen:
+  assets:
+    enabled: false
+
 flutter:
   uses-material-design: true
 
