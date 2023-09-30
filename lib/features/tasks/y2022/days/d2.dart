@@ -1,4 +1,3 @@
-import 'package:advent_of_code/common/extensions/iterable.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
@@ -40,8 +39,12 @@ class _P1 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     return NumericOutput(
       inputData.values
-          .mapFirst(_Shape.fromOpponentSymbol)
-          .mapSecond(_Shape.fromYourSymbol)
+          .map(
+            (t) => (
+              _Shape.fromOpponentSymbol(t.$1),
+              _Shape.fromYourSymbol(t.$2),
+            ),
+          )
           .map(_mapRoundScore)
           .sum,
     );
@@ -69,8 +72,12 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     return NumericOutput(
       inputData.values
-          .mapFirst(_Shape.fromOpponentSymbol)
-          .mapSecond(_ExpectedOutcome.fromSymbol)
+          .map(
+            (t) => (
+              _Shape.fromOpponentSymbol(t.$1),
+              _ExpectedOutcome.fromSymbol(t.$2),
+            ),
+          )
           .map(_mapRoundScore)
           .sum,
     );
