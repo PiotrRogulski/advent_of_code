@@ -10,11 +10,9 @@ class PartStatusStore = _PartStatusStore with _$PartStatusStore;
 abstract class _PartStatusStore with Store {
   _PartStatusStore({
     required this.part,
-    required this.data,
   });
 
   final PartImplementation part;
-  final PartInput data;
 
   @readonly
   var _running = false;
@@ -25,7 +23,7 @@ abstract class _PartStatusStore with Store {
   List<({PartOutput data, Duration runDuration})> get runs => _runs.toList();
 
   @action
-  Future<void> run() async {
+  Future<void> run(PartInput data) async {
     _running = true;
     final result = await part.run(data);
     _runs.insert(0, result);

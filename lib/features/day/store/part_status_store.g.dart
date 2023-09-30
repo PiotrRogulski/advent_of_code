@@ -41,8 +41,8 @@ mixin _$PartStatusStore on _PartStatusStore, Store {
       AsyncAction('_PartStatusStore.run', context: context);
 
   @override
-  Future<void> run() {
-    return _$runAsyncAction.run(() => super.run());
+  Future<void> run(PartInput data) {
+    return _$runAsyncAction.run(() => super.run(data));
   }
 
   @override

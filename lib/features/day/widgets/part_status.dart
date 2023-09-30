@@ -2,7 +2,6 @@ import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:advent_of_code/features/day/store/part_status_store.dart';
-import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,12 +10,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 class PartStatus extends HookWidget {
   const PartStatus({
     super.key,
-    required this.part,
+    required this.store,
     required this.data,
     required this.index,
   });
 
-  final PartImplementation part;
+  final PartStatusStore store;
   final PartInput data;
   final int index;
 
@@ -25,13 +24,6 @@ class PartStatus extends HookWidget {
     final colors = Theme.of(context).colorScheme;
 
     final controller = useMemoized(ExpansionTileController.new);
-
-    final store = useMemoized(
-      () => PartStatusStore(
-        part: part,
-        data: data,
-      ),
-    );
 
     return Observer(
       builder: (context) {
@@ -50,7 +42,7 @@ class PartStatus extends HookWidget {
                         subtitle: const Text('Run to see the result'),
                         contentPadding: EdgeInsets.zero,
                         trailing: IconButton(
-                          onPressed: store.run,
+                          onPressed: () => store.run(data),
                           icon: const AocIcon(
                             AocIcons.play_circle,
                             size: 32,
@@ -66,7 +58,7 @@ class PartStatus extends HookWidget {
                           contentPadding: EdgeInsets.zero,
                           trailing: index == 0
                               ? IconButton(
-                                  onPressed: store.run,
+                                  onPressed: () => store.run(data),
                                   icon: const AocIcon(
                                     AocIcons.play_circle,
                                     size: 32,
