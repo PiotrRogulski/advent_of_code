@@ -9,9 +9,9 @@ typedef RunInfo<O extends PartOutput> = ({
 });
 
 abstract class PartImplementation<I extends PartInput, O extends PartOutput> {
-  const PartImplementation();
+  const PartImplementation({required this.completed});
 
-  bool get completed;
+  final bool completed;
 
   @protected
   O runInternal(I inputData);

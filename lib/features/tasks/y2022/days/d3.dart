@@ -27,10 +27,7 @@ class Y2022D3 extends DayData<_I> {
 }
 
 class _P1 extends PartImplementation<_I, _O> {
-  const _P1();
-
-  @override
-  bool get completed => true;
+  const _P1() : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
@@ -48,10 +45,7 @@ class _P1 extends PartImplementation<_I, _O> {
 }
 
 class _P2 extends PartImplementation<_I, _O> {
-  const _P2();
-
-  @override
-  bool get completed => true;
+  const _P2() : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
