@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 I? useDayInput<I extends PartInput>(DayData<I> dayData) {
-  final path = 'assets/inputs/y${dayData.year}/d${dayData.day}.txt';
+  final path = 'assets/inputs/y${dayData.year}/d${dayData.day}';
   final rawInputData = useFuture(
     useMemoized(() => rootBundle.loadString(path), [dayData.year, dayData.day]),
   ).data;
