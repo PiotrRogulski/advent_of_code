@@ -1,8 +1,13 @@
 import 'dart:math';
 
+import 'package:advent_of_code/common/extensions/iterable.dart';
+import 'package:advent_of_code/common/extensions/list.dart';
+import 'package:advent_of_code/common/utils/matrix.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/gen/fonts.gen.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -57,14 +62,13 @@ class DayInputView extends HookWidget {
         child: DefaultTextStyle.merge(
           style: const TextStyle(
             fontFamily: FontFamily.jetBrainsMono,
-            height: 1.2,
           ),
           child: switch (inputData) {
-            RawStringInput(:final value) => _RawStringData(value: value),
+            RawStringInput(:final value) => _TextData(TextSpan(text: value)),
             ListInput(:final values) => _ListData(values: values),
-            ObjectInput(:final toRichString) => _RawStringData(
-                value: toRichString(),
-              ),
+            MatrixInput(:final matrix) => _MatrixData(matrix: matrix),
+            ObjectInput(:final toRichString) =>
+              _TextData(TextSpan(text: toRichString())),
           },
         ),
       ),
@@ -72,16 +76,97 @@ class DayInputView extends HookWidget {
   }
 }
 
-class _RawStringData extends StatelessWidget {
-  const _RawStringData({
-    required this.value,
+class _MatrixData<T> extends HookWidget {
+  const _MatrixData({
+    required this.matrix,
   });
 
-  final String value;
+  final Matrix<T> matrix;
 
   @override
   Widget build(BuildContext context) {
-    return SelectableText(value);
+    final colors = Theme.of(context).colorScheme;
+
+    final tableSpan = useFuture(
+      useMemoized(
+        () => compute(_computeLayout, (matrix, colors)),
+        [matrix, colors],
+      ),
+    ).data;
+
+    if (tableSpan == null) {
+      return const SizedBox();
+    }
+
+    return _TextData(
+      tableSpan,
+    );
+  }
+
+  TextSpan _computeLayout(
+    (Matrix<T> matrix, ColorScheme colors) data,
+  ) {
+    final (matrix, colors) = data;
+
+    final itemStrings = [
+      for (final row in matrix.rows) [for (final e in row) '$e'],
+    ];
+
+    final indexStyle = TextStyle(
+      color: colors.primary,
+      fontWeight: FontWeight.bold,
+    );
+
+    final cells = [
+      [
+        const TextSpan(text: ''),
+        for (var i = 0; i < matrix.columnCount; i++)
+          TextSpan(text: '$i', style: indexStyle),
+      ],
+      for (final (index, row) in itemStrings.indexed)
+        [
+          TextSpan(text: '$index', style: indexStyle),
+          for (final e in row) TextSpan(text: e),
+        ],
+    ];
+
+    final columnWidths = [
+      for (final column in cells.zip())
+        max(2, column.map((e) => e.text?.length ?? 0).max),
+    ];
+
+    final alignedCells = [
+      for (final row in cells)
+        [
+          for (final (columnIndex, cell) in row.indexed)
+            TextSpan(
+              text: ' ${cell.text!.padLeft(columnWidths[columnIndex])} ',
+              style: cell.style,
+            ),
+        ],
+    ];
+
+    return TextSpan(
+      children: alignedCells
+          .intersperse(const [TextSpan(text: '\n')])
+          .flattened
+          .toList(),
+    );
+  }
+}
+
+class _TextData extends StatelessWidget {
+  const _TextData(this.textSpan);
+
+  final TextSpan textSpan;
+
+  @override
+  Widget build(BuildContext context) {
+    return SelectionArea(
+      child: Text.rich(
+        textSpan,
+      ),
+    );
   }
 }
 
