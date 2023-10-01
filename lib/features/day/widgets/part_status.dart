@@ -31,6 +31,14 @@ class PartStatus extends HookWidget {
       builder: (context) {
         return AocExpansionCard(
           title: 'Part ${index + 1}',
+          trailing: switch (store.part.completed) {
+            true => AocIcon(
+                AocIcons.check,
+                size: 24,
+                color: colors.primary,
+              ),
+            false => null,
+          },
           controller: controller,
           child: Stack(
             children: [
