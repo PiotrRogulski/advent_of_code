@@ -6,6 +6,12 @@ extension IterableX<T> on Iterable<T> {
       yield skip(i).take(windowSize);
     }
   }
+
+  Iterable<Iterable<T>> chunked(int chunkSize) sync* {
+    for (var i = 0; i < length; i += chunkSize) {
+      yield skip(i).take(chunkSize);
+    }
+  }
 }
 
 extension IterableIterableX<T> on Iterable<Iterable<T>> {
