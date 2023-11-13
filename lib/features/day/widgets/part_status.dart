@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:advent_of_code/common/widgets/error_stacktrace_dialog.dart';
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
@@ -5,6 +7,8 @@ import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:advent_of_code/features/day/store/part_status_store.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
+import 'package:advent_of_code/features/part/part_output.dart';
+import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -108,7 +112,20 @@ class _RunInfoTile extends StatelessWidget {
 
     return switch (run.error) {
       null => ListTile(
-          title: Text(run.data.toString()),
+          title: DefaultTextStyle.merge(
+            style: const TextStyle(
+              fontFamily: FontFamily.jetBrainsMono,
+              fontFeatures: [FontFeature.disable('calt')],
+              height: 1.2,
+            ),
+            child: Text(
+              switch (run.data) {
+                StringOutput(:final value) => value,
+                NumericOutput(:final value) => value.toString(),
+                null => 'No output',
+              },
+            ),
+          ),
           subtitle: Text(run.runDuration.toString()),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           trailing: trailing,
