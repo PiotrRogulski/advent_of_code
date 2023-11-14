@@ -1,5 +1,6 @@
 import 'package:advent_of_code/features/tasks/y2022/days/d1.dart';
 import 'package:advent_of_code/features/tasks/y2022/days/d10.dart';
+import 'package:advent_of_code/features/tasks/y2022/days/d11.dart';
 import 'package:advent_of_code/features/tasks/y2022/days/d2.dart';
 import 'package:advent_of_code/features/tasks/y2022/days/d3.dart';
 import 'package:advent_of_code/features/tasks/y2022/days/d4.dart';
@@ -22,5 +23,6 @@ const year2022 = YearData(
     8: Y2022D8(),
     9: Y2022D9(),
     10: Y2022D10(),
+    11: Y2022D11(),
   },
 );
