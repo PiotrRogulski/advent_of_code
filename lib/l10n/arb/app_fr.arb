@@ -1,0 +1,20 @@
+{
+  "@@locale": "fr",
+  "day_inputData": "Données d'entrée",
+  "day_inputData_matrixIndex": "{index}: ",
+  "day_inputData_wrap": "Habillage",
+  "day_partTitle": "Partie {part}",
+  "day_part_error": "Une erreur s'est produite",
+  "day_part_noOutput": "Aucune sortie",
+  "day_part_notRun": "Non exécuté",
+  "day_part_notRunSubtitle": "Exécuter pour voir le résultat",
+  "day_part_seeErrorDetails": "Appuyez pour voir les détails de l'erreur",
+  "day_title": "{day} – {year}",
+  "home_title": "Accueil",
+  "settings_darkMode": "Mode sombre",
+  "settings_title": "Paramètres",
+  "settings_useSystemTheme": "Utiliser le thème du système",
+  "year_day": "Jour {day}",
+  "year_title": "Année {year}",
+  "years_title": "Années"
+}
