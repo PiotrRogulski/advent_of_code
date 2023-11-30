@@ -28,7 +28,11 @@ class _App extends StatelessWidget {
       builder: (lightDynamic, darkDynamic) {
         return Observer(
           builder: (context) {
-            final SettingsStore(:themeMode, :useSystemTheme) = context.read();
+            final SettingsStore(
+              :themeMode,
+              :useSystemTheme,
+              :locale,
+            ) = context.read();
 
             return MaterialApp.router(
               themeMode: themeMode,
@@ -36,6 +40,7 @@ class _App extends StatelessWidget {
               darkTheme: AocTheme.dark(useSystemTheme ? darkDynamic : null),
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
+              locale: locale,
               routerConfig: router,
             );
           },

@@ -41,11 +41,28 @@ mixin _$SettingsStore on _SettingsStoreBase, Store {
     });
   }
 
+  late final _$localeAtom =
+      Atom(name: '_SettingsStoreBase.locale', context: context);
+
+  @override
+  Locale? get locale {
+    _$localeAtom.reportRead();
+    return super.locale;
+  }
+
+  @override
+  set locale(Locale? value) {
+    _$localeAtom.reportWrite(value, super.locale, () {
+      super.locale = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
 themeMode: ${themeMode},
-useSystemTheme: ${useSystemTheme}
+useSystemTheme: ${useSystemTheme},
+locale: ${locale}
     ''';
   }
 }

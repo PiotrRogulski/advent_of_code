@@ -7,6 +7,7 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
 import 'app_localizations_fr.dart';
+import 'app_localizations_ja.dart';
 
 /// Callers can lookup localized strings with an instance of AppLocalizations
 /// returned by `AppLocalizations.of(context)`.
@@ -93,7 +94,8 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('fr')
+    Locale('fr'),
+    Locale('ja')
   ];
 
   /// No description provided for @day_inputData.
@@ -168,6 +170,24 @@ abstract class AppLocalizations {
   /// **'Dark mode'**
   String get settings_darkMode;
 
+  /// No description provided for @settings_language.
+  ///
+  /// In en, this message translates to:
+  /// **'{lang, select, en {English} fr {Français} ja {日本語} other {}}'**
+  String settings_language(String lang);
+
+  /// No description provided for @settings_language_systemDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'System default'**
+  String get settings_language_systemDefault;
+
+  /// No description provided for @settings_language_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settings_language_title;
+
   /// No description provided for @settings_title.
   ///
   /// In en, this message translates to:
@@ -210,7 +230,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'fr'].contains(locale.languageCode);
+      <String>['en', 'fr', 'ja'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -223,6 +243,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsEn();
     case 'fr':
       return AppLocalizationsFr();
+    case 'ja':
+      return AppLocalizationsJa();
   }
 
   throw FlutterError(

@@ -11,4 +11,7 @@ abstract class _SettingsStoreBase with Store {
 
   @observable
   bool useSystemTheme = true;
+
+  @observable
+  Locale? locale;
 }

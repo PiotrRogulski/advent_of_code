@@ -12,6 +12,8 @@
   "day_title": "{day} – {year}",
   "home_title": "Accueil",
   "settings_darkMode": "Mode sombre",
+  "settings_language_systemDefault": "Défaut du système",
+  "settings_language_title": "Langue",
   "settings_title": "Paramètres",
   "settings_useSystemTheme": "Utiliser le thème du système",
   "year_day": "Jour {day}",

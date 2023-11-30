@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 /// The translations for English (`en`).
@@ -45,6 +47,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings_darkMode => 'Dark mode';
+
+  @override
+  String settings_language(String lang) {
+    String _temp0 = intl.Intl.selectLogic(
+      lang,
+      {
+        'en': 'English',
+        'fr': 'Français',
+        'ja': '日本語',
+        'other': '',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get settings_language_systemDefault => 'System default';
+
+  @override
+  String get settings_language_title => 'Language';
 
   @override
   String get settings_title => 'Settings';

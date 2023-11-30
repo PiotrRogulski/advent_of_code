@@ -1,0 +1,22 @@
+{
+  "@@locale": "ja",
+  "day_inputData": "入力データ",
+  "day_inputData_matrixIndex": "{index}: ",
+  "day_inputData_wrap": "折り返し",
+  "day_partTitle": "パート {part}",
+  "day_part_error": "エラーが発生しました",
+  "day_part_noOutput": "出力なし",
+  "day_part_notRun": "実行されていません",
+  "day_part_notRunSubtitle": "結果を確認するには、実行してください",
+  "day_part_seeErrorDetails": "タップするとエラーの詳細が表示されます",
+  "day_title": "{day}日目 – {year}年",
+  "home_title": "ホーム",
+  "settings_darkMode": "ダークモード",
+  "settings_language_systemDefault": "システムデフォルト",
+  "settings_language_title": "言語",
+  "settings_title": "設定",
+  "settings_useSystemTheme": "システムテーマを使用する",
+  "year_day": "{day}日目",
+  "year_title": "{year}年",
+  "years_title": "年々"
+}
