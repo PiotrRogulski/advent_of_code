@@ -45,7 +45,7 @@ class PartStatus extends HookWidget {
             false => null,
           },
           controller: controller,
-          child: Stack(
+          body: Stack(
             children: [
               Column(
                 children: switch (store.runs) {

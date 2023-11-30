@@ -7,16 +7,16 @@ class AocExpansionCard extends StatelessWidget {
     this.trailing,
     this.controller,
     this.margin,
-    this.padding = EdgeInsets.zero,
-    this.child,
+    this.aboveBody,
+    this.body,
   });
 
   final String title;
   final Widget? trailing;
   final ExpansionTileController? controller;
   final EdgeInsetsGeometry? margin;
-  final EdgeInsetsGeometry padding;
-  final Widget? child;
+  final Widget? aboveBody;
+  final Widget? body;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +37,7 @@ class AocExpansionCard extends StatelessWidget {
         expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
         expandedAlignment: Alignment.topCenter,
         children: [
+          if (aboveBody != null) aboveBody!,
           Card(
             margin: const EdgeInsets.only(
               left: 8,
@@ -53,10 +54,7 @@ class AocExpansionCard extends StatelessWidget {
             child: AnimatedSize(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOutCubicEmphasized,
-              child: Padding(
-                padding: padding,
-                child: child,
-              ),
+              child: body,
             ),
           ),
         ],

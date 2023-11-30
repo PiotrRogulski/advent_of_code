@@ -42,19 +42,19 @@ class DayInputView extends HookWidget {
 
     return AocExpansionCard(
       title: context.l10n.day_inputData,
-      trailing: Row(
-        children: [
-          Text(
-            context.l10n.day_inputData_wrap,
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
-          Checkbox(
-            value: wrapText.value,
-            onChanged: (value) => wrapText.value = value!,
-          ),
-        ],
+      aboveBody: CheckboxListTile(
+        value: wrapText.value,
+        onChanged: (value) => wrapText.value = value!,
+        title: Text(
+          context.l10n.day_inputData_wrap,
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+        controlAffinity: ListTileControlAffinity.leading,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+        dense: true,
       ),
-      child: SingleChildScrollView(
+      body: SingleChildScrollView(
         key: PageStorageKey(inputData),
         scrollDirection: wrapText.value ? Axis.vertical : Axis.horizontal,
         padding: const EdgeInsets.all(16),
