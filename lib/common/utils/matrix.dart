@@ -1,4 +1,4 @@
-import 'package:advent_of_code/common/extensions/iterable.dart';
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:equatable/equatable.dart';
 
 class Matrix<T> with EquatableMixin {

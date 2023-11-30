@@ -1,7 +1,6 @@
 import 'dart:math';
 
-import 'package:advent_of_code/common/extensions/iterable.dart';
-import 'package:advent_of_code/common/extensions/list.dart';
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/common/utils/matrix.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
@@ -42,11 +41,11 @@ class DayInputView extends HookWidget {
     final wrapText = useState(false);
 
     return AocExpansionCard(
-      title: 'Input data',
+      title: context.l10n.day_inputData,
       trailing: Row(
         children: [
           Text(
-            'Wrap',
+            context.l10n.day_inputData_wrap,
             style: Theme.of(context).textTheme.labelSmall,
           ),
           Checkbox(
@@ -180,7 +179,8 @@ class _ListData<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final indexPartLength =
-        (log(values.length.clamp(1, double.infinity)) * log10e).ceil();
+        context.l10n.day_inputData_matrixIndex(values.length).length;
+
     return SelectionArea(
       child: Text.rich(
         TextSpan(
@@ -190,12 +190,14 @@ class _ListData<T> extends StatelessWidget {
                 children: [
                   if (index > 0) const TextSpan(text: '\n'),
                   TextSpan(
-                    text: '$index: '.padLeft(indexPartLength + 2),
+                    text: context.l10n
+                        .day_inputData_matrixIndex(index)
+                        .padLeft(indexPartLength),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
-                  TextSpan(text: '$value'),
+                  TextSpan(text: value.toString()),
                 ],
               ),
           ],

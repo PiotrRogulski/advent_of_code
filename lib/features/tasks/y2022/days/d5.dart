@@ -1,6 +1,4 @@
-import 'package:advent_of_code/common/extensions/generic.dart';
-import 'package:advent_of_code/common/extensions/iterable.dart';
-import 'package:advent_of_code/common/extensions/tuple.dart';
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';

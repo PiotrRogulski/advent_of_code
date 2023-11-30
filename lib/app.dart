@@ -1,6 +1,7 @@
 import 'package:advent_of_code/design_system/theme.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:advent_of_code/global_providers.dart';
+import 'package:advent_of_code/l10n/app_localizations.dart';
 import 'package:advent_of_code/router/routes.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,8 @@ class _App extends StatelessWidget {
               themeMode: themeMode,
               theme: AocTheme.light(useSystemTheme ? lightDynamic : null),
               darkTheme: AocTheme.dark(useSystemTheme ? darkDynamic : null),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
               routerConfig: router,
             );
           },

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/common/widgets/error_stacktrace_dialog.dart';
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
@@ -34,7 +35,7 @@ class PartStatus extends HookWidget {
     return Observer(
       builder: (context) {
         return AocExpansionCard(
-          title: 'Part ${index + 1}',
+          title: context.l10n.day_partTitle(index + 1),
           trailing: switch (store.part.completed) {
             true => AocIcon(
                 AocIcons.check,
@@ -50,8 +51,8 @@ class PartStatus extends HookWidget {
                 children: switch (store.runs) {
                   [] => [
                       ListTile(
-                        title: const Text('Not run'),
-                        subtitle: const Text('Run to see the result'),
+                        title: Text(context.l10n.day_part_notRun),
+                        subtitle: Text(context.l10n.day_part_notRunSubtitle),
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 16),
                         trailing: IconButton(
@@ -122,7 +123,7 @@ class _RunInfoTile extends StatelessWidget {
               switch (run.data) {
                 StringOutput(:final value) => value,
                 NumericOutput(:final value) => value.toString(),
-                null => 'No output',
+                null => context.l10n.day_part_noOutput,
               },
             ),
           ),
@@ -144,12 +145,12 @@ class _RunInfoTile extends StatelessWidget {
             size: 32,
           ),
           title: Text(
-            'An error occurred',
+            context.l10n.day_part_error,
             style: TextStyle(
               color: colors.error,
             ),
           ),
-          subtitle: const Text('Tap to see error details'),
+          subtitle: Text(context.l10n.day_part_seeErrorDetails),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           trailing: trailing,
         ),

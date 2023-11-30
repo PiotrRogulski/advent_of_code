@@ -1,3 +1,4 @@
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/design_system/widgets/adaptive_list.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
@@ -27,7 +28,7 @@ class YearScreen extends StatelessWidget {
 
     return AocScaffold(
       key: PageStorageKey(year),
-      title: 'Year $year',
+      title: context.l10n.year_title(year),
       bodySlivers: [
         SliverAdaptiveList(
           items: yearData.days.entries,
@@ -35,7 +36,7 @@ class YearScreen extends StatelessWidget {
             final day = entry.key;
             return Card(
               child: ListTile(
-                title: Text('Day $day'),
+                title: Text(context.l10n.year_day(day)),
                 onTap: () => DayRoute(year: year, day: day).go(context),
               ),
             );
@@ -46,7 +47,7 @@ class YearScreen extends StatelessWidget {
               child: InkWell(
                 onTap: () => DayRoute(year: year, day: day).go(context),
                 child: Center(
-                  child: Text('Day $day'),
+                  child: Text(context.l10n.year_day(day)),
                 ),
               ),
             );

@@ -1,4 +1,4 @@
-import 'package:advent_of_code/common/extensions/brightness.dart';
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:flutter/material.dart';
@@ -26,19 +26,19 @@ class AocAppShell extends StatelessWidget {
     final destinations = [
       _Destination(
         icon: AocIcons.home,
-        label: 'Home',
+        label: context.l10n.home_title,
         index: 0,
         currentIndex: index,
       ),
       _Destination(
         icon: AocIcons.calendar_month,
-        label: 'Years',
+        label: context.l10n.years_title,
         index: 1,
         currentIndex: index,
       ),
       _Destination(
         icon: AocIcons.settings,
-        label: 'Settings',
+        label: context.l10n.settings_title,
         index: 2,
         currentIndex: index,
       ),

@@ -1,3 +1,4 @@
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/design_system/page.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AocScaffold(
-      title: 'Home',
+    return AocScaffold(
+      title: context.l10n.home_title,
     );
   }
 }

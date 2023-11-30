@@ -1,0 +1,70 @@
+{
+  "@@locale": "en",
+  "day_inputData": "Input data",
+  "@day_inputData": {},
+  "day_inputData_matrixIndex": "{index}: ",
+  "@day_inputData_matrixIndex": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "day_inputData_wrap": "Wrap",
+  "@day_inputData_wrap": {},
+  "day_partTitle": "Part {part}",
+  "@day_partTitle": {
+    "placeholders": {
+      "part": {
+        "type": "int"
+      }
+    }
+  },
+  "day_part_error": "An error occurred",
+  "@day_part_error": {},
+  "day_part_noOutput": "No output",
+  "@day_part_noOutput": {},
+  "day_part_notRun": "Not run",
+  "@day_part_notRun": {},
+  "day_part_notRunSubtitle": "Run to see the result",
+  "@day_part_notRunSubtitle": {},
+  "day_part_seeErrorDetails": "Tap to see error details",
+  "@day_part_seeErrorDetails": {},
+  "day_title": "{day} – {year}",
+  "@day_title": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "home_title": "Home",
+  "@home_title": {},
+  "settings_darkMode": "Dark mode",
+  "@settings_darkMode": {},
+  "settings_title": "Settings",
+  "@settings_title": {},
+  "settings_useSystemTheme": "Use system theme",
+  "@settings_useSystemTheme": {},
+  "year_day": "Day {day}",
+  "@year_day": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "year_title": "Year {year}",
+  "@year_title": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "years_title": "Years",
+  "@years_title": {}
+}

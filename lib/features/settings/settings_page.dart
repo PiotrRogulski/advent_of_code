@@ -1,4 +1,4 @@
-import 'package:advent_of_code/common/extensions/list.dart';
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/design_system/page.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
@@ -18,7 +18,7 @@ class SettingsScreen extends StatelessObserverWidget {
     final settingsStore = context.read<SettingsStore>();
 
     return AocScaffold(
-      title: 'Settings',
+      title: context.l10n.settings_title,
       bodySlivers: [
         SliverPadding(
           padding: const EdgeInsets.all(16),
@@ -26,7 +26,7 @@ class SettingsScreen extends StatelessObserverWidget {
             children: [
               Card(
                 child: SwitchListTile(
-                  title: const Text('Dark mode'),
+                  title: Text(context.l10n.settings_darkMode),
                   onChanged: (value) {
                     settingsStore.themeMode =
                         value ? ThemeMode.dark : ThemeMode.light;
@@ -36,7 +36,7 @@ class SettingsScreen extends StatelessObserverWidget {
               ),
               Card(
                 child: SwitchListTile(
-                  title: const Text('Use system theme'),
+                  title: Text(context.l10n.settings_useSystemTheme),
                   onChanged: (value) {
                     settingsStore.useSystemTheme = value;
                   },

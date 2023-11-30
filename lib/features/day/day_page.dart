@@ -1,3 +1,4 @@
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/common/widgets/breakpoint_selector.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:advent_of_code/features/day/store/part_status_store.dart';
@@ -50,7 +51,7 @@ class DayScreen extends HookWidget {
     );
 
     return AocScaffold(
-      title: '$day – $year',
+      title: context.l10n.day_title(day, year),
       bodySlivers: [
         switch (inputData) {
           final data? => BreakpointSelector(

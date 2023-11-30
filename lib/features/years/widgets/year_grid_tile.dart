@@ -14,7 +14,6 @@ class _YearGridTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      // margin: const EdgeInsets.all(8),
       child: Stack(
         children: [
           Positioned.fill(

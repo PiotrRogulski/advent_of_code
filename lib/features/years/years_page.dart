@@ -1,3 +1,4 @@
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/page.dart';
 import 'package:advent_of_code/design_system/widgets/adaptive_list.dart';
@@ -22,7 +23,7 @@ class YearsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AocScaffold(
-      title: 'Years',
+      title: context.l10n.years_title,
       bodySlivers: [
         SliverAdaptiveList(
           items: allYears.entries,

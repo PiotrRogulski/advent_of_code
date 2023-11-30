@@ -1,4 +1,4 @@
-import 'package:advent_of_code/common/extensions/list.dart';
+import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 
