@@ -19,6 +19,7 @@ class AocAppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
     final brightness = Theme.of(context).brightness;
 
     final index = navigationShell.currentIndex;
@@ -26,19 +27,19 @@ class AocAppShell extends StatelessWidget {
     final destinations = [
       _Destination(
         icon: AocIcons.home,
-        label: context.l10n.home_title,
+        label: s.home_title,
         index: 0,
         currentIndex: index,
       ),
       _Destination(
         icon: AocIcons.calendar_month,
-        label: context.l10n.years_title,
+        label: s.years_title,
         index: 1,
         currentIndex: index,
       ),
       _Destination(
         icon: AocIcons.settings,
-        label: context.l10n.settings_title,
+        label: s.settings_title,
         index: 2,
         currentIndex: index,
       ),

@@ -38,15 +38,16 @@ class DayInputView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
     final wrapText = useState(false);
 
     return AocExpansionCard(
-      title: context.l10n.day_inputData,
+      title: s.day_inputData,
       aboveBody: CheckboxListTile(
         value: wrapText.value,
         onChanged: (value) => wrapText.value = value!,
         title: Text(
-          context.l10n.day_inputData_wrap,
+          s.day_inputData_wrap,
           style: Theme.of(context).textTheme.labelLarge,
         ),
         controlAffinity: ListTileControlAffinity.leading,
@@ -178,8 +179,8 @@ class _ListData<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final indexPartLength =
-        context.l10n.day_inputData_matrixIndex(values.length).length;
+    final s = context.l10n;
+    final indexPartLength = s.day_inputData_matrixIndex(values.length).length;
 
     return SelectionArea(
       child: Text.rich(
@@ -190,7 +191,7 @@ class _ListData<T> extends StatelessWidget {
                 children: [
                   if (index > 0) const TextSpan(text: '\n'),
                   TextSpan(
-                    text: context.l10n
+                    text: s
                         .day_inputData_matrixIndex(index)
                         .padLeft(indexPartLength),
                     style: TextStyle(

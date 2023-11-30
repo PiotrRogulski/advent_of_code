@@ -36,6 +36,7 @@ class DayScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
     final dayData = getDay(year, day);
     final parts = dayData.parts.entries.toList();
 
@@ -51,7 +52,7 @@ class DayScreen extends HookWidget {
     );
 
     return AocScaffold(
-      title: context.l10n.day_title(day, year),
+      title: s.day_title(day, year),
       bodySlivers: [
         switch (inputData) {
           final data? => BreakpointSelector(

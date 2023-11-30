@@ -24,11 +24,12 @@ class YearScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
     final yearData = getYear(year);
 
     return AocScaffold(
       key: PageStorageKey(year),
-      title: context.l10n.year_title(year),
+      title: s.year_title(year),
       bodySlivers: [
         SliverAdaptiveList(
           items: yearData.days.entries,
@@ -36,7 +37,7 @@ class YearScreen extends StatelessWidget {
             final day = entry.key;
             return Card(
               child: ListTile(
-                title: Text(context.l10n.year_day(day)),
+                title: Text(s.year_day(day)),
                 onTap: () => DayRoute(year: year, day: day).go(context),
               ),
             );
@@ -47,7 +48,7 @@ class YearScreen extends StatelessWidget {
               child: InkWell(
                 onTap: () => DayRoute(year: year, day: day).go(context),
                 child: Center(
-                  child: Text(context.l10n.year_day(day)),
+                  child: Text(s.year_day(day)),
                 ),
               ),
             );

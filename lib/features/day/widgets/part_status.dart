@@ -28,6 +28,7 @@ class PartStatus extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
     final colors = Theme.of(context).colorScheme;
 
     final controller = useMemoized(ExpansionTileController.new);
@@ -35,7 +36,7 @@ class PartStatus extends HookWidget {
     return Observer(
       builder: (context) {
         return AocExpansionCard(
-          title: context.l10n.day_partTitle(index + 1),
+          title: s.day_partTitle(index + 1),
           trailing: switch (store.part.completed) {
             true => AocIcon(
                 AocIcons.check,
@@ -51,8 +52,8 @@ class PartStatus extends HookWidget {
                 children: switch (store.runs) {
                   [] => [
                       ListTile(
-                        title: Text(context.l10n.day_part_notRun),
-                        subtitle: Text(context.l10n.day_part_notRunSubtitle),
+                        title: Text(s.day_part_notRun),
+                        subtitle: Text(s.day_part_notRunSubtitle),
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 16),
                         trailing: IconButton(
@@ -109,6 +110,7 @@ class _RunInfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
     final colors = Theme.of(context).colorScheme;
 
     return switch (run.error) {
@@ -123,7 +125,7 @@ class _RunInfoTile extends StatelessWidget {
               switch (run.data) {
                 StringOutput(:final value) => value,
                 NumericOutput(:final value) => value.toString(),
-                null => context.l10n.day_part_noOutput,
+                null => s.day_part_noOutput,
               },
             ),
           ),
@@ -145,12 +147,12 @@ class _RunInfoTile extends StatelessWidget {
             size: 32,
           ),
           title: Text(
-            context.l10n.day_part_error,
+            s.day_part_error,
             style: TextStyle(
               color: colors.error,
             ),
           ),
-          subtitle: Text(context.l10n.day_part_seeErrorDetails),
+          subtitle: Text(s.day_part_seeErrorDetails),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           trailing: trailing,
         ),

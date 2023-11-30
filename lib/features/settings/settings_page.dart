@@ -15,10 +15,11 @@ class SettingsScreen extends StatelessObserverWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
     final settingsStore = context.read<SettingsStore>();
 
     return AocScaffold(
-      title: context.l10n.settings_title,
+      title: s.settings_title,
       bodySlivers: [
         SliverPadding(
           padding: const EdgeInsets.all(16),
@@ -26,7 +27,7 @@ class SettingsScreen extends StatelessObserverWidget {
             children: [
               Card(
                 child: SwitchListTile(
-                  title: Text(context.l10n.settings_darkMode),
+                  title: Text(s.settings_darkMode),
                   onChanged: (value) {
                     settingsStore.themeMode =
                         value ? ThemeMode.dark : ThemeMode.light;
@@ -36,7 +37,7 @@ class SettingsScreen extends StatelessObserverWidget {
               ),
               Card(
                 child: SwitchListTile(
-                  title: Text(context.l10n.settings_useSystemTheme),
+                  title: Text(s.settings_useSystemTheme),
                   onChanged: (value) {
                     settingsStore.useSystemTheme = value;
                   },

@@ -12,8 +12,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
+
     return AocScaffold(
-      title: context.l10n.home_title,
+      title: s.home_title,
     );
   }
 }

@@ -22,8 +22,10 @@ class YearsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
+
     return AocScaffold(
-      title: context.l10n.years_title,
+      title: s.years_title,
       bodySlivers: [
         SliverAdaptiveList(
           items: allYears.entries,
