@@ -30,12 +30,9 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
-      inputData.values
-          .map((l) => l.characters)
-          .map((chars) => chars.map(int.tryParse).nonNulls)
-          .map((numbers) => 10 * numbers.first + numbers.last)
-          .sum,
+    return _run(
+      inputData,
+      (l) => l.characters.map(int.tryParse).nonNulls,
     );
   }
 }
@@ -60,17 +57,21 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
-      inputData.values
-          .map(
-            (l) => List.generate(
-              l.length,
-              (i) => _digitNameRegex.firstMatch(l.substring(i))?.group(0),
-            ).nonNulls,
-          )
-          .map((matches) => matches.map(digitNameToNumber))
-          .map((numbers) => 10 * numbers.first + numbers.last)
-          .sum,
+    return _run(
+      inputData,
+      (l) => List.generate(
+        l.length,
+        (i) => _digitNameRegex.firstMatch(l.substring(i))?.group(0),
+      ).nonNulls.map(digitNameToNumber),
     );
   }
+}
+
+_O _run(_I inputData, Iterable<int> Function(String line) digitExtractor) {
+  return NumericOutput(
+    inputData.values
+        .map(digitExtractor)
+        .map((numbers) => 10 * numbers.first + numbers.last)
+        .sum,
+  );
 }
