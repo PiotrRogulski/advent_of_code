@@ -17,16 +17,13 @@ class AocIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Transform.translate(
-      offset: Offset(0, -size / 12),
-      // ignore: use_design_system_item_AocIcon
-      child: Icon(
-        icon,
-        size: size,
-        opticalSize: size,
-        color: color,
-        fill: fill,
-      ),
+    // ignore: use_design_system_item_AocIcon
+    return Icon(
+      icon,
+      size: size,
+      opticalSize: size,
+      color: color,
+      fill: fill,
     );
   }
 }
