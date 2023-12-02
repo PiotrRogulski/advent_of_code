@@ -8,7 +8,7 @@ typedef _Subset = ({int red, int green, int blue});
 
 typedef _Game = ({
   int index,
-  List<_Subset> subsets,
+  Iterable<_Subset> subsets,
 });
 
 typedef _I = ListInput<_Game>;
@@ -21,6 +21,12 @@ class Y2023D2 extends DayData<_I> {
   static RegExp _subsetColorEntry(String color) =>
       RegExp('(?<count>\\d+) $color');
 
+  static int _extractColorCount(String color, String s) {
+    return int.parse(
+      _subsetColorEntry(color).firstMatch(s)?.namedGroup('count') ?? '0',
+    );
+  }
+
   @override
   _I parseInput(String rawData) {
     return ListInput(
@@ -32,32 +38,13 @@ class Y2023D2 extends DayData<_I> {
           .map(
             (m) => (
               index: int.parse(m.namedGroup('index')!),
-              subsets: m
-                  .namedGroup('subsets')!
-                  .split('; ')
-                  .map(
+              subsets: m.namedGroup('subsets')!.split('; ').map(
                     (s) => (
-                      red: int.parse(
-                        _subsetColorEntry('red')
-                                .firstMatch(s)
-                                ?.namedGroup('count') ??
-                            '0',
-                      ),
-                      green: int.parse(
-                        _subsetColorEntry('green')
-                                .firstMatch(s)
-                                ?.namedGroup('count') ??
-                            '0',
-                      ),
-                      blue: int.parse(
-                        _subsetColorEntry('blue')
-                                .firstMatch(s)
-                                ?.namedGroup('count') ??
-                            '0',
-                      ),
+                      red: _extractColorCount('red', s),
+                      green: _extractColorCount('green', s),
+                      blue: _extractColorCount('blue', s),
                     ),
-                  )
-                  .toList()
+                  ),
             ),
           )
           .toList(),
