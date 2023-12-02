@@ -24,40 +24,32 @@ class Y2022D5 extends DayData<_I> {
   _I parseInput(String rawData) {
     return ObjectInput(
       stringifier: _inputToString,
-      rawData
-          .split('\n\n')
-          .apply((l) => (l[0], l[1].split('\n')))
-          .mapFirst(
-            (s) => s
-                .split('\n')
-                .reversed
-                .skip(1)
-                .map(
-                  (l) =>
-                      l.characters.whereIndexed((index, _) => index % 4 == 1),
-                )
-                .zip()
-                .map((l) => l.whereNot((c) => c == ' '))
-                .map(QueueList.from)
-                .toList(),
-          )
-          .mapSecond(
-            (l) => l
-                .map(_moveRegex.firstMatch)
-                .cast<RegExpMatch>()
-                .map(
-                  (m) => (
-                    quantity: int.parse(m.namedGroup('quantity')!),
-                    from: int.parse(m.namedGroup('from')!) - 1,
-                    to: int.parse(m.namedGroup('to')!) - 1,
-                  ),
-                )
-                .toList(),
-          )
-          .apply(
-            (t) => (
-              stacks: t.$1,
-              moves: t.$2,
+      rawData.split('\n\n').apply(
+            (l) => (
+              stacks: l[0]
+                  .split('\n')
+                  .reversed
+                  .skip(1)
+                  .map(
+                    (l) =>
+                        l.characters.whereIndexed((index, _) => index % 4 == 1),
+                  )
+                  .zip()
+                  .map((l) => l.whereNot((c) => c == ' '))
+                  .map(QueueList.from)
+                  .toList(),
+              moves: l[1]
+                  .split('\n')
+                  .map(_moveRegex.firstMatch)
+                  .nonNulls
+                  .map(
+                    (m) => (
+                      quantity: int.parse(m.namedGroup('quantity')!),
+                      from: int.parse(m.namedGroup('from')!) - 1,
+                      to: int.parse(m.namedGroup('to')!) - 1,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
     );
