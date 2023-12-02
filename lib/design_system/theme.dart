@@ -53,6 +53,17 @@ class AocTheme {
           borderRadius: BorderRadius.circular(24),
         ),
       ),
+      switchTheme: SwitchThemeData(
+        thumbIcon: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.selected)) {
+            // TODO: use AocIcons
+            // ignore: use_design_system_item_AocIcon
+            return const Icon(Icons.check_rounded);
+          } else {
+            return null;
+          }
+        }),
+      ),
     );
   }
 
