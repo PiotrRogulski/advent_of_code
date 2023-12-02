@@ -18,7 +18,6 @@ class Y2022D9 extends DayData<_I> {
   _I parseInput(String rawData) {
     return ListInput(
       rawData
-          .trim()
           .split('\n')
           .map((l) => l.split(' '))
           .map(

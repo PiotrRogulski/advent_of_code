@@ -42,7 +42,6 @@ class Y2022D11 extends DayData<_I> {
   _I parseInput(String rawData) {
     return ListInput(
       rawData
-          .trim()
           .split('\n\n')
           .map(_monkeyRegex.firstMatch)
           .nonNulls

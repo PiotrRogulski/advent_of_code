@@ -10,7 +10,7 @@ I? useDayInput<I extends PartInput>(DayData<I> dayData) {
     useMemoized(
       () => rootBundle
           .loadString(path)
-          .then((d) => compute(dayData.parseInput, d)),
+          .then((d) => compute(dayData.parseInput, d.trim())),
       [dayData.year, dayData.day],
     ),
   );

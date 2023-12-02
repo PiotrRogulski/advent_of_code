@@ -15,7 +15,7 @@ class Y2022D3 extends DayData<_I> {
   @override
   _I parseInput(String rawData) {
     return ListInput(
-      rawData.trim().split('\n'),
+      rawData.split('\n'),
     );
   }
 

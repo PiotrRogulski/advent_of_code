@@ -25,7 +25,6 @@ class Y2022D5 extends DayData<_I> {
     return ObjectInput(
       stringifier: _inputToString,
       rawData
-          .trim()
           .split('\n\n')
           .apply((l) => (l[0], l[1].split('\n')))
           .mapFirst(

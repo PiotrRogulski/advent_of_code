@@ -17,7 +17,6 @@ class Y2022D8 extends DayData<_I> {
     return MatrixInput(
       Matrix.fromList(
         rawData
-            .trim()
             .split('\n')
             .map((l) => l.characters.map(int.parse).toList())
             .toList(),

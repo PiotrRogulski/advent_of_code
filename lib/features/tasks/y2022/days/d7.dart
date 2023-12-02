@@ -18,7 +18,6 @@ class Y2022D7 extends DayData<_I> {
   _I parseInput(String rawData) {
     return ListInput(
       rawData
-          .trim()
           .split(_lineDelimRegex)
           .map((l) => l.substring(2))
           .map(

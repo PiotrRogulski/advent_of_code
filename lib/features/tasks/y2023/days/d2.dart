@@ -31,7 +31,6 @@ class Y2023D2 extends DayData<_I> {
   _I parseInput(String rawData) {
     return ListInput(
       rawData
-          .trim()
           .split('\n')
           .map(_gameRegex.firstMatch)
           .nonNulls

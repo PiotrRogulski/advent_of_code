@@ -15,7 +15,7 @@ class Y2022D10 extends DayData<_I> {
   @override
   _I parseInput(String rawData) {
     return ListInput(
-      rawData.trim().split('\n').map((l) {
+      rawData.split('\n').map((l) {
         return switch (l.split(' ')) {
           ['addx', final x] => _AddX(int.parse(x)),
           ['noop'] => const _Noop(),
