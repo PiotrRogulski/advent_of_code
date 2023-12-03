@@ -22,23 +22,16 @@ class Y2023D3 extends DayData<_I> {
         rawData
             .split('\n')
             .map(
-              (l) => l.split('').map((c) {
-                return switch (c) {
-                  '.' => const _Empty(),
-                  '0' ||
-                  '1' ||
-                  '2' ||
-                  '3' ||
-                  '4' ||
-                  '5' ||
-                  '6' ||
-                  '7' ||
-                  '8' ||
-                  '9' =>
-                    _Digit(int.parse(c)),
-                  _ => _Symbol(c),
-                };
-              }).toList(),
+              (l) => l
+                  .split('')
+                  .map(
+                    (c) => switch ((c, int.tryParse(c))) {
+                      (_, final value?) => _Digit(value),
+                      ('.', _) => const _Empty(),
+                      _ => _Symbol(c),
+                    },
+                  )
+                  .toList(),
             )
             .toList(),
       ),
