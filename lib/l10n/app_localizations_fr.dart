@@ -44,6 +44,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get day_useFullInput => 'Utiliser l\'entrée complète';
+
+  @override
   String get home_title => 'Accueil';
 
   @override

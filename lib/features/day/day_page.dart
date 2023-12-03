@@ -51,6 +51,8 @@ class DayScreen extends HookWidget {
       ),
     );
 
+    final useFullData = useState(false);
+
     return AocScaffold(
       title: s.day_title(day, year),
       bodySlivers: [
@@ -60,10 +62,12 @@ class DayScreen extends HookWidget {
                 Breakpoints.small: (context) => _SliverBodyColumn(
                       stores: partStores,
                       inputData: data,
+                      useFullData: useFullData,
                     ),
                 null: (context) => _SliverBodySideBySide(
                       stores: partStores,
                       inputData: data,
+                      useFullData: useFullData,
                     ),
               },
             ),
@@ -83,24 +87,40 @@ class _SliverBodyColumn extends StatelessWidget {
   const _SliverBodyColumn({
     required this.stores,
     required this.inputData,
+    required this.useFullData,
   });
 
   final List<PartStatusStore> stores;
-  final PartInput inputData;
+  final ({PartInput example, PartInput full}) inputData;
+  final ValueNotifier<bool> useFullData;
 
   @override
   Widget build(BuildContext context) {
     return MultiSliver(
       children: [
+        SliverPinnedHeader(
+          child: Card(
+            margin: const EdgeInsets.all(16),
+            child: SwitchListTile(
+              value: useFullData.value,
+              onChanged: (value) => useFullData.value = value,
+              title: Text(context.l10n.day_useFullInput),
+            ),
+          ),
+        ),
         _SliverPartList(
           padding: const EdgeInsets.all(16),
           stores: stores,
-          inputData: inputData,
+          inputData: useFullData.value ? inputData.full : inputData.example,
         ),
         const SliverToBoxAdapter(child: Divider()),
         _SliverInputView(
           padding: const EdgeInsets.all(16),
-          inputData: inputData,
+          inputData: inputData.example,
+        ),
+        _SliverInputView(
+          padding: const EdgeInsets.all(16),
+          inputData: inputData.full,
         ),
       ],
     );
@@ -111,10 +131,12 @@ class _SliverBodySideBySide extends StatelessWidget {
   const _SliverBodySideBySide({
     required this.stores,
     required this.inputData,
+    required this.useFullData,
   });
 
   final List<PartStatusStore> stores;
-  final PartInput inputData;
+  final ({PartInput example, PartInput full}) inputData;
+  final ValueNotifier<bool> useFullData;
 
   @override
   Widget build(BuildContext context) {
@@ -127,14 +149,32 @@ class _SliverBodySideBySide extends StatelessWidget {
             sliver: _SliverPartList(
               padding: const EdgeInsets.all(8),
               stores: stores,
-              inputData: inputData,
+              inputData: useFullData.value ? inputData.full : inputData.example,
             ),
           ),
           SliverCrossAxisExpanded(
             flex: 1,
-            sliver: _SliverInputView(
-              padding: const EdgeInsets.all(8),
-              inputData: inputData,
+            sliver: MultiSliver(
+              children: [
+                SliverPinnedHeader(
+                  child: Card(
+                    margin: const EdgeInsets.all(8),
+                    child: SwitchListTile(
+                      value: useFullData.value,
+                      onChanged: (value) => useFullData.value = value,
+                      title: Text(context.l10n.day_useFullInput),
+                    ),
+                  ),
+                ),
+                _SliverInputView(
+                  padding: const EdgeInsets.all(8),
+                  inputData: inputData.example,
+                ),
+                _SliverInputView(
+                  padding: const EdgeInsets.all(8),
+                  inputData: inputData.full,
+                ),
+              ],
             ),
           ),
         ],

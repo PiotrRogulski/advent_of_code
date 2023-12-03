@@ -158,6 +158,12 @@ abstract class AppLocalizations {
   /// **'{day} – {year}'**
   String day_title(int day, int year);
 
+  /// No description provided for @day_useFullInput.
+  ///
+  /// In en, this message translates to:
+  /// **'Use full input'**
+  String get day_useFullInput;
+
   /// No description provided for @home_title.
   ///
   /// In en, this message translates to:

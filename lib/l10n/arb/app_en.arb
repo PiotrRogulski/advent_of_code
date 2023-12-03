@@ -41,6 +41,8 @@
       }
     }
   },
+  "day_useFullInput": "Use full input",
+  "@day_useFullInput": {},
   "home_title": "Home",
   "@home_title": {},
   "settings_darkMode": "Dark mode",

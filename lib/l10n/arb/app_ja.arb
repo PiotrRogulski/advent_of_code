@@ -10,6 +10,7 @@
   "day_part_notRunSubtitle": "結果を確認するには、実行してください",
   "day_part_seeErrorDetails": "タップするとエラーの詳細が表示されます",
   "day_title": "{day}日目 – {year}年",
+  "day_useFullInput": "完全な入力を使用する",
   "home_title": "ホーム",
   "settings_darkMode": "ダークモード",
   "settings_language_systemDefault": "システムデフォルト",

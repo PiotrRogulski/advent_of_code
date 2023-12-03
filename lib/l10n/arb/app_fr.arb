@@ -10,6 +10,7 @@
   "day_part_notRunSubtitle": "Exécuter pour voir le résultat",
   "day_part_seeErrorDetails": "Appuyez pour voir les détails de l'erreur",
   "day_title": "{day} – {year}",
+  "day_useFullInput": "Utiliser l'entrée complète",
   "home_title": "Accueil",
   "settings_darkMode": "Mode sombre",
   "settings_language_systemDefault": "Défaut du système",

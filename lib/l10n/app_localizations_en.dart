@@ -43,6 +43,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get day_useFullInput => 'Use full input';
+
+  @override
   String get home_title => 'Home';
 
   @override

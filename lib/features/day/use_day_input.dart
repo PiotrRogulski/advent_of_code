@@ -4,13 +4,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-I? useDayInput<I extends PartInput>(DayData<I> dayData) {
-  final path = 'assets/inputs/y${dayData.year}/d${dayData.day}';
+({I example, I full})? useDayInput<I extends PartInput>(DayData<I> dayData) {
+  final examplePath = 'assets/inputs/y${dayData.year}/d${dayData.day}.example';
+  final fullInputPath = 'assets/inputs/y${dayData.year}/d${dayData.day}';
+
   final snapshot = useFuture(
     useMemoized(
-      () => rootBundle
-          .loadString(path)
-          .then((d) => compute(dayData.parseInput, d.trim())),
+      () => (
+        rootBundle
+            .loadString(examplePath)
+            .then((d) => compute(dayData.parseInput, d.trim())),
+        rootBundle
+            .loadString(fullInputPath)
+            .then((d) => compute(dayData.parseInput, d.trim())),
+      ).wait.then((t) => (example: t.$1, full: t.$2)),
       [dayData.year, dayData.day],
     ),
   );
