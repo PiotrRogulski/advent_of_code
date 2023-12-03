@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 extension GenericX<T> on T {
   @Deprecated('Remove after debugging')
   T spy([dynamic Function(T)? selector]) {
     selector ??= (it) => it;
-    log('>>> ${selector(this)}');
+    // ignore: avoid_print
+    print('>>> ${selector(this)}');
     return this;
   }
 }
