@@ -123,18 +123,19 @@ class _P2 extends PartImplementation<_I, _O> {
               final newRanges = <_Range>[];
 
               for (var (:start, length: rangeLen) in ranges) {
-                while (rangeLen != 0) {
+                final end = start + rangeLen;
+                while (start < end) {
                   var foundMatch = false;
-                  var bestDistance = rangeLen;
+                  var bestDistance = end - start;
 
                   for (final (:destStart, :sourceStart, length: mapLen) in m) {
                     if (sourceStart <= start && start < sourceStart + mapLen) {
                       final offset = start - sourceStart;
-                      final remainingLength = min(mapLen - offset, rangeLen);
+                      final remainingLength = min(mapLen - offset, end - start);
                       newRanges.add(
-                          (start: destStart + offset, length: remainingLength));
+                        (start: destStart + offset, length: remainingLength),
+                      );
                       start += remainingLength;
-                      rangeLen -= remainingLength;
                       foundMatch = true;
                       break;
                     } else {
@@ -145,10 +146,9 @@ class _P2 extends PartImplementation<_I, _O> {
                   }
 
                   if (!foundMatch) {
-                    final effectiveLen = min(bestDistance, rangeLen);
+                    final effectiveLen = min(bestDistance, end - start);
                     newRanges.add((start: start, length: effectiveLen));
                     start += effectiveLen;
-                    rangeLen -= effectiveLen;
                   }
                 }
               }
