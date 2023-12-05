@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
@@ -5,6 +7,7 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 
+typedef _Range = ({int start, int length});
 typedef _MapRange = ({int destStart, int sourceStart, int length});
 typedef _Maps = ({
   List<int> seeds,
@@ -96,10 +99,65 @@ class _P1 extends PartImplementation<_I, _O> {
 }
 
 class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: false);
+  const _P2() : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
-    throw UnimplementedError();
+    final maps = [
+      inputData.value.seedToSoil,
+      inputData.value.soilToFertilizer,
+      inputData.value.fertilizerToWater,
+      inputData.value.waterToLight,
+      inputData.value.lightToTemperature,
+      inputData.value.temperatureToHumidity,
+      inputData.value.humidityToLocation,
+    ];
+
+    return NumericOutput(
+      maps
+          .fold(
+            inputData.value.seeds
+                .chunked(2)
+                .map((s) => (start: s.first, length: s.last)),
+            (ranges, m) {
+              final newRanges = <_Range>[];
+
+              for (var (:start, length: rangeLen) in ranges) {
+                while (rangeLen != 0) {
+                  var foundMatch = false;
+                  var bestDistance = rangeLen;
+
+                  for (final (:destStart, :sourceStart, length: mapLen) in m) {
+                    if (sourceStart <= start && start < sourceStart + mapLen) {
+                      final offset = start - sourceStart;
+                      final remainingLength = min(mapLen - offset, rangeLen);
+                      newRanges.add(
+                          (start: destStart + offset, length: remainingLength));
+                      start += remainingLength;
+                      rangeLen -= remainingLength;
+                      foundMatch = true;
+                      break;
+                    } else {
+                      if (start < sourceStart) {
+                        bestDistance = min(bestDistance, sourceStart - start);
+                      }
+                    }
+                  }
+
+                  if (!foundMatch) {
+                    final effectiveLen = min(bestDistance, rangeLen);
+                    newRanges.add((start: start, length: effectiveLen));
+                    start += effectiveLen;
+                    rangeLen -= effectiveLen;
+                  }
+                }
+              }
+
+              return newRanges;
+            },
+          )
+          .map((r) => r.start)
+          .min,
+    );
   }
 }
