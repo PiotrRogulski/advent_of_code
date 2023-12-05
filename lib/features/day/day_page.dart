@@ -98,14 +98,12 @@ class _SliverBodyColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiSliver(
       children: [
-        SliverPinnedHeader(
-          child: Card(
-            margin: const EdgeInsets.all(16),
-            child: SwitchListTile(
-              value: useFullData.value,
-              onChanged: (value) => useFullData.value = value,
-              title: Text(context.l10n.day_useFullInput),
-            ),
+        Card(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          child: SwitchListTile(
+            value: useFullData.value,
+            onChanged: (value) => useFullData.value = value,
+            title: Text(context.l10n.day_useFullInput),
           ),
         ),
         _SliverPartList(
@@ -156,14 +154,12 @@ class _SliverBodySideBySide extends StatelessWidget {
             flex: 1,
             sliver: MultiSliver(
               children: [
-                SliverPinnedHeader(
-                  child: Card(
-                    margin: const EdgeInsets.all(8),
-                    child: SwitchListTile(
-                      value: useFullData.value,
-                      onChanged: (value) => useFullData.value = value,
-                      title: Text(context.l10n.day_useFullInput),
-                    ),
+                Card(
+                  margin: const EdgeInsets.all(8),
+                  child: SwitchListTile(
+                    value: useFullData.value,
+                    onChanged: (value) => useFullData.value = value,
+                    title: Text(context.l10n.day_useFullInput),
                   ),
                 ),
                 _SliverInputView(
