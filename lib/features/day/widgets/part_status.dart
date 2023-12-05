@@ -114,24 +114,26 @@ class _RunInfoTile extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     return switch (run.error) {
-      null => ListTile(
-          title: DefaultTextStyle.merge(
-            style: const TextStyle(
-              fontFamily: FontFamily.jetBrainsMono,
-              fontFeatures: [FontFeature.disable('calt')],
-              height: 1.2,
+      null => SelectionArea(
+          child: ListTile(
+            title: DefaultTextStyle.merge(
+              style: const TextStyle(
+                fontFamily: FontFamily.jetBrainsMono,
+                fontFeatures: [FontFeature.disable('calt')],
+                height: 1.2,
+              ),
+              child: Text(
+                switch (run.data) {
+                  StringOutput(:final value) => value,
+                  NumericOutput(:final value) => value.toString(),
+                  null => s.day_part_noOutput,
+                },
+              ),
             ),
-            child: Text(
-              switch (run.data) {
-                StringOutput(:final value) => value,
-                NumericOutput(:final value) => value.toString(),
-                null => s.day_part_noOutput,
-              },
-            ),
+            subtitle: Text(run.runDuration.toString()),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            trailing: trailing,
           ),
-          subtitle: Text(run.runDuration.toString()),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-          trailing: trailing,
         ),
       (:final error, :final stackTrace) => ListTile(
           onTap: () {
