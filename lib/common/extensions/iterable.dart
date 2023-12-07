@@ -33,3 +33,14 @@ extension IterableIterableX<T> on Iterable<Iterable<T>> {
 extension NumIterableX<T extends num> on Iterable<T> {
   T get product => reduce((a, b) => a * b as T);
 }
+
+extension Zip2X<T1, T2> on (Iterable<T1>, Iterable<T2>) {
+  Iterable<(T1, T2)> zip() sync* {
+    final iter1 = $1.iterator;
+    final iter2 = $2.iterator;
+
+    while (iter1.moveNext() && iter2.moveNext()) {
+      yield (iter1.current, iter2.current);
+    }
+  }
+}
