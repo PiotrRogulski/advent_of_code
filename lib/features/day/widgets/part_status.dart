@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/common/widgets/error_stacktrace_dialog.dart';
 import 'package:advent_of_code/design_system/icons.dart';

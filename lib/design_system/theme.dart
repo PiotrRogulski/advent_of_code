@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
