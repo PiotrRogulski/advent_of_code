@@ -6,6 +6,14 @@ extension GenericX<T> on T {
     print('>>> ${selector(this)}');
     return this;
   }
+
+  Iterable<T> iterate(T Function(T value) f) sync* {
+    var value = this;
+    while (true) {
+      yield value;
+      value = f(value);
+    }
+  }
 }
 
 extension GenericNonnullX<T extends Object> on T {
