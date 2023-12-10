@@ -66,6 +66,9 @@ class DayInputView extends HookWidget {
           child: switch (inputData) {
             RawStringInput(:final value) => _TextData(TextSpan(text: value)),
             ListInput(:final values) => _ListData(values: values),
+            MatrixInput(:final matrix, dense: true) => _ListData(
+                values: matrix.rows.map((row) => row.join()).toList(),
+              ),
             MatrixInput(:final matrix) => _MatrixData(matrix: matrix),
             ObjectInput(:final toRichString) =>
               _TextData(TextSpan(text: toRichString())),

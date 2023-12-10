@@ -24,12 +24,13 @@ class ListInput<T> extends PartInput {
 }
 
 class MatrixInput<T> extends PartInput {
-  const MatrixInput(this.matrix);
+  const MatrixInput(this.matrix, {this.dense = false});
 
   final Matrix<T> matrix;
+  final bool dense;
 
   @override
-  List<Object?> get props => [matrix];
+  List<Object?> get props => [matrix, dense];
 }
 
 class ObjectInput<T> extends PartInput {

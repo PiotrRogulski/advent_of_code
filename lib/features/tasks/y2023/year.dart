@@ -1,4 +1,5 @@
 import 'package:advent_of_code/features/tasks/y2023/days/d1.dart';
+import 'package:advent_of_code/features/tasks/y2023/days/d10.dart';
 import 'package:advent_of_code/features/tasks/y2023/days/d2.dart';
 import 'package:advent_of_code/features/tasks/y2023/days/d3.dart';
 import 'package:advent_of_code/features/tasks/y2023/days/d4.dart';
@@ -20,5 +21,6 @@ const year2023 = YearData(
     7: Y2023D7(),
     8: Y2023D8(),
     9: Y2023D9(),
+    10: Y2023D10(),
   },
 );

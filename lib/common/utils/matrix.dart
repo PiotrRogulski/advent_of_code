@@ -18,16 +18,19 @@ class Matrix<T> with EquatableMixin {
 
   T call(int row, int column) => _values[row][column];
 
+  void set(int row, int column, T value) => _values[row][column] = value;
+
   bool isIndexInBounds(int row, int column) =>
       row >= 0 && row < rowCount && column >= 0 && column < columnCount;
 
   @override
   List<Object?> get props => [_values];
 
-  Iterable<(int, int)> get indexes {
-    return [
-      for (var i = 0; i < _values.length; i++)
-        for (var j = 0; j < _values[i].length; j++) (i, j),
-    ];
+  Iterable<(int, int)> get indexes sync* {
+    for (var i = 0; i < _values.length; i++) {
+      for (var j = 0; j < _values[i].length; j++) {
+        yield (i, j);
+      }
+    }
   }
 }
