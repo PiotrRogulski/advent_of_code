@@ -27,6 +27,14 @@ extension IterableX<T> on Iterable<T> {
       }
     }
   }
+
+  Iterable<T> intersperse(T sep) sync* {
+    if (isEmpty) {
+      return;
+    }
+
+    yield* expand((e) => [sep, e]).skip(1);
+  }
 }
 
 extension IterableIterableX<T> on Iterable<Iterable<T>> {
