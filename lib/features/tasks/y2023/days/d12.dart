@@ -4,7 +4,6 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 
 typedef _SpringRecord = ({List<_Part> parts, List<int> damaged});
 
@@ -43,7 +42,7 @@ class _P1 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     return _O(
-      inputData.values.map((e) => _s(e.parts.join(), null, e.damaged)).sum,
+      inputData.values.map((e) => _s(e.parts, null, e.damaged)).sum,
     );
   }
 }
@@ -60,7 +59,7 @@ class _P2 extends PartImplementation<_I, _O> {
               IterableX.generate(5, (_) => e.parts)
                   .intersperse([_Part.unknown])
                   .flattened
-                  .join(),
+                  .toList(),
               null,
               IterableX.generate(5, (_) => e.damaged).flattened.toList(),
             ),
@@ -84,10 +83,10 @@ enum _Part {
   String toString() => symbol;
 }
 
-final _memo = <(String, int?, String), int>{};
+final _memo = <String, int>{};
 
-int _s(String s, int? currentRun, List<int> remain) {
-  if (_memo[(s, currentRun, remain.join())] case final memoized?) {
+int _s(List<_Part> s, int? currentRun, List<int> remain) {
+  if (_memo[(s, currentRun, remain).toString()] case final memoized?) {
     return memoized;
   }
   if (s.isEmpty) {
@@ -97,42 +96,35 @@ int _s(String s, int? currentRun, List<int> remain) {
       _ => 0,
     };
   }
-  final possible = s.characters
-      .where((e) => e == _Part.damaged.symbol || e == _Part.unknown.symbol)
-      .length;
+  final possible =
+      s.where((e) => e == _Part.damaged || e == _Part.unknown).length;
   if ((currentRun != null &&
           (remain.isEmpty || possible + currentRun < remain.sum)) ||
       (currentRun == null && possible < remain.sum)) {
     return 0;
   }
 
-  if (s[0] == _Part.ok.symbol &&
-      currentRun != null &&
-      currentRun != remain[0]) {
+  if (s[0] == _Part.ok && currentRun != null && currentRun != remain[0]) {
     return 0;
   }
 
-  final first = s[0];
-  final rest = s.substring(1);
+  final [first, ...rest] = s;
 
   final ret = [
-    if (first == _Part.ok.symbol && currentRun != null)
+    if (first == _Part.ok && currentRun != null)
       _s(rest, null, remain.sublist(1)),
-    if (first == _Part.unknown.symbol &&
-        currentRun != null &&
-        currentRun == remain[0])
+    if (first == _Part.unknown && currentRun != null && currentRun == remain[0])
       _s(rest, null, remain.sublist(1)),
-    if ((first == _Part.damaged.symbol || first == _Part.unknown.symbol) &&
+    if ((first == _Part.damaged || first == _Part.unknown) &&
         currentRun != null)
       _s(rest, currentRun + 1, remain),
-    if ((first == _Part.damaged.symbol || first == _Part.unknown.symbol) &&
+    if ((first == _Part.damaged || first == _Part.unknown) &&
         currentRun == null)
       _s(rest, 1, remain),
-    if ((first == _Part.unknown.symbol || first == _Part.ok.symbol) &&
-        currentRun == null)
+    if ((first == _Part.unknown || first == _Part.ok) && currentRun == null)
       _s(rest, null, remain),
   ].sum;
 
-  _memo[(s, currentRun, remain.join())] = ret;
+  _memo[(s, currentRun, remain).toString()] = ret;
   return ret;
 }
