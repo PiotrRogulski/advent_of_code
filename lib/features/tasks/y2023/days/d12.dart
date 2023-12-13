@@ -56,12 +56,12 @@ class _P2 extends PartImplementation<_I, _O> {
       inputData.values
           .map(
             (e) => _s(
-              IterableX.generate(5, (_) => e.parts)
+              Iterable.generate(5, (_) => e.parts)
                   .intersperse([_Part.unknown])
                   .flattened
                   .toList(),
               null,
-              IterableX.generate(5, (_) => e.damaged).flattened.toList(),
+              Iterable.generate(5, (_) => e.damaged).flattened.toList(),
             ),
           )
           .sum,

@@ -45,7 +45,7 @@ class _P1 extends PartImplementation<_I, _O> {
     return NumericOutput(
       inputData.values
           .map(
-            (r) => IterableX.generate(
+            (r) => Iterable.generate(
               r.time + 1,
               (time) => (time: time, distance: time * (r.time - time)),
             ).where((d) => d.distance > r.distance),
@@ -70,7 +70,7 @@ class _P2 extends PartImplementation<_I, _O> {
             ),
           )
           .apply(
-            (r) => IterableX.generate(
+            (r) => Iterable.generate(
               r.time + 1,
               (time) => (time: time, distance: time * (r.time - time)),
             ).where((d) => d.distance > r.distance),
