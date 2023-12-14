@@ -33,4 +33,6 @@ class Matrix<T> with EquatableMixin {
       }
     }
   }
+
+  Matrix<T> copy() => Matrix.fromList(_values.map((e) => e.toList()).toList());
 }
