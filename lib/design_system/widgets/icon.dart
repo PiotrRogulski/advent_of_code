@@ -1,29 +1,14 @@
+// ignore_for_file: overridden_fields, use_design_system_item_AocIcon
+
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:flutter/material.dart';
 
-class AocIcon extends StatelessWidget {
+class AocIcon extends Icon {
   const AocIcon(
-    this.icon, {
+    AocIconData super.icon, {
     super.key,
-    required this.size,
-    this.color,
-    this.fill,
+    required double super.size,
+    super.color,
+    double super.fill = 0,
   });
-
-  final AocIconData icon;
-  final double size;
-  final Color? color;
-  final double? fill;
-
-  @override
-  Widget build(BuildContext context) {
-    // ignore: use_design_system_item_AocIcon
-    return Icon(
-      icon,
-      size: size,
-      opticalSize: size,
-      color: color,
-      fill: fill,
-    );
-  }
 }
