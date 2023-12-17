@@ -1,5 +1,5 @@
-import 'package:advent_of_code/common/extensions.dart';
 import 'package:equatable/equatable.dart';
+import 'package:more/collection.dart';
 
 class Matrix<T> with EquatableMixin {
   Matrix.fromList(this._values)

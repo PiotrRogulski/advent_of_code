@@ -1,10 +1,10 @@
-import 'package:advent_of_code/common/extensions/int.dart';
 import 'package:advent_of_code/common/utils/matrix.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
+import 'package:more/collection.dart';
 
 typedef _Move = ({int r, int c, _D dir});
 

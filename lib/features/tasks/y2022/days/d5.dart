@@ -5,6 +5,7 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:more/collection.dart' hide IndexedIterableExtension;
 
 typedef _Move = ({int quantity, int from, int to});
 typedef _SingleMove = ({int from, int to});
