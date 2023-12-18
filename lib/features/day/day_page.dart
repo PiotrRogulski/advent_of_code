@@ -1,5 +1,6 @@
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/common/widgets/breakpoint_selector.dart';
+import 'package:advent_of_code/common/widgets/error_stacktrace_dialog.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:advent_of_code/features/day/store/part_status_store.dart';
 import 'package:advent_of_code/features/day/use_day_input.dart';
@@ -40,7 +41,7 @@ class DayScreen extends HookWidget {
     final dayData = getDay(year, day);
     final parts = dayData.parts.entries.toList();
 
-    final inputData = useDayInput(dayData);
+    final inputDataSnapshot = useDayInput(dayData);
 
     final partStores = useMemoized(
       () => List.generate(
@@ -56,8 +57,8 @@ class DayScreen extends HookWidget {
     return AocScaffold(
       title: s.day_title(day, year),
       bodySlivers: [
-        switch (inputData) {
-          final data? => BreakpointSelector(
+        switch (inputDataSnapshot) {
+          AsyncSnapshot(:final data?) => BreakpointSelector(
               builders: {
                 Breakpoints.small: (context) => _SliverBodyColumn(
                       stores: partStores,
@@ -71,7 +72,28 @@ class DayScreen extends HookWidget {
                     ),
               },
             ),
-          null => const SliverFillRemaining(
+          AsyncSnapshot(:final error?, :final stackTrace) =>
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(s.day_inputData_errorLoading),
+                    const SizedBox(height: 16),
+                    FilledButton.tonal(
+                      onPressed: () => ErrorStackTraceDialog.show(
+                        context,
+                        error: error,
+                        stackTrace: stackTrace,
+                      ),
+                      child: Text(s.common_showDetails),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          _ => const SliverFillRemaining(
               hasScrollBody: false,
               child: Center(
                 child: CircularProgressIndicator(),

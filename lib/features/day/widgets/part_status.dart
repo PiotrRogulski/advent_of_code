@@ -135,7 +135,7 @@ class _RunInfoTile extends StatelessWidget {
         ),
       (:final error, :final stackTrace) => ListTile(
           onTap: () {
-            _showErrorDetails(
+            ErrorStackTraceDialog.show(
               context,
               error: error,
               stackTrace: stackTrace,
@@ -158,20 +158,4 @@ class _RunInfoTile extends StatelessWidget {
         ),
     };
   }
-}
-
-Future<void> _showErrorDetails(
-  BuildContext context, {
-  required Object? error,
-  required StackTrace stackTrace,
-}) async {
-  await showDialog<void>(
-    context: context,
-    builder: (context) {
-      return ErrorStackTraceDialog(
-        error: error,
-        stackTrace: stackTrace,
-      );
-    },
-  );
 }

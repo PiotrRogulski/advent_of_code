@@ -1,10 +1,14 @@
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-({I example, I full})? useDayInput<I extends PartInput>(DayData<I> dayData) {
+AsyncSnapshot<({I example, I full})> useDayInput<I extends PartInput>(
+  DayData<I> dayData,
+) {
   final examplePath = 'assets/inputs/y${dayData.year}/d${dayData.day}.example';
   final fullInputPath = 'assets/inputs/y${dayData.year}/d${dayData.day}';
 
@@ -22,5 +26,21 @@ import 'package:flutter_hooks/flutter_hooks.dart';
     ),
   );
 
-  return snapshot.data;
+  if (snapshot
+      case AsyncSnapshot(
+        error: ParallelWaitError(errors: (final err1, final err2))
+      )) {
+    if ((err1 as Object?) ?? (err2 as Object?) case final err?) {
+      return AsyncSnapshot.withError(
+        snapshot.connectionState,
+        err,
+        switch (err) {
+          Error(:final stackTrace?) => stackTrace,
+          _ => StackTrace.empty,
+        },
+      );
+    }
+  }
+
+  return snapshot;
 }
