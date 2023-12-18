@@ -7,7 +7,16 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get common_close => 'Close';
+
+  @override
+  String get common_showDetails => 'Show details';
+
+  @override
   String get day_inputData => 'Input data';
+
+  @override
+  String get day_inputData_errorLoading => 'Error loading input data';
 
   @override
   String day_inputData_matrixIndex(int index) {
@@ -44,6 +53,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get day_useFullInput => 'Use full input';
+
+  @override
+  String get errorDetails_title => 'Error details';
 
   @override
   String get home_title => 'Home';

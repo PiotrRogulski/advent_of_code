@@ -1,6 +1,9 @@
 {
   "@@locale": "ja",
+  "common_close": "閉じる",
+  "common_showDetails": "詳細を表示",
   "day_inputData": "入力データ",
+  "day_inputData_errorLoading": "入力データを読み込めませんでした",
   "day_inputData_matrixIndex": "{index}: ",
   "day_inputData_wrap": "折り返し",
   "day_partTitle": "パート {part}",
@@ -11,6 +14,7 @@
   "day_part_seeErrorDetails": "タップするとエラーの詳細が表示されます",
   "day_title": "{day}日目 – {year}年",
   "day_useFullInput": "完全な入力を使用する",
+  "errorDetails_title": "エラーの詳細",
   "home_title": "ホーム",
   "settings_darkMode": "ダークモード",
   "settings_language_systemDefault": "システムデフォルト",

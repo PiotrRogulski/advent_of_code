@@ -1,7 +1,13 @@
 {
   "@@locale": "en",
+  "common_close": "Close",
+  "@common_close": {},
+  "common_showDetails": "Show details",
+  "@common_showDetails": {},
   "day_inputData": "Input data",
   "@day_inputData": {},
+  "day_inputData_errorLoading": "Error loading input data",
+  "@day_inputData_errorLoading": {},
   "day_inputData_matrixIndex": "{index}: ",
   "@day_inputData_matrixIndex": {
     "placeholders": {
@@ -43,6 +49,8 @@
   },
   "day_useFullInput": "Use full input",
   "@day_useFullInput": {},
+  "errorDetails_title": "Error details",
+  "@errorDetails_title": {},
   "home_title": "Home",
   "@home_title": {},
   "settings_darkMode": "Dark mode",

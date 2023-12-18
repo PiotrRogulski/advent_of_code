@@ -7,7 +7,17 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
+  String get common_close => 'Fermer';
+
+  @override
+  String get common_showDetails => 'Afficher les détails';
+
+  @override
   String get day_inputData => 'Données d\'entrée';
+
+  @override
+  String get day_inputData_errorLoading =>
+      'Erreur lors du chargement des données d\'entrée';
 
   @override
   String day_inputData_matrixIndex(int index) {
@@ -45,6 +55,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get day_useFullInput => 'Utiliser l\'entrée complète';
+
+  @override
+  String get errorDetails_title => 'Détails de l\'erreur';
 
   @override
   String get home_title => 'Accueil';

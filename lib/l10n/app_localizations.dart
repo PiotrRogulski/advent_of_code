@@ -98,11 +98,29 @@ abstract class AppLocalizations {
     Locale('ja')
   ];
 
+  /// No description provided for @common_close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get common_close;
+
+  /// No description provided for @common_showDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Show details'**
+  String get common_showDetails;
+
   /// No description provided for @day_inputData.
   ///
   /// In en, this message translates to:
   /// **'Input data'**
   String get day_inputData;
+
+  /// No description provided for @day_inputData_errorLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading input data'**
+  String get day_inputData_errorLoading;
 
   /// No description provided for @day_inputData_matrixIndex.
   ///
@@ -163,6 +181,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use full input'**
   String get day_useFullInput;
+
+  /// No description provided for @errorDetails_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Error details'**
+  String get errorDetails_title;
 
   /// No description provided for @home_title.
   ///
