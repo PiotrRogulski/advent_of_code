@@ -62,6 +62,10 @@ class AocTheme {
           }
         }),
       ),
+      splashColor: colorScheme.primary.withOpacity(0.15),
+      highlightColor: colorScheme.primary.withOpacity(0.1),
+      hoverColor: colorScheme.primary.withOpacity(0.05),
+      focusColor: colorScheme.primary.withOpacity(0.1),
     );
   }
 
