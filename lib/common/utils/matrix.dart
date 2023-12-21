@@ -11,6 +11,8 @@ class Matrix<T> with EquatableMixin {
 
   int get columnCount => _values.first.length;
 
+  ({int columns, int rows}) get size => (columns: columnCount, rows: rowCount);
+
   Iterable<Iterable<T>> get rows => _values;
   Iterable<Iterable<T>> get columns => _values.zip();
   Iterable<({int r, int c, T cell})> get cells =>

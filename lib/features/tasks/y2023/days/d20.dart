@@ -84,7 +84,7 @@ class _P1 extends PartImplementation<_I, _O> {
 }
 
 class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: false);
+  const _P2() : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
