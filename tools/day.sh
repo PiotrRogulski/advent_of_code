@@ -52,18 +52,6 @@ info "Fetching day $DAY of year $YEAR"
 
 INPUT_FILE="assets/inputs/y$YEAR/d$DAY"
 
-get_input() {
-  local url="https://adventofcode.com/$YEAR/day/$DAY/input"
-  set +e
-  DATA=$(curl -f -b session="$AOC_COOKIE" "$url")
-  local status=$?
-  set -e
-  if [ $status -ne 0 ]; then
-    die "Failed to fetch input from $url"
-  fi
-  echo "$DATA"
-}
-
 if [ -f "$INPUT_FILE" ]; then
   warn "Input already fetched, overwrite?"
   read -r -p "[y/N] " response
@@ -90,5 +78,5 @@ set -e
 if [ $status -ne 0 ]; then
   die "Failed to fetch day $DAY of year $YEAR"
 fi
-EXAMPLE_INPUT=$(echo "$DAY_HTML" | xmllint --html --xpath '(//pre/code/text())[1]' - 2>/dev/null)
+EXAMPLE_INPUT=$(echo "$DAY_HTML" | xmllint --html --xpath '(//pre/code/text())[1]' - 2>/dev/null | sed 's/&gt;/>/g; s/&lt;/</g')
 echo "$EXAMPLE_INPUT" >"assets/inputs/y$YEAR/d$DAY.example"
