@@ -51,9 +51,9 @@ class _P2 extends PartImplementation<_I, _O> {
     final cycle = _cycle(
       matrix.cells.firstWhere((c) => c.cell == _Pipe.unknown),
       matrix,
-    ).map((e) => (e.r, e.c));
+    ).map((e) => (r: e.r, c: e.c));
     for (final index in matrix.indexes.toSet().difference(cycle.toSet())) {
-      matrix.set(index.$1, index.$2, _Pipe.empty);
+      matrix.set(index.r, index.c, _Pipe.empty);
     }
 
     var count = 0;

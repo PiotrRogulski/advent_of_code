@@ -16,7 +16,7 @@ class Matrix<T> with EquatableMixin {
   Iterable<Iterable<T>> get rows => _values;
   Iterable<Iterable<T>> get columns => _values.zip();
   Iterable<({int r, int c, T cell})> get cells =>
-      indexes.map((i) => (r: i.$1, c: i.$2, cell: _values[i.$1][i.$2]));
+      indexes.map((i) => (r: i.r, c: i.c, cell: _values[i.r][i.c]));
 
   T call(int row, int column) => _values[row][column];
 
@@ -28,10 +28,10 @@ class Matrix<T> with EquatableMixin {
   @override
   List<Object?> get props => [_values];
 
-  Iterable<(int, int)> get indexes sync* {
+  Iterable<({int r, int c})> get indexes sync* {
     for (var i = 0; i < _values.length; i++) {
       for (var j = 0; j < _values[i].length; j++) {
-        yield (i, j);
+        yield (r: i, c: j);
       }
     }
   }

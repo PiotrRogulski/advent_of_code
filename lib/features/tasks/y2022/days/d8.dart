@@ -32,8 +32,8 @@ class _P1 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     return NumericOutput(
       inputData.matrix.indexes.where((t) {
-        final (row, column) = t;
-        return _isVisibleFromOutside(row, column, inputData.matrix);
+        final (:r, :c) = t;
+        return _isVisibleFromOutside(r, c, inputData.matrix);
       }).length,
     );
   }
@@ -58,8 +58,8 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     return NumericOutput(
       inputData.matrix.indexes.map((t) {
-        final (row, column) = t;
-        return _calculateScenicScore(row, column, inputData.matrix);
+        final (:r, :c) = t;
+        return _calculateScenicScore(r, c, inputData.matrix);
       }).max,
     );
   }
