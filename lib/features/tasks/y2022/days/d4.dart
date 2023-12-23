@@ -8,7 +8,7 @@ typedef _I = ListInput<(_Range, _Range)>;
 typedef _O = NumericOutput<int>;
 
 class Y2022D4 extends DayData<_I> {
-  const Y2022D4() : super(year: 2022, day: 4);
+  const Y2022D4() : super(2022, 4, parts: const {1: _P1(), 2: _P2()});
 
   static final _lineRegex = RegExp(r'^(\d+)-(\d+),(\d+)-(\d+)$');
 
@@ -26,12 +26,6 @@ class Y2022D4 extends DayData<_I> {
           .toList(),
     );
   }
-
-  @override
-  Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const _P1(),
-        2: const _P2(),
-      };
 }
 
 class _P1 extends PartImplementation<_I, _O> {

@@ -12,7 +12,7 @@ const _origin = (x: 0, y: 0);
 typedef _StepAccumulator = ({List<_Point> rope, Set<_Point> tailHistory});
 
 class Y2022D9 extends DayData<_I> {
-  const Y2022D9() : super(year: 2022, day: 9);
+  const Y2022D9() : super(2022, 9, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) {
@@ -29,12 +29,6 @@ class Y2022D9 extends DayData<_I> {
           .toList(),
     );
   }
-
-  @override
-  Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const _P1(),
-        2: const _P2(),
-      };
 }
 
 class _P1 extends PartImplementation<_I, _O> {

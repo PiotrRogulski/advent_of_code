@@ -32,7 +32,7 @@ typedef _I = ListInput<_Monkey>;
 typedef _O = NumericOutput<int>;
 
 class Y2022D11 extends DayData<_I> {
-  const Y2022D11() : super(year: 2022, day: 11);
+  const Y2022D11() : super(2022, 11, parts: const {1: _P1(), 2: _P2()});
 
   static final _monkeyRegex = RegExp(
     r'Monkey (?<id>\d+):\n {2}Starting items: (?<items>.+?)\n {2}Operation: new = (?<op>.+?)\n {2}Test: divisible by (?<div>\d+)\n {4}If true: throw to monkey (?<true>\d+)\n {4}If false: throw to monkey (?<false>\d+)',
@@ -69,12 +69,6 @@ class Y2022D11 extends DayData<_I> {
           .toList(),
     );
   }
-
-  @override
-  Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const _P1(),
-        2: const _P2(),
-      };
 }
 
 class _P1 extends PartImplementation<_I, _O> {

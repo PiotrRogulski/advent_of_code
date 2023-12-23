@@ -21,7 +21,7 @@ typedef _I = ListInput<_Brick>;
 typedef _O = NumericOutput<int>;
 
 class Y2023D22 extends DayData<_I> {
-  const Y2023D22() : super(year: 2023, day: 22);
+  const Y2023D22() : super(2023, 22, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) {
@@ -103,12 +103,6 @@ class Y2023D22 extends DayData<_I> {
       ).bricks,
     );
   }
-
-  @override
-  Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const _P1(),
-        2: const _P2(),
-      };
 }
 
 class _P1 extends PartImplementation<_I, _O> {

@@ -12,7 +12,7 @@ typedef _I = ListInput<_Move>;
 typedef _O = NumericOutput<int>;
 
 class Y2023D18 extends DayData<_I> {
-  const Y2023D18() : super(year: 2023, day: 18);
+  const Y2023D18() : super(2023, 18, parts: const {1: _P1(), 2: _P2()});
 
   static final _moveRegex =
       RegExp(r'^(?<dir>[UDLR]) (?<steps>\d+) \(#(?<colorHex>[0-9a-f]{6})\)$');
@@ -34,12 +34,6 @@ class Y2023D18 extends DayData<_I> {
           .toList(),
     );
   }
-
-  @override
-  Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const _P1(),
-        2: const _P2(),
-      };
 }
 
 class _P1 extends PartImplementation<_I, _O> {

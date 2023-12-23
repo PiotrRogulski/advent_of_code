@@ -11,7 +11,7 @@ typedef _I = ListInput<_Race>;
 typedef _O = NumericOutput<int>;
 
 class Y2023D6 extends DayData<_I> {
-  const Y2023D6() : super(year: 2023, day: 6);
+  const Y2023D6() : super(2023, 6, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) {
@@ -30,12 +30,6 @@ class Y2023D6 extends DayData<_I> {
           .toList(),
     );
   }
-
-  @override
-  Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const _P1(),
-        2: const _P2(),
-      };
 }
 
 class _P1 extends PartImplementation<_I, _O> {

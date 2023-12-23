@@ -20,12 +20,11 @@ class YearData {
 
 @immutable
 abstract class DayData<I extends PartInput> {
-  const DayData({required this.year, required this.day});
+  const DayData(this.year, this.day, {required this.parts});
 
   final int year;
   final int day;
-
-  Map<int, PartImplementation<I, PartOutput>> get parts;
+  final Map<int, PartImplementation<I, PartOutput>> parts;
 
   I parseInput(String rawData);
 

@@ -9,7 +9,7 @@ typedef _I = ListInput<String>;
 typedef _O = NumericOutput<int>;
 
 class Y2023D1 extends DayData<_I> {
-  const Y2023D1() : super(year: 2023, day: 1);
+  const Y2023D1() : super(2023, 1, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) {
@@ -17,12 +17,6 @@ class Y2023D1 extends DayData<_I> {
       rawData.split('\n'),
     );
   }
-
-  @override
-  Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const _P1(),
-        2: const _P2(),
-      };
 }
 
 class _P1 extends PartImplementation<_I, _O> {

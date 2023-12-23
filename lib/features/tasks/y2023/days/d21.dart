@@ -10,7 +10,7 @@ typedef _I = MatrixInput<_Tile>;
 typedef _O = NumericOutput<int>;
 
 class Y2023D21 extends DayData<_I> {
-  const Y2023D21() : super(year: 2023, day: 21);
+  const Y2023D21() : super(2023, 21, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) {
@@ -22,12 +22,6 @@ class Y2023D21 extends DayData<_I> {
       ),
     );
   }
-
-  @override
-  Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const _P1(),
-        2: const _P2(),
-      };
 }
 
 class _P1 extends PartImplementation<_I, _O> {

@@ -11,7 +11,7 @@ typedef _I = ObjectInput<_Map>;
 typedef _O = NumericOutput<int>;
 
 class Y2023D8 extends DayData<_I> {
-  const Y2023D8() : super(year: 2023, day: 8);
+  const Y2023D8() : super(2023, 8, parts: const {1: _P1(), 2: _P2()});
 
   static final _nodeRegex =
       RegExp(r'^(?<label>\w+) = \((?<left>\w+), (?<right>\w+)\)$');
@@ -44,12 +44,6 @@ class Y2023D8 extends DayData<_I> {
           ),
     );
   }
-
-  @override
-  Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const _P1(),
-        2: const _P2(),
-      };
 }
 
 class _P1 extends PartImplementation<_I, _O> {

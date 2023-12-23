@@ -16,7 +16,7 @@ typedef _I = ObjectInput<_Input>;
 typedef _O = StringOutput;
 
 class Y2022D5 extends DayData<_I> {
-  const Y2022D5() : super(year: 2022, day: 5);
+  const Y2022D5() : super(2022, 5, parts: const {1: _P1(), 2: _P2()});
 
   static final _moveRegex =
       RegExp(r'move (?<quantity>\d+) from (?<from>\d+) to (?<to>\d+)');
@@ -55,12 +55,6 @@ class Y2022D5 extends DayData<_I> {
           ),
     );
   }
-
-  @override
-  Map<int, PartImplementation<_I, _O>> get parts => {
-        1: const _P1(),
-        2: const _P2(),
-      };
 }
 
 class _P1 extends PartImplementation<_I, _O> {
