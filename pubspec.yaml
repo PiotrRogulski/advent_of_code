@@ -4,8 +4,8 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: 3.3.0-244.0.dev
-  flutter: 3.18.0-14.0.pre.31
+  sdk: 3.3.0-259.0.dev
+  flutter: 3.18.0-18.0.pre.24
 
 dependencies:
   collection: ^1.18.0
@@ -20,11 +20,11 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_mobx: ^2.2.0
-  go_router: ^12.1.3
+  go_router: ^13.0.0
   intl: ^0.18.1
   material_color_utilities: ^0.8.0
   meta: ^1.11.0
-  mobx: ^2.2.3
+  mobx: ^2.2.3+1
   more: ^4.1.0
   provider: ^6.1.1
   sliver_tools: ^0.2.12
@@ -36,7 +36,7 @@ dev_dependencies:
     sdk: flutter
   go_router_builder: ^2.4.0
   leancode_lint: ^8.0.0
-  mobx_codegen: ^2.4.0
+  mobx_codegen: ^2.4.1
 
 flutter_gen:
   assets:
