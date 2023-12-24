@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:flutter/foundation.dart';
@@ -14,15 +16,15 @@ abstract class PartImplementation<I extends PartInput, O extends PartOutput> {
   final bool completed;
 
   @protected
-  O runInternal(I inputData);
+  FutureOr<O> runInternal(I inputData);
 
   @nonVirtual
   Future<RunInfo<O>> run(I data) async {
     return compute(
-      (data) {
+      (data) async {
         final stopwatch = Stopwatch()..start();
         try {
-          final result = runInternal(data);
+          final result = await runInternal(data);
           return (
             data: result,
             runDuration: stopwatch.elapsed,
