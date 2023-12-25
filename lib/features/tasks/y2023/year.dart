@@ -15,6 +15,7 @@ import 'package:advent_of_code/features/tasks/y2023/days/d21.dart';
 import 'package:advent_of_code/features/tasks/y2023/days/d22.dart';
 import 'package:advent_of_code/features/tasks/y2023/days/d23.dart';
 import 'package:advent_of_code/features/tasks/y2023/days/d24.dart';
+import 'package:advent_of_code/features/tasks/y2023/days/d25.dart';
 import 'package:advent_of_code/features/tasks/y2023/days/d3.dart';
 import 'package:advent_of_code/features/tasks/y2023/days/d4.dart';
 import 'package:advent_of_code/features/tasks/y2023/days/d5.dart';
@@ -50,5 +51,6 @@ const year2023 = YearData(
     22: Y2023D22(),
     23: Y2023D23(),
     24: Y2023D24(),
+    25: Y2023D25(),
   },
 );
