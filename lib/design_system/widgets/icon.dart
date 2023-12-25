@@ -1,4 +1,4 @@
-// ignore_for_file: overridden_fields, use_design_system_item_AocIcon
+// ignore_for_file: use_design_system_item_AocIcon
 
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:flutter/material.dart';

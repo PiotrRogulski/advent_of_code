@@ -74,24 +74,49 @@ class _SliverGrid<T> extends StatelessWidget {
   final Widget Function(BuildContext, T) itemBuilder;
   final EdgeInsetsGeometry padding;
 
+  static const baseItemSize = 120.0;
+
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: padding / 2,
-      sliver: SliverGrid(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 150 + padding.vertical / 2,
-        ),
-        delegate: SliverChildBuilderDelegate(
-          childCount: items.length,
-          (context, index) {
-            final item = items.elementAt(index);
-            return Padding(
-              padding: padding / 2,
-              child: itemBuilder(context, item),
-            );
-          },
-        ),
+      sliver: SliverLayoutBuilder(
+        builder: (context, constraints) {
+          final hPadding = padding.horizontal / 2;
+          final itemWidth = baseItemSize + hPadding;
+          final itemsPerRow = constraints.crossAxisExtent ~/ itemWidth;
+          final rowFilledExactly = constraints.crossAxisExtent % itemWidth == 0;
+          final rows = (items.length / itemsPerRow).ceil();
+          return SliverMainAxisGroup(
+            slivers: [
+              for (var i = 0; i <= rows; i++)
+                SliverCrossAxisGroup(
+                  slivers: [
+                    for (final item
+                        in items.skip(i * itemsPerRow).take(itemsPerRow))
+                      SliverConstrainedCrossAxis(
+                        maxExtent: itemWidth,
+                        sliver: SliverPadding(
+                          padding: padding / 2,
+                          sliver: SliverToBoxAdapter(
+                            child: SizedBox(
+                              height: baseItemSize,
+                              width: itemWidth,
+                              child: itemBuilder(context, item),
+                            ),
+                          ),
+                        ),
+                      ),
+                    if (!rowFilledExactly)
+                      const SliverCrossAxisExpanded(
+                        flex: 1,
+                        sliver: SliverToBoxAdapter(),
+                      ),
+                  ],
+                ),
+            ],
+          );
+        },
       ),
     );
   }
