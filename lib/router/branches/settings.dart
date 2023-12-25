@@ -9,6 +9,8 @@ class SettingsBranch extends StatefulShellBranchData {
 class SettingsRoute extends GoRouteData {
   const SettingsRoute();
 
+  static final $parentNavigatorKey = SettingsBranch.$navigatorKey;
+
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const SettingsPage();

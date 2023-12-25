@@ -18,6 +18,7 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
           routes: [
             GoRouteData.$route(
               path: '/home',
+              parentNavigatorKey: HomeRoute.$parentNavigatorKey,
               factory: $HomeRouteExtension._fromState,
             ),
           ],
@@ -27,14 +28,17 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
           routes: [
             GoRouteData.$route(
               path: '/years',
+              parentNavigatorKey: YearsRoute.$parentNavigatorKey,
               factory: $YearsRouteExtension._fromState,
               routes: [
                 GoRouteData.$route(
                   path: ':year',
+                  parentNavigatorKey: YearRoute.$parentNavigatorKey,
                   factory: $YearRouteExtension._fromState,
                   routes: [
                     GoRouteData.$route(
                       path: ':day',
+                      parentNavigatorKey: DayRoute.$parentNavigatorKey,
                       factory: $DayRouteExtension._fromState,
                     ),
                   ],
@@ -48,6 +52,7 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
           routes: [
             GoRouteData.$route(
               path: '/settings',
+              parentNavigatorKey: SettingsRoute.$parentNavigatorKey,
               factory: $SettingsRouteExtension._fromState,
             ),
           ],

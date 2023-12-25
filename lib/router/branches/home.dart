@@ -9,6 +9,8 @@ class HomeBranch extends StatefulShellBranchData {
 class HomeRoute extends GoRouteData {
   const HomeRoute();
 
+  static final $parentNavigatorKey = HomeBranch.$navigatorKey;
+
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const HomePage();

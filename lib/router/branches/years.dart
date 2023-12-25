@@ -9,6 +9,8 @@ class YearsBranch extends StatefulShellBranchData {
 class YearsRoute extends GoRouteData {
   const YearsRoute();
 
+  static final $parentNavigatorKey = YearsBranch.$navigatorKey;
+
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const YearsPage();
@@ -19,6 +21,8 @@ class YearRoute extends GoRouteData {
   const YearRoute({required this.year});
 
   final int year;
+
+  static final $parentNavigatorKey = YearsBranch.$navigatorKey;
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
@@ -31,6 +35,8 @@ class DayRoute extends GoRouteData {
 
   final int year;
   final int day;
+
+  static final $parentNavigatorKey = YearsBranch.$navigatorKey;
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
