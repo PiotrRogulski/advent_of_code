@@ -3,14 +3,7 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:meta/meta.dart';
 
-@immutable
-class YearData {
-  const YearData({
-    required this.days,
-  });
-
-  final Map<int, DayData> days;
-
+extension type const YearData(Map<int, DayData> days) {
   double get progress =>
       days.values.where((day) => day.complete || day.inProgress).length / 25;
 
