@@ -48,6 +48,7 @@ class AocExpansionCard extends StatelessWidget {
             shape: RoundedRectangleBorder(
               side: BorderSide(
                 color: colors.outline,
+                width: 2,
               ),
               borderRadius: const BorderRadius.all(Radius.circular(16)),
             ),

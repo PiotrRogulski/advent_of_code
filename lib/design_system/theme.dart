@@ -47,6 +47,7 @@ class AocTheme {
         shape: RoundedRectangleBorder(
           side: BorderSide(
             color: colorScheme.outline,
+            width: 2,
           ),
           borderRadius: BorderRadius.circular(24),
         ),
