@@ -38,10 +38,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    final G = Graph<String, int>.undirected();
-    for (final Edge(:source, :target) in inputData.value.edges) {
-      G.addEdge(source, target, value: 1);
-    }
+    final G = inputData.value.copy();
     final E = G.edges;
     final edgeFrequencies = {
       for (final Edge(:source, :target) in E) _mkPair(source, target): 0,

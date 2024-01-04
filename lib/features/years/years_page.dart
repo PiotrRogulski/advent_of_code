@@ -13,7 +13,7 @@ import 'package:intl/intl.dart' hide TextDirection;
 part 'widgets/year_grid_tile.dart';
 part 'widgets/year_list_tile.dart';
 
-class YearsPage extends AocPage<void> {
+class YearsPage extends AocPage {
   const YearsPage() : super(child: const YearsScreen());
 }
 

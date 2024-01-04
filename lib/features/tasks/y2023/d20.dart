@@ -5,6 +5,7 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:more/collection.dart';
+import 'package:more/math.dart';
 
 typedef _Module = ({String name, _ModType type, List<String> destinations});
 typedef _ModuleState = ({_Module module, Map<String, bool> storage});
@@ -107,7 +108,7 @@ class _P2 extends PartImplementation<_I, _O> {
     final outletInputs = inputData.values
         .where((m) => m.destinations.contains(outletInput.name));
     final d = _waitForOutletInputs(states, outletInputs);
-    return _O(d.values.reduce((a, b) => a * b ~/ a.gcd(b)));
+    return _O(d.values.lcm());
   }
 }
 

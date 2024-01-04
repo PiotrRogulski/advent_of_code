@@ -3,7 +3,7 @@ import 'package:advent_of_code/design_system/page.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends AocPage<void> {
+class HomePage extends AocPage {
   const HomePage() : super(child: const HomeScreen());
 }
 

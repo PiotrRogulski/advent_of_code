@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-class AocPage<T> extends MaterialPage<T> {
+class AocPage extends MaterialPage<void> {
   const AocPage({required super.child});
 }

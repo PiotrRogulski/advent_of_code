@@ -3,6 +3,7 @@ import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
+import 'package:more/math.dart';
 
 typedef _Node = ({String left, String right});
 typedef _Map = ({List<_Move> moves, Map<String, _Node> nodes});
@@ -76,7 +77,7 @@ class _P2 extends PartImplementation<_I, _O> {
               isAtEnd: (node) => node.endsWith('Z'),
             ),
           )
-          .reduce((a, b) => (a * b) ~/ a.gcd(b)),
+          .lcm(),
     );
   }
 }
