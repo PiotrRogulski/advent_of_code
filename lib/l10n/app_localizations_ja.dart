@@ -19,7 +19,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get day_inputData_errorLoading => '入力データを読み込めませんでした';
 
   @override
-  String day_inputData_matrixIndex(int index) {
+  String day_inputData_matrixIndex({required int index}) {
     return '$index: ';
   }
 
@@ -27,7 +27,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get day_inputData_wrap => '折り返し';
 
   @override
-  String day_partTitle(int part) {
+  String day_partTitle({required int part}) {
     return 'パート $part';
   }
 
@@ -47,7 +47,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get day_part_seeErrorDetails => 'タップするとエラーの詳細が表示されます';
 
   @override
-  String day_title(int day, int year) {
+  String day_title({required int day, required int year}) {
     return '$day日目 – $year年';
   }
 
@@ -64,7 +64,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_darkMode => 'ダークモード';
 
   @override
-  String settings_language(String lang) {
+  String settings_language({required String lang}) {
     String _temp0 = intl.Intl.selectLogic(
       lang,
       {
@@ -90,12 +90,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_useSystemTheme => 'システムテーマを使用する';
 
   @override
-  String year_day(int day) {
+  String year_day({required int day}) {
     return '$day日目';
   }
 
   @override
-  String year_title(int year) {
+  String year_title({required int year}) {
     return '$year年';
   }
 

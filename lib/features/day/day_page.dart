@@ -55,7 +55,7 @@ class DayScreen extends HookWidget {
     final useFullData = useState(false);
 
     return AocScaffold(
-      title: s.day_title(day, year),
+      title: s.day_title(day: day, year: year),
       bodySlivers: [
         switch (inputDataSnapshot) {
           AsyncSnapshot(:final data?) => BreakpointSelector(

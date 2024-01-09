@@ -19,7 +19,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get day_inputData_errorLoading => 'Error loading input data';
 
   @override
-  String day_inputData_matrixIndex(int index) {
+  String day_inputData_matrixIndex({required int index}) {
     return '$index: ';
   }
 
@@ -27,7 +27,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get day_inputData_wrap => 'Wrap';
 
   @override
-  String day_partTitle(int part) {
+  String day_partTitle({required int part}) {
     return 'Part $part';
   }
 
@@ -47,7 +47,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get day_part_seeErrorDetails => 'Tap to see error details';
 
   @override
-  String day_title(int day, int year) {
+  String day_title({required int day, required int year}) {
     return '$day – $year';
   }
 
@@ -64,7 +64,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_darkMode => 'Dark mode';
 
   @override
-  String settings_language(String lang) {
+  String settings_language({required String lang}) {
     String _temp0 = intl.Intl.selectLogic(
       lang,
       {
@@ -90,12 +90,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_useSystemTheme => 'Use system theme';
 
   @override
-  String year_day(int day) {
+  String year_day({required int day}) {
     return 'Day $day';
   }
 
   @override
-  String year_title(int year) {
+  String year_title({required int year}) {
     return 'Year $year';
   }
 

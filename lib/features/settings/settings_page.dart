@@ -56,7 +56,7 @@ class SettingsScreen extends StatelessObserverWidget {
                 itemLabelBuilder: (locale) => switch (locale) {
                   null => s.settings_language_systemDefault,
                   Locale(:final languageCode) =>
-                    s.settings_language(languageCode),
+                    s.settings_language(lang: languageCode),
                 },
               ),
             ].spaced(height: 16),

@@ -34,7 +34,7 @@ class PartStatus extends HookWidget {
     return Observer(
       builder: (context) {
         return AocExpansionCard(
-          title: s.day_partTitle(index + 1),
+          title: s.day_partTitle(part: index + 1),
           trailing: switch (store.part.completed) {
             true => AocIcon(
                 AocIcons.check,

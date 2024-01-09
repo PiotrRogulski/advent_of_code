@@ -126,7 +126,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{index}: '**
-  String day_inputData_matrixIndex(int index);
+  String day_inputData_matrixIndex({required int index});
 
   /// No description provided for @day_inputData_wrap.
   ///
@@ -138,7 +138,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Part {part}'**
-  String day_partTitle(int part);
+  String day_partTitle({required int part});
 
   /// No description provided for @day_part_error.
   ///
@@ -174,7 +174,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{day} – {year}'**
-  String day_title(int day, int year);
+  String day_title({required int day, required int year});
 
   /// No description provided for @day_useFullInput.
   ///
@@ -204,7 +204,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{lang, select, en {English} fr {Français} ja {日本語} other {}}'**
-  String settings_language(String lang);
+  String settings_language({required String lang});
 
   /// No description provided for @settings_language_systemDefault.
   ///
@@ -234,13 +234,13 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Day {day}'**
-  String year_day(int day);
+  String year_day({required int day});
 
   /// No description provided for @year_title.
   ///
   /// In en, this message translates to:
   /// **'Year {year}'**
-  String year_title(int year);
+  String year_title({required int year});
 
   /// No description provided for @years_title.
   ///

@@ -184,7 +184,8 @@ class _ListData<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;
-    final indexPartLength = s.day_inputData_matrixIndex(values.length).length;
+    final indexPartLength =
+        s.day_inputData_matrixIndex(index: values.length).length;
 
     return SelectionArea(
       child: Text.rich(
@@ -196,7 +197,7 @@ class _ListData<T> extends StatelessWidget {
                   if (index > 0) const TextSpan(text: '\n'),
                   TextSpan(
                     text: s
-                        .day_inputData_matrixIndex(index)
+                        .day_inputData_matrixIndex(index: index)
                         .padLeft(indexPartLength),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
