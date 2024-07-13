@@ -55,14 +55,6 @@
   "@home_title": {},
   "settings_darkMode": "Dark mode",
   "@settings_darkMode": {},
-  "settings_language": "{lang, select, en {English} fr {Français} ja {日本語} other {}}",
-  "@settings_language": {
-    "placeholders": {
-      "lang": {
-        "type": "String"
-      }
-    }
-  },
   "settings_language_systemDefault": "System default",
   "@settings_language_systemDefault": {},
   "settings_language_title": "Language",

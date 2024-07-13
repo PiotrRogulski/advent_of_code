@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -64,20 +62,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings_darkMode => 'Dark mode';
-
-  @override
-  String settings_language({required String lang}) {
-    String _temp0 = intl.Intl.selectLogic(
-      lang,
-      {
-        'en': 'English',
-        'fr': 'Français',
-        'ja': '日本語',
-        'other': '',
-      },
-    );
-    return '$_temp0';
-  }
 
   @override
   String get settings_language_systemDefault => 'System default';

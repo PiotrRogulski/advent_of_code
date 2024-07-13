@@ -55,8 +55,12 @@ class SettingsScreen extends StatelessObserverWidget {
                 currentValue: settingsStore.locale,
                 itemLabelBuilder: (locale) => switch (locale) {
                   null => s.settings_language_systemDefault,
-                  Locale(:final languageCode) =>
-                    s.settings_language(lang: languageCode),
+                  Locale(languageCode: 'en') => 'English',
+                  Locale(languageCode: 'fr') => 'Français',
+                  Locale(languageCode: 'ja') => '日本語',
+                  Locale(:final languageCode) => throw UnimplementedError(
+                      'Unsupported language: $languageCode',
+                    ),
                 },
               ),
             ].spaced(height: 16),

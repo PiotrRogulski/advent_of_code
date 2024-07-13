@@ -202,12 +202,6 @@ abstract class AppLocalizations {
   /// **'Dark mode'**
   String get settings_darkMode;
 
-  /// No description provided for @settings_language.
-  ///
-  /// In en, this message translates to:
-  /// **'{lang, select, en {English} fr {Français} ja {日本語} other {}}'**
-  String settings_language({required String lang});
-
   /// No description provided for @settings_language_systemDefault.
   ///
   /// In en, this message translates to:
