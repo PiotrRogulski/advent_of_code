@@ -1,3 +1,4 @@
+import 'package:advent_of_code/common/hooks/collect_as_notifier.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -20,29 +21,37 @@ class AocDropdownListTile<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dropdownKey = useMemoized(GlobalKey<DropdownButton2State<T>>.new);
+    final ThemeData(:colorScheme, :textTheme) = Theme.of(context);
+
+    final openDropdownListenable = useValueNotifier(Object());
+
+    void openDropdown() => openDropdownListenable.value = Object();
+
+    final value = useCollectAsNotifier(currentValue);
 
     return Card(
       child: DropdownButton2(
-        key: dropdownKey,
+        openDropdownListenable: openDropdownListenable,
         isExpanded: true,
         underline: const SizedBox(),
+        valueListenable: value,
         items: [
           for (final item in items)
-            DropdownMenuItem(
+            DropdownItem(
               value: item,
               child: Text(itemLabelBuilder(item)),
             ),
         ],
-        barrierColor: Theme.of(context).colorScheme.surface.withOpacity(0.5),
+        barrierColor: colorScheme.surface.withOpacity(0.5),
         dropdownStyleData: DropdownStyleData(
           useRootNavigator: true,
           elevation: 0,
           offset: const Offset(0, -16),
+          padding: EdgeInsetsDirectional.zero,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            color: colorScheme.surfaceContainerHighest,
             border: Border.all(
-              color: Theme.of(context).colorScheme.outlineVariant,
+              color: colorScheme.outlineVariant,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(24),
@@ -53,11 +62,9 @@ class AocDropdownListTile<T> extends HookWidget {
           title: title,
           trailing: Text(
             itemLabelBuilder(currentValue),
-            style: Theme.of(context).textTheme.labelLarge,
+            style: textTheme.labelLarge,
           ),
-          onTap: () {
-            dropdownKey.currentState?.callTap();
-          },
+          onTap: openDropdown,
         ),
       ),
     );
