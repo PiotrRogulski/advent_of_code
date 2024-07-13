@@ -1,7 +1,5 @@
 import 'package:advent_of_code/gen/fonts.gen.dart';
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:material_color_utilities/material_color_utilities.dart';
 
 class AocTheme {
   static const _seedColor = Color(0xFF00FF00);
@@ -42,26 +40,15 @@ class AocTheme {
       cardTheme: CardTheme(
         clipBehavior: Clip.antiAlias,
         elevation: 0,
-        color: colorScheme.surfaceVariant,
+        color: colorScheme.surfaceContainerHighest,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           side: BorderSide(
-            color: colorScheme.outline,
+            color: colorScheme.outlineVariant,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(24),
         ),
-      ),
-      switchTheme: SwitchThemeData(
-        thumbIcon: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            // TODO: use AocIcons
-            // ignore: use_design_system_item_AocIcon
-            return const Icon(Icons.check_rounded);
-          } else {
-            return null;
-          }
-        }),
       ),
       splashColor: colorScheme.primary.withOpacity(0.15),
       highlightColor: colorScheme.primary.withOpacity(0.1),
@@ -71,18 +58,11 @@ class AocTheme {
   }
 
   static ColorScheme _makeColorScheme(Brightness brightness) {
-    final scheme = SchemeFidelity(
-      sourceColorHct: Hct.fromInt(_seedColor.value),
-      isDark: brightness == Brightness.dark,
-      contrastLevel: 1,
+    return ColorScheme.fromSeed(
+      seedColor: _seedColor,
+      brightness: brightness,
+      dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
     );
-    return CorePalette.fromList([
-      ...scheme.primaryPalette.asList,
-      ...scheme.secondaryPalette.asList,
-      ...scheme.tertiaryPalette.asList,
-      ...scheme.neutralPalette.asList,
-      ...scheme.neutralVariantPalette.asList,
-    ]).toColorScheme(brightness: brightness).harmonized();
   }
 }
 

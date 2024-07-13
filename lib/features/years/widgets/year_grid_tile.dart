@@ -30,7 +30,7 @@ class _YearGridTile extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Theme.of(context)
                       .colorScheme
-                      .surfaceVariant
+                      .surfaceContainerHighest
                       .withOpacity(0.75),
                   borderRadius: BorderRadius.circular(8),
                 ),

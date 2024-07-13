@@ -34,15 +34,16 @@ class AocDropdownListTile<T> extends HookWidget {
               child: Text(itemLabelBuilder(item)),
             ),
         ],
-        barrierColor: Theme.of(context).colorScheme.background.withOpacity(0.5),
+        barrierColor: Theme.of(context).colorScheme.surface.withOpacity(0.5),
         dropdownStyleData: DropdownStyleData(
           useRootNavigator: true,
           elevation: 0,
           offset: const Offset(0, -16),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceVariant,
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             border: Border.all(
-              color: Theme.of(context).colorScheme.outline,
+              color: Theme.of(context).colorScheme.outlineVariant,
+              width: 2,
             ),
             borderRadius: BorderRadius.circular(24),
           ),
