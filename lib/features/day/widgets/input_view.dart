@@ -152,9 +152,8 @@ class _MatrixData<T> extends HookWidget {
 
     return TextSpan(
       children: alignedCells
-          .intersperse(const [TextSpan(text: '\n')])
-          .flattened
-          .toList(),
+          .separatedBy(() => const [TextSpan(text: '\n')])
+          .flattenedToList,
     );
   }
 }

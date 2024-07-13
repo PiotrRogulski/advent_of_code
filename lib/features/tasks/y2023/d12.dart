@@ -1,9 +1,9 @@
-import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
+import 'package:more/collection.dart';
 
 typedef _SpringRecord = ({List<_Part> parts, List<int> damaged});
 
@@ -51,11 +51,10 @@ class _P2 extends PartImplementation<_I, _O> {
           .map(
             (e) => _s(
               Iterable.generate(5, (_) => e.parts)
-                  .intersperse([_Part.unknown])
-                  .flattened
-                  .toList(),
+                  .separatedBy(() => [_Part.unknown])
+                  .flattenedToList,
               null,
-              Iterable.generate(5, (_) => e.damaged).flattened.toList(),
+              Iterable.generate(5, (_) => e.damaged).flattenedToList,
             ),
           )
           .sum,

@@ -37,7 +37,7 @@ class Y2023D20 extends DayData<_I> {
                 (_, != null) => _ModType.conjunction,
                 _ => _ModType.broadcaster,
               },
-              destinations: m.namedGroup('dest')!.split(', ').toList(),
+              destinations: m.namedGroup('dest')!.split(', '),
             ),
           )
           .toList(),

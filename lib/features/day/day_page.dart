@@ -39,17 +39,15 @@ class DayScreen extends HookWidget {
   Widget build(BuildContext context) {
     final s = context.l10n;
     final dayData = getDay(year, day);
-    final parts = dayData.parts.entries.toList();
 
     final inputDataSnapshot = useDayInput(dayData);
 
     final partStores = useMemoized(
-      () => List.generate(
-        parts.length,
-        (index) => PartStatusStore(
-          part: parts[index].value,
-        ),
-      ),
+      () => [
+        for (final part in dayData.parts.entries)
+          PartStatusStore(part: part.value),
+      ],
+      [year, day],
     );
 
     final useFullData = useState(false);
