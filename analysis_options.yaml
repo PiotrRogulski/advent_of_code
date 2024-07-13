@@ -11,6 +11,8 @@ custom_lint:
           from_package: flutter
 
 analyzer:
+  enable-experiment:
+    - macros
   plugins:
     - custom_lint
   exclude:
