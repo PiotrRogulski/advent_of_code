@@ -1,3 +1,5 @@
+import 'package:advent_of_code/design_system/icons.dart';
+import 'package:advent_of_code/design_system/widgets/icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -35,6 +37,8 @@ class AocScaffold extends HookWidget {
       ],
     );
 
+    final canPop = ModalRoute.canPopOf(context) ?? false;
+
     // ignore: use_design_system_item_AocScaffold
     return Scaffold(
       body: NotificationListener(
@@ -53,6 +57,13 @@ class AocScaffold extends HookWidget {
           controller: scrollController,
           slivers: [
             SliverAppBar.large(
+              leading: canPop
+                  ? AocIconButton(
+                      icon: AocIcons.arrow_back,
+                      onPressed: () => Navigator.of(context).pop(),
+                      iconSize: 24,
+                    )
+                  : null,
               flexibleSpace: SafeArea(
                 child: GestureDetector(
                   onTap: () => scrollController.animateTo(

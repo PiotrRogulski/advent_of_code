@@ -12,6 +12,7 @@ class AocIconData extends IconData {
 final class AocIcons {
   AocIcons._();
 
+  static const arrow_back = AocIconData(0xE5C4);
   static const calendar_month = AocIconData(0xEBCC);
   static const check = AocIconData(0xE5CA);
   static const error = AocIconData(0xE000);

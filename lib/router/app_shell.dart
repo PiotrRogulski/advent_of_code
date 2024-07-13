@@ -1,10 +1,10 @@
 import 'package:advent_of_code/common/extensions.dart';
+import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 
 class AocAppShell extends StatelessWidget {
@@ -83,7 +83,7 @@ class _Destination extends NavigationDestination {
         );
 }
 
-class _DestinationIcon extends HookWidget {
+class _DestinationIcon extends StatelessWidget {
   const _DestinationIcon({
     required this.icon,
     required this.index,
@@ -94,48 +94,18 @@ class _DestinationIcon extends HookWidget {
   final int index;
   final int currentIndex;
 
-  static const animationDuration = Duration(milliseconds: 500);
-  static const animationCurve = Curves.easeInOutCubicEmphasized;
-
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
     final selected = currentIndex == index;
 
-    final animationController = useAnimationController(
-      duration: animationDuration,
-      initialValue: selected ? 1 : 0,
-    );
-
-    useValueChanged(
-      selected,
-      (_, __) => switch (selected) {
-        true => animationController.forward(),
-        false => animationController.reverse(),
-      },
-    );
-
-    final animation = useAnimation(
-      CurvedAnimation(
-        parent: animationController,
-        curve: animationCurve,
-        reverseCurve: animationCurve.flipped,
-      ),
-    );
-
-    final color = ColorTween(
-      begin: colors.onSurface,
-      end: selected ? colors.primary : colors.onSurface,
-    ).transform(animation);
-
-    final fill = animation;
-
     return AocIcon(
       icon,
       size: 24,
-      color: color,
-      fill: fill,
+      color: selected ? colors.primary : colors.onSurface,
+      fill: selected ? 1 : 0,
+      weight: selected ? AocDynamicWeight.regular : AocDynamicWeight.light,
     );
   }
 }
