@@ -28,10 +28,9 @@ class _YearGridTile extends StatelessWidget {
             child: Center(
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .surfaceContainerHighest
-                      .withValues(alpha: 0.75),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.75),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Padding(
@@ -47,9 +46,7 @@ class _YearGridTile extends StatelessWidget {
           Positioned.fill(
             child: Material(
               color: Colors.transparent,
-              child: InkWell(
-                onTap: () => YearRoute(year: year).go(context),
-              ),
+              child: InkWell(onTap: () => YearRoute(year: year).go(context)),
             ),
           ),
         ],
@@ -77,7 +74,7 @@ class _ProgressIndicator extends StatelessWidget {
 
         if (completeProgress == 1.0) {
           return AocIcon(
-            AocIcons.check,
+            AocIconData.check,
             color: colors.primary,
             size: size * 1.25,
           );

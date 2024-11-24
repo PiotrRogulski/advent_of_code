@@ -36,11 +36,7 @@ class PartStatus extends HookWidget {
         return AocExpansionCard(
           title: s.day_partTitle(part: index + 1),
           trailing: switch (store.part.completed) {
-            true => AocIcon(
-                AocIcons.check,
-                size: 24,
-                color: colors.primary,
-              ),
+            true => AocIcon(AocIconData.check, size: 24, color: colors.primary),
             false => null,
           },
           controller: controller,
@@ -49,44 +45,41 @@ class PartStatus extends HookWidget {
               Column(
                 children: switch (store.runs) {
                   [] => [
-                      ListTile(
-                        title: Text(s.day_part_notRun),
-                        subtitle: Text(s.day_part_notRunSubtitle),
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 16),
-                        trailing: IconButton(
-                          onPressed: () => store.run(data),
-                          icon: const AocIcon(
-                            AocIcons.play_circle,
-                            size: 32,
-                          ),
-                        ),
+                    ListTile(
+                      title: Text(s.day_part_notRun),
+                      subtitle: Text(s.day_part_notRunSubtitle),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
                       ),
-                    ],
+                      trailing: IconButton(
+                        onPressed: () => store.run(data),
+                        icon: const AocIcon(AocIconData.playCircle, size: 32),
+                      ),
+                    ),
+                  ],
                   final runs => [
-                      for (final (index, run) in runs.indexed)
-                        _RunInfoTile(
-                          run: run,
-                          trailing: index == 0
-                              ? IconButton(
+                    for (final (index, run) in runs.indexed)
+                      _RunInfoTile(
+                        run: run,
+                        trailing:
+                            index == 0
+                                ? IconButton(
                                   onPressed: () => store.run(data),
                                   icon: const AocIcon(
-                                    AocIcons.play_circle,
+                                    AocIconData.playCircle,
                                     size: 32,
                                   ),
                                 )
-                              : null,
-                        ),
-                    ],
+                                : null,
+                      ),
+                  ],
                 },
               ),
               if (store.running)
                 Positioned.fill(
                   child: ColoredBox(
                     color: colors.surface.withValues(alpha: 0.5),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: const Center(child: CircularProgressIndicator()),
                   ),
                 ),
             ],
@@ -98,10 +91,7 @@ class PartStatus extends HookWidget {
 }
 
 class _RunInfoTile extends StatelessWidget {
-  const _RunInfoTile({
-    required this.run,
-    required this.trailing,
-  });
+  const _RunInfoTile({required this.run, required this.trailing});
 
   final RunInfo run;
   final Widget? trailing;
@@ -113,49 +103,40 @@ class _RunInfoTile extends StatelessWidget {
 
     return switch (run.error) {
       null => SelectionArea(
-          child: ListTile(
-            title: DefaultTextStyle.merge(
-              style: const TextStyle(
-                fontFamily: FontFamily.jetBrainsMono,
-                fontFeatures: [FontFeature.disable('calt')],
-                height: 1.2,
-              ),
-              child: Text(
-                switch (run.data) {
-                  StringOutput(:final value) => value,
-                  NumericOutput(:final value) => value.toString(),
-                  null => s.day_part_noOutput,
-                },
-              ),
+        child: ListTile(
+          title: DefaultTextStyle.merge(
+            style: const TextStyle(
+              fontFamily: FontFamily.jetBrainsMono,
+              fontFeatures: [FontFeature.disable('calt')],
+              height: 1.2,
             ),
-            subtitle: Text(run.runDuration.toString()),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            trailing: trailing,
-          ),
-        ),
-      (:final error, :final stackTrace) => ListTile(
-          onTap: () {
-            ErrorStackTraceDialog.show(
-              context,
-              error: error,
-              stackTrace: stackTrace,
-            );
-          },
-          leading: AocIcon(
-            AocIcons.error,
-            color: colors.error,
-            size: 32,
-          ),
-          title: Text(
-            s.day_part_error,
-            style: TextStyle(
-              color: colors.error,
+            child: Text(
+              switch (run.data) {
+                StringOutput(:final value) => value,
+                NumericOutput(:final value) => value.toString(),
+                null => s.day_part_noOutput,
+              },
             ),
           ),
-          subtitle: Text(s.day_part_seeErrorDetails),
+          subtitle: Text(run.runDuration.toString()),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           trailing: trailing,
         ),
+      ),
+      (:final error, :final stackTrace) => ListTile(
+        onTap: () {
+          ErrorStackTraceDialog.show(
+            context,
+            error: error,
+            stackTrace: stackTrace,
+          );
+        },
+        leading: AocIcon(AocIconData.error, color: colors.error, size: 32),
+        title: Text(s.day_part_error, style: TextStyle(color: colors.error)),
+        subtitle: Text(s.day_part_seeErrorDetails),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+        trailing: trailing,
+      ),
     };
   }
 }

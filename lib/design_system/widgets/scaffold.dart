@@ -61,8 +61,8 @@ class AocScaffold extends HookWidget {
             SliverAppBar.large(
               leading: canPop
                   ? AocIconButton(
-                      icon: AocIcons.arrow_back,
-                      onPressed: () => Navigator.of(context).pop(),
+                      icon: AocIconData.arrowBack,
+                      onPressed: () => Navigator.of(context).maybePop(),
                       iconSize: 24,
                     )
                   : null,

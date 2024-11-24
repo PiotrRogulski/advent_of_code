@@ -26,7 +26,7 @@ class _YearListTile extends StatelessWidget {
                       Text(year.toString()),
                       if (progress == 1)
                         const AocIcon(
-                          AocIcons.check,
+                          AocIconData.check,
                           size: 24,
                         ),
                     ],

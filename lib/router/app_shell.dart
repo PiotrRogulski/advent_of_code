@@ -26,19 +26,19 @@ class AocAppShell extends StatelessWidget {
 
     final destinations = [
       _Destination(
-        icon: AocIcons.home,
+        icon: AocIconData.home,
         label: s.home_title,
         index: 0,
         currentIndex: index,
       ),
       _Destination(
-        icon: AocIcons.calendar_month,
+        icon: AocIconData.calendarMonth,
         label: s.years_title,
         index: 1,
         currentIndex: index,
       ),
       _Destination(
-        icon: AocIcons.settings,
+        icon: AocIconData.settings,
         label: s.settings_title,
         index: 2,
         currentIndex: index,
@@ -75,12 +75,12 @@ class _Destination extends NavigationDestination {
     required int index,
     required int currentIndex,
   }) : super(
-          icon: _DestinationIcon(
-            icon: icon,
-            index: index,
-            currentIndex: currentIndex,
-          ),
-        );
+         icon: _DestinationIcon(
+           icon: icon,
+           index: index,
+           currentIndex: currentIndex,
+         ),
+       );
 }
 
 class _DestinationIcon extends StatelessWidget {
