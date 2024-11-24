@@ -83,7 +83,7 @@ class PartStatus extends HookWidget {
               if (store.running)
                 Positioned.fill(
                   child: ColoredBox(
-                    color: colors.surface.withOpacity(0.5),
+                    color: colors.surface.withValues(alpha: 0.5),
                     child: const Center(
                       child: CircularProgressIndicator(),
                     ),

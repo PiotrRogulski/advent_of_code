@@ -50,10 +50,10 @@ class AocTheme {
           borderRadius: BorderRadius.circular(24),
         ),
       ),
-      splashColor: colorScheme.primary.withOpacity(0.15),
-      highlightColor: colorScheme.primary.withOpacity(0.1),
-      hoverColor: colorScheme.primary.withOpacity(0.05),
-      focusColor: colorScheme.primary.withOpacity(0.1),
+      splashColor: colorScheme.primary.withValues(alpha: 0.15),
+      highlightColor: colorScheme.primary.withValues(alpha: 0.1),
+      hoverColor: colorScheme.primary.withValues(alpha: 0.05),
+      focusColor: colorScheme.primary.withValues(alpha: 0.1),
     );
   }
 

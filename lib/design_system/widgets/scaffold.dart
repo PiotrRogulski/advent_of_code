@@ -1,3 +1,6 @@
+// Definition
+// ignore_for_file: use_design_system_item_AocScaffold
+
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon_button.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +42,6 @@ class AocScaffold extends HookWidget {
 
     final canPop = ModalRoute.canPopOf(context) ?? false;
 
-    // ignore: use_design_system_item_AocScaffold
     return Scaffold(
       body: NotificationListener(
         onNotification: (notification) {

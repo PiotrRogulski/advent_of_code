@@ -42,7 +42,7 @@ class AocDropdownListTile<T> extends HookWidget {
               child: Text(itemLabelBuilder(item)),
             ),
         ],
-        barrierColor: colorScheme.surface.withOpacity(0.5),
+        barrierColor: colorScheme.surface.withValues(alpha: 0.5),
         dropdownStyleData: DropdownStyleData(
           useRootNavigator: true,
           elevation: 0,

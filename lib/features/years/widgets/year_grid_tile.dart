@@ -31,7 +31,7 @@ class _YearGridTile extends StatelessWidget {
                   color: Theme.of(context)
                       .colorScheme
                       .surfaceContainerHighest
-                      .withOpacity(0.75),
+                      .withValues(alpha: 0.75),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Padding(
