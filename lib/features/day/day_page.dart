@@ -14,23 +14,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class DayPage extends MaterialPage<void> {
-  DayPage({
-    required int year,
-    required int day,
-  }) : super(
-          child: DayScreen(
-            year: year,
-            day: day,
-          ),
-        );
+  DayPage({required int year, required int day})
+    : super(child: DayScreen(year: year, day: day));
 }
 
 class DayScreen extends HookWidget {
-  const DayScreen({
-    super.key,
-    required this.year,
-    required this.day,
-  });
+  const DayScreen({super.key, required this.year, required this.day});
 
   final int year;
   final int day;
@@ -57,19 +46,21 @@ class DayScreen extends HookWidget {
       bodySlivers: [
         switch (inputDataSnapshot) {
           AsyncSnapshot(:final data?) => BreakpointSelector(
-              builders: {
-                Breakpoints.small: (context) => _SliverBodyColumn(
-                      stores: partStores,
-                      inputData: data,
-                      useFullData: useFullData,
-                    ),
-                null: (context) => _SliverBodySideBySide(
-                      stores: partStores,
-                      inputData: data,
-                      useFullData: useFullData,
-                    ),
-              },
-            ),
+            builders: {
+              Breakpoints.small:
+                  (context) => _SliverBodyColumn(
+                    stores: partStores,
+                    inputData: data,
+                    useFullData: useFullData,
+                  ),
+              null:
+                  (context) => _SliverBodySideBySide(
+                    stores: partStores,
+                    inputData: data,
+                    useFullData: useFullData,
+                  ),
+            },
+          ),
           AsyncSnapshot(:final error?, :final stackTrace) =>
             SliverFillRemaining(
               hasScrollBody: false,
@@ -80,11 +71,12 @@ class DayScreen extends HookWidget {
                     Text(s.day_inputData_errorLoading),
                     const SizedBox(height: 16),
                     FilledButton.tonal(
-                      onPressed: () => ErrorStackTraceDialog.show(
-                        context,
-                        error: error,
-                        stackTrace: stackTrace,
-                      ),
+                      onPressed:
+                          () => ErrorStackTraceDialog.show(
+                            context,
+                            error: error,
+                            stackTrace: stackTrace,
+                          ),
                       child: Text(s.common_showDetails),
                     ),
                   ],
@@ -92,11 +84,9 @@ class DayScreen extends HookWidget {
               ),
             ),
           _ => const SliverFillRemaining(
-              hasScrollBody: false,
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
+            hasScrollBody: false,
+            child: Center(child: CircularProgressIndicator()),
+          ),
         },
       ],
     );
@@ -232,10 +222,7 @@ class _SliverPartList extends StatelessWidget {
 }
 
 class _SliverInputView extends StatelessWidget {
-  const _SliverInputView({
-    required this.padding,
-    required this.inputData,
-  });
+  const _SliverInputView({required this.padding, required this.inputData});
 
   final EdgeInsetsGeometry padding;
   final PartInput inputData;

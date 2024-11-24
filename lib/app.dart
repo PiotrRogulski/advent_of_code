@@ -13,9 +13,7 @@ class AocApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AocProviders(
-      child: _App(),
-    );
+    return const AocProviders(child: _App());
   }
 }
 
@@ -28,11 +26,8 @@ class _App extends StatelessWidget {
       builder: (lightDynamic, darkDynamic) {
         return Observer(
           builder: (context) {
-            final SettingsStore(
-              :themeMode,
-              :useSystemTheme,
-              :locale,
-            ) = context.read();
+            final SettingsStore(:themeMode, :useSystemTheme, :locale) =
+                context.read();
 
             return MaterialApp.router(
               themeMode: themeMode,

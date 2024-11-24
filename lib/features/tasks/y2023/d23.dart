@@ -91,7 +91,7 @@ int? _dfs(Matrix<_Tile> m, Set<_Coord> visited, _Coord coord, _Coord target) {
     _Tile.slopeS => [(r: coord.r + 1, c: coord.c)],
     _Tile.slopeE => [(r: coord.r, c: coord.c + 1)],
     _Tile.slopeW => [(r: coord.r, c: coord.c - 1)],
-    _Tile.forest => throw StateError('Cannot walk on a forest tile')
+    _Tile.forest => throw StateError('Cannot walk on a forest tile'),
   };
 
   int? best;

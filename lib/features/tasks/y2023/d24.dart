@@ -23,7 +23,9 @@ class Y2023D24 extends DayData<_I> {
       rawData
           .split('\n')
           .map(
-            (l) => l.split(' @ ').map(
+            (l) => l
+                .split(' @ ')
+                .map(
                   (e) => e
                       .split(', ')
                       .map(double.parse)

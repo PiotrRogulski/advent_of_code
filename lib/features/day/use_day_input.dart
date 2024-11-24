@@ -26,10 +26,9 @@ AsyncSnapshot<({I example, I full})> useDayInput<I extends PartInput>(
     ),
   );
 
-  if (snapshot
-      case AsyncSnapshot(
-        error: ParallelWaitError(errors: (final err1, final err2))
-      )) {
+  if (snapshot case AsyncSnapshot(
+    error: ParallelWaitError(errors: (final err1, final err2)),
+  )) {
     if ((err1 as Object?) ?? (err2 as Object?) case final err?) {
       return AsyncSnapshot.withError(
         snapshot.connectionState,

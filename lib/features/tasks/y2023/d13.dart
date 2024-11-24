@@ -25,9 +25,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(
-      inputData.values.map(_findReflection).sum,
-    );
+    return _O(inputData.values.map(_findReflection).sum);
   }
 }
 
@@ -48,21 +46,24 @@ int? _findReflectionInDim(List<String> input, {bool allowMismatches = false}) {
   final columnCount = input.first.length;
 
   return 0.to(columnCount - 1).firstWhereOrNull((col1) {
-    final mismatches = 0.to(columnCount).map((col2) {
-      final a = col1 - col2;
-      final b = col1 + 1 + col2;
-      if (a < 0 || b >= columnCount) {
-        return 0;
-      }
-      return input.where((row) => row[a] != row[b]).length;
-    }).sum;
+    final mismatches =
+        0.to(columnCount).map((col2) {
+          final a = col1 - col2;
+          final b = col1 + 1 + col2;
+          if (a < 0 || b >= columnCount) {
+            return 0;
+          }
+          return input.where((row) => row[a] != row[b]).length;
+        }).sum;
     return mismatches == (allowMismatches ? 1 : 0);
   });
 }
 
 int _findReflection(List<String> input, {bool allowMismatches = false}) {
-  final vertical =
-      _findReflectionInDim(input, allowMismatches: allowMismatches);
+  final vertical = _findReflectionInDim(
+    input,
+    allowMismatches: allowMismatches,
+  );
   if (vertical != null) {
     return vertical + 1;
   }

@@ -6,19 +6,11 @@ import 'package:advent_of_code/router/routes.dart';
 import 'package:flutter/material.dart';
 
 class YearPage extends MaterialPage<void> {
-  YearPage({required int year})
-      : super(
-          child: YearScreen(
-            year: year,
-          ),
-        );
+  YearPage({required int year}) : super(child: YearScreen(year: year));
 }
 
 class YearScreen extends StatelessWidget {
-  const YearScreen({
-    super.key,
-    required this.year,
-  });
+  const YearScreen({super.key, required this.year});
 
   final int year;
 
@@ -47,9 +39,7 @@ class YearScreen extends StatelessWidget {
             return Card(
               child: InkWell(
                 onTap: () => DayRoute(year: year, day: day).go(context),
-                child: Center(
-                  child: Text(s.year_day(day: day)),
-                ),
+                child: Center(child: Text(s.year_day(day: day))),
               ),
             );
           },

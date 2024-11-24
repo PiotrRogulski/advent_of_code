@@ -46,10 +46,7 @@ class AocIconButton extends HookWidget {
             transitionBuilder: (child, animation) {
               return FadeTransition(
                 opacity: animation,
-                child: ScaleTransition(
-                  scale: animation,
-                  child: child,
-                ),
+                child: ScaleTransition(scale: animation, child: child),
               );
             },
             child: AocIcon(

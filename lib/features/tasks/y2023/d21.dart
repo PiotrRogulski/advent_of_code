@@ -29,24 +29,26 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    final start =
-        inputData.matrix.cells.singleWhere((e) => e.cell == _Tile.start);
+    final start = inputData.matrix.cells.singleWhere(
+      (e) => e.cell == _Tile.start,
+    );
     return _O(
       0.to(64).fold(
         {(r: start.r, c: start.c)},
-        (front, i) => front
-            .expand(
-              (e) => {
-                (r: -1, c: 0),
-                (r: 1, c: 0),
-                (r: 0, c: -1),
-                (r: 0, c: 1),
-              }
-                  .map((diff) => (r: e.r + diff.r, c: e.c + diff.c))
-                  .where((e) => inputData.matrix.isIndexInBounds(e.r, e.c))
-                  .where((e) => inputData.matrix(e.r, e.c) != _Tile.rocks),
-            )
-            .toSet(),
+        (front, i) =>
+            front
+                .expand(
+                  (e) => {
+                        (r: -1, c: 0),
+                        (r: 1, c: 0),
+                        (r: 0, c: -1),
+                        (r: 0, c: 1),
+                      }
+                      .map((diff) => (r: e.r + diff.r, c: e.c + diff.c))
+                      .where((e) => inputData.matrix.isIndexInBounds(e.r, e.c))
+                      .where((e) => inputData.matrix(e.r, e.c) != _Tile.rocks),
+                )
+                .toSet(),
       ).length,
     );
   }
@@ -66,19 +68,24 @@ class _P2 extends PartImplementation<_I, _O> {
     var front = {(r: start.r, c: start.c)};
     final points = <int>[];
     for (final s in 1.to(steps)) {
-      front = front
-          .expand(
-            (e) => {
-              (dr: -1, dc: 0),
-              (dr: 1, dc: 0),
-              (dr: 0, dc: -1),
-              (dr: 0, dc: 1),
-            }
-                .map((diff) => (r: e.r + diff.dr, c: e.c + diff.dc))
-                .where((e) => matrix.isIndexInBounds(e.r % rows, e.c % columns))
-                .where((e) => matrix(e.r % rows, e.c % columns) != _Tile.rocks),
-          )
-          .toSet();
+      front =
+          front
+              .expand(
+                (e) => {
+                      (dr: -1, dc: 0),
+                      (dr: 1, dc: 0),
+                      (dr: 0, dc: -1),
+                      (dr: 0, dc: 1),
+                    }
+                    .map((diff) => (r: e.r + diff.dr, c: e.c + diff.dc))
+                    .where(
+                      (e) => matrix.isIndexInBounds(e.r % rows, e.c % columns),
+                    )
+                    .where(
+                      (e) => matrix(e.r % rows, e.c % columns) != _Tile.rocks,
+                    ),
+              )
+              .toSet();
       if (s % rows == steps % rows) {
         points.add(front.length);
       }

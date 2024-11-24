@@ -20,12 +20,7 @@ class Y2022D9 extends DayData<_I> {
       rawData
           .split('\n')
           .map((l) => l.split(' '))
-          .map(
-            (l) => (
-              move: _Move.fromSymbol(l[0]),
-              count: int.parse(l[1]),
-            ),
-          )
+          .map((l) => (move: _Move.fromSymbol(l[0]), count: int.parse(l[1])))
           .toList(),
     );
   }
@@ -53,10 +48,10 @@ _O _run(_I inputData, int ropeLength) {
   return NumericOutput(
     inputData.values
         .expand((element) => List.filled(element.count, element.move))
-        .fold(
-          (rope: List.filled(ropeLength, _origin), tailHistory: {_origin}),
-          _performMove,
-        )
+        .fold((
+          rope: List.filled(ropeLength, _origin),
+          tailHistory: {_origin},
+        ), _performMove)
         .tailHistory
         .length,
   );
@@ -78,20 +73,15 @@ _StepAccumulator _performMove(_StepAccumulator acc, _Move move) {
     final dX = link.x - prevLink.x;
     final dY = link.y - prevLink.y;
 
-    newRope.add(
-      switch ((dX: dX, dY: dY, distSq: dX * dX + dY * dY)) {
-        (dX: _, dY: _, distSq: < 4) => link,
-        (dX: 0, dY: _, distSq: _) => (x: link.x, y: link.y - dY.sign),
-        (dX: _, dY: 0, distSq: _) => (x: link.x - dX.sign, y: link.y),
-        _ => (x: link.x - dX.sign, y: link.y - dY.sign),
-      },
-    );
+    newRope.add(switch ((dX: dX, dY: dY, distSq: dX * dX + dY * dY)) {
+      (dX: _, dY: _, distSq: < 4) => link,
+      (dX: 0, dY: _, distSq: _) => (x: link.x, y: link.y - dY.sign),
+      (dX: _, dY: 0, distSq: _) => (x: link.x - dX.sign, y: link.y),
+      _ => (x: link.x - dX.sign, y: link.y - dY.sign),
+    });
   }
 
-  return (
-    rope: newRope,
-    tailHistory: {...tailHistory, newRope.last},
-  );
+  return (rope: newRope, tailHistory: {...tailHistory, newRope.last});
 }
 
 enum _Move {

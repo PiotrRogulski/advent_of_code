@@ -17,8 +17,9 @@ typedef _O = NumericOutput<int>;
 class Y2023D20 extends DayData<_I> {
   const Y2023D20() : super(2023, 20, parts: const {1: _P1(), 2: _P2()});
 
-  static final _moduleRegex =
-      RegExp(r'^(broadcaster|%(?<flipFlop>\w+)|&(?<conj>\w+)) -> (?<dest>.+)$');
+  static final _moduleRegex = RegExp(
+    r'^(broadcaster|%(?<flipFlop>\w+)|&(?<conj>\w+)) -> (?<dest>.+)$',
+  );
 
   @override
   _I parseInput(String rawData) {
@@ -29,7 +30,8 @@ class Y2023D20 extends DayData<_I> {
           .nonNulls
           .map(
             (m) => (
-              name: m.namedGroup('flipFlop') ??
+              name:
+                  m.namedGroup('flipFlop') ??
                   m.namedGroup('conj') ??
                   m.group(1)!,
               type: switch ((m.namedGroup('flipFlop'), m.namedGroup('conj'))) {
@@ -52,19 +54,16 @@ class _P1 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final states = Map.fromEntries(
       inputData.values.map(
-        (m) => MapEntry(
-          m.name,
-          (
-            module: m,
-            storage: {
-              if (m.type == _ModType.conjunction)
-                for (final inputM in inputData.values)
-                  if (inputM.destinations.contains(m.name) &&
-                      inputM.name != m.name)
-                    inputM.name: false,
-            }
-          ),
-        ),
+        (m) => MapEntry(m.name, (
+          module: m,
+          storage: {
+            if (m.type == _ModType.conjunction)
+              for (final inputM in inputData.values)
+                if (inputM.destinations.contains(m.name) &&
+                    inputM.name != m.name)
+                  inputM.name: false,
+          },
+        )),
       ),
     );
     var lows = 0;
@@ -85,28 +84,27 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final states = Map.fromEntries(
       inputData.values.map(
-        (m) => MapEntry(
-          m.name,
-          (
-            module: m,
-            storage: {
-              if (m.type == _ModType.conjunction)
-                for (final inputM in inputData.values)
-                  if (inputM.destinations.contains(m.name) &&
-                      inputM.name != m.name)
-                    inputM.name: false,
-            }
-          ),
-        ),
+        (m) => MapEntry(m.name, (
+          module: m,
+          storage: {
+            if (m.type == _ModType.conjunction)
+              for (final inputM in inputData.values)
+                if (inputM.destinations.contains(m.name) &&
+                    inputM.name != m.name)
+                  inputM.name: false,
+          },
+        )),
       ),
     );
     final outlet = inputData.values
         .expand((e) => e.destinations)
         .singleWhere((d) => !inputData.values.map((e) => e.name).contains(d));
-    final outletInput =
-        inputData.values.singleWhere((m) => m.destinations.contains(outlet));
-    final outletInputs = inputData.values
-        .where((m) => m.destinations.contains(outletInput.name));
+    final outletInput = inputData.values.singleWhere(
+      (m) => m.destinations.contains(outlet),
+    );
+    final outletInputs = inputData.values.where(
+      (m) => m.destinations.contains(outletInput.name),
+    );
     final d = _waitForOutletInputs(states, outletInputs);
     return _O(d.values.lcm());
   }
@@ -122,8 +120,9 @@ enum _ModType {
 }
 
 ({int lowCount, int highCount}) _pushButton(Map<String, _ModuleState> states) {
-  final pendingMessages = Queue<_ModuleMessage>()
-    ..add((destination: 'broadcaster', high: false, sender: 'button'));
+  final pendingMessages =
+      Queue<_ModuleMessage>()
+        ..add((destination: 'broadcaster', high: false, sender: 'button'));
 
   var lowCount = 0;
   var highCount = 0;
@@ -136,8 +135,11 @@ enum _ModType {
     if (state == null) {
       continue;
     }
-    final newMessages =
-        _invokeModule(state, high: message.high, sender: message.sender);
+    final newMessages = _invokeModule(
+      state,
+      high: message.high,
+      sender: message.sender,
+    );
     pendingMessages.addAll(newMessages);
   }
 
@@ -154,8 +156,11 @@ Map<String, int> _waitForOutletInputs(
   var i = 1;
 
   while (map.length < rxInputs.length) {
-    pendingMessages
-        .add((destination: 'broadcaster', high: false, sender: 'button'));
+    pendingMessages.add((
+      destination: 'broadcaster',
+      high: false,
+      sender: 'button',
+    ));
 
     while (pendingMessages.isNotEmpty) {
       final (:sender, :high, :destination) = pendingMessages.removeFirst();

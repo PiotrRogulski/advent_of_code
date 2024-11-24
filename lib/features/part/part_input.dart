@@ -34,10 +34,7 @@ class MatrixInput<T> extends PartInput {
 }
 
 class ObjectInput<T> extends PartInput {
-  const ObjectInput(
-    this.value, {
-    this.stringifier,
-  });
+  const ObjectInput(this.value, {this.stringifier});
 
   final T value;
   final String Function(T)? stringifier;

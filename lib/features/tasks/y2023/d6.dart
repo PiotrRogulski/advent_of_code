@@ -21,12 +21,7 @@ class Y2023D6 extends DayData<_I> {
           .map((e) => e.split(RegExp(' +')))
           .zip()
           .skip(1)
-          .map(
-            (l) => (
-              time: int.parse(l.first),
-              distance: int.parse(l.last),
-            ),
-          )
+          .map((l) => (time: int.parse(l.first), distance: int.parse(l.last)))
           .toList(),
     );
   }

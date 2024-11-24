@@ -24,14 +24,14 @@ class Y2022D7 extends DayData<_I> {
             (l) => switch (l.substring(0, 2)) {
               'cd' => _ChangeDirectory(l.substring(3)),
               'ls' => _ListDirectory(
-                  l.substring(3).split('\n').map((e) {
-                    final [size, name] = e.split(' ');
-                    return switch (size) {
-                      'dir' => _DirectoryLsEntry(name),
-                      _ => _FileLsEntry(name, int.parse(size)),
-                    };
-                  }).toList(),
-                ),
+                l.substring(3).split('\n').map((e) {
+                  final [size, name] = e.split(' ');
+                  return switch (size) {
+                    'dir' => _DirectoryLsEntry(name),
+                    _ => _FileLsEntry(name, int.parse(size)),
+                  };
+                }).toList(),
+              ),
               _ => throw UnimplementedError(),
             },
           )
@@ -151,7 +151,7 @@ sealed class _FsEntity {
 
 class _Directory extends _FsEntity {
   _Directory(super.name, List<_FsEntity> children)
-      : children = EqualitySet(EqualityBy((e) => e.name))..addAll(children);
+    : children = EqualitySet(EqualityBy((e) => e.name))..addAll(children);
   _Directory.root() : this('', []);
 
   final EqualitySet<_FsEntity> children;
@@ -161,9 +161,10 @@ class _Directory extends _FsEntity {
 
   @override
   String _toRichStringInternal(int level) {
-    final buffer = StringBuffer()
-      ..write(' ' * 4 * level)
-      ..writeln(name);
+    final buffer =
+        StringBuffer()
+          ..write(' ' * 4 * level)
+          ..writeln(name);
     for (final child in children) {
       buffer.write(child._toRichStringInternal(level + 1));
     }
@@ -184,10 +185,11 @@ class _File extends _FsEntity {
 
   @override
   String _toRichStringInternal(int level) {
-    final buffer = StringBuffer()
-      ..write(' ' * 4 * (level - 1))
-      ..write('└── ')
-      ..writeln('$size $name');
+    final buffer =
+        StringBuffer()
+          ..write(' ' * 4 * (level - 1))
+          ..write('└── ')
+          ..writeln('$size $name');
     return buffer.toString();
   }
 }
@@ -218,20 +220,18 @@ class _FsExplorer {
         currentPath.removeLast();
       default:
         currentPath.add(
-          currentPath.last.children
-              .whereType<_Directory>()
-              .singleWhere((e) => e.name == dir),
+          currentPath.last.children.whereType<_Directory>().singleWhere(
+            (e) => e.name == dir,
+          ),
         );
     }
   }
 
   void addFileEntry(_FileListing entry) {
-    currentPath.last.children.add(
-      switch (entry) {
-        _DirectoryLsEntry(:final name) => _Directory(name, []),
-        _FileLsEntry(:final name, :final size) => _File(name, size),
-      },
-    );
+    currentPath.last.children.add(switch (entry) {
+      _DirectoryLsEntry(:final name) => _Directory(name, []),
+      _FileLsEntry(:final name, :final size) => _File(name, size),
+    });
   }
 
   Iterable<_Directory> get allDirectories {

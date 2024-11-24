@@ -26,9 +26,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
-      inputData.values.map((e) => e.sum).max,
-    );
+    return NumericOutput(inputData.values.map((e) => e.sum).max);
   }
 }
 

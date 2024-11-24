@@ -16,9 +16,7 @@ class AocTheme {
   ) {
     final colorScheme = systemScheme ?? _makeColorScheme(brightness);
 
-    final typography = Typography.material2021(
-      colorScheme: colorScheme,
-    );
+    final typography = Typography.material2021(colorScheme: colorScheme);
     final baseTextTheme = switch (brightness) {
       Brightness.light => typography.black,
       Brightness.dark => typography.white,
@@ -26,16 +24,11 @@ class AocTheme {
 
     return ThemeData.from(
       colorScheme: colorScheme,
-      textTheme: baseTextTheme.apply(
-        fontFamily: FontFamily.robotoFlex,
-      ),
+      textTheme: baseTextTheme.apply(fontFamily: FontFamily.robotoFlex),
     ).copyWith(
       splashFactory: InkSparkle.splashFactory,
       listTileTheme: const ListTileThemeData(
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 32,
-          vertical: 8,
-        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
       ),
       cardTheme: CardTheme(
         clipBehavior: Clip.antiAlias,
@@ -43,10 +36,7 @@ class AocTheme {
         color: colorScheme.surfaceContainerHighest,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: colorScheme.outlineVariant,
-            width: 2,
-          ),
+          side: BorderSide(color: colorScheme.outlineVariant, width: 2),
           borderRadius: BorderRadius.circular(24),
         ),
       ),
@@ -67,10 +57,7 @@ class AocTheme {
 }
 
 class FontOpticalSizeAdjuster extends StatelessWidget {
-  const FontOpticalSizeAdjuster({
-    super.key,
-    required this.child,
-  });
+  const FontOpticalSizeAdjuster({super.key, required this.child});
 
   final Widget child;
 
@@ -106,9 +93,9 @@ class FontOpticalSizeAdjuster extends StatelessWidget {
 
 extension on TextStyle {
   TextStyle get withOpticalSize => copyWith(
-        fontVariations: [
-          ...?fontVariations,
-          if (fontSize case final size?) FontVariation.opticalSize(size),
-        ],
-      );
+    fontVariations: [
+      ...?fontVariations,
+      if (fontSize case final size?) FontVariation.opticalSize(size),
+    ],
+  );
 }

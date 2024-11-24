@@ -14,8 +14,9 @@ typedef _O = NumericOutput<int>;
 class Y2023D8 extends DayData<_I> {
   const Y2023D8() : super(2023, 8, parts: const {1: _P1(), 2: _P2()});
 
-  static final _nodeRegex =
-      RegExp(r'^(?<label>\w+) = \((?<left>\w+), (?<right>\w+)\)$');
+  static final _nodeRegex = RegExp(
+    r'^(?<label>\w+) = \((?<left>\w+), (?<right>\w+)\)$',
+  );
 
   @override
   _I parseInput(String rawData) {
@@ -32,13 +33,10 @@ class Y2023D8 extends DayData<_I> {
                     .map(_nodeRegex.firstMatch)
                     .nonNulls
                     .map(
-                      (m) => MapEntry(
-                        m.namedGroup('label')!,
-                        (
-                          left: m.namedGroup('left')!,
-                          right: m.namedGroup('right')!,
-                        ),
-                      ),
+                      (m) => MapEntry(m.namedGroup('label')!, (
+                        left: m.namedGroup('left')!,
+                        right: m.namedGroup('right')!,
+                      )),
                     ),
               ),
             ),
@@ -53,11 +51,7 @@ class _P1 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     return NumericOutput(
-      _findPathLength(
-        inputData.value,
-        'AAA',
-        isAtEnd: (node) => node == 'ZZZ',
-      ),
+      _findPathLength(inputData.value, 'AAA', isAtEnd: (node) => node == 'ZZZ'),
     );
   }
 }

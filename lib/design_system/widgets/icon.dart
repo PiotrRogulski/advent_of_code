@@ -14,9 +14,9 @@ class AocIcon extends ImplicitlyAnimatedWidget {
     this.fill = 0,
     this.weight,
   }) : super(
-          duration: Durations.medium4,
-          curve: Curves.easeInOutCubicEmphasized,
-        );
+         duration: Durations.medium4,
+         curve: Curves.easeInOutCubicEmphasized,
+       );
 
   final AocIconData icon;
   final double size;
@@ -38,38 +38,47 @@ class _AocIconState extends ImplicitlyAnimatedWidgetState<AocIcon> {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: animation,
-      builder: (context, child) => Icon(
-        widget.icon,
-        size: _size?.evaluate(animation),
-        opticalSize: _size?.evaluate(animation),
-        color: _color?.evaluate(animation),
-        fill: _fill?.evaluate(animation),
-        weight: _weight?.evaluate(animation),
-      ),
+      builder:
+          (context, child) => Icon(
+            widget.icon,
+            size: _size?.evaluate(animation),
+            opticalSize: _size?.evaluate(animation),
+            color: _color?.evaluate(animation),
+            fill: _fill?.evaluate(animation),
+            weight: _weight?.evaluate(animation),
+          ),
     );
   }
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
-    _size = visitor(
-      _size,
-      widget.size,
-      (value) => Tween<double>(begin: value as double),
-    ) as Tween<double>?;
-    _color = visitor(
-      _color,
-      widget.color,
-      (value) => ColorTween(begin: value as Color?),
-    ) as ColorTween?;
-    _fill = visitor(
-      _fill,
-      widget.fill,
-      (value) => Tween<double>(begin: value as double),
-    ) as Tween<double>?;
-    _weight = visitor(
-      _weight,
-      widget.weight?.value,
-      (value) => Tween<double>(begin: value as double?),
-    ) as Tween<double?>?;
+    _size =
+        visitor(
+              _size,
+              widget.size,
+              (value) => Tween<double>(begin: value as double),
+            )
+            as Tween<double>?;
+    _color =
+        visitor(
+              _color,
+              widget.color,
+              (value) => ColorTween(begin: value as Color?),
+            )
+            as ColorTween?;
+    _fill =
+        visitor(
+              _fill,
+              widget.fill,
+              (value) => Tween<double>(begin: value as double),
+            )
+            as Tween<double>?;
+    _weight =
+        visitor(
+              _weight,
+              widget.weight?.value,
+              (value) => Tween<double>(begin: value as double?),
+            )
+            as Tween<double?>?;
   }
 }

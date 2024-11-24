@@ -59,39 +59,47 @@ enum _SpaceCell {
 NumericOutput<int> _run(_I inputData, {required int dilation}) {
   final matrix = inputData.matrix;
 
-  final emptyColumnsIdx = matrix.columns.indexed
-      .where((e) => e.$2.every((e) => e == _SpaceCell.empty))
-      .map((e) => e.$1)
-      .toList();
+  final emptyColumnsIdx =
+      matrix.columns.indexed
+          .where((e) => e.$2.every((e) => e == _SpaceCell.empty))
+          .map((e) => e.$1)
+          .toList();
 
-  final emptyRowsIdx = matrix.rows.indexed
-      .where((e) => e.$2.every((e) => e == _SpaceCell.empty))
-      .map((e) => e.$1)
-      .toList();
+  final emptyRowsIdx =
+      matrix.rows.indexed
+          .where((e) => e.$2.every((e) => e == _SpaceCell.empty))
+          .map((e) => e.$1)
+          .toList();
 
-  final galaxyIndexes = matrix.cells
-      .where((c) => c.cell == _SpaceCell.galaxy)
-      .map((c) => (c.r, c.c))
-      .toList();
+  final galaxyIndexes =
+      matrix.cells
+          .where((c) => c.cell == _SpaceCell.galaxy)
+          .map((c) => (c.r, c.c))
+          .toList();
 
   return NumericOutput(
     galaxyIndexes
         .expand((e) => galaxyIndexes.map((e2) => (e, e2)))
         .where((e) => e.$1 < e.$2)
         .map((p) {
-      final (from, to) = p;
-      final rowBounds = [from.$1, to.$1]..sort();
-      final columnBounds = [from.$2, to.$2]..sort();
-      final emptyRowsCrossed = emptyRowsIdx
-          .where((e) => e >= rowBounds.first && e <= rowBounds.last)
-          .length;
-      final emptyColumnsCrossed = emptyColumnsIdx
-          .where((e) => e >= columnBounds.first && e <= columnBounds.last)
-          .length;
-      return (from.$1 - to.$1).abs() +
-          (from.$2 - to.$2).abs() +
-          (emptyRowsCrossed + emptyColumnsCrossed) * (dilation - 1);
-    }).sum,
+          final (from, to) = p;
+          final rowBounds = [from.$1, to.$1]..sort();
+          final columnBounds = [from.$2, to.$2]..sort();
+          final emptyRowsCrossed =
+              emptyRowsIdx
+                  .where((e) => e >= rowBounds.first && e <= rowBounds.last)
+                  .length;
+          final emptyColumnsCrossed =
+              emptyColumnsIdx
+                  .where(
+                    (e) => e >= columnBounds.first && e <= columnBounds.last,
+                  )
+                  .length;
+          return (from.$1 - to.$1).abs() +
+              (from.$2 - to.$2).abs() +
+              (emptyRowsCrossed + emptyColumnsCrossed) * (dilation - 1);
+        })
+        .sum,
   );
 }
 

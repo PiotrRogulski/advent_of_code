@@ -103,17 +103,20 @@ int _compareHands(
   _HandWithBid hand2, {
   bool sortJokersLast = false,
 }) {
-  final type1 =
-      (sortJokersLast ? _getHandTypeWithJokers : _getHandType)(hand1.hand);
-  final type2 =
-      (sortJokersLast ? _getHandTypeWithJokers : _getHandType)(hand2.hand);
+  final type1 = (sortJokersLast ? _getHandTypeWithJokers : _getHandType)(
+    hand1.hand,
+  );
+  final type2 = (sortJokersLast ? _getHandTypeWithJokers : _getHandType)(
+    hand2.hand,
+  );
   if (type1 != type2) {
     return type1.compareTo(type2);
   }
 
-  final card = (hand1.hand, hand2.hand)
-      .zip()
-      .firstWhereOrNull((pair) => pair.$1 != pair.$2);
+  final card = (
+    hand1.hand,
+    hand2.hand,
+  ).zip().firstWhereOrNull((pair) => pair.$1 != pair.$2);
   return switch (card) {
     null => 0,
     (_Card.j, _) when sortJokersLast => -1,
@@ -125,12 +128,12 @@ int _compareHands(
 _HandType _getHandType(List<_Card> hand, [_Card jokerValue = _Card.j]) {
   final counts = hand.fold(
     <_Card, int>{},
-    (map, card) => map
-      ..update(
-        card == _Card.j ? jokerValue : card,
-        (v) => v + 1,
-        ifAbsent: () => 1,
-      ),
+    (map, card) =>
+        map..update(
+          card == _Card.j ? jokerValue : card,
+          (v) => v + 1,
+          ifAbsent: () => 1,
+        ),
   );
   final values = counts.values.toList()..sort();
   if (values.last == 5) {

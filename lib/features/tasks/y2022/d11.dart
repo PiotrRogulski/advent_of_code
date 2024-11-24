@@ -48,16 +48,18 @@ class Y2022D11 extends DayData<_I> {
           .map(
             (m) => _Monkey(
               id: int.parse(m.namedGroup('id')!),
-              items: m
-                  .namedGroup('items')!
-                  .split(', ')
-                  .map(_WorryLevel.parse)
-                  .toList(),
+              items:
+                  m
+                      .namedGroup('items')!
+                      .split(', ')
+                      .map(_WorryLevel.parse)
+                      .toList(),
               op: switch (m.namedGroup('op')!.split(' ')) {
                 ['old', '+', final value] => _Add(_WorryLevel.parse(value)),
                 ['old', '*', 'old'] => const _Square(),
-                ['old', '*', final value] =>
-                  _Multiply(_WorryLevel.parse(value)),
+                ['old', '*', final value] => _Multiply(
+                  _WorryLevel.parse(value),
+                ),
                 _ => throw UnimplementedError(),
               },
               div: _WorryLevel.parse(m.namedGroup('div')!),
@@ -105,10 +107,7 @@ _O _run(_I inputData, int roundCount, _WorryLevel divisor) {
   );
 }
 
-void _evalRound(
-  List<_Monkey> monkeys, {
-  required _WorryLevel divisor,
-}) {
+void _evalRound(List<_Monkey> monkeys, {required _WorryLevel divisor}) {
   for (final monkey in monkeys) {
     monkey.inspectionCount += monkey.items.length;
     while (monkey.items.isNotEmpty) {
@@ -127,10 +126,10 @@ sealed class _Operation with EquatableMixin {
   const _Operation();
 
   _WorryLevel eval(_WorryLevel old) => switch (this) {
-        _Add(:final value) => value + old,
-        _Multiply(:final value) => value * old,
-        _Square() => old * old,
-      };
+    _Add(:final value) => value + old,
+    _Multiply(:final value) => value * old,
+    _Square() => old * old,
+  };
 }
 
 class _Add extends _Operation {

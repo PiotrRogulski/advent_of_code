@@ -35,9 +35,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(
-      inputData.values.map((e) => _s(e.parts, null, e.damaged)).sum,
-    );
+    return _O(inputData.values.map((e) => _s(e.parts, null, e.damaged)).sum);
   }
 }
 
@@ -50,9 +48,10 @@ class _P2 extends PartImplementation<_I, _O> {
       inputData.values
           .map(
             (e) => _s(
-              Iterable.generate(5, (_) => e.parts)
-                  .separatedBy(() => [_Part.unknown])
-                  .flattenedToList,
+              Iterable.generate(
+                5,
+                (_) => e.parts,
+              ).separatedBy(() => [_Part.unknown]).flattenedToList,
               null,
               Iterable.generate(5, (_) => e.damaged).flattenedToList,
             ),
@@ -103,20 +102,23 @@ int _s(List<_Part> s, int? currentRun, List<int> remain) {
 
   final [first, ...rest] = s;
 
-  final ret = [
-    if (first == _Part.ok && currentRun != null)
-      _s(rest, null, remain.sublist(1)),
-    if (first == _Part.unknown && currentRun != null && currentRun == remain[0])
-      _s(rest, null, remain.sublist(1)),
-    if ((first == _Part.damaged || first == _Part.unknown) &&
-        currentRun != null)
-      _s(rest, currentRun + 1, remain),
-    if ((first == _Part.damaged || first == _Part.unknown) &&
-        currentRun == null)
-      _s(rest, 1, remain),
-    if ((first == _Part.unknown || first == _Part.ok) && currentRun == null)
-      _s(rest, null, remain),
-  ].sum;
+  final ret =
+      [
+        if (first == _Part.ok && currentRun != null)
+          _s(rest, null, remain.sublist(1)),
+        if (first == _Part.unknown &&
+            currentRun != null &&
+            currentRun == remain[0])
+          _s(rest, null, remain.sublist(1)),
+        if ((first == _Part.damaged || first == _Part.unknown) &&
+            currentRun != null)
+          _s(rest, currentRun + 1, remain),
+        if ((first == _Part.damaged || first == _Part.unknown) &&
+            currentRun == null)
+          _s(rest, 1, remain),
+        if ((first == _Part.unknown || first == _Part.ok) && currentRun == null)
+          _s(rest, null, remain),
+      ].sum;
 
   _memo[(s, currentRun, remain).toString()] = ret;
   return ret;

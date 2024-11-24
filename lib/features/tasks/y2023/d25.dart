@@ -15,20 +15,28 @@ class Y2023D25 extends DayData<_I> {
   @override
   _I parseInput(String rawData) {
     return _I(
-      rawData.split('\n').expand((l) {
-        final [from, to] = l.split(': ');
-        return [for (final t in to.split(' ')) (source: from, target: t)];
-      }).fold(
-        Graph.undirected(),
-        (g, e) => g..addEdge(e.source, e.target, value: 1),
-      ),
-      stringifier: (g) => (StringBuffer()
-            ..writeln('Vertices: ${g.vertices.length}')
-            ..writeAll(g.vertices, ' ')
-            ..writeln()
-            ..writeln('Edges: ${g.edges.length}')
-            ..writeAll(g.edges.map((e) => '${e.source} -> ${e.target}'), '\n'))
-          .toString(),
+      rawData
+          .split('\n')
+          .expand((l) {
+            final [from, to] = l.split(': ');
+            return [for (final t in to.split(' ')) (source: from, target: t)];
+          })
+          .fold(
+            Graph.undirected(),
+            (g, e) => g..addEdge(e.source, e.target, value: 1),
+          ),
+      stringifier:
+          (g) =>
+              (StringBuffer()
+                    ..writeln('Vertices: ${g.vertices.length}')
+                    ..writeAll(g.vertices, ' ')
+                    ..writeln()
+                    ..writeln('Edges: ${g.edges.length}')
+                    ..writeAll(
+                      g.edges.map((e) => '${e.source} -> ${e.target}'),
+                      '\n',
+                    ))
+                  .toString(),
     );
   }
 }
@@ -49,8 +57,9 @@ class _P1 extends PartImplementation<_I, _O> {
         edgeFrequencies[_mkPair(a, b)] = edgeFrequencies[_mkPair(a, b)]! + 1;
       });
     }
-    final cutEdges =
-        edgeFrequencies.entries.sortedBy<num>((e) => -e.value).take(3);
+    final cutEdges = edgeFrequencies.entries
+        .sortedBy<num>((e) => -e.value)
+        .take(3);
     for (final MapEntry(key: (v1, v2)) in cutEdges) {
       G
         ..removeEdge(v1, v2)

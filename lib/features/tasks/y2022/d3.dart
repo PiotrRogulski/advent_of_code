@@ -14,9 +14,7 @@ class Y2022D3 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
-      rawData.split('\n'),
-    );
+    return ListInput(rawData.split('\n'));
   }
 }
 
@@ -47,10 +45,11 @@ class _P2 extends PartImplementation<_I, _O> {
       inputData.values
           .slices(3)
           .map(
-            (l) => l
-                .map((s) => s.characters.toSet())
-                .reduce((acc, e) => acc & e)
-                .single,
+            (l) =>
+                l
+                    .map((s) => s.characters.toSet())
+                    .reduce((acc, e) => acc & e)
+                    .single,
           )
           .map(_charValue)
           .sum,

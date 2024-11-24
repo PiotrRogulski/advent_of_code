@@ -20,12 +20,14 @@ class SliverAdaptiveList<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return BreakpointSelector(
       builders: {
-        Breakpoints.small: (_) => _SliverList(
+        Breakpoints.small:
+            (_) => _SliverList(
               items: items,
               itemBuilder: listItemBuilder,
               padding: padding,
             ),
-        null: (_) => _SliverGrid(
+        null:
+            (_) => _SliverGrid(
               items: items,
               itemBuilder: gridItemBuilder,
               padding: padding,
@@ -56,8 +58,8 @@ class _SliverList<T> extends StatelessWidget {
           final item = items.elementAt(index);
           return itemBuilder(context, item);
         },
-        separatorBuilder: (context, index) =>
-            SizedBox(height: padding.vertical / 2),
+        separatorBuilder:
+            (context, index) => SizedBox(height: padding.vertical / 2),
       ),
     );
   }
@@ -92,8 +94,9 @@ class _SliverGrid<T> extends StatelessWidget {
               for (var i = 0; i <= rows; i++)
                 SliverCrossAxisGroup(
                   slivers: [
-                    for (final item
-                        in items.skip(i * itemsPerRow).take(itemsPerRow))
+                    for (final item in items
+                        .skip(i * itemsPerRow)
+                        .take(itemsPerRow))
                       SliverConstrainedCrossAxis(
                         maxExtent: itemWidth,
                         sliver: SliverPadding(

@@ -12,28 +12,18 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:more/collection.dart' hide IndexedIterableExtension;
 
 class SliverDayInputView extends StatelessWidget {
-  const SliverDayInputView({
-    super.key,
-    required this.inputData,
-  });
+  const SliverDayInputView({super.key, required this.inputData});
 
   final PartInput inputData;
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: DayInputView(
-        inputData: inputData,
-      ),
-    );
+    return SliverToBoxAdapter(child: DayInputView(inputData: inputData));
   }
 }
 
 class DayInputView extends HookWidget {
-  const DayInputView({
-    super.key,
-    required this.inputData,
-  });
+  const DayInputView({super.key, required this.inputData});
 
   final PartInput inputData;
 
@@ -61,18 +51,17 @@ class DayInputView extends HookWidget {
         scrollDirection: wrapText.value ? Axis.vertical : Axis.horizontal,
         padding: const EdgeInsets.all(16),
         child: DefaultTextStyle.merge(
-          style: const TextStyle(
-            fontFamily: FontFamily.jetBrainsMono,
-          ),
+          style: const TextStyle(fontFamily: FontFamily.jetBrainsMono),
           child: switch (inputData) {
             RawStringInput(:final value) => _TextData(TextSpan(text: value)),
             ListInput(:final values) => _ListData(values: values),
             MatrixInput(:final matrix, dense: true) => _ListData(
-                values: matrix.rows.map((row) => row.join()).toList(),
-              ),
+              values: matrix.rows.map((row) => row.join()).toList(),
+            ),
             MatrixInput(:final matrix) => _MatrixData(matrix: matrix),
-            ObjectInput(:final toRichString) =>
-              _TextData(TextSpan(text: toRichString())),
+            ObjectInput(:final toRichString) => _TextData(
+              TextSpan(text: toRichString()),
+            ),
           },
         ),
       ),
@@ -81,9 +70,7 @@ class DayInputView extends HookWidget {
 }
 
 class _MatrixData<T> extends HookWidget {
-  const _MatrixData({
-    required this.matrix,
-  });
+  const _MatrixData({required this.matrix});
 
   final Matrix<T> matrix;
 
@@ -91,25 +78,22 @@ class _MatrixData<T> extends HookWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    final tableSpan = useFuture(
-      useMemoized(
-        () => compute(_computeLayout, (matrix, colors)),
-        [matrix, colors],
-      ),
-    ).data;
+    final tableSpan =
+        useFuture(
+          useMemoized(() => compute(_computeLayout, (matrix, colors)), [
+            matrix,
+            colors,
+          ]),
+        ).data;
 
     if (tableSpan == null) {
       return const SizedBox();
     }
 
-    return _TextData(
-      tableSpan,
-    );
+    return _TextData(tableSpan);
   }
 
-  TextSpan _computeLayout(
-    (Matrix<T> matrix, ColorScheme colors) data,
-  ) {
+  TextSpan _computeLayout((Matrix<T> matrix, ColorScheme colors) data) {
     final (matrix, colors) = data;
 
     final itemStrings = [
@@ -151,9 +135,10 @@ class _MatrixData<T> extends HookWidget {
     ];
 
     return TextSpan(
-      children: alignedCells
-          .separatedBy(() => const [TextSpan(text: '\n')])
-          .flattenedToList,
+      children:
+          alignedCells
+              .separatedBy(() => const [TextSpan(text: '\n')])
+              .flattenedToList,
     );
   }
 }
@@ -165,18 +150,12 @@ class _TextData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SelectionArea(
-      child: Text.rich(
-        textSpan,
-      ),
-    );
+    return SelectionArea(child: Text.rich(textSpan));
   }
 }
 
 class _ListData<T> extends StatelessWidget {
-  const _ListData({
-    required this.values,
-  });
+  const _ListData({required this.values});
 
   final List<T> values;
 

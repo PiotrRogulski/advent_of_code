@@ -10,30 +10,40 @@ part of 'part_status_store.dart';
 
 mixin _$PartStatusStore on _PartStatusStore, Store {
   Computed<
-      List<
-          ({
-            PartOutput? data,
-            ({Object error, StackTrace stackTrace})? error,
-            Duration runDuration
-          })>>? _$runsComputed;
-
-  @override
-  List<
+    List<
       ({
         PartOutput? data,
         ({Object error, StackTrace stackTrace})? error,
-        Duration runDuration
-      })> get runs => (_$runsComputed ??= Computed<
-          List<
+        Duration runDuration,
+      })
+    >
+  >?
+  _$runsComputed;
+
+  @override
+  List<
+    ({
+      PartOutput? data,
+      ({Object error, StackTrace stackTrace})? error,
+      Duration runDuration,
+    })
+  >
+  get runs =>
+      (_$runsComputed ??= Computed<
+            List<
               ({
                 PartOutput? data,
                 ({Object error, StackTrace stackTrace})? error,
-                Duration runDuration
-              })>>(() => super.runs, name: '_PartStatusStore.runs'))
-      .value;
+                Duration runDuration,
+              })
+            >
+          >(() => super.runs, name: '_PartStatusStore.runs'))
+          .value;
 
-  late final _$_runningAtom =
-      Atom(name: '_PartStatusStore._running', context: context);
+  late final _$_runningAtom = Atom(
+    name: '_PartStatusStore._running',
+    context: context,
+  );
 
   bool get running {
     _$_runningAtom.reportRead();
@@ -50,8 +60,10 @@ mixin _$PartStatusStore on _PartStatusStore, Store {
     });
   }
 
-  late final _$_errorAtom =
-      Atom(name: '_PartStatusStore._error', context: context);
+  late final _$_errorAtom = Atom(
+    name: '_PartStatusStore._error',
+    context: context,
+  );
 
   ({Object error, StackTrace stackTrace})? get error {
     _$_errorAtom.reportRead();
@@ -68,8 +80,10 @@ mixin _$PartStatusStore on _PartStatusStore, Store {
     });
   }
 
-  late final _$runAsyncAction =
-      AsyncAction('_PartStatusStore.run', context: context);
+  late final _$runAsyncAction = AsyncAction(
+    '_PartStatusStore.run',
+    context: context,
+  );
 
   @override
   Future<void> run(PartInput data) {

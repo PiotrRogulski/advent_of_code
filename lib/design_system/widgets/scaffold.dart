@@ -45,8 +45,10 @@ class AocScaffold extends HookWidget {
     return Scaffold(
       body: NotificationListener(
         onNotification: (notification) {
-          if (notification
-              case ScrollMetricsNotification(:final metrics, depth: 0)) {
+          if (notification case ScrollMetricsNotification(
+            :final metrics,
+            depth: 0,
+          )) {
             final newValue =
                 (metrics.pixels / (_expandedHeight - _collapsedHeight))
                     .clamp(0, 1)
@@ -59,34 +61,29 @@ class AocScaffold extends HookWidget {
           controller: scrollController,
           slivers: [
             SliverAppBar.large(
-              leading: canPop
-                  ? AocIconButton(
-                      icon: AocIconData.arrowBack,
-                      onPressed: () => Navigator.of(context).maybePop(),
-                      iconSize: 24,
-                    )
-                  : null,
+              leading:
+                  canPop
+                      ? AocIconButton(
+                        icon: AocIconData.arrowBack,
+                        onPressed: () => Navigator.of(context).maybePop(),
+                        iconSize: 24,
+                      )
+                      : null,
               flexibleSpace: SafeArea(
                 child: GestureDetector(
-                  onTap: () => scrollController.animateTo(
-                    0,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOutCubicEmphasized,
-                  ),
+                  onTap:
+                      () => scrollController.animateTo(
+                        0,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOutCubicEmphasized,
+                      ),
                   behavior: HitTestBehavior.opaque,
-                  child: Center(
-                    child: Text(
-                      title,
-                      style: textStyle,
-                    ),
-                  ),
+                  child: Center(child: Text(title, style: textStyle)),
                 ),
               ),
             ),
             ...bodySlivers,
-            SliverToBoxAdapter(
-              child: SizedBox(height: safeArea.bottom),
-            ),
+            SliverToBoxAdapter(child: SizedBox(height: safeArea.bottom)),
           ],
         ),
       ),

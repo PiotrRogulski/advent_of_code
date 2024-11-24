@@ -14,8 +14,9 @@ typedef _O = NumericOutput<int>;
 class Y2023D18 extends DayData<_I> {
   const Y2023D18() : super(2023, 18, parts: const {1: _P1(), 2: _P2()});
 
-  static final _moveRegex =
-      RegExp(r'^(?<dir>[UDLR]) (?<steps>\d+) \(#(?<colorHex>[0-9a-f]{6})\)$');
+  static final _moveRegex = RegExp(
+    r'^(?<dir>[UDLR]) (?<steps>\d+) \(#(?<colorHex>[0-9a-f]{6})\)$',
+  );
 
   @override
   _I parseInput(String rawData) {
@@ -82,7 +83,7 @@ int _area(Iterable<({String colorHex, _Dir direction, int steps})> points) {
       return (
         p: p,
         perimeter: acc.perimeter + move.steps,
-        area: acc.area + p.c * delta.dr
+        area: acc.area + p.c * delta.dr,
       );
     },
   );
@@ -104,11 +105,11 @@ enum _Dir {
   String toString() => symbol;
 
   _Delta get delta => switch (this) {
-        up => (dr: -1, dc: 0),
-        down => (dr: 1, dc: 0),
-        left => (dr: 0, dc: -1),
-        right => (dr: 0, dc: 1),
-      };
+    up => (dr: -1, dc: 0),
+    down => (dr: 1, dc: 0),
+    left => (dr: 0, dc: -1),
+    right => (dr: 0, dc: 1),
+  };
 }
 
 extension on _Cell {

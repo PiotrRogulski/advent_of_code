@@ -8,9 +8,7 @@ part 'part_status_store.g.dart';
 class PartStatusStore = _PartStatusStore with _$PartStatusStore;
 
 abstract class _PartStatusStore with Store {
-  _PartStatusStore({
-    required this.part,
-  });
+  _PartStatusStore({required this.part});
 
   final PartImplementation part;
 

@@ -110,13 +110,11 @@ class _RunInfoTile extends StatelessWidget {
               fontFeatures: [FontFeature.disable('calt')],
               height: 1.2,
             ),
-            child: Text(
-              switch (run.data) {
-                StringOutput(:final value) => value,
-                NumericOutput(:final value) => value.toString(),
-                null => s.day_part_noOutput,
-              },
-            ),
+            child: Text(switch (run.data) {
+              StringOutput(:final value) => value,
+              NumericOutput(:final value) => value.toString(),
+              null => s.day_part_noOutput,
+            }),
           ),
           subtitle: Text(run.runDuration.toString()),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),

@@ -6,59 +6,57 @@ part of 'routes.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [
-      $mainRoute,
-    ];
+List<RouteBase> get $appRoutes => [$mainRoute];
 
 RouteBase get $mainRoute => StatefulShellRouteData.$route(
-      factory: $MainRouteExtension._fromState,
-      branches: [
-        StatefulShellBranchData.$branch(
-          navigatorKey: HomeBranch.$navigatorKey,
-          routes: [
-            GoRouteData.$route(
-              path: '/home',
-              parentNavigatorKey: HomeRoute.$parentNavigatorKey,
-              factory: $HomeRouteExtension._fromState,
-            ),
-          ],
+  factory: $MainRouteExtension._fromState,
+  branches: [
+    StatefulShellBranchData.$branch(
+      navigatorKey: HomeBranch.$navigatorKey,
+      routes: [
+        GoRouteData.$route(
+          path: '/home',
+          parentNavigatorKey: HomeRoute.$parentNavigatorKey,
+          factory: $HomeRouteExtension._fromState,
         ),
-        StatefulShellBranchData.$branch(
-          navigatorKey: YearsBranch.$navigatorKey,
+      ],
+    ),
+    StatefulShellBranchData.$branch(
+      navigatorKey: YearsBranch.$navigatorKey,
+      routes: [
+        GoRouteData.$route(
+          path: '/years',
+          parentNavigatorKey: YearsRoute.$parentNavigatorKey,
+          factory: $YearsRouteExtension._fromState,
           routes: [
             GoRouteData.$route(
-              path: '/years',
-              parentNavigatorKey: YearsRoute.$parentNavigatorKey,
-              factory: $YearsRouteExtension._fromState,
+              path: ':year',
+              parentNavigatorKey: YearRoute.$parentNavigatorKey,
+              factory: $YearRouteExtension._fromState,
               routes: [
                 GoRouteData.$route(
-                  path: ':year',
-                  parentNavigatorKey: YearRoute.$parentNavigatorKey,
-                  factory: $YearRouteExtension._fromState,
-                  routes: [
-                    GoRouteData.$route(
-                      path: ':day',
-                      parentNavigatorKey: DayRoute.$parentNavigatorKey,
-                      factory: $DayRouteExtension._fromState,
-                    ),
-                  ],
+                  path: ':day',
+                  parentNavigatorKey: DayRoute.$parentNavigatorKey,
+                  factory: $DayRouteExtension._fromState,
                 ),
               ],
             ),
           ],
         ),
-        StatefulShellBranchData.$branch(
-          navigatorKey: SettingsBranch.$navigatorKey,
-          routes: [
-            GoRouteData.$route(
-              path: '/settings',
-              parentNavigatorKey: SettingsRoute.$parentNavigatorKey,
-              factory: $SettingsRouteExtension._fromState,
-            ),
-          ],
+      ],
+    ),
+    StatefulShellBranchData.$branch(
+      navigatorKey: SettingsBranch.$navigatorKey,
+      routes: [
+        GoRouteData.$route(
+          path: '/settings',
+          parentNavigatorKey: SettingsRoute.$parentNavigatorKey,
+          factory: $SettingsRouteExtension._fromState,
         ),
       ],
-    );
+    ),
+  ],
+);
 
 extension $MainRouteExtension on MainRoute {
   static MainRoute _fromState(GoRouterState state) => const MainRoute();
@@ -67,9 +65,7 @@ extension $MainRouteExtension on MainRoute {
 extension $HomeRouteExtension on HomeRoute {
   static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
 
-  String get location => GoRouteData.$location(
-        '/home',
-      );
+  String get location => GoRouteData.$location('/home');
 
   void go(BuildContext context) => context.go(location);
 
@@ -84,9 +80,7 @@ extension $HomeRouteExtension on HomeRoute {
 extension $YearsRouteExtension on YearsRoute {
   static YearsRoute _fromState(GoRouterState state) => const YearsRoute();
 
-  String get location => GoRouteData.$location(
-        '/years',
-      );
+  String get location => GoRouteData.$location('/years');
 
   void go(BuildContext context) => context.go(location);
 
@@ -99,13 +93,11 @@ extension $YearsRouteExtension on YearsRoute {
 }
 
 extension $YearRouteExtension on YearRoute {
-  static YearRoute _fromState(GoRouterState state) => YearRoute(
-        year: int.parse(state.pathParameters['year']!),
-      );
+  static YearRoute _fromState(GoRouterState state) =>
+      YearRoute(year: int.parse(state.pathParameters['year']!));
 
-  String get location => GoRouteData.$location(
-        '/years/${Uri.encodeComponent(year.toString())}',
-      );
+  String get location =>
+      GoRouteData.$location('/years/${Uri.encodeComponent(year.toString())}');
 
   void go(BuildContext context) => context.go(location);
 
@@ -119,13 +111,13 @@ extension $YearRouteExtension on YearRoute {
 
 extension $DayRouteExtension on DayRoute {
   static DayRoute _fromState(GoRouterState state) => DayRoute(
-        year: int.parse(state.pathParameters['year']!),
-        day: int.parse(state.pathParameters['day']!),
-      );
+    year: int.parse(state.pathParameters['year']!),
+    day: int.parse(state.pathParameters['day']!),
+  );
 
   String get location => GoRouteData.$location(
-        '/years/${Uri.encodeComponent(year.toString())}/${Uri.encodeComponent(day.toString())}',
-      );
+    '/years/${Uri.encodeComponent(year.toString())}/${Uri.encodeComponent(day.toString())}',
+  );
 
   void go(BuildContext context) => context.go(location);
 
@@ -140,9 +132,7 @@ extension $DayRouteExtension on DayRoute {
 extension $SettingsRouteExtension on SettingsRoute {
   static SettingsRoute _fromState(GoRouterState state) => const SettingsRoute();
 
-  String get location => GoRouteData.$location(
-        '/settings',
-      );
+  String get location => GoRouteData.$location('/settings');
 
   void go(BuildContext context) => context.go(location);
 

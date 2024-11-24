@@ -18,10 +18,9 @@ class ErrorStackTraceDialog extends StatelessWidget {
   }) {
     return showDialog(
       context: context,
-      builder: (context) => ErrorStackTraceDialog._(
-        error: error,
-        stackTrace: stackTrace,
-      ),
+      builder:
+          (context) =>
+              ErrorStackTraceDialog._(error: error, stackTrace: stackTrace),
     );
   }
 

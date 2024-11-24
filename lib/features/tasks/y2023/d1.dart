@@ -13,9 +13,7 @@ class Y2023D1 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
-      rawData.split('\n'),
-    );
+    return ListInput(rawData.split('\n'));
   }
 }
 
@@ -24,30 +22,28 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _run(
-      inputData,
-      (l) => l.characters.map(int.tryParse).nonNulls,
-    );
+    return _run(inputData, (l) => l.characters.map(int.tryParse).nonNulls);
   }
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
-  static final _digitNameRegex =
-      RegExp(r'^(one|two|three|four|five|six|seven|eight|nine|ten|\d)');
+  static final _digitNameRegex = RegExp(
+    r'^(one|two|three|four|five|six|seven|eight|nine|ten|\d)',
+  );
   static int digitNameToNumber(String string) => switch (string) {
-        'one' => 1,
-        'two' => 2,
-        'three' => 3,
-        'four' => 4,
-        'five' => 5,
-        'six' => 6,
-        'seven' => 7,
-        'eight' => 8,
-        'nine' => 9,
-        _ => int.parse(string),
-      };
+    'one' => 1,
+    'two' => 2,
+    'three' => 3,
+    'four' => 4,
+    'five' => 5,
+    'six' => 6,
+    'seven' => 7,
+    'eight' => 8,
+    'nine' => 9,
+    _ => int.parse(string),
+  };
 
   @override
   _O runInternal(_I inputData) {

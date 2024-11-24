@@ -9,12 +9,8 @@ import 'package:collection/collection.dart';
 import 'package:more/collection.dart';
 import 'package:more/comparator.dart';
 
-typedef _Brick = ({
-  _Coord from,
-  _Coord to,
-  List<int> supports,
-  List<int> supportedBy,
-});
+typedef _Brick =
+    ({_Coord from, _Coord to, List<int> supports, List<int> supportedBy});
 typedef _Coord = ({int x, int y, int z});
 
 typedef _I = ListInput<_Brick>;
@@ -46,61 +42,64 @@ class Y2023D22 extends DayData<_I> {
             ),
           )
           .sortedBy<num>((b) => b.from.z)
-          .fold(
-        (bricks: <_Brick>[], maxZReached: 1),
-        (acc, brick) {
-          final diff = brick.to.z - brick.from.z;
-          brick = (
-            from: brick.from
-                .apply((c) => (x: c.x, y: c.y, z: acc.maxZReached + 1)),
-            to: brick.to
-                .apply((c) => (x: c.x, y: c.y, z: acc.maxZReached + 1 + diff)),
-            supports: brick.supports,
-            supportedBy: brick.supportedBy,
-          );
-
-          while (true) {
-            var canMoveDown = true;
-
+          .fold((bricks: <_Brick>[], maxZReached: 1), (acc, brick) {
+            final diff = brick.to.z - brick.from.z;
             brick = (
-              from: brick.from.apply((c) => (x: c.x, y: c.y, z: c.z - 1)),
-              to: brick.to.apply((c) => (x: c.x, y: c.y, z: c.z - 1)),
+              from: brick.from.apply(
+                (c) => (x: c.x, y: c.y, z: acc.maxZReached + 1),
+              ),
+              to: brick.to.apply(
+                (c) => (x: c.x, y: c.y, z: acc.maxZReached + 1 + diff),
+              ),
               supports: brick.supports,
               supportedBy: brick.supportedBy,
             );
 
-            for (final i in 0.to(acc.bricks.length).reversed) {
-              if (acc.bricks[i].to.z < brick.from.z) {
-                continue;
-              }
-              final collision = _hasCollision(brick, acc.bricks[i]);
-              if (collision) {
-                canMoveDown = false;
-                final len = acc.bricks.length;
-                acc.bricks[i].supports.add(len);
-                brick.supportedBy.add(i);
-              }
-            }
+            while (true) {
+              var canMoveDown = true;
 
-            if (!canMoveDown) {
               brick = (
-                from: brick.from.apply((c) => (x: c.x, y: c.y, z: c.z + 1)),
-                to: brick.to.apply((c) => (x: c.x, y: c.y, z: c.z + 1)),
+                from: brick.from.apply((c) => (x: c.x, y: c.y, z: c.z - 1)),
+                to: brick.to.apply((c) => (x: c.x, y: c.y, z: c.z - 1)),
                 supports: brick.supports,
                 supportedBy: brick.supportedBy,
               );
-              break;
+
+              for (final i in 0.to(acc.bricks.length).reversed) {
+                if (acc.bricks[i].to.z < brick.from.z) {
+                  continue;
+                }
+                final collision = _hasCollision(brick, acc.bricks[i]);
+                if (collision) {
+                  canMoveDown = false;
+                  final len = acc.bricks.length;
+                  acc.bricks[i].supports.add(len);
+                  brick.supportedBy.add(i);
+                }
+              }
+
+              if (!canMoveDown) {
+                brick = (
+                  from: brick.from.apply((c) => (x: c.x, y: c.y, z: c.z + 1)),
+                  to: brick.to.apply((c) => (x: c.x, y: c.y, z: c.z + 1)),
+                  supports: brick.supports,
+                  supportedBy: brick.supportedBy,
+                );
+                break;
+              }
+
+              if (brick.from.z == 1) {
+                break;
+              }
             }
 
-            if (brick.from.z == 1) {
-              break;
-            }
-          }
-
-          final newMaxZReached = max(acc.maxZReached, brick.to.z);
-          return (bricks: acc.bricks..add(brick), maxZReached: newMaxZReached);
-        },
-      ).bricks,
+            final newMaxZReached = max(acc.maxZReached, brick.to.z);
+            return (
+              bricks: acc.bricks..add(brick),
+              maxZReached: newMaxZReached,
+            );
+          })
+          .bricks,
     );
   }
 }

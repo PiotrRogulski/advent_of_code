@@ -37,10 +37,7 @@ class AocDropdownListTile<T> extends HookWidget {
         valueListenable: value,
         items: [
           for (final item in items)
-            DropdownItem(
-              value: item,
-              child: Text(itemLabelBuilder(item)),
-            ),
+            DropdownItem(value: item, child: Text(itemLabelBuilder(item))),
         ],
         barrierColor: colorScheme.surface.withValues(alpha: 0.5),
         dropdownStyleData: DropdownStyleData(
@@ -50,10 +47,7 @@ class AocDropdownListTile<T> extends HookWidget {
           padding: EdgeInsetsDirectional.zero,
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerHighest,
-            border: Border.all(
-              color: colorScheme.outlineVariant,
-              width: 2,
-            ),
+            border: Border.all(color: colorScheme.outlineVariant, width: 2),
             borderRadius: BorderRadius.circular(24),
           ),
         ),

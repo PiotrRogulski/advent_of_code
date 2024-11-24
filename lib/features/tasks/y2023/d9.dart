@@ -30,11 +30,12 @@ class _P1 extends PartImplementation<_I, _O> {
     return NumericOutput(
       inputData.values
           .map(
-            (l) => l
-                .iterate((l) => l.diff.toList())
-                .takeUntil((l) => l.every((e) => e == 0))
-                .map((l) => l.last)
-                .sum,
+            (l) =>
+                l
+                    .iterate((l) => l.diff.toList())
+                    .takeUntil((l) => l.every((e) => e == 0))
+                    .map((l) => l.last)
+                    .sum,
           )
           .sum,
     );

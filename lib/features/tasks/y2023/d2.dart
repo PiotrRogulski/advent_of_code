@@ -6,10 +6,7 @@ import 'package:collection/collection.dart';
 
 typedef _Subset = ({int red, int green, int blue});
 
-typedef _Game = ({
-  int index,
-  Iterable<_Subset> subsets,
-});
+typedef _Game = ({int index, Iterable<_Subset> subsets});
 
 typedef _I = ListInput<_Game>;
 typedef _O = NumericOutput<int>;
@@ -37,7 +34,10 @@ class Y2023D2 extends DayData<_I> {
           .map(
             (m) => (
               index: int.parse(m.namedGroup('index')!),
-              subsets: m.namedGroup('subsets')!.split('; ').map(
+              subsets: m
+                  .namedGroup('subsets')!
+                  .split('; ')
+                  .map(
                     (s) => (
                       red: _extractColorCount('red', s),
                       green: _extractColorCount('green', s),

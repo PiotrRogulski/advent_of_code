@@ -19,9 +19,7 @@ class Y2022D4 extends DayData<_I> {
           .split('\n')
           .map(_lineRegex.firstMatch)
           .nonNulls
-          .map(
-            (m) => m.groups([1, 2, 3, 4]).nonNulls.map(int.parse).toList(),
-          )
+          .map((m) => m.groups([1, 2, 3, 4]).nonNulls.map(int.parse).toList())
           .map((l) => ((from: l[0], to: l[1]), (from: l[2], to: l[3])))
           .toList(),
     );

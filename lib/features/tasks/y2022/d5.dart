@@ -18,39 +18,45 @@ typedef _O = StringOutput;
 class Y2022D5 extends DayData<_I> {
   const Y2022D5() : super(2022, 5, parts: const {1: _P1(), 2: _P2()});
 
-  static final _moveRegex =
-      RegExp(r'move (?<quantity>\d+) from (?<from>\d+) to (?<to>\d+)');
+  static final _moveRegex = RegExp(
+    r'move (?<quantity>\d+) from (?<from>\d+) to (?<to>\d+)',
+  );
 
   @override
   _I parseInput(String rawData) {
     return ObjectInput(
       stringifier: _inputToString,
-      rawData.split('\n\n').apply(
+      rawData
+          .split('\n\n')
+          .apply(
             (l) => (
-              stacks: l[0]
-                  .split('\n')
-                  .reversed
-                  .skip(1)
-                  .map(
-                    (l) =>
-                        l.characters.whereIndexed((index, _) => index % 4 == 1),
-                  )
-                  .zip()
-                  .map((l) => l.whereNot((c) => c == ' '))
-                  .map(QueueList.from)
-                  .toList(),
-              moves: l[1]
-                  .split('\n')
-                  .map(_moveRegex.firstMatch)
-                  .nonNulls
-                  .map(
-                    (m) => (
-                      quantity: int.parse(m.namedGroup('quantity')!),
-                      from: int.parse(m.namedGroup('from')!) - 1,
-                      to: int.parse(m.namedGroup('to')!) - 1,
-                    ),
-                  )
-                  .toList(),
+              stacks:
+                  l[0]
+                      .split('\n')
+                      .reversed
+                      .skip(1)
+                      .map(
+                        (l) => l.characters.whereIndexed(
+                          (index, _) => index % 4 == 1,
+                        ),
+                      )
+                      .zip()
+                      .map((l) => l.whereNot((c) => c == ' '))
+                      .map(QueueList.from)
+                      .toList(),
+              moves:
+                  l[1]
+                      .split('\n')
+                      .map(_moveRegex.firstMatch)
+                      .nonNulls
+                      .map(
+                        (m) => (
+                          quantity: int.parse(m.namedGroup('quantity')!),
+                          from: int.parse(m.namedGroup('from')!) - 1,
+                          to: int.parse(m.namedGroup('to')!) - 1,
+                        ),
+                      )
+                      .toList(),
             ),
           ),
     );
@@ -118,18 +124,21 @@ class _P2 extends PartImplementation<_I, _O> {
 }
 
 String _inputToString(_Input input) {
-  final buffer = StringBuffer()
-    ..writeAll(
-      input.stacks.mapIndexed((index, s) => '${index + 1}:  ${s.join(' ')}'),
-      '\n',
-    )
-    ..writeln()
-    ..writeAll(
-      input.moves.map(
-        (m) =>
-            'move ${m.quantity.toString().padRight(2)} | ${m.from} -> ${m.to}',
-      ),
-      '\n',
-    );
+  final buffer =
+      StringBuffer()
+        ..writeAll(
+          input.stacks.mapIndexed(
+            (index, s) => '${index + 1}:  ${s.join(' ')}',
+          ),
+          '\n',
+        )
+        ..writeln()
+        ..writeAll(
+          input.moves.map(
+            (m) =>
+                'move ${m.quantity.toString().padRight(2)} | ${m.from} -> ${m.to}',
+          ),
+          '\n',
+        );
   return buffer.toString();
 }

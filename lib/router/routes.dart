@@ -31,9 +31,7 @@ final router = GoRouter(
 @TypedStatefulShellRoute<MainRoute>(
   branches: [
     TypedStatefulShellBranch<HomeBranch>(
-      routes: [
-        TypedGoRoute<HomeRoute>(path: '/home'),
-      ],
+      routes: [TypedGoRoute<HomeRoute>(path: '/home')],
     ),
     TypedStatefulShellBranch<YearsBranch>(
       routes: [
@@ -42,20 +40,14 @@ final router = GoRouter(
           routes: [
             TypedGoRoute<YearRoute>(
               path: ':year',
-              routes: [
-                TypedGoRoute<DayRoute>(
-                  path: ':day',
-                ),
-              ],
+              routes: [TypedGoRoute<DayRoute>(path: ':day')],
             ),
           ],
         ),
       ],
     ),
     TypedStatefulShellBranch<SettingsBranch>(
-      routes: [
-        TypedGoRoute<SettingsRoute>(path: '/settings'),
-      ],
+      routes: [TypedGoRoute<SettingsRoute>(path: '/settings')],
     ),
   ],
 )
@@ -69,10 +61,7 @@ class MainRoute extends StatefulShellRouteData {
     StatefulNavigationShell navigationShell,
   ) {
     return FontOpticalSizeAdjuster(
-      child: AocAppShell(
-        routerState: state,
-        navigationShell: navigationShell,
-      ),
+      child: AocAppShell(routerState: state, navigationShell: navigationShell),
     );
   }
 }

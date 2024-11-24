@@ -3,7 +3,7 @@ import 'package:more/collection.dart';
 
 class Matrix<T> with EquatableMixin {
   Matrix.fromList(this._values)
-      : assert(_values.map((e) => e.length).toSet().length == 1);
+    : assert(_values.map((e) => e.length).toSet().length == 1);
 
   final List<List<T>> _values;
 

@@ -63,40 +63,39 @@ enum _D {
   _Delta get delta => (dr: dr, dc: dc);
 }
 
-int _dist(
-  Matrix<int> matrix, {
-  required int minStep,
-  required int maxStep,
-}) {
+int _dist(Matrix<int> matrix, {required int minStep, required int maxStep}) {
   return DijkstraSearchIterable<_VertexDir<_D?>>(
-    startVertices: [(v: (r: 0, c: 0), dir: null)],
-    targetPredicate: (v) =>
-        v.v == (r: matrix.rowCount - 1, c: matrix.columnCount - 1),
-    successorsOf: (v) => _D.values
-        .where((d) => d != v.dir && (v.dir == null || !d.isOpposite(v.dir!)))
-        .expand(
-          (d) => minStep
-              .to(maxStep + 1)
-              .map((distance) => v.v + d.delta * distance)
-              .where((newV) => matrix.isIndexInBounds(newV.r, newV.c))
-              .map((newV) => (v: newV, dir: d)),
-        ),
-    edgeCost: (v1, v2) {
-      final (r: r1, c: c1) = v1.v;
-      final (r: r2, c: c2) = v2.v;
-      final costs = switch (r1 == r2) {
-        true => switch (c1 < c2) {
-            true => (c1 + 1).to(c2 + 1).map((c) => matrix(r1, c)),
-            false => c2.to(c1).map((c) => matrix(r1, c)),
-          },
-        false => switch (r1 < r2) {
-            true => (r1 + 1).to(r2 + 1).map((r) => matrix(r, c1)),
-            false => r2.to(r1).map((r) => matrix(r, c1)),
-          },
-      };
-      return costs.sum;
-    },
-  )
+        startVertices: [(v: (r: 0, c: 0), dir: null)],
+        targetPredicate:
+            (v) => v.v == (r: matrix.rowCount - 1, c: matrix.columnCount - 1),
+        successorsOf:
+            (v) => _D.values
+                .where(
+                  (d) => d != v.dir && (v.dir == null || !d.isOpposite(v.dir!)),
+                )
+                .expand(
+                  (d) => minStep
+                      .to(maxStep + 1)
+                      .map((distance) => v.v + d.delta * distance)
+                      .where((newV) => matrix.isIndexInBounds(newV.r, newV.c))
+                      .map((newV) => (v: newV, dir: d)),
+                ),
+        edgeCost: (v1, v2) {
+          final (r: r1, c: c1) = v1.v;
+          final (r: r2, c: c2) = v2.v;
+          final costs = switch (r1 == r2) {
+            true => switch (c1 < c2) {
+              true => (c1 + 1).to(c2 + 1).map((c) => matrix(r1, c)),
+              false => c2.to(c1).map((c) => matrix(r1, c)),
+            },
+            false => switch (r1 < r2) {
+              true => (r1 + 1).to(r2 + 1).map((r) => matrix(r, c1)),
+              false => r2.to(r1).map((r) => matrix(r, c1)),
+            },
+          };
+          return costs.sum;
+        },
+      )
       .min(comparator: naturalComparable<num>.onResultOf((e) => e.cost))
       .cost
       .toInt();

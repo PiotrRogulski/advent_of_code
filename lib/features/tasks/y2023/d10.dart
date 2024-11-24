@@ -59,11 +59,12 @@ class _P2 extends PartImplementation<_I, _O> {
     var count = 0;
     for (var r = 0; r < matrix.rowCount; r++) {
       final row = matrix.rows.elementAt(r).toList();
-      Iterable<(int, int)> ranges(RegExp regex) => regex
-          .allMatches(row.map((e) => e.symbol).join())
-          .map((e) => (e.start, e.end))
-          .toList()
-          .reversed;
+      Iterable<(int, int)> ranges(RegExp regex) =>
+          regex
+              .allMatches(row.map((e) => e.symbol).join())
+              .map((e) => (e.start, e.end))
+              .toList()
+              .reversed;
       var countInRow = 0;
       var vBarCount = 0;
       final rangesToRemove = ranges(RegExp('(L-*J)|(F-*7)'));

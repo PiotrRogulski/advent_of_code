@@ -14,8 +14,9 @@ typedef _O = NumericOutput<int>;
 class Y2023D4 extends DayData<_I> {
   const Y2023D4() : super(2023, 4, parts: const {1: _P1(), 2: _P2()});
 
-  static final _cardRegex =
-      RegExp(r'^Card +(?<index>\d+): +(?<winning>.+) +[|] +(?<yours>.+)$');
+  static final _cardRegex = RegExp(
+    r'^Card +(?<index>\d+): +(?<winning>.+) +[|] +(?<yours>.+)$',
+  );
 
   @override
   _I parseInput(String rawData) {
@@ -27,16 +28,18 @@ class Y2023D4 extends DayData<_I> {
           .map(
             (m) => (
               index: int.parse(m.namedGroup('index')!),
-              winning: m
-                  .namedGroup('winning')!
-                  .split(RegExp(' +'))
-                  .map(int.parse)
-                  .toSet(),
-              yours: m
-                  .namedGroup('yours')!
-                  .split(RegExp(' +'))
-                  .map(int.parse)
-                  .toSet(),
+              winning:
+                  m
+                      .namedGroup('winning')!
+                      .split(RegExp(' +'))
+                      .map(int.parse)
+                      .toSet(),
+              yours:
+                  m
+                      .namedGroup('yours')!
+                      .split(RegExp(' +'))
+                      .map(int.parse)
+                      .toSet(),
             ),
           )
           .toList(),
@@ -77,10 +80,7 @@ class _P2 extends PartImplementation<_I, _O> {
                     ),
                   ),
                 );
-                return {
-                  ...additionalCards,
-                  ...newAdditionalCards,
-                };
+                return {...additionalCards, ...newAdditionalCards};
               })
               .values
               .sum +

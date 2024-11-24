@@ -24,9 +24,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(
-      inputData.values.map(_hash).sum,
-    );
+    return _O(inputData.values.map(_hash).sum);
   }
 }
 

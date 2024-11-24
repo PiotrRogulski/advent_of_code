@@ -12,24 +12,31 @@ typedef _Predicate = ({String variable, _Op op, int value});
 typedef _Condition = ({_Predicate? pred, String target});
 typedef _Range = ({int start, int end});
 
-typedef _I = ObjectInput<
-    ({Map<String, List<_Condition>> workflows, List<_Part> parts})>;
+typedef _I =
+    ObjectInput<({Map<String, List<_Condition>> workflows, List<_Part> parts})>;
 typedef _O = NumericOutput<int>;
 
 class Y2023D19 extends DayData<_I> {
   const Y2023D19() : super(2023, 19, parts: const {1: _P1(), 2: _P2()});
 
   static final _workflowRegex = RegExp(r'^(?<label>\w+)\{(?<rules>.+)}$');
-  static final _partRegex =
-      RegExp(r'^\{x=(?<x>\d+),m=(?<m>\d+),a=(?<a>\d+),s=(?<s>\d+)}$');
+  static final _partRegex = RegExp(
+    r'^\{x=(?<x>\d+),m=(?<m>\d+),a=(?<a>\d+),s=(?<s>\d+)}$',
+  );
 
   @override
   _I parseInput(String rawData) {
     return _I(
-      rawData.split('\n\n').apply(
+      rawData
+          .split('\n\n')
+          .apply(
             (l) => (
               workflows: Map.fromEntries(
-                l.first.split('\n').map(_workflowRegex.firstMatch).nonNulls.map(
+                l.first
+                    .split('\n')
+                    .map(_workflowRegex.firstMatch)
+                    .nonNulls
+                    .map(
                       (m) => MapEntry(
                         m.namedGroup('label')!,
                         m
@@ -38,17 +45,14 @@ class Y2023D19 extends DayData<_I> {
                             .map(
                               (r) => switch (r.split(':')) {
                                 [final cond, final target] => (
-                                    pred: (
-                                      variable: cond[0],
-                                      op: _Op.fromSymbol(cond[1]),
-                                      value: int.parse(cond.substring(2)),
-                                    ),
-                                    target: target,
+                                  pred: (
+                                    variable: cond[0],
+                                    op: _Op.fromSymbol(cond[1]),
+                                    value: int.parse(cond.substring(2)),
                                   ),
-                                [final target] => (
-                                    pred: null,
-                                    target: target,
-                                  ),
+                                  target: target,
+                                ),
+                                [final target] => (pred: null, target: target),
                                 _ => throw StateError('Invalid condition: $r'),
                               },
                             )
@@ -56,19 +60,20 @@ class Y2023D19 extends DayData<_I> {
                       ),
                     ),
               ),
-              parts: l.last
-                  .split('\n')
-                  .map(_partRegex.firstMatch)
-                  .nonNulls
-                  .map(
-                    (m) => (
-                      x: int.parse(m.namedGroup('x')!),
-                      m: int.parse(m.namedGroup('m')!),
-                      a: int.parse(m.namedGroup('a')!),
-                      s: int.parse(m.namedGroup('s')!),
-                    ),
-                  )
-                  .toList(),
+              parts:
+                  l.last
+                      .split('\n')
+                      .map(_partRegex.firstMatch)
+                      .nonNulls
+                      .map(
+                        (m) => (
+                          x: int.parse(m.namedGroup('x')!),
+                          m: int.parse(m.namedGroup('m')!),
+                          a: int.parse(m.namedGroup('a')!),
+                          s: int.parse(m.namedGroup('s')!),
+                        ),
+                      )
+                      .toList(),
             ),
           ),
     );
@@ -139,18 +144,14 @@ class _P2 extends PartImplementation<_I, _O> {
               case null:
                 return runRec(target, newRanges);
               case (:final variable, :final op, :final value):
-                final range = newRanges[variable]!.merge(
-                  switch (op) {
-                    _Op.lt => (start: 1, end: value),
-                    _Op.gt => (start: value + 1, end: 4001),
-                  },
-                );
-                final reverseRange = newRanges[variable]!.merge(
-                  switch (op) {
-                    _Op.lt => (start: value, end: 4001),
-                    _Op.gt => (start: 1, end: value + 1),
-                  },
-                );
+                final range = newRanges[variable]!.merge(switch (op) {
+                  _Op.lt => (start: 1, end: value),
+                  _Op.gt => (start: value + 1, end: 4001),
+                });
+                final reverseRange = newRanges[variable]!.merge(switch (op) {
+                  _Op.lt => (start: value, end: 4001),
+                  _Op.gt => (start: 1, end: value + 1),
+                });
                 newRanges[variable] = range;
                 final res = runRec(target, newRanges);
                 newRanges[variable] = reverseRange;
@@ -177,27 +178,27 @@ enum _Op {
   String toString() => symbol;
 
   bool call(int a, int b) => switch (this) {
-        gt => a > b,
-        lt => a < b,
-      };
+    gt => a > b,
+    lt => a < b,
+  };
 }
 
 extension on _Predicate? {
   bool call(_Part part) => switch (this) {
-        null => true,
-        (:final variable, :final op, :final value) => switch (variable) {
-            'x' => op(part.x, value),
-            'm' => op(part.m, value),
-            'a' => op(part.a, value),
-            's' => op(part.s, value),
-            _ => throw StateError('Invalid variable: $variable'),
-          },
-      };
+    null => true,
+    (:final variable, :final op, :final value) => switch (variable) {
+      'x' => op(part.x, value),
+      'm' => op(part.m, value),
+      'a' => op(part.a, value),
+      's' => op(part.s, value),
+      _ => throw StateError('Invalid variable: $variable'),
+    },
+  };
 }
 
 extension on _Range {
   _Range merge(_Range other) => (
-        start: max(start, other.start),
-        end: min(end, other.end),
-      );
+    start: max(start, other.start),
+    end: min(end, other.end),
+  );
 }
