@@ -99,7 +99,7 @@ _O _run(_I inputData, int roundCount, _WorryLevel divisor) {
   return NumericOutput(
     monkeys
         .map((e) => e.inspectionCount)
-        .sortedBy<num>((e) => -e)
+        .sortedBy((e) => -e)
         .take(2)
         .apply((l) => l.first * l.last),
   );

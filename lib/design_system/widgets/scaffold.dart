@@ -28,7 +28,7 @@ class AocScaffold extends HookWidget {
     final scrollController = useScrollController();
 
     final baseTextStyle = Theme.of(context).textTheme.displayLarge;
-    final baseVariations = baseTextStyle?.fontVariations ?? <FontVariation>[];
+    final baseVariations = baseTextStyle?.fontVariations ?? [];
     final textStyle = baseTextStyle?.apply(
       fontSizeFactor: titleScale.value,
       fontVariations: [

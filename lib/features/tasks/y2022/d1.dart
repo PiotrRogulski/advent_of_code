@@ -36,7 +36,7 @@ class _P2 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     return NumericOutput(
-      inputData.values.map((e) => e.sum).sortedBy<num>((e) => -e).take(3).sum,
+      inputData.values.map((e) => e.sum).sortedBy((e) => -e).take(3).sum,
     );
   }
 }

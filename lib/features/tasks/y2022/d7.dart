@@ -74,7 +74,7 @@ class _P2 extends PartImplementation<_I, _O> {
           .apply(
             (t) => t.exp.allDirectories.where((d) => d.size >= t.sizeToRemove),
           )
-          .sortedBy<num>((e) => e.size)
+          .sortedBy((e) => e.size)
           .first
           .size,
     );

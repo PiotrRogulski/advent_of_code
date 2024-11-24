@@ -58,7 +58,7 @@ class _P1 extends PartImplementation<_I, _O> {
       });
     }
     final cutEdges = edgeFrequencies.entries
-        .sortedBy<num>((e) => -e.value)
+        .sortedBy((e) => -e.value)
         .take(3);
     for (final MapEntry(key: (v1, v2)) in cutEdges) {
       G
