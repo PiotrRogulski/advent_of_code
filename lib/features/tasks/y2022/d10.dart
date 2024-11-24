@@ -6,7 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:more/collection.dart';
 
-typedef _I = ListInput<_Command>;
+typedef _I = ListInput<Command>;
 typedef _O = StringOutput;
 
 class Y2022D10 extends DayData<_I> {
@@ -17,8 +17,8 @@ class Y2022D10 extends DayData<_I> {
     return ListInput(
       rawData.split('\n').map((l) {
         return switch (l.split(' ')) {
-          ['addx', final x] => _AddX(int.parse(x)),
-          ['noop'] => const _Noop(),
+          ['addx', final x] => AddX(int.parse(x)),
+          ['noop'] => const Noop(),
           _ => throw UnimplementedError(),
         };
       }).toList(),
@@ -35,16 +35,16 @@ class _P1 extends PartImplementation<_I, _O> {
       inputData.values
           .expand((cmd) {
             return switch (cmd) {
-              _Noop() => [cmd],
-              _AddX() => [const _Noop(), cmd],
+              Noop() => [cmd],
+              AddX() => [const Noop(), cmd],
             };
           })
           .fold([1], (xs, cmd) {
             return [
               ...xs,
               switch (cmd) {
-                _Noop() => xs.last,
-                _AddX(:final x) => xs.last + x,
+                Noop() => xs.last,
+                AddX(:final x) => xs.last + x,
               },
             ];
           })
@@ -65,16 +65,16 @@ class _P2 extends PartImplementation<_I, _O> {
       inputData.values
           .expand((cmd) {
             return switch (cmd) {
-              _Noop() => [cmd],
-              _AddX() => [const _Noop(), cmd],
+              Noop() => [cmd],
+              AddX() => [const Noop(), cmd],
             };
           })
           .fold([1], (xs, cmd) {
             return [
               ...xs,
               switch (cmd) {
-                _Noop() => xs.last,
-                _AddX(:final x) => xs.last + x,
+                Noop() => xs.last,
+                AddX(:final x) => xs.last + x,
               },
             ];
           })
@@ -92,22 +92,18 @@ class _P2 extends PartImplementation<_I, _O> {
   }
 }
 
-sealed class _Command with EquatableMixin {
-  const _Command();
+sealed class Command {
+  const Command();
 }
 
-class _AddX extends _Command {
-  const _AddX(this.x);
+@Equatable()
+class AddX extends Command {
+  const AddX(this.x);
 
   final int x;
-
-  @override
-  List<Object> get props => [x];
 }
 
-class _Noop extends _Command {
-  const _Noop();
-
-  @override
-  List<Object> get props => [];
+@Equatable()
+class Noop extends Command {
+  const Noop();
 }

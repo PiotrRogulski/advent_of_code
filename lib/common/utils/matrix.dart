@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:more/collection.dart';
 
-class Matrix<T> with EquatableMixin {
+@Equatable()
+class Matrix<T> {
   Matrix.fromList(this._values)
     : assert(_values.map((e) => e.length).toSet().length == 1);
 
@@ -24,9 +25,6 @@ class Matrix<T> with EquatableMixin {
 
   bool isIndexInBounds(int row, int column) =>
       row >= 0 && row < rowCount && column >= 0 && column < columnCount;
-
-  @override
-  List<Object?> get props => [_values];
 
   Iterable<({int r, int c})> get indexes sync* {
     for (var i = 0; i < _values.length; i++) {

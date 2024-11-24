@@ -24,7 +24,7 @@ class _Monkey {
   final int ifFalse;
   final int ifTrue;
   final List<_WorryLevel> items;
-  final _Operation op;
+  final Operation op;
   int inspectionCount;
 }
 
@@ -55,11 +55,9 @@ class Y2022D11 extends DayData<_I> {
                       .map(_WorryLevel.parse)
                       .toList(),
               op: switch (m.namedGroup('op')!.split(' ')) {
-                ['old', '+', final value] => _Add(_WorryLevel.parse(value)),
-                ['old', '*', 'old'] => const _Square(),
-                ['old', '*', final value] => _Multiply(
-                  _WorryLevel.parse(value),
-                ),
+                ['old', '+', final value] => Add(_WorryLevel.parse(value)),
+                ['old', '*', 'old'] => const Square(),
+                ['old', '*', final value] => Multiply(_WorryLevel.parse(value)),
                 _ => throw UnimplementedError(),
               },
               div: _WorryLevel.parse(m.namedGroup('div')!),
@@ -122,37 +120,31 @@ void _evalRound(List<_Monkey> monkeys, {required _WorryLevel divisor}) {
   }
 }
 
-sealed class _Operation with EquatableMixin {
-  const _Operation();
+sealed class Operation {
+  const Operation();
 
   _WorryLevel eval(_WorryLevel old) => switch (this) {
-    _Add(:final value) => value + old,
-    _Multiply(:final value) => value * old,
-    _Square() => old * old,
+    Add(:final value) => value + old,
+    Multiply(:final value) => value * old,
+    Square() => old * old,
   };
 }
 
-class _Add extends _Operation {
-  const _Add(this.value);
+@Equatable()
+class Add extends Operation {
+  const Add(this.value);
 
   final _WorryLevel value;
-
-  @override
-  List<Object?> get props => [value];
 }
 
-class _Multiply extends _Operation {
-  const _Multiply(this.value);
+@Equatable()
+class Multiply extends Operation {
+  const Multiply(this.value);
 
   final _WorryLevel value;
-
-  @override
-  List<Object?> get props => [value];
 }
 
-class _Square extends _Operation {
-  const _Square();
-
-  @override
-  List<Object?> get props => [];
+@Equatable()
+class Square extends Operation {
+  const Square();
 }

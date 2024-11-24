@@ -13,6 +13,8 @@ custom_lint:
 analyzer:
   enable-experiment:
     - macros
+    - enhanced-parts
+    - augmentations
   plugins:
     - custom_lint
   exclude:
