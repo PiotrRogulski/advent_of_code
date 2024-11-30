@@ -4,7 +4,6 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
-import 'package:equatable/equatable.dart';
 
 typedef _WorryLevel = int;
 
@@ -130,21 +129,18 @@ sealed class Operation {
   };
 }
 
-@Equatable()
 class Add extends Operation {
   const Add(this.value);
 
   final _WorryLevel value;
 }
 
-@Equatable()
 class Multiply extends Operation {
   const Multiply(this.value);
 
   final _WorryLevel value;
 }
 
-@Equatable()
 class Square extends Operation {
   const Square();
 }

@@ -11,10 +11,6 @@ custom_lint:
           from_package: flutter
 
 analyzer:
-  enable-experiment:
-    - macros
-    - enhanced-parts
-    - augmentations
   plugins:
     - custom_lint
   exclude:

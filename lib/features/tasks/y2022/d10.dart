@@ -3,7 +3,6 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
-import 'package:equatable/equatable.dart';
 import 'package:more/collection.dart';
 
 typedef _I = ListInput<Command>;
@@ -96,14 +95,12 @@ sealed class Command {
   const Command();
 }
 
-@Equatable()
 class AddX extends Command {
   const AddX(this.x);
 
   final int x;
 }
 
-@Equatable()
 class Noop extends Command {
   const Noop();
 }
