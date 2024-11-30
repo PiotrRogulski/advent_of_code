@@ -2,10 +2,10 @@
 
 set -euo pipefail
 
-arb_utils generate-meta ./lib/l10n/arb/app_en.arb
+fvm dart run arb_utils generate-meta ./lib/l10n/arb/app_en.arb
 
 for arb in ./lib/l10n/arb/*.arb; do
-  arb_utils sort "$arb"
+  fvm dart run arb_utils sort "$arb"
 done
 
 # add final EOLs to arbs if missing

@@ -27,7 +27,10 @@ class AocExpansionCard extends StatelessWidget {
       child: ExpansionTile(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(title), if (trailing != null) trailing!],
+          children: [
+            Expanded(child: Text(title)),
+            if (trailing case final trailing?) trailing,
+          ],
         ),
         controller: controller,
         maintainState: true,
@@ -39,7 +42,7 @@ class AocExpansionCard extends StatelessWidget {
             margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             color: colors.surface,
             shape: RoundedRectangleBorder(
-              side: BorderSide(color: colors.outline, width: 2),
+              side: BorderSide(color: colors.outlineVariant, width: 2),
               borderRadius: const BorderRadius.all(Radius.circular(16)),
             ),
             child: AnimatedSize(

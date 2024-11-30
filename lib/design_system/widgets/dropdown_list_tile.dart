@@ -21,7 +21,7 @@ class AocDropdownListTile<T> extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData(:colorScheme, :textTheme) = Theme.of(context);
+    final (theme && ThemeData(:colorScheme, :textTheme)) = Theme.of(context);
 
     final openDropdownListenable = useValueNotifier(Object());
 
@@ -46,7 +46,7 @@ class AocDropdownListTile<T> extends HookWidget {
           offset: const Offset(0, -16),
           padding: EdgeInsetsDirectional.zero,
           decoration: BoxDecoration(
-            color: colorScheme.surfaceContainerHighest,
+            color: theme.cardTheme.color,
             border: Border.all(color: colorScheme.outlineVariant, width: 2),
             borderRadius: BorderRadius.circular(24),
           ),

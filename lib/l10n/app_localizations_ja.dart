@@ -15,7 +15,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get common_showDetails => '詳細を表示';
 
   @override
-  String get day_inputData => '入力データ';
+  String day_inputData({required String label}) {
+    return '入力データ（$label）';
+  }
 
   @override
   String get day_inputData_errorLoading => '入力データを読み込めませんでした';
@@ -27,6 +29,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get day_inputData_wrap => '折り返し';
+
+  @override
+  String get day_inputExample => 'サンプル';
+
+  @override
+  String get day_inputFull => '完全';
 
   @override
   String day_partTitle({required int part}) {

@@ -4,8 +4,14 @@
   "@common_close": {},
   "common_showDetails": "Show details",
   "@common_showDetails": {},
-  "day_inputData": "Input data",
-  "@day_inputData": {},
+  "day_inputData": "Input data ({label})",
+  "@day_inputData": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "day_inputData_errorLoading": "Error loading input data",
   "@day_inputData_errorLoading": {},
   "day_inputData_matrixIndex": "{index}: ",
@@ -18,6 +24,10 @@
   },
   "day_inputData_wrap": "Wrap",
   "@day_inputData_wrap": {},
+  "day_inputExample": "example",
+  "@day_inputExample": {},
+  "day_inputFull": "full",
+  "@day_inputFull": {},
   "day_partTitle": "Part {part}",
   "@day_partTitle": {
     "placeholders": {

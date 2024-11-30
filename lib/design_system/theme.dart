@@ -33,7 +33,7 @@ class AocTheme {
       cardTheme: CardTheme(
         clipBehavior: Clip.antiAlias,
         elevation: 0,
-        color: colorScheme.surfaceContainerHighest,
+        color: colorScheme.surfaceContainerLowest,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           side: BorderSide(color: colorScheme.outlineVariant, width: 2),

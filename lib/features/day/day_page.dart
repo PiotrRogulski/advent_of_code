@@ -106,6 +106,8 @@ class _SliverBodyColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
+
     return MultiSliver(
       children: [
         Card(
@@ -113,7 +115,7 @@ class _SliverBodyColumn extends StatelessWidget {
           child: SwitchListTile(
             value: useFullData.value,
             onChanged: (value) => useFullData.value = value,
-            title: Text(context.l10n.day_useFullInput),
+            title: Text(s.day_useFullInput),
           ),
         ),
         _SliverPartList(
@@ -123,10 +125,14 @@ class _SliverBodyColumn extends StatelessWidget {
         ),
         const SliverToBoxAdapter(child: Divider()),
         _SliverInputView(
+          key: const PageStorageKey('input-example'),
+          label: s.day_inputExample,
           padding: const EdgeInsets.all(16),
           inputData: inputData.example,
         ),
         _SliverInputView(
+          key: const PageStorageKey('input-full'),
+          label: s.day_inputFull,
           padding: const EdgeInsets.all(16),
           inputData: inputData.full,
         ),
@@ -148,6 +154,8 @@ class _SliverBodySideBySide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.l10n;
+
     return SliverPadding(
       padding: const EdgeInsets.all(8),
       sliver: SliverCrossAxisGroup(
@@ -169,14 +177,18 @@ class _SliverBodySideBySide extends StatelessWidget {
                   child: SwitchListTile(
                     value: useFullData.value,
                     onChanged: (value) => useFullData.value = value,
-                    title: Text(context.l10n.day_useFullInput),
+                    title: Text(s.day_useFullInput),
                   ),
                 ),
                 _SliverInputView(
+                  key: const PageStorageKey('input-example'),
+                  label: s.day_inputExample,
                   padding: const EdgeInsets.all(8),
                   inputData: inputData.example,
                 ),
                 _SliverInputView(
+                  key: const PageStorageKey('input-full'),
+                  label: s.day_inputFull,
                   padding: const EdgeInsets.all(8),
                   inputData: inputData.full,
                 ),
@@ -222,8 +234,14 @@ class _SliverPartList extends StatelessWidget {
 }
 
 class _SliverInputView extends StatelessWidget {
-  const _SliverInputView({required this.padding, required this.inputData});
+  const _SliverInputView({
+    super.key,
+    required this.label,
+    required this.padding,
+    required this.inputData,
+  });
 
+  final String label;
   final EdgeInsetsGeometry padding;
   final PartInput inputData;
 
@@ -231,10 +249,7 @@ class _SliverInputView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: padding,
-      sliver: SliverDayInputView(
-        key: const PageStorageKey('input'),
-        inputData: inputData,
-      ),
+      sliver: SliverDayInputView(inputData: inputData, label: label),
     );
   }
 }

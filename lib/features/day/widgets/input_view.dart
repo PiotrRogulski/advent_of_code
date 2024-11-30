@@ -12,20 +12,28 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:more/collection.dart' hide IndexedIterableExtension;
 
 class SliverDayInputView extends StatelessWidget {
-  const SliverDayInputView({super.key, required this.inputData});
+  const SliverDayInputView({
+    super.key,
+    required this.inputData,
+    required this.label,
+  });
 
   final PartInput inputData;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(child: DayInputView(inputData: inputData));
+    return SliverToBoxAdapter(
+      child: DayInputView(inputData: inputData, label: label),
+    );
   }
 }
 
 class DayInputView extends HookWidget {
-  const DayInputView({super.key, required this.inputData});
+  const DayInputView({super.key, required this.inputData, required this.label});
 
   final PartInput inputData;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,7 @@ class DayInputView extends HookWidget {
     final wrapText = useState(false);
 
     return AocExpansionCard(
-      title: s.day_inputData,
+      title: s.day_inputData(label: label),
       aboveBody: CheckboxListTile(
         value: wrapText.value,
         onChanged: (value) => wrapText.value = value!,

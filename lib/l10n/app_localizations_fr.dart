@@ -15,7 +15,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get common_showDetails => 'Afficher les détails';
 
   @override
-  String get day_inputData => 'Données d\'entrée';
+  String day_inputData({required String label}) {
+    return 'Données d\'entrée ($label)';
+  }
 
   @override
   String get day_inputData_errorLoading =>
@@ -28,6 +30,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get day_inputData_wrap => 'Habillage';
+
+  @override
+  String get day_inputExample => 'exemple';
+
+  @override
+  String get day_inputFull => 'complètes';
 
   @override
   String day_partTitle({required int part}) {

@@ -115,8 +115,8 @@ abstract class AppLocalizations {
   /// No description provided for @day_inputData.
   ///
   /// In en, this message translates to:
-  /// **'Input data'**
-  String get day_inputData;
+  /// **'Input data ({label})'**
+  String day_inputData({required String label});
 
   /// No description provided for @day_inputData_errorLoading.
   ///
@@ -135,6 +135,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wrap'**
   String get day_inputData_wrap;
+
+  /// No description provided for @day_inputExample.
+  ///
+  /// In en, this message translates to:
+  /// **'example'**
+  String get day_inputExample;
+
+  /// No description provided for @day_inputFull.
+  ///
+  /// In en, this message translates to:
+  /// **'full'**
+  String get day_inputFull;
 
   /// No description provided for @day_partTitle.
   ///
