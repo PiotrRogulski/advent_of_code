@@ -77,6 +77,7 @@ const allYears = {
     24: Y2023D24(),
     25: Y2023D25(),
   }),
+  2024: YearData({}),
 };
 
 YearData getYear(int year) => allYears[year]!;
