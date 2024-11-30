@@ -4,13 +4,13 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: 3.7.0-183.0.dev
-  flutter: 3.27.0-1.0.pre.625
+  sdk: 3.7.0-188.0.dev
+  flutter: 3.27.0-1.0.pre.669
 
 dependencies:
   collection: ^1.19.1
   dio: ^5.7.0
-  dropdown_button2: ^3.0.0-beta.19
+  dropdown_button2: ^3.0.0-beta.20
   dynamic_color: ^1.7.0
   equatable: ^2.0.7
   flutter:
