@@ -70,13 +70,16 @@ if [ $status -ne 0 ]; then
 fi
 echo "$INPUT" >"$INPUT_FILE"
 
-url="https://adventofcode.com/$YEAR/day/$DAY"
 set +e
-DAY_HTML=$(curl -f -b session="$AOC_COOKIE" "$url")
+DAY_HTML=$(curl -f -b session="$AOC_COOKIE" "https://adventofcode.com/$YEAR/day/$DAY")
 status=$?
 set -e
 if [ $status -ne 0 ]; then
   die "Failed to fetch day $DAY of year $YEAR"
 fi
-EXAMPLE_INPUT=$(echo "$DAY_HTML" | xmllint --html --xpath '(//pre/code/text())[1]' - 2>/dev/null | sed 's/&gt;/>/g; s/&lt;/</g')
+EXAMPLE_INPUT=$(
+  echo "$DAY_HTML" |
+    xmllint --html --xpath '(//pre/code/text())[1]' - 2>/dev/null |
+    sed 's/&gt;/>/g; s/&lt;/</g'
+)
 echo "$EXAMPLE_INPUT" >"assets/inputs/y$YEAR/d$DAY.example"
