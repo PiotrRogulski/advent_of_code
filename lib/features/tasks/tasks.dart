@@ -34,6 +34,7 @@ import 'package:advent_of_code/features/tasks/y2023/d6.dart';
 import 'package:advent_of_code/features/tasks/y2023/d7.dart';
 import 'package:advent_of_code/features/tasks/y2023/d8.dart';
 import 'package:advent_of_code/features/tasks/y2023/d9.dart';
+import 'package:advent_of_code/features/tasks/y2024/d1.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 
 const allYears = {
@@ -77,7 +78,7 @@ const allYears = {
     24: Y2023D24(),
     25: Y2023D25(),
   }),
-  2024: YearData({}),
+  2024: YearData({1: Y2024D1()}),
 };
 
 YearData getYear(int year) => allYears[year]!;
