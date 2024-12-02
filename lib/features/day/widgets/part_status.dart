@@ -29,8 +29,6 @@ class PartStatus extends HookWidget {
     final s = context.l10n;
     final colors = Theme.of(context).colorScheme;
 
-    final controller = useMemoized(ExpansionTileController.new);
-
     return Observer(
       builder: (context) {
         return AocExpansionCard(
@@ -39,7 +37,6 @@ class PartStatus extends HookWidget {
             true => AocIcon(AocIconData.check, size: 24, color: colors.primary),
             false => null,
           },
-          controller: controller,
           body: Stack(
             children: [
               Column(

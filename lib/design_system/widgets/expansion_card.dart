@@ -1,11 +1,13 @@
+import 'package:advent_of_code/design_system/icons.dart';
+import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class AocExpansionCard extends StatelessWidget {
+class AocExpansionCard extends HookWidget {
   const AocExpansionCard({
     super.key,
     required this.title,
     this.trailing,
-    this.controller,
     this.margin,
     this.aboveBody,
     this.body,
@@ -13,7 +15,6 @@ class AocExpansionCard extends StatelessWidget {
 
   final String title;
   final Widget? trailing;
-  final ExpansionTileController? controller;
   final EdgeInsetsGeometry? margin;
   final Widget? aboveBody;
   final Widget? body;
@@ -21,6 +22,8 @@ class AocExpansionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+
+    final isExpanded = useState(false);
 
     return Card(
       margin: margin,
@@ -30,12 +33,31 @@ class AocExpansionCard extends StatelessWidget {
           children: [
             Expanded(child: Text(title)),
             if (trailing case final trailing?) trailing,
+            const SizedBox(width: 16),
+            AnimatedRotation(
+              turns: isExpanded.value ? 0.25 : -0.25,
+              duration: Durations.medium1,
+              curve: Curves.easeInOutCubicEmphasized,
+              child: const AocIcon(AocIconData.chevronLeft, size: 24),
+            ),
           ],
         ),
-        controller: controller,
+        tilePadding: const EdgeInsetsDirectional.only(
+          start: 32,
+          end: 24,
+          top: 8,
+          bottom: 8,
+        ),
         maintainState: true,
         expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
         expandedAlignment: Alignment.topCenter,
+        expansionAnimationStyle: AnimationStyle(
+          curve: Curves.easeInOutCubicEmphasized,
+          reverseCurve: Curves.easeInOutCubicEmphasized.flipped,
+          duration: Durations.medium1,
+        ),
+        showTrailingIcon: false,
+        onExpansionChanged: (value) => isExpanded.value = value,
         children: [
           if (aboveBody != null) aboveBody!,
           Card(
@@ -46,7 +68,7 @@ class AocExpansionCard extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(16)),
             ),
             child: AnimatedSize(
-              duration: const Duration(milliseconds: 200),
+              duration: Durations.medium1,
               curve: Curves.easeInOutCubicEmphasized,
               child: body,
             ),
