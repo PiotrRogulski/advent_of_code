@@ -25,7 +25,12 @@ class _YearListTile extends StatelessWidget {
                     children: [
                       Text(year.toString()),
                       if (progress == 1)
-                        const AocIcon(AocIconData.check, size: 24),
+                        AocIcon(
+                          AocIconData.check,
+                          size: 24,
+                          color: Theme.of(context).colorScheme.primary,
+                          weight: AocDynamicWeight.bold,
+                        ),
                     ],
                   ),
                 ),
@@ -85,10 +90,10 @@ class _ProgressBar extends HookWidget {
               children: [
                 LinearProgressIndicator(
                   minHeight: _height,
-                  backgroundColor: colors.surface,
                   value: progress,
                   borderRadius: _borderRadius,
-                  color: Theme.of(context).disabledColor,
+                  backgroundColor: colors.surfaceContainer,
+                  color: colors.primary.withValues(alpha: 0.3),
                 ),
                 LinearProgressIndicator(
                   minHeight: _height,

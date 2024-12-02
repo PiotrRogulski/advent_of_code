@@ -26,18 +26,19 @@ class _YearGridTile extends StatelessWidget {
           ),
           Positioned.fill(
             child: Center(
-              child: DecoratedBox(
+              child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.75),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Text(
-                    year.toString(),
-                    style: Theme.of(context).textTheme.titleLarge,
+                clipBehavior: Clip.antiAlias,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Text(
+                      year.toString(),
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ),
                 ),
               ),
@@ -89,8 +90,8 @@ class _ProgressIndicator extends StatelessWidget {
                   value: progress,
                   strokeWidth: 8,
                   strokeCap: StrokeCap.round,
-                  backgroundColor: colors.surface,
-                  color: Theme.of(context).disabledColor,
+                  backgroundColor: colors.surfaceContainer,
+                  color: colors.primary.withValues(alpha: 0.3),
                 ),
               ),
               Positioned.fill(
