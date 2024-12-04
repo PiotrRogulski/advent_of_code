@@ -85,12 +85,12 @@ int _dist(Matrix<int> matrix, {required int minStep, required int maxStep}) {
           final (r: r2, c: c2) = v2.v;
           final costs = switch (r1 == r2) {
             true => switch (c1 < c2) {
-              true => (c1 + 1).to(c2 + 1).map((c) => matrix(r1, c)),
-              false => c2.to(c1).map((c) => matrix(r1, c)),
+              true => (c1 + 1).to(c2 + 1).map((c) => matrix.at(r1, c)),
+              false => c2.to(c1).map((c) => matrix.at(r1, c)),
             },
             false => switch (r1 < r2) {
-              true => (r1 + 1).to(r2 + 1).map((r) => matrix(r, c1)),
-              false => r2.to(r1).map((r) => matrix(r, c1)),
+              true => (r1 + 1).to(r2 + 1).map((r) => matrix.at(r, c1)),
+              false => r2.to(r1).map((r) => matrix.at(r, c1)),
             },
           };
           return costs.sum;

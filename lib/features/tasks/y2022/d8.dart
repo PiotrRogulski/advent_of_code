@@ -32,8 +32,8 @@ class _P1 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     return NumericOutput(
       inputData.matrix.indexes.where((t) {
-        final (:r, :c) = t;
-        return _isVisibleFromOutside(r, c, inputData.matrix);
+        final (:row, :column) = t;
+        return _isVisibleFromOutside(row, column, inputData.matrix);
       }).length,
     );
   }
@@ -42,7 +42,7 @@ class _P1 extends PartImplementation<_I, _O> {
     final theRow = matrix.rows.elementAt(row);
     final theColumn = matrix.columns.elementAt(column);
 
-    final height = matrix(row, column);
+    final height = matrix.at(row, column);
 
     return theRow.take(column).every((e) => e < height) ||
         theRow.skip(column + 1).every((e) => e < height) ||
@@ -58,8 +58,8 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     return NumericOutput(
       inputData.matrix.indexes.map((t) {
-        final (:r, :c) = t;
-        return _calculateScenicScore(r, c, inputData.matrix);
+        final (:row, :column) = t;
+        return _calculateScenicScore(row, column, inputData.matrix);
       }).max,
     );
   }
@@ -80,7 +80,7 @@ class _P2 extends PartImplementation<_I, _O> {
     final up = theColumn.take(row).toList().reversed;
     final down = theColumn.skip(row + 1);
 
-    bool test(int e) => e < matrix(row, column);
+    bool test(int e) => e < matrix.at(row, column);
 
     final leftScore = switch (left.every(test)) {
       true => left.length,

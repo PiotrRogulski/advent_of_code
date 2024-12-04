@@ -4,7 +4,7 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 
-typedef _Cell = ({int r, int c, _Pipe cell});
+typedef _Cell = MatrixCell<_Pipe>;
 
 typedef _I = MatrixInput<_Pipe>;
 typedef _O = NumericOutput<int>;
@@ -51,9 +51,9 @@ class _P2 extends PartImplementation<_I, _O> {
     final cycle = _cycle(
       matrix.cells.firstWhere((c) => c.cell == _Pipe.unknown),
       matrix,
-    ).map((e) => (r: e.r, c: e.c));
+    ).map((e) => (row: e.row, column: e.column));
     for (final index in matrix.indexes.toSet().difference(cycle.toSet())) {
-      matrix.set(index.r, index.c, _Pipe.empty);
+      matrix.set(index.row, index.column, _Pipe.empty);
     }
 
     var count = 0;
@@ -131,9 +131,9 @@ Iterable<_Cell> _cycle(_Cell start, Matrix<_Pipe> matrix) sync* {
     yield current;
     visited.add(current);
     final adjacent = current.cell
-        .adjacent(current.c, current.r)
+        .adjacent(current.column, current.row)
         .where((c) => matrix.isIndexInBounds(c.$2, c.$1))
-        .map((c) => (r: c.$2, c: c.$1, cell: matrix(c.$2, c.$1)))
+        .map((c) => (row: c.$2, column: c.$1, cell: matrix.at(c.$2, c.$1)))
         .where((c) => !visited.contains(c) && _canConnect(current, c));
     if (adjacent.isEmpty) {
       break;
@@ -143,8 +143,8 @@ Iterable<_Cell> _cycle(_Cell start, Matrix<_Pipe> matrix) sync* {
 }
 
 bool _canConnect(_Cell from, _Cell to) {
-  final (r: r1, c: c1, cell: cell1) = from;
-  final (r: r2, c: c2, cell: cell2) = to;
+  final (row: r1, column: c1, cell: cell1) = from;
+  final (row: r2, column: c2, cell: cell2) = to;
 
   return cell1.adjacent(c1, r1).contains((c2, r2)) &&
       cell2.adjacent(c2, r2).contains((c1, r1));

@@ -7,7 +7,7 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 
-typedef _Coord = ({int r, int c});
+typedef _Coord = ({int row, int column});
 typedef _CostGraph = Map<_Coord, Map<_Coord, int>>;
 
 typedef _I = MatrixInput<_Tile>;
@@ -35,8 +35,8 @@ class _P1 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     final matrix = inputData.matrix;
-    const start = (r: 0, c: 1);
-    final target = (r: matrix.rowCount - 1, c: matrix.columnCount - 2);
+    const start = (row: 0, column: 1);
+    final target = (row: matrix.rowCount - 1, column: matrix.columnCount - 2);
     return _O(_dfs(matrix, {start}, start, target)!);
   }
 }
@@ -48,8 +48,8 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final matrix = inputData.matrix;
     final graph = _mkCostGraph(matrix);
-    const start = (r: 0, c: 1);
-    final target = (r: matrix.rowCount - 1, c: matrix.columnCount - 2);
+    const start = (row: 0, column: 1);
+    final target = (row: matrix.rowCount - 1, column: matrix.columnCount - 2);
     return _O(_dfs2(graph, {start: 1}, start, target)!);
   }
 }
@@ -72,32 +72,32 @@ enum _Tile {
 }
 
 Iterable<_Coord> _neighbors(Matrix<_Tile> m, _Coord v) {
-  final (:r, :c) = v;
+  final (:row, :column) = v;
   return [
-    (r: r - 1, c: c),
-    (r: r + 1, c: c),
-    (r: r, c: c - 1),
-    (r: r, c: c + 1),
-  ].where((e) => m.isIndexInBounds(e.r, e.c));
+    (row: row - 1, column: column),
+    (row: row + 1, column: column),
+    (row: row, column: column - 1),
+    (row: row, column: column + 1),
+  ].where((e) => m.isIndexInBounds(e.row, e.column));
 }
 
 int? _dfs(Matrix<_Tile> m, Set<_Coord> visited, _Coord coord, _Coord target) {
   if (coord == target) {
     return visited.length - 1;
   }
-  final neighbors = switch (m(coord.r, coord.c)) {
+  final neighbors = switch (m.at(coord.row, coord.column)) {
     _Tile.path => _neighbors(m, coord),
-    _Tile.slopeN => [(r: coord.r - 1, c: coord.c)],
-    _Tile.slopeS => [(r: coord.r + 1, c: coord.c)],
-    _Tile.slopeE => [(r: coord.r, c: coord.c + 1)],
-    _Tile.slopeW => [(r: coord.r, c: coord.c - 1)],
+    _Tile.slopeN => [(row: coord.row - 1, column: coord.column)],
+    _Tile.slopeS => [(row: coord.row + 1, column: coord.column)],
+    _Tile.slopeE => [(row: coord.row, column: coord.column + 1)],
+    _Tile.slopeW => [(row: coord.row, column: coord.column - 1)],
     _Tile.forest => throw StateError('Cannot walk on a forest tile'),
   };
 
   int? best;
   for (final neighbor in neighbors) {
-    final (:r, :c) = neighbor;
-    if (visited.contains(neighbor) || m(r, c) == _Tile.forest) {
+    final (:row, :column) = neighbor;
+    if (visited.contains(neighbor) || m.at(row, column) == _Tile.forest) {
       continue;
     }
     visited.add(neighbor);
@@ -113,11 +113,12 @@ int? _dfs(Matrix<_Tile> m, Set<_Coord> visited, _Coord coord, _Coord target) {
 
 _CostGraph _mkCostGraph(Matrix<_Tile> m) {
   final result = {
-    for (final (:r, :c, :cell) in m.cells)
+    for (final (:row, :column, :cell) in m.cells)
       if (cell != _Tile.forest)
-        (r: r, c: c): {
-          for (final neighbor in _neighbors(m, (r: r, c: c)))
-            if (m(neighbor.r, neighbor.c) != _Tile.forest) neighbor: 1,
+        (row: row, column: column): {
+          for (final neighbor in _neighbors(m, (row: row, column: column)))
+            if (m.at(neighbor.row, neighbor.column) != _Tile.forest)
+              neighbor: 1,
         },
   };
   final keys = result.keys.toList();

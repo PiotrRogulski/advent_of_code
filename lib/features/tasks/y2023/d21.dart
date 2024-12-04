@@ -34,19 +34,30 @@ class _P1 extends PartImplementation<_I, _O> {
     );
     return _O(
       0.to(64).fold(
-        {(r: start.r, c: start.c)},
+        {(row: start.row, column: start.column)},
         (front, i) =>
             front
                 .expand(
                   (e) => {
-                        (r: -1, c: 0),
-                        (r: 1, c: 0),
-                        (r: 0, c: -1),
-                        (r: 0, c: 1),
+                        (row: -1, column: 0),
+                        (row: 1, column: 0),
+                        (row: 0, column: -1),
+                        (row: 0, column: 1),
                       }
-                      .map((diff) => (r: e.r + diff.r, c: e.c + diff.c))
-                      .where((e) => inputData.matrix.isIndexInBounds(e.r, e.c))
-                      .where((e) => inputData.matrix(e.r, e.c) != _Tile.rocks),
+                      .map(
+                        (diff) => (
+                          row: e.row + diff.row,
+                          column: e.column + diff.column,
+                        ),
+                      )
+                      .where(
+                        (e) =>
+                            inputData.matrix.isIndexInBounds(e.row, e.column),
+                      )
+                      .where(
+                        (e) =>
+                            inputData.matrix.at(e.row, e.column) != _Tile.rocks,
+                      ),
                 )
                 .toSet(),
       ).length,
@@ -65,7 +76,7 @@ class _P2 extends PartImplementation<_I, _O> {
     final (:columns, :rows) = matrix.size;
     final start = matrix.cells.singleWhere((e) => e.cell == _Tile.start);
 
-    var front = {(r: start.r, c: start.c)};
+    var front = {(row: start.row, column: start.column)};
     final points = <int>[];
     for (final s in 1.to(steps)) {
       front =
@@ -77,12 +88,22 @@ class _P2 extends PartImplementation<_I, _O> {
                       (dr: 0, dc: -1),
                       (dr: 0, dc: 1),
                     }
-                    .map((diff) => (r: e.r + diff.dr, c: e.c + diff.dc))
-                    .where(
-                      (e) => matrix.isIndexInBounds(e.r % rows, e.c % columns),
+                    .map(
+                      (diff) => (
+                        row: e.row + diff.dr,
+                        column: e.column + diff.dc,
+                      ),
                     )
                     .where(
-                      (e) => matrix(e.r % rows, e.c % columns) != _Tile.rocks,
+                      (e) => matrix.isIndexInBounds(
+                        e.row % rows,
+                        e.column % columns,
+                      ),
+                    )
+                    .where(
+                      (e) =>
+                          matrix.at(e.row % rows, e.column % columns) !=
+                          _Tile.rocks,
                     ),
               )
               .toSet();

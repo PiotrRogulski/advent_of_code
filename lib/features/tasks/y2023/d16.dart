@@ -122,7 +122,7 @@ enum _D {
 
 Iterable<_Move> _nextMoves(Matrix<_Tile> matrix, _Move move) {
   final (:r, :c, :dir) = move;
-  final tile = matrix(r, c);
+  final tile = matrix.at(r, c);
 
   return switch (tile) {
     _Tile.empty => [(r: r + dir.diff.r, c: c + dir.diff.c, dir: dir)],

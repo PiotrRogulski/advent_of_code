@@ -74,7 +74,7 @@ NumericOutput<int> _run(_I inputData, {required int dilation}) {
   final galaxyIndexes =
       matrix.cells
           .where((c) => c.cell == _SpaceCell.galaxy)
-          .map((c) => (c.r, c.c))
+          .map((c) => (c.row, c.column))
           .toList();
 
   return NumericOutput(

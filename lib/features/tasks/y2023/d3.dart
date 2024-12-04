@@ -67,7 +67,7 @@ class _P1 extends PartImplementation<_I, _O> {
           ),
         ]
         .where((ix) => matrix.isIndexInBounds(ix.r, ix.c))
-        .map((ix) => matrix(ix.r, ix.c))
+        .map((ix) => matrix.at(ix.r, ix.c))
         .any((cell) => cell is _Symbol);
   }
 }
@@ -118,7 +118,7 @@ class _P2 extends PartImplementation<_I, _O> {
           ),
         ]
         .where((ix) => matrix.isIndexInBounds(ix.r, ix.c))
-        .map((ix) => (r: ix.r, c: ix.c, cell: matrix(ix.r, ix.c)))
+        .map((ix) => (r: ix.r, c: ix.c, cell: matrix.at(ix.r, ix.c)))
         .where(
           (e) => switch (e.cell) {
             _Symbol(value: '*') => true,

@@ -103,10 +103,10 @@ void _slide(Matrix<_Cell> matrix) {
   for (var j = 0; j < matrix.columnCount; j++) {
     var ci = 0;
     for (var i = 0; i < matrix.rowCount; i++) {
-      if (matrix(i, j) == _Cell.cube) {
+      if (matrix.at(i, j) == _Cell.cube) {
         ci = i + 1;
       }
-      if (matrix(i, j) == _Cell.round) {
+      if (matrix.at(i, j) == _Cell.round) {
         matrix
           ..set(i, j, _Cell.empty)
           ..set(ci, j, _Cell.round);
@@ -120,7 +120,7 @@ Matrix<_Cell> _rotate(Matrix<_Cell> matrix) {
   final newMatrix = matrix.copy();
   for (var i = 0; i < matrix.rowCount; i++) {
     for (var j = 0; j < matrix.columnCount; j++) {
-      newMatrix.set(j, matrix.rowCount - i - 1, matrix(i, j));
+      newMatrix.set(j, matrix.rowCount - i - 1, matrix.at(i, j));
     }
   }
   return newMatrix;

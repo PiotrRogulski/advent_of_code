@@ -44,17 +44,17 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) => NumericOutput(
     inputData.matrix.apply(
       (m) => m.cells.count(
-        (c) =>
-            c.r >= 1 &&
-            c.c >= 1 &&
-            c.r <= m.rowCount - 2 &&
-            c.c <= m.columnCount - 2 &&
-            _patterns.contains(
-              m(c.r - 1, c.c - 1) + c.cell + m(c.r + 1, c.c + 1),
-            ) &&
-            _patterns.contains(
-              m(c.r - 1, c.c + 1) + c.cell + m(c.r + 1, c.c - 1),
-            ),
+        (c) => switch ((
+          m.maybeAt(c.row - 1, c.column - 1),
+          m.maybeAt(c.row - 1, c.column + 1),
+          m.maybeAt(c.row + 1, c.column - 1),
+          m.maybeAt(c.row + 1, c.column + 1),
+        )) {
+          (final upLeft?, final upRight?, final downLeft?, final downRight?) =>
+            _patterns.contains('$upLeft${c.cell}$downRight') &&
+                _patterns.contains('$upRight${c.cell}$downLeft'),
+          _ => false,
+        },
       ),
     ),
   );
