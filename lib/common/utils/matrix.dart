@@ -15,6 +15,31 @@ class Matrix<T> with EquatableMixin {
 
   Iterable<Iterable<T>> get rows => _values;
   Iterable<Iterable<T>> get columns => _values.zip();
+  Iterable<Iterable<T>> get diagonals => [
+    for (var c = 0; c < columnCount; c++)
+      [
+        for (var i = 0; i < rowCount; i++)
+          if (isIndexInBounds(i, c + i)) _values[i][c + i],
+      ],
+    for (var r = 1; r < rowCount; r++)
+      [
+        for (var i = 0; i < columnCount; i++)
+          if (isIndexInBounds(r + i, i)) _values[r + i][i],
+      ],
+  ];
+  Iterable<Iterable<T>> get antiDiagonals => [
+    for (var c = 0; c < columnCount; c++)
+      [
+        for (var i = 0; i < rowCount; i++)
+          if (isIndexInBounds(i, c - i)) _values[i][c - i],
+      ],
+    for (var r = 1; r < rowCount; r++)
+      [
+        for (var i = 0; i < columnCount; i++)
+          if (isIndexInBounds(r - i + columnCount - 1, i))
+            _values[r - i + columnCount - 1][i],
+      ],
+  ];
   Iterable<({int r, int c, T cell})> get cells =>
       indexes.map((i) => (r: i.r, c: i.c, cell: _values[i.r][i.c]));
 
