@@ -6,7 +6,8 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/more.dart';
 
-typedef _I = ObjectInput<({List<(int, int)> rules, List<List<int>> updates})>;
+typedef _I =
+    ObjectInput<({Iterable<(int, int)> rules, List<List<int>> updates})>;
 typedef _O = NumericOutput<int>;
 
 class Y2024D5 extends DayData<_I> {
@@ -28,7 +29,7 @@ class Y2024D5 extends DayData<_I> {
                             (p) => (int.parse(p.first), int.parse(p.last)),
                           ),
                     )
-                    .toList(),
+                    .toSet(),
             updates:
                 d.last
                     .split('\n')
@@ -85,7 +86,7 @@ class _P2 extends PartImplementation<_I, _O> {
   );
 }
 
-extension on List<(int, int)> {
+extension on Iterable<(int, int)> {
   bool isOrdered(List<int> update) => update
       .mapIndexed(
         (i, x) => update.sublist(i + 1).every((y) => !contains((y, x))),
