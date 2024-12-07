@@ -44,6 +44,13 @@ class AocTheme {
       highlightColor: colorScheme.primary.withValues(alpha: 0.1),
       hoverColor: colorScheme.primary.withValues(alpha: 0.05),
       focusColor: colorScheme.primary.withValues(alpha: 0.1),
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: {
+          for (final type in TargetPlatform.values)
+            type: const FadeForwardsPageTransitionsBuilder(),
+        },
+      ),
+      progressIndicatorTheme: const ProgressIndicatorThemeData(year2023: false),
     );
   }
 
@@ -51,7 +58,7 @@ class AocTheme {
     return ColorScheme.fromSeed(
       seedColor: _seedColor,
       brightness: brightness,
-      dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
+      dynamicSchemeVariant: DynamicSchemeVariant.vibrant,
     );
   }
 }

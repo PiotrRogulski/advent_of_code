@@ -71,18 +71,18 @@ class _ProgressIndicator extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final size = constraints.biggest.shortestSide * 0.75;
+        final maxSize = constraints.biggest.shortestSide;
 
         if (completeProgress == 1.0) {
           return AocIcon(
             AocIconData.check,
             color: colors.primary,
-            size: size * 1.25,
+            size: maxSize,
           );
         }
 
         return SizedBox.square(
-          dimension: size,
+          dimension: maxSize * 0.85,
           child: Stack(
             children: [
               Positioned.fill(
