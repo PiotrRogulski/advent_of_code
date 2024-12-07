@@ -54,12 +54,12 @@ class SettingsScreen extends StatelessObserverWidget {
                 items: const [null, ...AppLocalizations.supportedLocales],
                 currentValue: settingsStore.locale,
                 itemLabelBuilder:
-                    (locale) => switch (locale) {
+                    (locale) => switch (locale?.languageCode) {
                       null => s.settings_language_systemDefault,
-                      Locale(languageCode: 'en') => 'English',
-                      Locale(languageCode: 'fr') => 'Français',
-                      Locale(languageCode: 'ja') => '日本語',
-                      Locale(:final languageCode) =>
+                      'en' => 'English',
+                      'fr' => 'Français',
+                      'ja' => '日本語',
+                      final languageCode =>
                         throw UnimplementedError(
                           'Unsupported language: $languageCode',
                         ),
