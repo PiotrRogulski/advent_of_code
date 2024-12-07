@@ -38,7 +38,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _run(inputData, dilation: 1000000);
+    return _run(inputData, dilation: 1_000_000);
   }
 }
 

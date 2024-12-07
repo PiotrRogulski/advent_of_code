@@ -73,7 +73,7 @@ class _P2 extends PartImplementation<_I, _O> {
       if (memo[key] case final value?) {
         final n = index - value.cycle;
         final entry = memo.values.firstWhereOrNull(
-          (e) => e.cycle >= value.cycle && (1000000000 - e.cycle) % n == 0,
+          (e) => e.cycle >= value.cycle && (1_000_000_000 - e.cycle) % n == 0,
         );
         if (entry != null) {
           return _O(entry.result);

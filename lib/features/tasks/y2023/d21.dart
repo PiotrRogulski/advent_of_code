@@ -68,7 +68,7 @@ class _P1 extends PartImplementation<_I, _O> {
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
-  static const steps = 26501365;
+  static const steps = 26_501_365;
 
   @override
   _O runInternal(_I inputData) {

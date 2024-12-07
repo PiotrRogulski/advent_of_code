@@ -53,7 +53,7 @@ class _P1 extends PartImplementation<_I, _O> {
           )
           .allDirectories
           .map((e) => e.size)
-          .where((s) => s <= 100000)
+          .where((s) => s <= 100_000)
           .sum,
     );
   }
@@ -70,7 +70,7 @@ class _P2 extends PartImplementation<_I, _O> {
             _FsExplorer(_Directory.root()),
             (exp, cmd) => exp..executeCommand(cmd),
           )
-          .apply((exp) => (exp: exp, sizeToRemove: exp.root.size - 40000000))
+          .apply((exp) => (exp: exp, sizeToRemove: exp.root.size - 40_000_000))
           .apply(
             (t) => t.exp.allDirectories.where((d) => d.size >= t.sizeToRemove),
           )
