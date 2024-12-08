@@ -30,11 +30,11 @@ class _P1 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     final start = inputData.matrix.cells.singleWhere(
-      (e) => e.cell == _Tile.start,
+      (e) => e.value == _Tile.start,
     );
     return _O(
       0.to(64).fold(
-        {(row: start.row, column: start.column)},
+        {start.index},
         (front, i) =>
             front
                 .expand(
@@ -50,14 +50,8 @@ class _P1 extends PartImplementation<_I, _O> {
                           column: e.column + diff.column,
                         ),
                       )
-                      .where(
-                        (e) =>
-                            inputData.matrix.isIndexInBounds(e.row, e.column),
-                      )
-                      .where(
-                        (e) =>
-                            inputData.matrix.at(e.row, e.column) != _Tile.rocks,
-                      ),
+                      .where(inputData.matrix.isIndexInBounds)
+                      .where((e) => inputData.matrix.atIndex(e) != _Tile.rocks),
                 )
                 .toSet(),
       ).length,
@@ -74,9 +68,9 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final matrix = inputData.matrix;
     final (:columns, :rows) = matrix.size;
-    final start = matrix.cells.singleWhere((e) => e.cell == _Tile.start);
+    final start = matrix.cells.singleWhere((e) => e.value == _Tile.start);
 
-    var front = {(row: start.row, column: start.column)};
+    var front = {start.index};
     final points = <int>[];
     for (final s in 1.to(steps)) {
       front =
@@ -95,10 +89,8 @@ class _P2 extends PartImplementation<_I, _O> {
                       ),
                     )
                     .where(
-                      (e) => matrix.isIndexInBounds(
-                        e.row % rows,
-                        e.column % columns,
-                      ),
+                      (e) =>
+                          matrix.isInBounds(e.row % rows, e.column % columns),
                     )
                     .where(
                       (e) =>

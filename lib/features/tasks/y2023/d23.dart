@@ -7,7 +7,7 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 
-typedef _Coord = ({int row, int column});
+typedef _Coord = MatrixIndex;
 typedef _CostGraph = Map<_Coord, Map<_Coord, int>>;
 
 typedef _I = MatrixInput<_Tile>;
@@ -78,7 +78,7 @@ Iterable<_Coord> _neighbors(Matrix<_Tile> m, _Coord v) {
     (row: row + 1, column: column),
     (row: row, column: column - 1),
     (row: row, column: column + 1),
-  ].where((e) => m.isIndexInBounds(e.row, e.column));
+  ].where(m.isIndexInBounds);
 }
 
 int? _dfs(Matrix<_Tile> m, Set<_Coord> visited, _Coord coord, _Coord target) {
@@ -113,10 +113,10 @@ int? _dfs(Matrix<_Tile> m, Set<_Coord> visited, _Coord coord, _Coord target) {
 
 _CostGraph _mkCostGraph(Matrix<_Tile> m) {
   final result = {
-    for (final (:row, :column, :cell) in m.cells)
-      if (cell != _Tile.forest)
-        (row: row, column: column): {
-          for (final neighbor in _neighbors(m, (row: row, column: column)))
+    for (final (:index, :value) in m.cells)
+      if (value != _Tile.forest)
+        index: {
+          for (final neighbor in _neighbors(m, index))
             if (m.at(neighbor.row, neighbor.column) != _Tile.forest)
               neighbor: 1,
         },

@@ -6,8 +6,8 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 
-typedef _NumberRun = ({int r, int c, String number});
-typedef _Cell<T extends _MapCell> = ({int r, int c, T cell});
+typedef _NumberRun = ({int row, int column, String number});
+typedef _Cell<T extends _MapCell> = MatrixCell<T>;
 
 typedef _I = MatrixInput<_MapCell>;
 typedef _O = NumericOutput<int>;
@@ -55,19 +55,19 @@ class _P1 extends PartImplementation<_I, _O> {
 
   bool _isAdjacentToSymbol(Matrix<_MapCell> matrix, _NumberRun run) {
     return [
-          (r: run.r, c: run.c - 1),
-          (r: run.r, c: run.c + run.number.length),
+          (row: run.row, column: run.column - 1),
+          (row: run.row, column: run.column + run.number.length),
           ...List.generate(
             run.number.length + 2,
-            (index) => (r: run.r - 1, c: run.c + index - 1),
+            (index) => (row: run.row - 1, column: run.column + index - 1),
           ),
           ...List.generate(
             run.number.length + 2,
-            (index) => (r: run.r + 1, c: run.c + index - 1),
+            (index) => (row: run.row + 1, column: run.column + index - 1),
           ),
         ]
-        .where((ix) => matrix.isIndexInBounds(ix.r, ix.c))
-        .map((ix) => matrix.at(ix.r, ix.c))
+        .where(matrix.isIndexInBounds)
+        .map(matrix.atIndex)
         .any((cell) => cell is _Symbol);
   }
 }
@@ -101,24 +101,24 @@ class _P2 extends PartImplementation<_I, _O> {
     );
   }
 
-  ({bool isAdjacent, int r, int c}) _adjacentToGear(
+  ({bool isAdjacent, int row, int column}) _adjacentToGear(
     Matrix<_MapCell> matrix,
     _NumberRun run,
   ) {
     return [
-          (r: run.r, c: run.c - 1),
-          (r: run.r, c: run.c + run.number.length),
+          (row: run.row, column: run.column - 1),
+          (row: run.row, column: run.column + run.number.length),
           ...List.generate(
             run.number.length + 2,
-            (index) => (r: run.r - 1, c: run.c + index - 1),
+            (index) => (row: run.row - 1, column: run.column + index - 1),
           ),
           ...List.generate(
             run.number.length + 2,
-            (index) => (r: run.r + 1, c: run.c + index - 1),
+            (index) => (row: run.row + 1, column: run.column + index - 1),
           ),
         ]
-        .where((ix) => matrix.isIndexInBounds(ix.r, ix.c))
-        .map((ix) => (r: ix.r, c: ix.c, cell: matrix.at(ix.r, ix.c)))
+        .where(matrix.isIndexInBounds)
+        .map((ix) => (row: ix.row, column: ix.column, cell: matrix.atIndex(ix)))
         .where(
           (e) => switch (e.cell) {
             _Symbol(value: '*') => true,
@@ -127,8 +127,12 @@ class _P2 extends PartImplementation<_I, _O> {
         )
         .apply(
           (es) => switch (es.toList()) {
-            [] => (isAdjacent: false, r: -1, c: -1),
-            [final cell, ...] => (isAdjacent: true, r: cell.r, c: cell.c),
+            [] => (isAdjacent: false, row: -1, column: -1),
+            [final cell, ...] => (
+              isAdjacent: true,
+              row: cell.row,
+              column: cell.column,
+            ),
           },
         );
   }
@@ -165,26 +169,36 @@ class _Empty extends _MapCell {
 
 Iterable<_NumberRun> _cellsToNumbers(Iterable<_Cell<_Digit>> cells) {
   return cells
-      .fold(<_NumberRun>[], (previousValue, element) {
+      .fold(<_NumberRun>[], (previousValue, cell) {
         final currentRun = previousValue.lastOrNull;
 
         if (currentRun != null &&
-            currentRun.r == element.r &&
-            currentRun.c == element.c - 1) {
+            currentRun.row == cell.index.row &&
+            currentRun.column == cell.index.column - 1) {
           return [
             ...previousValue.take(previousValue.length - 1),
             (
-              r: element.r,
-              c: element.c,
-              number: currentRun.number + element.cell.value.toString(),
+              row: cell.index.row,
+              column: cell.index.column,
+              number: currentRun.number + cell.value.value.toString(),
             ),
           ];
         }
 
         return [
           ...previousValue,
-          (r: element.r, c: element.c, number: element.cell.value.toString()),
+          (
+            row: cell.index.row,
+            column: cell.index.column,
+            number: cell.value.value.toString(),
+          ),
         ];
       })
-      .map((e) => (r: e.r, c: e.c - e.number.length + 1, number: e.number));
+      .map(
+        (e) => (
+          row: e.row,
+          column: e.column - e.number.length + 1,
+          number: e.number,
+        ),
+      );
 }

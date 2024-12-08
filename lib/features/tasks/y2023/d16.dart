@@ -6,7 +6,7 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/collection.dart';
 
-typedef _Move = ({int r, int c, _D dir});
+typedef _Move = ({MatrixIndex position, _D dir});
 
 typedef _I = MatrixInput<_Tile>;
 typedef _O = NumericOutput<int>;
@@ -33,7 +33,10 @@ class _P1 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     return _O(
-      _energize(from: (r: 0, c: 0, dir: _D.right), matrix: inputData.matrix),
+      _energize(
+        from: (position: (row: 0, column: 0), dir: _D.right),
+        matrix: inputData.matrix,
+      ),
     );
   }
 }
@@ -45,13 +48,13 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final matrix = inputData.matrix;
     final allEnterPoints = [
-      for (final c in 0.to(matrix.columnCount)) ...[
-        (r: 0, c: c, dir: _D.down),
-        (r: matrix.rowCount - 1, c: c, dir: _D.up),
+      for (final column in 0.to(matrix.columnCount)) ...[
+        (position: (row: 0, column: column), dir: _D.down),
+        (position: (row: matrix.rowCount - 1, column: column), dir: _D.up),
       ],
-      for (final r in 0.to(matrix.rowCount)) ...[
-        (r: r, c: 0, dir: _D.right),
-        (r: r, c: matrix.columnCount - 1, dir: _D.left),
+      for (final row in 0.to(matrix.rowCount)) ...[
+        (position: (row: row, column: 0), dir: _D.right),
+        (position: (row: row, column: matrix.columnCount - 1), dir: _D.left),
       ],
     ];
     return _O(
@@ -61,19 +64,18 @@ class _P2 extends PartImplementation<_I, _O> {
 }
 
 int _energize({required _Move from, required Matrix<_Tile> matrix}) {
-  var nextTiles = [from];
+  var nextTiles = {from};
   final visited = {...nextTiles};
   while (nextTiles.isNotEmpty) {
     nextTiles =
         nextTiles
             .expand((tile) => _nextMoves(matrix, tile))
             .whereNot(visited.contains)
-            .where((e) => matrix.isIndexInBounds(e.r, e.c))
-            .toSet()
-            .toList();
+            .where((e) => matrix.isIndexInBounds(e.position))
+            .toSet();
     visited.addAll(nextTiles);
   }
-  return visited.map((e) => (e.r, e.c)).toSet().length;
+  return visited.map((e) => e.position).toSet().length;
 }
 
 enum _Tile {
@@ -112,48 +114,44 @@ enum _D {
     right => up,
   };
 
-  ({int r, int c}) get diff => switch (this) {
-    up => (r: -1, c: 0),
-    down => (r: 1, c: 0),
-    left => (r: 0, c: -1),
-    right => (r: 0, c: 1),
+  MatrixIndexDelta get diff => switch (this) {
+    up => (dr: -1, dc: 0),
+    down => (dr: 1, dc: 0),
+    left => (dr: 0, dc: -1),
+    right => (dr: 0, dc: 1),
   };
 }
 
 Iterable<_Move> _nextMoves(Matrix<_Tile> matrix, _Move move) {
-  final (:r, :c, :dir) = move;
-  final tile = matrix.at(r, c);
+  final (:position, :dir) = move;
+  final tile = matrix.atIndex(position);
 
   return switch (tile) {
-    _Tile.empty => [(r: r + dir.diff.r, c: c + dir.diff.c, dir: dir)],
+    _Tile.empty => [(position: position + dir.diff, dir: dir)],
     _Tile.mirrorR => switch (dir) {
-      _D.up || _D.down => [
-        (r: r + dir.rotL.diff.r, c: c + dir.rotL.diff.c, dir: dir.rotL),
-      ],
+      _D.up || _D.down => [(position: position + dir.rotL.diff, dir: dir.rotL)],
       _D.left || _D.right => [
-        (r: r + dir.rotR.diff.r, c: c + dir.rotR.diff.c, dir: dir.rotR),
+        (position: position + dir.rotR.diff, dir: dir.rotR),
       ],
     },
     _Tile.mirrorL => switch (dir) {
-      _D.up || _D.down => [
-        (r: r + dir.rotR.diff.r, c: c + dir.rotR.diff.c, dir: dir.rotR),
-      ],
+      _D.up || _D.down => [(position: position + dir.rotR.diff, dir: dir.rotR)],
       _D.left || _D.right => [
-        (r: r + dir.rotL.diff.r, c: c + dir.rotL.diff.c, dir: dir.rotL),
+        (position: position + dir.rotL.diff, dir: dir.rotL),
       ],
     },
     _Tile.splitH => switch (dir) {
-      _D.left || _D.right => [(r: r + dir.diff.r, c: c + dir.diff.c, dir: dir)],
+      _D.left || _D.right => [(position: position + dir.diff, dir: dir)],
       _D.up || _D.down => [
-        (r: r + _D.left.diff.r, c: c + _D.left.diff.c, dir: _D.left),
-        (r: r + _D.right.diff.r, c: c + _D.right.diff.c, dir: _D.right),
+        (position: position + _D.left.diff, dir: _D.left),
+        (position: position + _D.right.diff, dir: _D.right),
       ],
     },
     _Tile.splitV => switch (dir) {
-      _D.up || _D.down => [(r: r + dir.diff.r, c: c + dir.diff.c, dir: dir)],
+      _D.up || _D.down => [(position: position + dir.diff, dir: dir)],
       _D.left || _D.right => [
-        (r: r + _D.up.diff.r, c: c + _D.up.diff.c, dir: _D.up),
-        (r: r + _D.down.diff.r, c: c + _D.down.diff.c, dir: _D.down),
+        (position: position + _D.up.diff, dir: _D.up),
+        (position: position + _D.down.diff, dir: _D.down),
       ],
     },
   };

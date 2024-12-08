@@ -45,14 +45,14 @@ class _P2 extends PartImplementation<_I, _O> {
     inputData.matrix.apply(
       (m) => m.cells.count(
         (c) => switch ((
-          m.maybeAt(c.row - 1, c.column - 1),
-          m.maybeAt(c.row - 1, c.column + 1),
-          m.maybeAt(c.row + 1, c.column - 1),
-          m.maybeAt(c.row + 1, c.column + 1),
+          m.maybeAtIndex(c.index + (dr: -1, dc: -1)),
+          m.maybeAtIndex(c.index + (dr: -1, dc: 1)),
+          m.maybeAtIndex(c.index + (dr: 1, dc: -1)),
+          m.maybeAtIndex(c.index + (dr: 1, dc: 1)),
         )) {
           (final upLeft?, final upRight?, final downLeft?, final downRight?) =>
-            _patterns.contains('$upLeft${c.cell}$downRight') &&
-                _patterns.contains('$upRight${c.cell}$downLeft'),
+            _patterns.contains('$upLeft${c.value}$downRight') &&
+                _patterns.contains('$upRight${c.value}$downLeft'),
           _ => false,
         },
       ),

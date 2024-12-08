@@ -33,7 +33,7 @@ class _P1 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     return NumericOutput(
       _cycle(
-            inputData.matrix.cells.firstWhere((c) => c.cell == _Pipe.unknown),
+            inputData.matrix.cells.firstWhere((c) => c.value == _Pipe.unknown),
             inputData.matrix,
           ).length ~/
           2,
@@ -49,11 +49,11 @@ class _P2 extends PartImplementation<_I, _O> {
     final matrix = inputData.matrix;
 
     final cycle = _cycle(
-      matrix.cells.firstWhere((c) => c.cell == _Pipe.unknown),
+      matrix.cells.firstWhere((c) => c.value == _Pipe.unknown),
       matrix,
-    ).map((e) => (row: e.row, column: e.column));
+    ).map((e) => e.index);
     for (final index in matrix.indexes.toSet().difference(cycle.toSet())) {
-      matrix.set(index.row, index.column, _Pipe.empty);
+      matrix.setIndex(index, _Pipe.empty);
     }
 
     var count = 0;
@@ -109,18 +109,23 @@ enum _Pipe {
   @override
   String toString() => ascii;
 
-  Iterable<(int, int)> adjacent(int c, int r) {
+  Iterable<MatrixIndex> adjacent(MatrixIndex index) {
     final diffs = switch (this) {
-      empty => <(int, int)>[],
-      vertical => [(0, -1), (0, 1)],
-      horizontal => [(-1, 0), (1, 0)],
-      topLeft => [(0, 1), (1, 0)],
-      topRight => [(0, 1), (-1, 0)],
-      bottomLeft => [(0, -1), (1, 0)],
-      bottomRight => [(0, -1), (-1, 0)],
-      unknown => [(0, -1), (0, 1), (-1, 0), (1, 0)],
+      empty => <MatrixIndexDelta>[],
+      vertical => [(dr: -1, dc: 0), (dr: 1, dc: 0)],
+      horizontal => [(dr: 0, dc: -1), (dr: 0, dc: 1)],
+      topLeft => [(dr: 1, dc: 0), (dr: 0, dc: 1)],
+      topRight => [(dr: 1, dc: 0), (dr: 0, dc: -1)],
+      bottomLeft => [(dr: -1, dc: 0), (dr: 0, dc: 1)],
+      bottomRight => [(dr: -1, dc: 0), (dr: 0, dc: -1)],
+      unknown => [
+        (dr: 0, dc: -1),
+        (dr: 0, dc: 1),
+        (dr: -1, dc: 0),
+        (dr: 1, dc: 0),
+      ],
     };
-    return diffs.map((d) => (c + d.$1, r + d.$2));
+    return diffs.map((d) => index + d);
   }
 }
 
@@ -130,10 +135,10 @@ Iterable<_Cell> _cycle(_Cell start, Matrix<_Pipe> matrix) sync* {
   while (true) {
     yield current;
     visited.add(current);
-    final adjacent = current.cell
-        .adjacent(current.column, current.row)
-        .where((c) => matrix.isIndexInBounds(c.$2, c.$1))
-        .map((c) => (row: c.$2, column: c.$1, cell: matrix.at(c.$2, c.$1)))
+    final adjacent = current.value
+        .adjacent(current.index)
+        .where(matrix.isIndexInBounds)
+        .map((c) => (index: c, value: matrix.atIndex(c)))
         .where((c) => !visited.contains(c) && _canConnect(current, c));
     if (adjacent.isEmpty) {
       break;
@@ -143,9 +148,8 @@ Iterable<_Cell> _cycle(_Cell start, Matrix<_Pipe> matrix) sync* {
 }
 
 bool _canConnect(_Cell from, _Cell to) {
-  final (row: r1, column: c1, cell: cell1) = from;
-  final (row: r2, column: c2, cell: cell2) = to;
+  final (index: ix1, value: cell1) = from;
+  final (index: ix2, value: cell2) = to;
 
-  return cell1.adjacent(c1, r1).contains((c2, r2)) &&
-      cell2.adjacent(c2, r2).contains((c1, r1));
+  return cell1.adjacent(ix1).contains(ix2) && cell2.adjacent(ix2).contains(ix1);
 }

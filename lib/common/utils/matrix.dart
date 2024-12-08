@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:more/collection.dart';
 
-typedef MatrixCell<T> = ({int row, int column, T cell});
 typedef MatrixIndex = ({int row, int column});
+typedef MatrixCell<T> = ({MatrixIndex index, T value});
+typedef MatrixIndexDelta = ({int dr, int dc});
 typedef MatrixSize = ({int columns, int rows});
 
 class Matrix<T> with EquatableMixin {
@@ -43,19 +44,24 @@ class Matrix<T> with EquatableMixin {
           if (maybeAt(r - i + columnCount - 1, i) case final value?) value,
       ],
   ];
-  Iterable<MatrixCell<T>> get cells => indexes.map(
-    (i) => (row: i.row, column: i.column, cell: _values[i.row][i.column]),
-  );
+  Iterable<MatrixCell<T>> get cells =>
+      indexes.map((i) => (index: i, value: atIndex(i)));
 
   T at(int row, int column) => _values[row][column];
+  T atIndex(MatrixIndex index) => at(index.row, index.column);
 
   T? maybeAt(int row, int column) =>
-      isIndexInBounds(row, column) ? _values[row][column] : null;
+      isInBounds(row, column) ? _values[row][column] : null;
+  T? maybeAtIndex(MatrixIndex index) => maybeAt(index.row, index.column);
 
   void set(int row, int column, T value) => _values[row][column] = value;
+  void setIndex(MatrixIndex index, T value) =>
+      set(index.row, index.column, value);
 
-  bool isIndexInBounds(int row, int column) =>
+  bool isInBounds(int row, int column) =>
       row >= 0 && row < rowCount && column >= 0 && column < columnCount;
+  bool isIndexInBounds(MatrixIndex index) =>
+      isInBounds(index.row, index.column);
 
   @override
   List<Object?> get props => [_values];
@@ -69,4 +75,20 @@ class Matrix<T> with EquatableMixin {
   }
 
   Matrix<T> copy() => Matrix.fromList(_values.map((e) => e.toList()).toList());
+}
+
+extension MatrixIndexX on MatrixIndex {
+  MatrixIndex operator +(MatrixIndexDelta other) => (
+    row: row + other.dr,
+    column: column + other.dc,
+  );
+
+  MatrixIndexDelta operator -(MatrixIndex other) => (
+    dr: row - other.row,
+    dc: column - other.column,
+  );
+}
+
+extension MatrixIndexDeltaX on MatrixIndexDelta {
+  MatrixIndexDelta operator *(int factor) => (dr: dr * factor, dc: dc * factor);
 }

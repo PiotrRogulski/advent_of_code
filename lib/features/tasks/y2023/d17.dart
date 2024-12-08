@@ -6,9 +6,7 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/more.dart';
 
-typedef _Vertex = ({int r, int c});
-typedef _Delta = ({int dr, int dc});
-typedef _VertexDir<D extends _D?> = ({_Vertex v, D dir});
+typedef _VertexDir<D extends _D?> = ({MatrixIndex v, D dir});
 
 typedef _I = MatrixInput<int>;
 typedef _O = NumericOutput<int>;
@@ -60,14 +58,16 @@ enum _D {
 
   bool isOpposite(_D other) => dr == -other.dr && dc == -other.dc;
 
-  _Delta get delta => (dr: dr, dc: dc);
+  MatrixIndexDelta get delta => (dr: dr, dc: dc);
 }
 
 int _dist(Matrix<int> matrix, {required int minStep, required int maxStep}) {
   return DijkstraSearchIterable<_VertexDir<_D?>>(
-        startVertices: [(v: (r: 0, c: 0), dir: null)],
+        startVertices: [(v: (row: 0, column: 0), dir: null)],
         targetPredicate:
-            (v) => v.v == (r: matrix.rowCount - 1, c: matrix.columnCount - 1),
+            (v) =>
+                v.v ==
+                (row: matrix.rowCount - 1, column: matrix.columnCount - 1),
         successorsOf:
             (v) => _D.values
                 .where(
@@ -77,12 +77,12 @@ int _dist(Matrix<int> matrix, {required int minStep, required int maxStep}) {
                   (d) => minStep
                       .to(maxStep + 1)
                       .map((distance) => v.v + d.delta * distance)
-                      .where((newV) => matrix.isIndexInBounds(newV.r, newV.c))
+                      .where(matrix.isIndexInBounds)
                       .map((newV) => (v: newV, dir: d)),
                 ),
         edgeCost: (v1, v2) {
-          final (r: r1, c: c1) = v1.v;
-          final (r: r2, c: c2) = v2.v;
+          final (row: r1, column: c1) = v1.v;
+          final (row: r2, column: c2) = v2.v;
           final costs = switch (r1 == r2) {
             true => switch (c1 < c2) {
               true => (c1 + 1).to(c2 + 1).map((c) => matrix.at(r1, c)),
@@ -99,12 +99,4 @@ int _dist(Matrix<int> matrix, {required int minStep, required int maxStep}) {
       .min(comparator: naturalComparable<num>.onResultOf((e) => e.cost))
       .cost
       .toInt();
-}
-
-extension on _Vertex {
-  _Vertex operator +(_Delta delta) => (r: r + delta.dr, c: c + delta.dc);
-}
-
-extension on _Delta {
-  _Delta operator *(int factor) => (dr: dr * factor, dc: dc * factor);
 }

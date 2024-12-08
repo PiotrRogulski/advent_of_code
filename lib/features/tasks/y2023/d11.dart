@@ -4,6 +4,7 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
+import 'package:more/more.dart' hide IndexedIterableExtension;
 
 typedef _I = MatrixInput<_SpaceCell>;
 typedef _O = NumericOutput<int>;
@@ -72,38 +73,24 @@ NumericOutput<int> _run(_I inputData, {required int dilation}) {
           .toList();
 
   final galaxyIndexes =
-      matrix.cells
-          .where((c) => c.cell == _SpaceCell.galaxy)
-          .map((c) => (c.row, c.column))
-          .toList();
+      matrix.cells.where((c) => c.value == _SpaceCell.galaxy).toList();
 
   return NumericOutput(
-    galaxyIndexes
-        .expand((e) => galaxyIndexes.map((e2) => (e, e2)))
-        .where((e) => e.$1 < e.$2)
-        .map((p) {
-          final (from, to) = p;
-          final rowBounds = [from.$1, to.$1]..sort();
-          final columnBounds = [from.$2, to.$2]..sort();
-          final emptyRowsCrossed =
-              emptyRowsIdx
-                  .where((e) => e >= rowBounds.first && e <= rowBounds.last)
-                  .length;
-          final emptyColumnsCrossed =
-              emptyColumnsIdx
-                  .where(
-                    (e) => e >= columnBounds.first && e <= columnBounds.last,
-                  )
-                  .length;
-          return (from.$1 - to.$1).abs() +
-              (from.$2 - to.$2).abs() +
-              (emptyRowsCrossed + emptyColumnsCrossed) * (dilation - 1);
-        })
-        .sum,
+    galaxyIndexes.combinations(2).map((p) {
+      final [from, to] = p;
+      final rowBounds = [from.index.row, to.index.row]..sort();
+      final columnBounds = [from.index.column, to.index.column]..sort();
+      final emptyRowsCrossed =
+          emptyRowsIdx
+              .where((e) => e >= rowBounds.first && e <= rowBounds.last)
+              .length;
+      final emptyColumnsCrossed =
+          emptyColumnsIdx
+              .where((e) => e >= columnBounds.first && e <= columnBounds.last)
+              .length;
+      return (from.index.row - to.index.row).abs() +
+          (from.index.column - to.index.column).abs() +
+          (emptyRowsCrossed + emptyColumnsCrossed) * (dilation - 1);
+    }).sum,
   );
-}
-
-extension on (int, int) {
-  bool operator <((int, int) other) =>
-      this.$1 < other.$1 || (this.$1 == other.$1 && this.$2 < other.$2);
 }
