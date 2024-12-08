@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:more/collection.dart';
 
 typedef MatrixCell<T> = ({int row, int column, T cell});
+typedef MatrixIndex = ({int row, int column});
+typedef MatrixSize = ({int columns, int rows});
 
 class Matrix<T> with EquatableMixin {
   Matrix.fromList(this._values)
@@ -13,7 +15,7 @@ class Matrix<T> with EquatableMixin {
 
   int get columnCount => _values.first.length;
 
-  ({int columns, int rows}) get size => (columns: columnCount, rows: rowCount);
+  MatrixSize get size => (columns: columnCount, rows: rowCount);
 
   Iterable<Iterable<T>> get rows => _values;
   Iterable<Iterable<T>> get columns => _values.zip();
@@ -58,7 +60,7 @@ class Matrix<T> with EquatableMixin {
   @override
   List<Object?> get props => [_values];
 
-  Iterable<({int row, int column})> get indexes sync* {
+  Iterable<MatrixIndex> get indexes sync* {
     for (var i = 0; i < _values.length; i++) {
       for (var j = 0; j < _values[i].length; j++) {
         yield (row: i, column: j);

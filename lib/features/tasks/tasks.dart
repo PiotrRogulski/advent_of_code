@@ -41,6 +41,7 @@ import 'package:advent_of_code/features/tasks/y2024/d4.dart';
 import 'package:advent_of_code/features/tasks/y2024/d5.dart';
 import 'package:advent_of_code/features/tasks/y2024/d6.dart';
 import 'package:advent_of_code/features/tasks/y2024/d7.dart';
+import 'package:advent_of_code/features/tasks/y2024/d8.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 
 const allYears = {
@@ -92,6 +93,7 @@ const allYears = {
     5: Y2024D5(),
     6: Y2024D6(),
     7: Y2024D7(),
+    8: Y2024D8(),
   }),
 };
 
