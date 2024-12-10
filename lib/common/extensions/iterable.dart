@@ -9,6 +9,11 @@ extension IterableX<T> on Iterable<T> {
       }
     }
   }
+
+  Iterable<T> uniqueBy<K>(K Function(T) keyOf) => unique(
+    equals: (e1, e2) => keyOf(e1) == keyOf(e2),
+    hashCode: (e) => keyOf(e).hashCode,
+  );
 }
 
 extension NumIterableX<T extends num> on Iterable<T> {
