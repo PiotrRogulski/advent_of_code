@@ -13,7 +13,7 @@ class Y2024D7 extends DayData<_I> {
   const Y2024D7() : super(2024, 7, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => ListInput(
+  _I parseInput(String rawData) => _I(
     rawData
         .split('\n')
         .map(
@@ -34,7 +34,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => NumericOutput(
+  _O runInternal(_I inputData) => _O(
     inputData.values
         .where(
           (x) =>
@@ -53,7 +53,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => NumericOutput(
+  _O runInternal(_I inputData) => _O(
     inputData.values
         .where(
           (x) =>

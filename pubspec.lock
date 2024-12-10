@@ -598,10 +598,10 @@ packages:
     dependency: transitive
     description:
       name: io
-      sha256: "2ec25704aba361659e10e3e5f5d672068d332fc8ac516421d483a11e5cbd061e"
+      sha256: dfd5a80599cf0165756e3181807ed3e77daf6dd4137caaad72d0b7931597650b
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.5"
   js:
     dependency: transitive
     description:
@@ -1240,5 +1240,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: "3.7.0-224.0.dev"
-  flutter: ">=3.27.0-1.0.pre.743"
+  dart: "3.7.0-231.0.dev"
+  flutter: ">=3.27.0-1.0.pre.770"

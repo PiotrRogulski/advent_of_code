@@ -15,12 +15,10 @@ class Y2022D8 extends DayData<_I> {
   @override
   _I parseInput(String rawData) {
     return MatrixInput(
-      Matrix.fromList(
-        rawData
-            .split('\n')
-            .map((l) => l.characters.map(int.parse).toList())
-            .toList(),
-      ),
+      rawData
+          .split('\n')
+          .map((l) => l.characters.map(int.parse).toList())
+          .toList(),
     );
   }
 }

@@ -18,21 +18,19 @@ class Y2023D3 extends DayData<_I> {
   @override
   _I parseInput(String rawData) {
     return MatrixInput(
-      Matrix.fromList(
-        rawData
-            .split('\n')
-            .map(
-              (l) => [
-                for (final c in l.split(''))
-                  switch ((c, int.tryParse(c))) {
-                    (_, final value?) => _Digit(value),
-                    ('.', _) => const _Empty(),
-                    _ => _Symbol(c),
-                  },
-              ],
-            )
-            .toList(),
-      ),
+      rawData
+          .split('\n')
+          .map(
+            (l) => [
+              for (final c in l.split(''))
+                switch ((c, int.tryParse(c))) {
+                  (_, final value?) => _Digit(value),
+                  ('.', _) => const _Empty(),
+                  _ => _Symbol(c),
+                },
+            ],
+          )
+          .toList(),
     );
   }
 }

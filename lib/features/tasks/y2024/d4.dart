@@ -14,9 +14,8 @@ class Y2024D4 extends DayData<_I> {
   const Y2024D4() : super(2024, 4, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => MatrixInput(
-    Matrix.fromList(rawData.split('\n').map((l) => l.split('')).toList()),
-  );
+  _I parseInput(String rawData) =>
+      _I(rawData.split('\n').map((l) => l.split('')).toList());
 }
 
 class _P1 extends PartImplementation<_I, _O> {
@@ -25,7 +24,7 @@ class _P1 extends PartImplementation<_I, _O> {
   static const _patterns = ['XMAS', 'SAMX'];
 
   @override
-  _O runInternal(_I inputData) => NumericOutput(
+  _O runInternal(_I inputData) => _O(
     inputData.matrix
         .apply(
           (m) => [...m.columns, ...m.rows, ...m.diagonals, ...m.antiDiagonals],
@@ -41,7 +40,7 @@ class _P2 extends PartImplementation<_I, _O> {
   static const _patterns = ['MAS', 'SAM'];
 
   @override
-  _O runInternal(_I inputData) => NumericOutput(
+  _O runInternal(_I inputData) => _O(
     inputData.matrix.apply(
       (m) => m.cells.count(
         (c) => switch ((

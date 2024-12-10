@@ -12,26 +12,24 @@ class Y2024D6 extends DayData<_I> {
   const Y2024D6() : super(2024, 6, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => MatrixInput(
-    Matrix.fromList(
-      rawData
-          .split('\n')
-          .map(
-            (l) =>
-                l
-                    .split('')
-                    .map(
-                      (c) => switch (c) {
-                        '.' => _Tile.empty,
-                        '#' => _Tile.obstacle,
-                        '^' => _Tile.start,
-                        _ => throw ArgumentError('Invalid tile: $c'),
-                      },
-                    )
-                    .toList(),
-          )
-          .toList(),
-    ),
+  _I parseInput(String rawData) => _I(
+    rawData
+        .split('\n')
+        .map(
+          (l) =>
+              l
+                  .split('')
+                  .map(
+                    (c) => switch (c) {
+                      '.' => _Tile.empty,
+                      '#' => _Tile.obstacle,
+                      '^' => _Tile.start,
+                      _ => throw ArgumentError('Invalid tile: $c'),
+                    },
+                  )
+                  .toList(),
+        )
+        .toList(),
     dense: true,
   );
 }
@@ -40,7 +38,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => NumericOutput(
+  _O runInternal(_I inputData) => _O(
     inputData.matrix.cells
             .firstWhere((c) => c.value == _Tile.start)
             .apply(
@@ -82,7 +80,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => NumericOutput(
+  _O runInternal(_I inputData) => _O(
     inputData.matrix.cells
         .firstWhere((c) => c.value == _Tile.start)
         .apply(

@@ -19,12 +19,10 @@ class Y2023D23 extends DayData<_I> {
   @override
   _I parseInput(String rawData) {
     return _I(
-      Matrix.fromList(
-        rawData
-            .split('\n')
-            .map((e) => e.split('').map(_Tile.fromSymbol).toList())
-            .toList(),
-      ),
+      rawData
+          .split('\n')
+          .map((e) => e.split('').map(_Tile.fromSymbol).toList())
+          .toList(),
     );
   }
 }

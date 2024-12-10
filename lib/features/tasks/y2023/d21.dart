@@ -1,4 +1,3 @@
-import 'package:advent_of_code/common/utils/matrix.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
@@ -15,11 +14,9 @@ class Y2023D21 extends DayData<_I> {
   @override
   _I parseInput(String rawData) {
     return _I(
-      Matrix.fromList(
-        rawData.split('\n').map((line) {
-          return line.split('').map(_Tile.fromSymbol).toList();
-        }).toList(),
-      ),
+      rawData.split('\n').map((line) {
+        return line.split('').map(_Tile.fromSymbol).toList();
+      }).toList(),
     );
   }
 }
