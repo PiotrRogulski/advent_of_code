@@ -4,8 +4,8 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: 3.7.0-231.0.dev
-  flutter: 3.27.0-1.0.pre.770
+  sdk: 3.7.0-243.0.dev
+  flutter: 3.28.0-1.0.pre.122
 
 dependencies:
   collection: ^1.19.1
@@ -46,7 +46,6 @@ dev_dependencies:
 
 dependency_overrides:
   collection: ^1.19.1
-  rxdart: ^0.28.0
 
 flutter_gen:
   assets:
