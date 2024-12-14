@@ -9,10 +9,9 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class PartStatus extends HookWidget {
+class PartStatus extends StatelessWidget {
   const PartStatus({
     super.key,
     required this.store,

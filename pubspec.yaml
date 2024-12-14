@@ -10,7 +10,7 @@ environment:
 dependencies:
   collection: ^1.19.1
   dio: ^5.7.0
-  dropdown_button2: ^3.0.0-beta.20
+  dropdown_button2: ^3.0.0-beta.21
   dynamic_color: ^1.7.0
   equatable: ^2.0.7
   flutter:
@@ -41,7 +41,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   go_router_builder: ^2.7.1
-  leancode_lint: ^14.2.0
+  leancode_lint: ^14.4.0
   mobx_codegen: ^2.6.2
 
 dependency_overrides:
