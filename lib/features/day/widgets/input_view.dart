@@ -115,7 +115,7 @@ class _MatrixData<T> extends HookWidget {
 
     final cells = [
       [
-        const TextSpan(text: ''),
+        const TextSpan(),
         for (var i = 0; i < matrix.columnCount; i++)
           TextSpan(text: '$i', style: indexStyle),
       ],
@@ -134,9 +134,9 @@ class _MatrixData<T> extends HookWidget {
     final alignedCells = [
       for (final row in cells)
         [
-          for (final (columnIndex, cell) in row.indexed)
+          for (final (cell, width) in (row, columnWidths).zip())
             TextSpan(
-              text: ' ${cell.text!.padLeft(columnWidths[columnIndex])} ',
+              text: ' ${cell.toPlainText().padLeft(width)} ',
               style: cell.style,
             ),
         ],
