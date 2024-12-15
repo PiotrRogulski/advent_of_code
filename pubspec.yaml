@@ -47,10 +47,6 @@ dev_dependencies:
 dependency_overrides:
   collection: ^1.19.1
 
-flutter_gen:
-  assets:
-    enabled: false
-
 flutter:
   uses-material-design: true
   generate: true
