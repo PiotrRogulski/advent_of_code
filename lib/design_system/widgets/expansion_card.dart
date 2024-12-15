@@ -50,7 +50,7 @@ class AocExpansionCard extends HookWidget {
         ),
         maintainState: true,
         expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-        expandedAlignment: Alignment.topCenter,
+        expandedAlignment: Alignment.bottomCenter,
         expansionAnimationStyle: AnimationStyle(
           curve: Curves.easeInOutCubicEmphasized,
           reverseCurve: Curves.easeInOutCubicEmphasized.flipped,
@@ -58,14 +58,15 @@ class AocExpansionCard extends HookWidget {
         ),
         showTrailingIcon: false,
         onExpansionChanged: (value) => isExpanded.value = value,
+        shape: const Border(),
+        collapsedShape: const Border(),
         children: [
           if (aboveBody != null) aboveBody!,
           Card(
             margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             color: colors.surface,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: colors.outlineVariant, width: 2),
-              borderRadius: const BorderRadius.all(Radius.circular(16)),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
             child: AnimatedSize(
               duration: Durations.medium1,

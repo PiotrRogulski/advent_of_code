@@ -92,7 +92,7 @@ class _ProgressBar extends HookWidget {
                   minHeight: _height,
                   value: progress,
                   borderRadius: _borderRadius,
-                  backgroundColor: colors.surfaceContainer,
+                  backgroundColor: colors.surface,
                   color: colors.primary.withValues(alpha: 0.3),
                 ),
                 LinearProgressIndicator(

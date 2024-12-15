@@ -47,7 +47,6 @@ class AocDropdownListTile<T> extends HookWidget {
           padding: EdgeInsetsDirectional.zero,
           decoration: BoxDecoration(
             color: theme.cardTheme.color,
-            border: Border.all(color: colorScheme.outlineVariant, width: 2),
             borderRadius: BorderRadius.circular(24),
           ),
         ),

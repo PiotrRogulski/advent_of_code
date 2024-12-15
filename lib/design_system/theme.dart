@@ -33,12 +33,9 @@ class AocTheme {
       cardTheme: CardTheme(
         clipBehavior: Clip.antiAlias,
         elevation: 0,
-        color: colorScheme.surfaceContainerLowest,
+        color: colorScheme.primaryContainer,
         margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: colorScheme.outlineVariant, width: 2),
-          borderRadius: BorderRadius.circular(24),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
       splashColor: colorScheme.primary.withValues(alpha: 0.15),
       highlightColor: colorScheme.primary.withValues(alpha: 0.1),

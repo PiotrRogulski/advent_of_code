@@ -90,7 +90,7 @@ class _ProgressIndicator extends StatelessWidget {
                   value: progress,
                   strokeWidth: 8,
                   strokeCap: StrokeCap.round,
-                  backgroundColor: colors.surfaceContainer,
+                  backgroundColor: colors.surface,
                   color: colors.primary.withValues(alpha: 0.3),
                 ),
               ),
