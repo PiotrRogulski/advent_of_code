@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:equatable/equatable.dart';
 import 'package:more/collection.dart';
 
@@ -18,8 +20,8 @@ class Matrix<T> with EquatableMixin {
 
   MatrixSize get size => (columns: columnCount, rows: rowCount);
 
-  Iterable<Iterable<T>> get rows => _values;
-  Iterable<Iterable<T>> get columns => _values.zip();
+  List<List<T>> get rows => UnmodifiableListView(_values);
+  List<List<T>> get columns => _values.zip().toList();
   Iterable<Iterable<T>> get diagonals => [
     for (var c = 0; c < columnCount; c++)
       [
@@ -103,4 +105,5 @@ extension MatrixIndexX on MatrixIndex {
 
 extension MatrixIndexDeltaX on MatrixIndexDelta {
   MatrixIndexDelta operator *(int factor) => (dr: dr * factor, dc: dc * factor);
+  MatrixIndexDelta operator -() => (dr: -dr, dc: -dc);
 }
