@@ -71,6 +71,7 @@ class AocExpansionCard extends HookWidget {
             child: AnimatedSize(
               duration: Durations.medium1,
               curve: Curves.easeInOutCubicEmphasized,
+              alignment: Alignment.topCenter,
               child: body,
             ),
           ),
