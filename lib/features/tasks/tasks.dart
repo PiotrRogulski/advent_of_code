@@ -46,6 +46,7 @@ import 'package:advent_of_code/features/tasks/y2024/d17.dart';
 import 'package:advent_of_code/features/tasks/y2024/d18.dart';
 import 'package:advent_of_code/features/tasks/y2024/d19.dart';
 import 'package:advent_of_code/features/tasks/y2024/d2.dart';
+import 'package:advent_of_code/features/tasks/y2024/d20.dart';
 import 'package:advent_of_code/features/tasks/y2024/d3.dart';
 import 'package:advent_of_code/features/tasks/y2024/d4.dart';
 import 'package:advent_of_code/features/tasks/y2024/d5.dart';
@@ -116,6 +117,7 @@ const allYears = {
     17: Y2024D17(),
     18: Y2024D18(),
     19: Y2024D19(),
+    20: Y2024D20(),
   }),
 };
 

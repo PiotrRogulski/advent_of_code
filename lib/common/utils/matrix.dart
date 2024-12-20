@@ -101,6 +101,11 @@ extension MatrixIndexX on MatrixIndex {
     dr: row - other.row,
     dc: column - other.column,
   );
+
+  MatrixIndex get up => (row: row - 1, column: column);
+  MatrixIndex get down => (row: row + 1, column: column);
+  MatrixIndex get left => (row: row, column: column - 1);
+  MatrixIndex get right => (row: row, column: column + 1);
 }
 
 extension MatrixIndexDeltaX on MatrixIndexDelta {

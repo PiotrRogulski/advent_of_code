@@ -6,3 +6,10 @@ extension WidgetListX<T extends Widget> on List<Widget> {
     return separatedBy(() => SizedBox(width: width, height: height)).toList();
   }
 }
+
+extension ListX<T> on List<T> {
+  int? maybeIndexOf(T element) => switch (indexOf(element)) {
+    -1 => null,
+    final index => index,
+  };
+}
