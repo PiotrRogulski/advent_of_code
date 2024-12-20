@@ -9,6 +9,7 @@ class AocExpansionCard extends HookWidget {
     required this.title,
     this.trailing,
     this.margin,
+    this.bodyAlignment = Alignment.topCenter,
     this.aboveBody,
     this.body,
   });
@@ -16,6 +17,7 @@ class AocExpansionCard extends HookWidget {
   final String title;
   final Widget? trailing;
   final EdgeInsetsGeometry? margin;
+  final AlignmentGeometry bodyAlignment;
   final Widget? aboveBody;
   final Widget? body;
 
@@ -71,7 +73,7 @@ class AocExpansionCard extends HookWidget {
             child: AnimatedSize(
               duration: Durations.medium1,
               curve: Curves.easeInOutCubicEmphasized,
-              alignment: Alignment.topCenter,
+              alignment: bodyAlignment,
               child: body,
             ),
           ),

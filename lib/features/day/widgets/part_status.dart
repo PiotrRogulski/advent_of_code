@@ -36,6 +36,7 @@ class PartStatus extends StatelessWidget {
             true => AocIcon(AocIconData.check, size: 24, color: colors.primary),
             false => null,
           },
+          bodyAlignment: Alignment.bottomCenter,
           body: Stack(
             children: [
               Column(
