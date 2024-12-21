@@ -88,6 +88,9 @@ class Matrix<T> with EquatableMixin {
     }
   }
 
+  MatrixIndex indexOf(T value) =>
+      indexes.firstWhere((i) => atIndex(i) == value);
+
   Matrix<T> copy() => Matrix.fromList(_values.map((e) => e.toList()).toList());
 }
 
