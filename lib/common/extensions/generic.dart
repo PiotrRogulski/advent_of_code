@@ -17,5 +17,9 @@ extension GenericNonnullX<T extends Object> on T {
 }
 
 extension Tuple2X<T> on (T, T) {
-  (R, R) mapBoth<R>(R Function(T) f) => (f(this.$1), f(this.$2));
+  (R, R) mapBoth<R>(R Function(T) f) => (f($1), f($2));
+}
+
+extension Tuple4X<T> on (T, T, T, T) {
+  (R, R, R, R) mapAll<R>(R Function(T) f) => (f($1), f($2), f($3), f($4));
 }
