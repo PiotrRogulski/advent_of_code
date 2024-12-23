@@ -128,15 +128,13 @@ Iterable<_Move> _nextMoves(Matrix<_Tile> matrix, _Move move) {
     _Tile.empty => [(position: position + dir.diff, dir: dir)],
     _Tile.mirrorR => switch (dir) {
       _D.up || _D.down => [(position: position + dir.rotL.diff, dir: dir.rotL)],
-      _D.left || _D.right => [
-        (position: position + dir.rotR.diff, dir: dir.rotR),
-      ],
+      _D.left ||
+      _D.right => [(position: position + dir.rotR.diff, dir: dir.rotR)],
     },
     _Tile.mirrorL => switch (dir) {
       _D.up || _D.down => [(position: position + dir.rotR.diff, dir: dir.rotR)],
-      _D.left || _D.right => [
-        (position: position + dir.rotL.diff, dir: dir.rotL),
-      ],
+      _D.left ||
+      _D.right => [(position: position + dir.rotL.diff, dir: dir.rotL)],
     },
     _Tile.splitH => switch (dir) {
       _D.left || _D.right => [(position: position + dir.diff, dir: dir)],
