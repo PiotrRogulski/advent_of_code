@@ -11,7 +11,6 @@ import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 class DayPage extends MaterialPage<void> {
   DayPage({required int year, required int day})
@@ -108,14 +107,16 @@ class _SliverBodyColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = context.l10n;
 
-    return MultiSliver(
-      children: [
-        Card(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: SwitchListTile(
-            value: useFullData.value,
-            onChanged: (value) => useFullData.value = value,
-            title: Text(s.day_useFullInput),
+    return SliverMainAxisGroup(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Card(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            child: SwitchListTile(
+              value: useFullData.value,
+              onChanged: (value) => useFullData.value = value,
+              title: Text(s.day_useFullInput),
+            ),
           ),
         ),
         _SliverPartList(
@@ -170,14 +171,16 @@ class _SliverBodySideBySide extends StatelessWidget {
           ),
           SliverCrossAxisExpanded(
             flex: 1,
-            sliver: MultiSliver(
-              children: [
-                Card(
-                  margin: const EdgeInsets.all(8),
-                  child: SwitchListTile(
-                    value: useFullData.value,
-                    onChanged: (value) => useFullData.value = value,
-                    title: Text(s.day_useFullInput),
+            sliver: SliverMainAxisGroup(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Card(
+                    margin: const EdgeInsets.all(8),
+                    child: SwitchListTile(
+                      value: useFullData.value,
+                      onChanged: (value) => useFullData.value = value,
+                      title: Text(s.day_useFullInput),
+                    ),
                   ),
                 ),
                 _SliverInputView(
