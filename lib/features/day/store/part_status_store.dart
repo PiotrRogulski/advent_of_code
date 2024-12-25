@@ -20,9 +20,6 @@ abstract class _PartStatusStore with Store {
   @computed
   List<RunInfo> get runs => _runs.toList();
 
-  @readonly
-  ({Object error, StackTrace stackTrace})? _error;
-
   @action
   Future<void> run(PartInput data) async {
     _running = true;

@@ -1,15 +1,14 @@
 import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
+import 'package:more/more.dart';
 
 class AocTheme {
   static const _seedColor = Color(0xFF00FF00);
 
-  static ThemeData dark(ColorScheme? systemScheme) =>
-      _makeTheme(Brightness.dark, systemScheme);
+  static final dark = _makeTheme.bind0(Brightness.dark);
 
-  static ThemeData light(ColorScheme? systemScheme) =>
-      _makeTheme(Brightness.light, systemScheme);
+  static final light = _makeTheme.bind0(Brightness.light);
 
   static ThemeData _makeTheme(
     Brightness brightness,
