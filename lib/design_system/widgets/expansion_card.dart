@@ -1,5 +1,6 @@
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
+import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -67,8 +68,11 @@ class AocExpansionCard extends HookWidget {
           Card(
             margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             color: colors.surface,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
+            shape: SmoothRectangleBorder(
+              borderRadius: SmoothBorderRadius(
+                cornerRadius: 10,
+                cornerSmoothing: 1,
+              ),
             ),
             child: AnimatedSize(
               duration: Durations.medium1,

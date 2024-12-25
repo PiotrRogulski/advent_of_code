@@ -1,4 +1,5 @@
 import 'package:advent_of_code/gen/fonts.gen.dart';
+import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 
 class AocTheme {
@@ -35,7 +36,12 @@ class AocTheme {
         elevation: 0,
         color: colorScheme.primaryContainer,
         margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        shape: SmoothRectangleBorder(
+          borderRadius: SmoothBorderRadius(
+            cornerRadius: 16,
+            cornerSmoothing: 1,
+          ),
+        ),
       ),
       splashColor: colorScheme.primary.withValues(alpha: 0.15),
       highlightColor: colorScheme.primary.withValues(alpha: 0.1),

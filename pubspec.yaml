@@ -14,6 +14,10 @@ dependencies:
   dropdown_button2: ^3.0.0-beta.21
   dynamic_color: ^1.7.0
   equatable: ^2.0.7
+  figma_squircle:
+    git:
+      url: https://github.com/mark8044/figma_squircle
+      ref: fix2
   flutter:
     sdk: flutter
   flutter_adaptive_scaffold: ^0.3.1

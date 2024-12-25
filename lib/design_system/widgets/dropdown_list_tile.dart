@@ -45,10 +45,7 @@ class AocDropdownListTile<T> extends HookWidget {
           elevation: 0,
           offset: const Offset(0, -16),
           padding: EdgeInsetsDirectional.zero,
-          decoration: BoxDecoration(
-            color: theme.cardTheme.color,
-            borderRadius: BorderRadius.circular(24),
-          ),
+          dropdownBuilder: (context, child) => Card(child: child),
         ),
         onChanged: onSelected,
         customButton: ListTile(
