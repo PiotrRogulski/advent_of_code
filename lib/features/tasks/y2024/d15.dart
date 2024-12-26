@@ -167,8 +167,8 @@ Matrix<_Entity2> _performMove2(Matrix<_Entity2> map, _Move move) {
 
 bool _canPush(Matrix<_Entity2> map, MatrixIndex box, MatrixIndexDelta dir) {
   final side = switch (map.atIndex(box)) {
-    _Entity2.boxL => box + (dr: 0, dc: 1),
-    _Entity2.boxR => box + (dr: 0, dc: -1),
+    _Entity2.boxL => box.right,
+    _Entity2.boxR => box.left,
     _ => throw Exception(),
   };
 
@@ -188,8 +188,8 @@ bool _canPush(Matrix<_Entity2> map, MatrixIndex box, MatrixIndexDelta dir) {
 
 void _push(Matrix<_Entity2> map, MatrixIndex box, MatrixIndexDelta dir) {
   final side = switch (map.atIndex(box)) {
-    _Entity2.boxL => box + (dr: 0, dc: 1),
-    _Entity2.boxR => box + (dr: 0, dc: -1),
+    _Entity2.boxL => box.right,
+    _Entity2.boxR => box.left,
     _ => throw Exception(),
   };
 

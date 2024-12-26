@@ -3,6 +3,7 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
+import 'package:more/more.dart';
 
 typedef _I = ListInput<int>;
 typedef _O = NumericOutput<int>;
@@ -20,7 +21,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) =>
-      _O(inputData.values.map((v) => _blink(v, 25)).sum);
+      _O(inputData.values.map(_blink.bind1(25)).sum);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
@@ -28,7 +29,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) =>
-      _O(inputData.values.map((v) => _blink(v, 75)).sum);
+      _O(inputData.values.map(_blink.bind1(75)).sum);
 }
 
 final _memo = <(int, int), int>{};

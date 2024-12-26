@@ -27,10 +27,10 @@ class _P1 extends PartImplementation<_I, _O> {
           g.addVertex(c);
           final ns =
               [
-                inputData.matrix.maybeCellAtIndex(c.index + (dr: 1, dc: 0)),
-                inputData.matrix.maybeCellAtIndex(c.index + (dr: 0, dc: 1)),
-                inputData.matrix.maybeCellAtIndex(c.index + (dr: -1, dc: 0)),
-                inputData.matrix.maybeCellAtIndex(c.index + (dr: 0, dc: -1)),
+                inputData.matrix.maybeCellAtIndex(c.index.up),
+                inputData.matrix.maybeCellAtIndex(c.index.down),
+                inputData.matrix.maybeCellAtIndex(c.index.left),
+                inputData.matrix.maybeCellAtIndex(c.index.right),
               ].nonNulls;
           for (final n in ns) {
             if (n.value == c.value) {
@@ -63,10 +63,10 @@ class _P2 extends PartImplementation<_I, _O> {
           g.addVertex(c);
           final ns =
               [
-                inputData.matrix.maybeCellAtIndex(c.index + (dr: 1, dc: 0)),
-                inputData.matrix.maybeCellAtIndex(c.index + (dr: 0, dc: 1)),
-                inputData.matrix.maybeCellAtIndex(c.index + (dr: -1, dc: 0)),
-                inputData.matrix.maybeCellAtIndex(c.index + (dr: 0, dc: -1)),
+                inputData.matrix.maybeCellAtIndex(c.index.up),
+                inputData.matrix.maybeCellAtIndex(c.index.down),
+                inputData.matrix.maybeCellAtIndex(c.index.left),
+                inputData.matrix.maybeCellAtIndex(c.index.right),
               ].nonNulls;
           for (final n in ns) {
             if (n.value == c.value) {
@@ -83,30 +83,15 @@ class _P2 extends PartImplementation<_I, _O> {
           }
           final corners =
               g.vertices.expand((v) {
-                final upLeft = inputData.matrix.maybeAtIndex(
-                  v.index + (dr: -1, dc: -1),
-                );
-                final up = inputData.matrix.maybeAtIndex(
-                  v.index + (dr: -1, dc: 0),
-                );
-                final upRight = inputData.matrix.maybeAtIndex(
-                  v.index + (dr: -1, dc: 1),
-                );
-                final left = inputData.matrix.maybeAtIndex(
-                  v.index + (dr: 0, dc: -1),
-                );
-                final right = inputData.matrix.maybeAtIndex(
-                  v.index + (dr: 0, dc: 1),
-                );
-                final downLeft = inputData.matrix.maybeAtIndex(
-                  v.index + (dr: 1, dc: -1),
-                );
-                final down = inputData.matrix.maybeAtIndex(
-                  v.index + (dr: 1, dc: 0),
-                );
-                final downRight = inputData.matrix.maybeAtIndex(
-                  v.index + (dr: 1, dc: 1),
-                );
+                final m = inputData.matrix;
+                final upLeft = m.maybeAtIndex(v.index.up.left);
+                final up = m.maybeAtIndex(v.index.up);
+                final upRight = m.maybeAtIndex(v.index.up.right);
+                final left = m.maybeAtIndex(v.index.left);
+                final right = m.maybeAtIndex(v.index.right);
+                final downLeft = m.maybeAtIndex(v.index.down.left);
+                final down = m.maybeAtIndex(v.index.down);
+                final downRight = m.maybeAtIndex(v.index.down.right);
 
                 return {
                   if (up != v.value && left != v.value ||

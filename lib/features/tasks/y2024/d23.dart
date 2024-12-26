@@ -40,7 +40,9 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) => _O(
     inputData
         .asNetwork()
-        .apply(_findMaximalClique)
+        .findCliques()
+        .sortedBy((c) => c.length)
+        .last
         .sortedBy((e) => e)
         .join(','),
   );
@@ -56,29 +58,6 @@ Iterable<(String, String, String)> _generateTriples(_Network graph) =>
               .map((n) => Tuple3.fromList([v, ...n]..sort())),
         )
         .toSet();
-
-Set<String> _findMaximalClique(_Network graph) {
-  Set<String>? bronKerbosch(Set<String> r, Set<String> p, Set<String> x) {
-    if (p.isEmpty && x.isEmpty) {
-      return r;
-    }
-
-    Set<String>? maxClique;
-    for (final v in p.toSet()) {
-      final neighbors = graph.neighboursOf(v).toSet();
-      final clique = bronKerbosch(r | {v}, p & neighbors, x & neighbors);
-      if (clique != null &&
-          (maxClique == null || clique.length > maxClique.length)) {
-        maxClique = clique;
-      }
-      p.remove(v);
-      x.add(v);
-    }
-    return maxClique;
-  }
-
-  return bronKerbosch({}, graph.vertices.toSet(), {})!;
-}
 
 extension on _I {
   _Network asNetwork() => values.fold(

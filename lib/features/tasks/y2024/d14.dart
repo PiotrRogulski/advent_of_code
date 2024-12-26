@@ -86,7 +86,7 @@ class _P2 extends PartImplementation<_I, _O> {
                       ),
                     )
                     .toMultiset()
-                    .counts
+                    .elementCounts
                     .toSet(),
           ),
         )

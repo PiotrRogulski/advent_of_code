@@ -4,6 +4,7 @@ import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
+import 'package:more/more.dart';
 
 typedef _I = MatrixInput<_Tile>;
 typedef _O = NumericOutput<int>;
@@ -118,7 +119,7 @@ class _P2 extends PartImplementation<_I, _O> {
               inputData.matrix.isIndexInBounds(p) &&
               inputData.matrix.atIndex(p) != _Tile.start,
         )
-        .where((p) => hasLoop(p, inputData.matrix))
+        .where(hasLoop.bind1(inputData.matrix))
         .length,
   );
 }

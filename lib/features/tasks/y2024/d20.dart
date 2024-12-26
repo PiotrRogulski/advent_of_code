@@ -30,7 +30,7 @@ class _P1 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) => _O(
     _findCheats(
       inputData.matrix,
-      DijkstraSearchIterable(
+      dijkstraSearch(
         startVertices: [inputData.matrix.start],
         successorsOf: inputData.matrix.successorsOf,
         targetPredicate: inputData.matrix.isEnd,
@@ -47,7 +47,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) => _O(
-    DijkstraSearchIterable(
+    dijkstraSearch(
       startVertices: [inputData.matrix.start],
       successorsOf: inputData.matrix.successorsOf,
       targetPredicate: inputData.matrix.isEnd,

@@ -59,10 +59,10 @@ Iterable<Iterable<MatrixCell<int>>> _findTrails(
     ];
   }
 
-  final cellUp = map.maybeCellAtIndex(start.index + (dr: -1, dc: 0));
-  final cellDown = map.maybeCellAtIndex(start.index + (dr: 1, dc: 0));
-  final cellLeft = map.maybeCellAtIndex(start.index + (dr: 0, dc: -1));
-  final cellRight = map.maybeCellAtIndex(start.index + (dr: 0, dc: 1));
+  final cellUp = map.maybeCellAtIndex(start.index.up);
+  final cellDown = map.maybeCellAtIndex(start.index.down);
+  final cellLeft = map.maybeCellAtIndex(start.index.left);
+  final cellRight = map.maybeCellAtIndex(start.index.right);
 
   return [
     if (cellUp != null && cellUp.value == start.value + 1)

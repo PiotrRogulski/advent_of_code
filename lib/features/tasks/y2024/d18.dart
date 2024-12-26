@@ -84,7 +84,7 @@ Path<MatrixIndex, num>? _findPath({
     )
     .apply(
       (memory) =>
-          DijkstraSearchIterable(
+          dijkstraSearch(
             startVertices: [(row: 0, column: 0)],
             successorsOf:
                 (v) => [

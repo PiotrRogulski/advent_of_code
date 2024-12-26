@@ -97,25 +97,27 @@ List<List<_Operator>> _findSolutions(
     }
   }
 
+  final [operand, ...rest] = operands;
+
   return [
-    if (number % operands.first == 0)
+    if (number % operand == 0)
       for (final solution in _findSolutions(
-        number ~/ operands.first,
-        operands.sublist(1),
+        number ~/ operand,
+        rest,
         allowConcatenation: allowConcatenation,
       ))
         [_Operator.multiply, ...solution],
-    if (number - operands.first > 0)
+    if (number - operand > 0)
       for (final solution in _findSolutions(
-        number - operands.first,
-        operands.sublist(1),
+        number - operand,
+        rest,
         allowConcatenation: allowConcatenation,
       ))
         [_Operator.add, ...solution],
-    if (allowConcatenation && '$number'.endsWith('${operands.first}'))
+    if (allowConcatenation && '$number'.endsWith('$operand'))
       for (final solution in _findSolutions(
-        int.tryParse('$number'.removeSuffix('${operands.first}')) ?? 0,
-        operands.sublist(1),
+        int.tryParse('$number'.removeSuffix('$operand')) ?? 0,
+        rest,
         allowConcatenation: allowConcatenation,
       ))
         [_Operator.concatenate, ...solution],

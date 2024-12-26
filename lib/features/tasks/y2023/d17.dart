@@ -60,7 +60,7 @@ enum _D {
 }
 
 int _dist(Matrix<int> matrix, {required int minStep, required int maxStep}) {
-  return DijkstraSearchIterable<_VertexDir<_D?>>(
+  return dijkstraSearch<_VertexDir<_D?>>(
         startVertices: [(v: (row: 0, column: 0), dir: null)],
         targetPredicate:
             (v) =>

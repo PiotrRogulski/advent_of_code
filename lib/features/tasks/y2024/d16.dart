@@ -24,7 +24,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) => _O(
-    DijkstraSearchIterable(
+    dijkstraSearch(
       startVertices: [inputData.matrix.start],
       successorsOf: inputData.matrix.successorsOf,
       targetPredicate: inputData.matrix.isEnd,
@@ -42,9 +42,8 @@ class _P2 extends PartImplementation<_I, _O> {
 
     final costs = {start: 0};
     final previous = {start: <_Node>[]};
-    final queue = PriorityQueue<(int, _Node)>(
-      (e1, e2) => e1.$1.compareTo(e2.$1),
-    )..add((0, start));
+    final queue = PriorityQueue<(int, _Node)>(delegateComparator((e) => e.$1))
+      ..add((0, start));
 
     while (queue.isNotEmpty) {
       final (_, current) = queue.removeFirst();
