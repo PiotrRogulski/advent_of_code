@@ -6,7 +6,7 @@ class HomeBranch extends StatefulShellBranchData {
   static final $navigatorKey = navigatorKeys.branches.home;
 }
 
-class HomeRoute extends GoRouteData {
+class HomeRoute extends GoRouteData with $HomeRoute {
   const HomeRoute();
 
   static final $parentNavigatorKey = HomeBranch.$navigatorKey;

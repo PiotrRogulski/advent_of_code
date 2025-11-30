@@ -6,7 +6,7 @@ class SettingsBranch extends StatefulShellBranchData {
   static final $navigatorKey = navigatorKeys.branches.settings;
 }
 
-class SettingsRoute extends GoRouteData {
+class SettingsRoute extends GoRouteData with $SettingsRoute {
   const SettingsRoute();
 
   static final $parentNavigatorKey = SettingsBranch.$navigatorKey;

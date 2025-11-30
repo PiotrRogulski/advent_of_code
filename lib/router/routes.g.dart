@@ -17,7 +17,7 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
         GoRouteData.$route(
           path: '/home',
           parentNavigatorKey: HomeRoute.$parentNavigatorKey,
-          factory: $HomeRouteExtension._fromState,
+          factory: $HomeRoute._fromState,
         ),
       ],
     ),
@@ -27,17 +27,17 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
         GoRouteData.$route(
           path: '/years',
           parentNavigatorKey: YearsRoute.$parentNavigatorKey,
-          factory: $YearsRouteExtension._fromState,
+          factory: $YearsRoute._fromState,
           routes: [
             GoRouteData.$route(
               path: ':year',
               parentNavigatorKey: YearRoute.$parentNavigatorKey,
-              factory: $YearRouteExtension._fromState,
+              factory: $YearRoute._fromState,
               routes: [
                 GoRouteData.$route(
                   path: ':day',
                   parentNavigatorKey: DayRoute.$parentNavigatorKey,
-                  factory: $DayRouteExtension._fromState,
+                  factory: $DayRoute._fromState,
                 ),
               ],
             ),
@@ -51,7 +51,7 @@ RouteBase get $mainRoute => StatefulShellRouteData.$route(
         GoRouteData.$route(
           path: '/settings',
           parentNavigatorKey: SettingsRoute.$parentNavigatorKey,
-          factory: $SettingsRouteExtension._fromState,
+          factory: $SettingsRoute._fromState,
         ),
       ],
     ),
@@ -62,84 +62,114 @@ extension $MainRouteExtension on MainRoute {
   static MainRoute _fromState(GoRouterState state) => const MainRoute();
 }
 
-extension $HomeRouteExtension on HomeRoute {
+mixin $HomeRoute on GoRouteData {
   static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
 
+  @override
   String get location => GoRouteData.$location('/home');
 
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $YearsRouteExtension on YearsRoute {
+mixin $YearsRoute on GoRouteData {
   static YearsRoute _fromState(GoRouterState state) => const YearsRoute();
 
+  @override
   String get location => GoRouteData.$location('/years');
 
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $YearRouteExtension on YearRoute {
+mixin $YearRoute on GoRouteData {
   static YearRoute _fromState(GoRouterState state) =>
       YearRoute(year: int.parse(state.pathParameters['year']!));
 
-  String get location =>
-      GoRouteData.$location('/years/${Uri.encodeComponent(year.toString())}');
+  YearRoute get _self => this as YearRoute;
 
+  @override
+  String get location => GoRouteData.$location(
+    '/years/${Uri.encodeComponent(_self.year.toString())}',
+  );
+
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $DayRouteExtension on DayRoute {
+mixin $DayRoute on GoRouteData {
   static DayRoute _fromState(GoRouterState state) => DayRoute(
     year: int.parse(state.pathParameters['year']!),
     day: int.parse(state.pathParameters['day']!),
   );
 
+  DayRoute get _self => this as DayRoute;
+
+  @override
   String get location => GoRouteData.$location(
-    '/years/${Uri.encodeComponent(year.toString())}/${Uri.encodeComponent(day.toString())}',
+    '/years/${Uri.encodeComponent(_self.year.toString())}/${Uri.encodeComponent(_self.day.toString())}',
   );
 
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $SettingsRouteExtension on SettingsRoute {
+mixin $SettingsRoute on GoRouteData {
   static SettingsRoute _fromState(GoRouterState state) => const SettingsRoute();
 
+  @override
   String get location => GoRouteData.$location('/settings');
 
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }
