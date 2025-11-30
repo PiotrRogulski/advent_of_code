@@ -80,10 +80,8 @@ class _P2 extends PartImplementation<_I, _O> {
           .whereType<_Cell<_Digit>>()
           .apply(_cellsToNumbers)
           .map(
-            (run) => (
-              run: run,
-              adjacent: _adjacentToGear(inputData.matrix, run),
-            ),
+            (run) =>
+                (run: run, adjacent: _adjacentToGear(inputData.matrix, run)),
           )
           .where((e) => e.adjacent.isAdjacent)
           .groupSetsBy((element) => element.adjacent)

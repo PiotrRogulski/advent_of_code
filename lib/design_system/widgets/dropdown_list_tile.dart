@@ -1,7 +1,7 @@
 import 'package:advent_of_code/common/hooks/collect_as_notifier.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
 
 class AocDropdownListTile<T> extends HookWidget {
   const AocDropdownListTile({
@@ -40,11 +40,11 @@ class AocDropdownListTile<T> extends HookWidget {
             DropdownItem(value: item, child: Text(itemLabelBuilder(item))),
         ],
         barrierColor: colorScheme.surface.withValues(alpha: 0.5),
-        dropdownStyleData: DropdownStyleData(
+        dropdownStyleData: .new(
           useRootNavigator: true,
           elevation: 0,
-          offset: const Offset(0, -16),
-          padding: EdgeInsetsDirectional.zero,
+          offset: const .new(0, -16),
+          padding: .zero,
           dropdownBuilder: (context, child) => Card(child: child),
         ),
         onChanged: onSelected,

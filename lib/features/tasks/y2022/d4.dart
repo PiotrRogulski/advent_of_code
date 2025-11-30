@@ -14,7 +14,7 @@ class Y2022D4 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
+    return .new(
       rawData
           .split('\n')
           .map(_lineRegex.firstMatch)
@@ -31,7 +31,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values.where((t) => _containsOther(t.$1, t.$2)).length,
     );
   }
@@ -47,7 +47,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values.where((t) => _hasIntersection(t.$1, t.$2)).length,
     );
   }

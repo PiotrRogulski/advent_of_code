@@ -13,7 +13,7 @@ class Y2022D10 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
+    return .new(
       rawData.split('\n').map((l) {
         return switch (l.split(' ')) {
           ['addx', final x] => AddX(int.parse(x)),
@@ -30,7 +30,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return StringOutput(
+    return .new(
       inputData.values
           .expand((cmd) {
             return switch (cmd) {
@@ -60,7 +60,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return StringOutput(
+    return .new(
       inputData.values
           .expand((cmd) {
             return switch (cmd) {

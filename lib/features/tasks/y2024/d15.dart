@@ -24,12 +24,11 @@ class Y2024D15 extends DayData<_I> {
                   .map((l) => l.split('').map(_Entity.fromSymbol).toList())
                   .toList(),
             ),
-            moves:
-                p.last
-                    .replaceAll('\n', '')
-                    .split('')
-                    .map(_Move.fromSymbol)
-                    .toList(),
+            moves: p.last
+                .replaceAll('\n', '')
+                .split('')
+                .map(_Move.fromSymbol)
+                .toList(),
           ),
         ),
     stringifier: (d) {

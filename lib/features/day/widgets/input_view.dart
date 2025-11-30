@@ -8,7 +8,7 @@ import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:more/collection.dart' hide IndexedIterableExtension;
 
 class SliverDayInputView extends StatelessWidget {
@@ -49,19 +49,19 @@ class DayInputView extends HookWidget {
           s.day_inputData_wrap,
           style: Theme.of(context).textTheme.labelLarge,
         ),
-        controlAffinity: ListTileControlAffinity.leading,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-        materialTapTargetSize: MaterialTapTargetSize.padded,
+        controlAffinity: .leading,
+        contentPadding: const .symmetric(horizontal: 16),
+        materialTapTargetSize: .padded,
         dense: true,
       ),
       body: SingleChildScrollView(
         key: PageStorageKey(inputData),
-        scrollDirection: wrapText.value ? Axis.vertical : Axis.horizontal,
+        scrollDirection: wrapText.value ? .vertical : .horizontal,
         padding: const EdgeInsets.all(16),
         child: DefaultTextStyle.merge(
           style: const TextStyle(fontFamily: FontFamily.jetBrainsMono),
           child: switch (inputData) {
-            RawStringInput(:final value) => _TextData(TextSpan(text: value)),
+            RawStringInput(:final value) => _TextData(.new(text: value)),
             ListInput(:final values) => _ListData(values: values),
             MatrixInput(:final matrix, dense: true) => _ListData(
               values: matrix.rows.map((row) => row.join()).toList(),
@@ -86,13 +86,12 @@ class _MatrixData<T> extends HookWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    final tableSpan =
-        useFuture(
-          useMemoized(() => compute(_computeLayout, (matrix, colors)), [
-            matrix,
-            colors,
-          ]),
-        ).data;
+    final tableSpan = useFuture(
+      useMemoized(() => compute(_computeLayout, (matrix, colors)), [
+        matrix,
+        colors,
+      ]),
+    ).data;
 
     if (tableSpan == null) {
       return const SizedBox();
@@ -108,10 +107,7 @@ class _MatrixData<T> extends HookWidget {
       for (final row in matrix.rows) [for (final e in row) '$e'],
     ];
 
-    final indexStyle = TextStyle(
-      color: colors.primary,
-      fontWeight: FontWeight.bold,
-    );
+    final indexStyle = TextStyle(color: colors.primary, fontWeight: .bold);
 
     final cells = [
       [
@@ -142,11 +138,10 @@ class _MatrixData<T> extends HookWidget {
         ],
     ];
 
-    return TextSpan(
-      children:
-          alignedCells
-              .separatedBy(() => const [TextSpan(text: '\n')])
-              .flattenedToList,
+    return .new(
+      children: alignedCells
+          .separatedBy(() => const [.new(text: '\n')])
+          .flattenedToList,
     );
   }
 }
@@ -170,8 +165,9 @@ class _ListData<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;
-    final indexPartLength =
-        s.day_inputData_matrixIndex(index: values.length).length;
+    final indexPartLength = s
+        .day_inputData_matrixIndex(index: values.length)
+        .length;
 
     return SelectionArea(
       child: Text.rich(
@@ -185,7 +181,7 @@ class _ListData<T> extends StatelessWidget {
                     text: s
                         .day_inputData_matrixIndex(index: index)
                         .padLeft(indexPartLength),
-                    style: TextStyle(
+                    style: .new(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),

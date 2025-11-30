@@ -14,7 +14,7 @@ class Y2022D8 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return MatrixInput(
+    return .new(
       rawData
           .split('\n')
           .map((l) => l.characters.map(int.parse).toList())
@@ -28,7 +28,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.matrix.indexes.where((t) {
         final (:row, :column) = t;
         return _isVisibleFromOutside(row, column, inputData.matrix);
@@ -54,7 +54,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.matrix.indexes.map((t) {
         final (:row, :column) = t;
         return _calculateScenicScore(row, column, inputData.matrix);

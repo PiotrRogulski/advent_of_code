@@ -24,26 +24,17 @@ class Matrix<T> with EquatableMixin {
   List<List<T>> get columns => _values.zip().toList();
   Iterable<Iterable<T>> get diagonals => [
     for (var c = 0; c < columnCount; c++)
-      [
-        for (var i = 0; i < rowCount; i++)
-          if (maybeAt(i, c + i) case final value?) value,
-      ],
+      [for (var i = 0; i < rowCount; i++) ?maybeAt(i, c + i)],
     for (var r = 1; r < rowCount; r++)
-      [
-        for (var i = 0; i < columnCount; i++)
-          if (maybeAt(r + i, i) case final value?) value,
-      ],
+      [for (var i = 0; i < columnCount; i++) ?maybeAt(r + i, i)],
   ];
   Iterable<Iterable<T>> get antiDiagonals => [
     for (var c = 0; c < columnCount; c++)
-      [
-        for (var i = 0; i < rowCount; i++)
-          if (maybeAt(i, c - i) case final value?) value,
-      ],
+      [for (var i = 0; i < rowCount; i++) ?maybeAt(i, c - i)],
     for (var r = 1; r < rowCount; r++)
       [
         for (var i = 0; i < columnCount; i++)
-          if (maybeAt(r - i + columnCount - 1, i) case final value?) value,
+          ?maybeAt(r - i + columnCount - 1, i),
       ],
   ];
   Iterable<MatrixCell<T>> get cells =>
@@ -56,10 +47,8 @@ class Matrix<T> with EquatableMixin {
       isInBounds(row, column) ? _values[row][column] : null;
   T? maybeAtIndex(MatrixIndex index) => maybeAt(index.row, index.column);
 
-  MatrixCell<T> cellAt(int row, int column) => (
-    index: (row: row, column: column),
-    value: at(row, column),
-  );
+  MatrixCell<T> cellAt(int row, int column) =>
+      (index: (row: row, column: column), value: at(row, column));
   MatrixCell<T> cellAtIndex(MatrixIndex index) =>
       cellAt(index.row, index.column);
 
@@ -91,19 +80,15 @@ class Matrix<T> with EquatableMixin {
   MatrixIndex indexOf(T value) =>
       indexes.firstWhere((i) => atIndex(i) == value);
 
-  Matrix<T> copy() => Matrix.fromList(_values.map((e) => e.toList()).toList());
+  Matrix<T> copy() => .fromList(_values.map((e) => e.toList()).toList());
 }
 
 extension MatrixIndexX on MatrixIndex {
-  MatrixIndex operator +(MatrixIndexDelta other) => (
-    row: row + other.dr,
-    column: column + other.dc,
-  );
+  MatrixIndex operator +(MatrixIndexDelta other) =>
+      (row: row + other.dr, column: column + other.dc);
 
-  MatrixIndexDelta operator -(MatrixIndex other) => (
-    dr: row - other.row,
-    dc: column - other.column,
-  );
+  MatrixIndexDelta operator -(MatrixIndex other) =>
+      (dr: row - other.row, dc: column - other.column);
 
   MatrixIndex get up => (row: row - 1, column: column);
   MatrixIndex get down => (row: row + 1, column: column);

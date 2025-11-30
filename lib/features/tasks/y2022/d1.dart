@@ -12,7 +12,7 @@ class Y2022D1 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
+    return .new(
       rawData
           .split('\n\n')
           .map((e) => e.split('\n').map(int.parse).toList())
@@ -26,7 +26,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(inputData.values.map((e) => e.sum).max);
+    return .new(inputData.values.map((e) => e.sum).max);
   }
 }
 
@@ -35,7 +35,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values.map((e) => e.sum).sortedBy((e) => -e).take(3).sum,
     );
   }

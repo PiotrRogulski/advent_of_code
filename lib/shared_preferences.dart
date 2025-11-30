@@ -14,10 +14,10 @@ class AppSharedPreferences {
   // region Settings
 
   SettingsData? readSettings() =>
-      _readJson(_Key.settings)?.apply(SettingsData.fromJson);
+      _readJson(.settings)?.apply(SettingsData.fromJson);
 
   Future<void> writeSettings(SettingsData settings) =>
-      _writeJson(_Key.settings, settings.toJson());
+      _writeJson(.settings, settings.toJson());
 
   // endregion
 

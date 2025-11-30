@@ -46,10 +46,9 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) => const _O('Merry Christmas!');
 }
 
-List<int> _parseElement(String element) =>
-    element
-        .split('\n')
-        .map((l) => l.characters)
-        .zip()
-        .map((col) => col.count((c) => c == '#') - 1)
-        .toList();
+List<int> _parseElement(String element) => element
+    .split('\n')
+    .map((l) => l.characters)
+    .zip()
+    .map((col) => col.count((c) => c == '#') - 1)
+    .toList();

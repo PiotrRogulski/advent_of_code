@@ -16,7 +16,7 @@ class Y2022D9 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
+    return .new(
       rawData
           .split('\n')
           .map((l) => l.split(' '))
@@ -45,7 +45,7 @@ class _P2 extends PartImplementation<_I, _O> {
 }
 
 _O _run(_I inputData, int ropeLength) {
-  return NumericOutput(
+  return .new(
     inputData.values
         .expand((element) => List.filled(element.count, element.move))
         .fold((
@@ -62,10 +62,10 @@ _StepAccumulator _performMove(_StepAccumulator acc, _Move move) {
   final [head, ...tail] = rope;
   final newRope = [
     switch (move) {
-      _Move.right => (x: head.x + 1, y: head.y),
-      _Move.left => (x: head.x - 1, y: head.y),
-      _Move.up => (x: head.x, y: head.y + 1),
-      _Move.down => (x: head.x, y: head.y - 1),
+      .right => (x: head.x + 1, y: head.y),
+      .left => (x: head.x - 1, y: head.y),
+      .up => (x: head.x, y: head.y + 1),
+      .down => (x: head.x, y: head.y - 1),
     },
   ];
   for (final link in tail) {

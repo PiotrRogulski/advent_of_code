@@ -44,25 +44,22 @@ class _P2 extends PartImplementation<_I, _O> {
                     .to(data.length - 3)
                     .reversed
                     .toMap(
-                      key:
-                          (i) => Tuple4.fromList(
-                            data.sublist(i, i + 4),
-                          ).mapAll((e) => e.diff),
+                      key: (i) => Tuple4.fromList(
+                        data.sublist(i, i + 4),
+                      ).mapAll((e) => e.diff),
                       value: (i) => data[i + 3].secret % 10,
                     ),
               ),
         )
         .toList()
         .apply(
-          (allPrices) =>
-              allPrices
-                  .expand((prices) => prices.keys)
-                  .toSet()
-                  .map(
-                    (diff) =>
-                        allPrices.map((prices) => prices[diff]).nonNulls.sum,
-                  )
-                  .max,
+          (allPrices) => allPrices
+              .expand((prices) => prices.keys)
+              .toSet()
+              .map(
+                (diff) => allPrices.map((prices) => prices[diff]).nonNulls.sum,
+              )
+              .max,
         ),
   );
 }

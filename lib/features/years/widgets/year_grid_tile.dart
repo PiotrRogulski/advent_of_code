@@ -27,14 +27,12 @@ class _YearGridTile extends StatelessWidget {
           Positioned.fill(
             child: Center(
               child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(borderRadius: .circular(8)),
+                clipBehavior: .antiAlias,
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                  filter: .blur(sigmaX: 4, sigmaY: 4),
                   child: Padding(
-                    padding: const EdgeInsets.all(4),
+                    padding: const .all(4),
                     child: Text(
                       year.toString(),
                       style: Theme.of(context).textTheme.titleLarge,
@@ -46,7 +44,7 @@ class _YearGridTile extends StatelessWidget {
           ),
           Positioned.fill(
             child: Material(
-              color: Colors.transparent,
+              type: .transparency,
               child: InkWell(onTap: () => YearRoute(year: year).go(context)),
             ),
           ),
@@ -74,11 +72,7 @@ class _ProgressIndicator extends StatelessWidget {
         final maxSize = constraints.biggest.shortestSide;
 
         if (completeProgress == 1.0) {
-          return AocIcon(
-            AocIconData.check,
-            color: colors.primary,
-            size: maxSize,
-          );
+          return AocIcon(.check, color: colors.primary, size: maxSize);
         }
 
         return SizedBox.square(
@@ -89,7 +83,7 @@ class _ProgressIndicator extends StatelessWidget {
                 child: CircularProgressIndicator(
                   value: progress,
                   strokeWidth: 8,
-                  strokeCap: StrokeCap.round,
+                  strokeCap: .round,
                   backgroundColor: colors.surface,
                   color: colors.primary.withValues(alpha: 0.3),
                 ),
@@ -98,7 +92,7 @@ class _ProgressIndicator extends StatelessWidget {
                 child: CircularProgressIndicator(
                   value: completeProgress,
                   strokeWidth: 8,
-                  strokeCap: StrokeCap.round,
+                  strokeCap: .round,
                   backgroundColor: Colors.transparent,
                 ),
               ),

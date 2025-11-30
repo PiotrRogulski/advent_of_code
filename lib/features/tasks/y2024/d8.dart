@@ -58,16 +58,16 @@ class _P2 extends PartImplementation<_I, _O> {
 }
 
 Iterable<MatrixIndex> _findNodes(Iterable<MatrixCell<String?>> cells) => {
-  for (final [MatrixCell(index: c1), MatrixCell(index: c2)] in cells
-      .combinations(2)) ...[c1 + (c1 - c2), c2 + (c2 - c1)],
+  for (final [MatrixCell(index: c1), MatrixCell(index: c2)]
+      in cells.combinations(2)) ...[c1 + (c1 - c2), c2 + (c2 - c1)],
 };
 
 Iterable<MatrixIndex> _findNodesUnlimited(
   Iterable<MatrixCell<String?>> cells, {
   required Predicate1<MatrixIndex> boundsChecker,
 }) => {
-  for (final [MatrixCell(index: c1), MatrixCell(index: c2)] in cells
-      .combinations(2)) ...[
+  for (final [MatrixCell(index: c1), MatrixCell(index: c2)]
+      in cells.combinations(2)) ...[
     ...c1.iterate((c) => c + (c1 - c2)).takeWhile(boundsChecker),
     ...c2.iterate((c) => c + (c2 - c1)).takeWhile(boundsChecker),
   ],

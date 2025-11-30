@@ -14,7 +14,7 @@ class SettingsStore extends _SettingsStoreBase
   }
 
   @override
-  SettingsData get data => SettingsData(
+  SettingsData get data => .new(
     themeMode: themeMode,
     useSystemTheme: useSystemTheme,
     locale: locale,
@@ -30,7 +30,7 @@ class SettingsStore extends _SettingsStoreBase
 
 abstract class _SettingsStoreBase with Store {
   @observable
-  ThemeMode themeMode = ThemeMode.dark;
+  ThemeMode themeMode = .dark;
 
   @observable
   bool useSystemTheme = false;
@@ -47,7 +47,7 @@ class SettingsData with EquatableMixin {
   });
 
   SettingsData.fromJson(Map<String, dynamic> json)
-    : themeMode = ThemeMode.values.byName(json['themeMode'] as String),
+    : themeMode = .values.byName(json['themeMode'] as String),
       useSystemTheme = json['useSystemTheme'] as bool,
       locale = (json['locale'] as String?)?.apply(Locale.new);
 

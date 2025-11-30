@@ -67,11 +67,10 @@ void main() {
                 ..name = 'fontFamily'
                 ..modifier = FieldModifier.final$
                 ..annotations.add(refer('override'))
-                ..assignment =
-                    refer(
-                      'FontFamily',
-                      'package:advent_of_code/gen/fonts.gen.dart',
-                    ).property('materialSymbolsRounded').code;
+                ..assignment = refer(
+                  'FontFamily',
+                  'package:advent_of_code/gen/fonts.gen.dart',
+                ).property('materialSymbolsRounded').code;
             }),
             Field((f) {
               f
@@ -102,7 +101,7 @@ void main() {
   });
 
   output.writeAsStringSync(
-    DartFormatter().format(
+    DartFormatter(languageVersion: DartFormatter.latestLanguageVersion).format(
       iconDataLibrary
           .accept(DartEmitter(allocator: Allocator(), orderDirectives: true))
           .toString(),

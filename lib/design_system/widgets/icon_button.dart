@@ -2,7 +2,7 @@ import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:advent_of_code/design_system/widgets/use_dynamic_weight.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
 
 class AocIconButton extends HookWidget {
   const AocIconButton({
@@ -12,7 +12,6 @@ class AocIconButton extends HookWidget {
     this.onPressed,
     this.color,
     this.fill,
-    this.backgroundColor,
   });
 
   final AocIconData icon;
@@ -20,25 +19,20 @@ class AocIconButton extends HookWidget {
   final VoidCallback? onPressed;
   final Color? color;
   final double? fill;
-  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     final (:weight, :fill, :controller) = useDynamicWeight();
 
     return Material(
-      type: switch (backgroundColor) {
-        null => MaterialType.transparency,
-        _ => MaterialType.button,
-      },
-      color: backgroundColor,
+      type: .transparency,
       shape: const CircleBorder(),
-      clipBehavior: Clip.antiAlias,
+      clipBehavior: .antiAlias,
       child: InkWell(
         onTap: onPressed,
         statesController: controller,
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const .all(8),
           child: AnimatedSwitcher(
             duration: Durations.medium1,
             switchInCurve: Curves.easeInOutCubicEmphasized,

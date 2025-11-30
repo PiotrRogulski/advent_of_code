@@ -83,17 +83,15 @@ Path<MatrixIndex, num>? _findPath({
       (m, index) => m..setIndex(index, false),
     )
     .apply(
-      (memory) =>
-          dijkstraSearch(
-            startVertices: [(row: 0, column: 0)],
-            successorsOf:
-                (v) => [
-                  v + (dr: -1, dc: 0),
-                  v + (dr: 1, dc: 0),
-                  v + (dr: 0, dc: -1),
-                  v + (dr: 0, dc: 1),
-                ].where(memory.isIndexInBounds).where(memory.atIndex),
-            targetPredicate:
-                (v) => v == (row: memorySize - 1, column: memorySize - 1),
-          ).lastOrNull,
+      (memory) => dijkstraSearch(
+        startVertices: [(row: 0, column: 0)],
+        successorsOf: (v) => [
+          v + (dr: -1, dc: 0),
+          v + (dr: 1, dc: 0),
+          v + (dr: 0, dc: -1),
+          v + (dr: 0, dc: 1),
+        ].where(memory.isIndexInBounds).where(memory.atIndex),
+        targetPredicate: (v) =>
+            v == (row: memorySize - 1, column: memorySize - 1),
+      ).lastOrNull,
     );

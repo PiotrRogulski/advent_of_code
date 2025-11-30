@@ -10,11 +10,13 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
 
 class DayPage extends MaterialPage<void> {
   DayPage({required int year, required int day})
-    : super(child: DayScreen(year: year, day: day));
+    : super(
+        child: DayScreen(year: year, day: day),
+      );
 }
 
 class DayScreen extends HookWidget {
@@ -46,18 +48,16 @@ class DayScreen extends HookWidget {
         switch (inputDataSnapshot) {
           AsyncSnapshot(:final data?) => BreakpointSelector(
             builders: {
-              Breakpoints.small:
-                  (context) => _SliverBodyColumn(
-                    stores: partStores,
-                    inputData: data,
-                    useFullData: useFullData,
-                  ),
-              null:
-                  (context) => _SliverBodySideBySide(
-                    stores: partStores,
-                    inputData: data,
-                    useFullData: useFullData,
-                  ),
+              Breakpoints.small: (context) => _SliverBodyColumn(
+                stores: partStores,
+                inputData: data,
+                useFullData: useFullData,
+              ),
+              null: (context) => _SliverBodySideBySide(
+                stores: partStores,
+                inputData: data,
+                useFullData: useFullData,
+              ),
             },
           ),
           AsyncSnapshot(:final error?, :final stackTrace) =>
@@ -65,17 +65,16 @@ class DayScreen extends HookWidget {
               hasScrollBody: false,
               child: Center(
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: .min,
                   children: [
                     Text(s.day_inputData_errorLoading),
                     const SizedBox(height: 16),
                     FilledButton.tonal(
-                      onPressed:
-                          () => ErrorStackTraceDialog.show(
-                            context,
-                            error: error,
-                            stackTrace: stackTrace,
-                          ),
+                      onPressed: () => ErrorStackTraceDialog.show(
+                        context,
+                        error: error,
+                        stackTrace: stackTrace,
+                      ),
                       child: Text(s.common_showDetails),
                     ),
                   ],
@@ -111,7 +110,7 @@ class _SliverBodyColumn extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: Card(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
+            margin: const .symmetric(horizontal: 16),
             child: SwitchListTile(
               value: useFullData.value,
               onChanged: (value) => useFullData.value = value,
@@ -120,7 +119,7 @@ class _SliverBodyColumn extends StatelessWidget {
           ),
         ),
         _SliverPartList(
-          padding: const EdgeInsets.all(16),
+          padding: const .all(16),
           stores: stores,
           inputData: useFullData.value ? inputData.full : inputData.example,
         ),
@@ -128,7 +127,7 @@ class _SliverBodyColumn extends StatelessWidget {
         _SliverInputView(
           key: const PageStorageKey('input-example'),
           label: s.day_inputExample,
-          padding: const EdgeInsets.all(16),
+          padding: const .all(16),
           inputData: inputData.example,
         ),
         _SliverInputView(
@@ -158,13 +157,13 @@ class _SliverBodySideBySide extends StatelessWidget {
     final s = context.l10n;
 
     return SliverPadding(
-      padding: const EdgeInsets.all(8),
+      padding: const .all(8),
       sliver: SliverCrossAxisGroup(
         slivers: [
           SliverCrossAxisExpanded(
             flex: 1,
             sliver: _SliverPartList(
-              padding: const EdgeInsets.all(8),
+              padding: const .all(8),
               stores: stores,
               inputData: useFullData.value ? inputData.full : inputData.example,
             ),
@@ -175,7 +174,7 @@ class _SliverBodySideBySide extends StatelessWidget {
               slivers: [
                 SliverToBoxAdapter(
                   child: Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: const .all(8),
                     child: SwitchListTile(
                       value: useFullData.value,
                       onChanged: (value) => useFullData.value = value,
@@ -186,13 +185,13 @@ class _SliverBodySideBySide extends StatelessWidget {
                 _SliverInputView(
                   key: const PageStorageKey('input-example'),
                   label: s.day_inputExample,
-                  padding: const EdgeInsets.all(8),
+                  padding: const .all(8),
                   inputData: inputData.example,
                 ),
                 _SliverInputView(
                   key: const PageStorageKey('input-full'),
                   label: s.day_inputFull,
-                  padding: const EdgeInsets.all(8),
+                  padding: const .all(8),
                   inputData: inputData.full,
                 ),
               ],

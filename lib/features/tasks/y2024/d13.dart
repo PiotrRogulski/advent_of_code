@@ -8,12 +8,11 @@ import 'package:vector_math/vector_math_64.dart';
 typedef _I = ListInput<_ClawMachine>;
 typedef _O = NumericOutput<int>;
 
-typedef _ClawMachine =
-    ({
-      ({double dx, double dy}) buttonA,
-      ({double dx, double dy}) buttonB,
-      ({double x, double y}) prize,
-    });
+typedef _ClawMachine = ({
+  ({double dx, double dy}) buttonA,
+  ({double dx, double dy}) buttonB,
+  ({double x, double y}) prize,
+});
 
 class Y2024D13 extends DayData<_I> {
   const Y2024D13() : super(2024, 13, parts: const {1: _P1(), 2: _P2()});

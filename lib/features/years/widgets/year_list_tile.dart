@@ -21,15 +21,15 @@ class _YearListTile extends StatelessWidget {
               children: [
                 Expanded(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: .spaceBetween,
                     children: [
                       Text(year.toString()),
                       if (progress == 1)
                         AocIcon(
-                          AocIconData.check,
+                          .check,
                           size: 24,
                           color: Theme.of(context).colorScheme.primary,
-                          weight: AocDynamicWeight.bold,
+                          weight: .bold,
                         ),
                     ],
                   ),
@@ -46,7 +46,7 @@ class _YearListTile extends StatelessWidget {
           ),
           Positioned.fill(
             child: Material(
-              color: Colors.transparent,
+              type: .transparency,
               child: InkWell(onTap: () => YearRoute(year: year).go(context)),
             ),
           ),
@@ -74,7 +74,7 @@ class _ProgressBar extends HookWidget {
     final percentWidth = useMemoized(() {
       final painter = TextPainter(
         text: TextSpan(text: formatter.format(1), style: textStyle),
-        textDirection: TextDirection.ltr,
+        textDirection: .ltr,
       )..layout();
       return painter.width;
     });

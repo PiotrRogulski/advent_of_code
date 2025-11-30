@@ -46,15 +46,14 @@ int? _findReflectionInDim(List<String> input, {bool allowMismatches = false}) {
   final columnCount = input.first.length;
 
   return 0.to(columnCount - 1).firstWhereOrNull((col1) {
-    final mismatches =
-        0.to(columnCount).map((col2) {
-          final a = col1 - col2;
-          final b = col1 + 1 + col2;
-          if (a < 0 || b >= columnCount) {
-            return 0;
-          }
-          return input.where((row) => row[a] != row[b]).length;
-        }).sum;
+    final mismatches = 0.to(columnCount).map((col2) {
+      final a = col1 - col2;
+      final b = col1 + 1 + col2;
+      if (a < 0 || b >= columnCount) {
+        return 0;
+      }
+      return input.where((row) => row[a] != row[b]).length;
+    }).sum;
     return mismatches == (allowMismatches ? 1 : 0);
   });
 }

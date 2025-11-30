@@ -88,8 +88,9 @@ int _s(List<_Part> s, int? currentRun, List<int> remain) {
       _ => 0,
     };
   }
-  final possible =
-      s.where((e) => e == _Part.damaged || e == _Part.unknown).length;
+  final possible = s
+      .where((e) => e == _Part.damaged || e == _Part.unknown)
+      .length;
   if ((currentRun != null &&
           (remain.isEmpty || possible + currentRun < remain.sum)) ||
       (currentRun == null && possible < remain.sum)) {
@@ -102,23 +103,20 @@ int _s(List<_Part> s, int? currentRun, List<int> remain) {
 
   final [first, ...rest] = s;
 
-  final ret =
-      [
-        if (first == _Part.ok && currentRun != null)
-          _s(rest, null, remain.sublist(1)),
-        if (first == _Part.unknown &&
-            currentRun != null &&
-            currentRun == remain[0])
-          _s(rest, null, remain.sublist(1)),
-        if ((first == _Part.damaged || first == _Part.unknown) &&
-            currentRun != null)
-          _s(rest, currentRun + 1, remain),
-        if ((first == _Part.damaged || first == _Part.unknown) &&
-            currentRun == null)
-          _s(rest, 1, remain),
-        if ((first == _Part.unknown || first == _Part.ok) && currentRun == null)
-          _s(rest, null, remain),
-      ].sum;
+  final ret = [
+    if (first == _Part.ok && currentRun != null)
+      _s(rest, null, remain.sublist(1)),
+    if (first == _Part.unknown && currentRun != null && currentRun == remain[0])
+      _s(rest, null, remain.sublist(1)),
+    if ((first == _Part.damaged || first == _Part.unknown) &&
+        currentRun != null)
+      _s(rest, currentRun + 1, remain),
+    if ((first == _Part.damaged || first == _Part.unknown) &&
+        currentRun == null)
+      _s(rest, 1, remain),
+    if ((first == _Part.unknown || first == _Part.ok) && currentRun == null)
+      _s(rest, null, remain),
+  ].sum;
 
   _memo[(s, currentRun, remain).toString()] = ret;
   return ret;

@@ -33,32 +33,30 @@ class Y2024D24 extends DayData<_I> {
         .split('\n\n')
         .apply(
           (p) => (
-            initialValues:
-                p.first
-                    .split('\n')
-                    .map(_initRegex.firstMatch)
-                    .nonNulls
-                    .map(
-                      (m) => (
-                        name: m.namedGroup('name')!,
-                        value: int.parse(m.namedGroup('value')!),
-                      ),
-                    )
-                    .toList(),
-            equations:
-                p.last
-                    .split('\n')
-                    .map(_eqRegex.firstMatch)
-                    .nonNulls
-                    .map(
-                      (m) => (
-                        arg1: m.namedGroup('arg1')!,
-                        arg2: m.namedGroup('arg2')!,
-                        op: _Op.fromString(m.namedGroup('op')!),
-                        target: m.namedGroup('target')!,
-                      ),
-                    )
-                    .toList(),
+            initialValues: p.first
+                .split('\n')
+                .map(_initRegex.firstMatch)
+                .nonNulls
+                .map(
+                  (m) => (
+                    name: m.namedGroup('name')!,
+                    value: int.parse(m.namedGroup('value')!),
+                  ),
+                )
+                .toList(),
+            equations: p.last
+                .split('\n')
+                .map(_eqRegex.firstMatch)
+                .nonNulls
+                .map(
+                  (m) => (
+                    arg1: m.namedGroup('arg1')!,
+                    arg2: m.namedGroup('arg2')!,
+                    op: _Op.fromString(m.namedGroup('op')!),
+                    target: m.namedGroup('target')!,
+                  ),
+                )
+                .toList(),
           ),
         ),
   );
@@ -97,29 +95,27 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final g = inputData.value.equations.fold(
       Graph<String, _Op>.directed(),
-      (graph, eq) =>
-          graph
-            ..addEdge(eq.arg1, eq.target, value: eq.op)
-            ..addEdge(eq.arg2, eq.target, value: eq.op),
+      (graph, eq) => graph
+        ..addEdge(eq.arg1, eq.target, value: eq.op)
+        ..addEdge(eq.arg2, eq.target, value: eq.op),
     );
     // Used as output
     // ignore: avoid_print
     print(
       g.toDot(
         edgeLabel: (e) => e.value.symbol,
-        edgeAttributes:
-            (e) => {
-              'fontcolor': switch (e.value) {
-                _Op.and => 'red',
-                _Op.xor => 'blue',
-                _Op.or => 'green',
-              },
-              'color': switch (e.value) {
-                _Op.and => 'red',
-                _Op.xor => 'blue',
-                _Op.or => 'green',
-              },
-            },
+        edgeAttributes: (e) => {
+          'fontcolor': switch (e.value) {
+            _Op.and => 'red',
+            _Op.xor => 'blue',
+            _Op.or => 'green',
+          },
+          'color': switch (e.value) {
+            _Op.and => 'red',
+            _Op.xor => 'blue',
+            _Op.or => 'green',
+          },
+        },
       ),
     );
 

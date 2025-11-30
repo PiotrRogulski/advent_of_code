@@ -9,8 +9,12 @@ import 'package:collection/collection.dart';
 import 'package:more/collection.dart';
 import 'package:more/comparator.dart';
 
-typedef _Brick =
-    ({_Coord from, _Coord to, List<int> supports, List<int> supportedBy});
+typedef _Brick = ({
+  _Coord from,
+  _Coord to,
+  List<int> supports,
+  List<int> supportedBy,
+});
 typedef _Coord = ({int x, int y, int z});
 
 typedef _I = ListInput<_Brick>;
@@ -132,7 +136,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
         final fallenIndexes = <int>{};
         final q = PriorityQueue<({int prio, int z})>(
-          naturalComparable<num>.onResultOf((e) => e.prio),
+          naturalComparable<num>.keyOf((e) => e.prio),
         )..add((prio: i, z: b.to.z));
 
         while (q.isNotEmpty) {

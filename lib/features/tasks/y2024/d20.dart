@@ -52,19 +52,18 @@ class _P2 extends PartImplementation<_I, _O> {
       successorsOf: inputData.matrix.successorsOf,
       targetPredicate: inputData.matrix.isEnd,
     ).last.vertices.apply(
-      (path) =>
-          path
-              .skipLast(toSave)
-              .expandIndexed(
-                (i, v) => path
-                    .skip(i + toSave)
-                    .whereIndexed(
-                      (j, u) => (u - v)
-                          .apply((d) => d.dc.abs() + d.dr.abs())
-                          .apply((dist) => dist <= cheatLength && dist <= j),
-                    ),
-              )
-              .length,
+      (path) => path
+          .skipLast(toSave)
+          .expandIndexed(
+            (i, v) => path
+                .skip(i + toSave)
+                .whereIndexed(
+                  (j, u) => (u - v)
+                      .apply((d) => d.dc.abs() + d.dr.abs())
+                      .apply((dist) => dist <= cheatLength && dist <= j),
+                ),
+          )
+          .length,
     ),
   );
 }

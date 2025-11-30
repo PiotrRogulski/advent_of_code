@@ -35,14 +35,13 @@ class _P1 extends PartImplementation<_I, _O> {
                 .map(
                   (e) => (
                     index: e.$1,
-                    emptySpacesAbove:
-                        c
-                            .take(e.$1)
-                            .toList()
-                            .reversed
-                            .takeWhile((e) => e != _Cell.cube)
-                            .where((e) => e == _Cell.empty)
-                            .length,
+                    emptySpacesAbove: c
+                        .take(e.$1)
+                        .toList()
+                        .reversed
+                        .takeWhile((e) => e != _Cell.cube)
+                        .where((e) => e == _Cell.empty)
+                        .length,
                   ),
                 ),
           )

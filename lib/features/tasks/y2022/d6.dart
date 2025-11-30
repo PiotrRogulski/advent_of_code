@@ -13,7 +13,7 @@ class Y2022D6 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return RawStringInput(rawData);
+    return .new(rawData);
   }
 }
 
@@ -36,7 +36,7 @@ class _P2 extends PartImplementation<_I, _O> {
 }
 
 _O _findSignal(_I inputData, {required int windowSize}) {
-  return NumericOutput(
+  return .new(
     inputData.value.characters
             .window(windowSize)
             .toList()

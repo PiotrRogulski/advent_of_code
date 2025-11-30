@@ -48,16 +48,16 @@ class _P2 extends PartImplementation<_I, _O> {
   );
 }
 
-Iterable<(String, String, String)> _generateTriples(_Network graph) =>
-    graph.vertices
-        .expand(
-          (v) => graph
-              .neighboursOf(v)
-              .combinations(2)
-              .where((n) => graph.getEdge(n.first, n.last) != null)
-              .map((n) => Tuple3.fromList([v, ...n]..sort())),
-        )
-        .toSet();
+Iterable<(String, String, String)> _generateTriples(_Network graph) => graph
+    .vertices
+    .expand(
+      (v) => graph
+          .neighboursOf(v)
+          .combinations(2)
+          .where((n) => graph.getEdge(n.first, n.last) != null)
+          .map((n) => Tuple3.fromList([v, ...n]..sort())),
+    )
+    .toSet();
 
 extension on _I {
   _Network asNetwork() => values.fold(

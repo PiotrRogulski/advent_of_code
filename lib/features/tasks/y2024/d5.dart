@@ -19,22 +19,18 @@ class Y2024D5 extends DayData<_I> {
         .split('\n\n')
         .apply(
           (d) => (
-            rules:
-                d.first
-                    .split('\n')
-                    .map(
-                      (l) => l
-                          .split('|')
-                          .apply(
-                            (p) => (int.parse(p.first), int.parse(p.last)),
-                          ),
-                    )
-                    .toSet(),
-            updates:
-                d.last
-                    .split('\n')
-                    .map((l) => l.split(',').map(int.parse).toList())
-                    .toList(),
+            rules: d.first
+                .split('\n')
+                .map(
+                  (l) => l
+                      .split('|')
+                      .apply((p) => (int.parse(p.first), int.parse(p.last))),
+                )
+                .toSet(),
+            updates: d.last
+                .split('\n')
+                .map((l) => l.split(',').map(int.parse).toList())
+                .toList(),
           ),
         ),
   );
@@ -58,30 +54,28 @@ class _P2 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) => _O(
     inputData.value.apply(
-      (i) =>
-          i.updates
-              .whereNot(i.rules.isOrdered)
-              .map(
-                (u) => iterate(u.toList(), (u) {
-                  final invalidIndex = 0
-                      .to(u.length)
-                      .firstWhere(
-                        (index) => u
-                            .sublist(index + 1)
-                            .any((y) => i.rules.contains((y, u[index]))),
-                      );
-                  final indexToMove = 0
-                      .to(u.length)
-                      .reversed
-                      .firstWhere(
-                        (index) =>
-                            i.rules.contains((u[index], u[invalidIndex])),
-                      );
-                  return u..insert(indexToMove, u.removeAt(invalidIndex));
-                }).firstWhere(i.rules.isOrdered),
-              )
-              .map((u) => u[u.length ~/ 2])
-              .sum,
+      (i) => i.updates
+          .whereNot(i.rules.isOrdered)
+          .map(
+            (u) => iterate(u.toList(), (u) {
+              final invalidIndex = 0
+                  .to(u.length)
+                  .firstWhere(
+                    (index) => u
+                        .sublist(index + 1)
+                        .any((y) => i.rules.contains((y, u[index]))),
+                  );
+              final indexToMove = 0
+                  .to(u.length)
+                  .reversed
+                  .firstWhere(
+                    (index) => i.rules.contains((u[index], u[invalidIndex])),
+                  );
+              return u..insert(indexToMove, u.removeAt(invalidIndex));
+            }).firstWhere(i.rules.isOrdered),
+          )
+          .map((u) => u[u.length ~/ 2])
+          .sum,
     ),
   );
 }

@@ -25,10 +25,9 @@ class _P1 extends PartImplementation<_I, _O> {
         .split('')
         .map(int.parse)
         .expandIndexed(
-          (index, length) =>
-              index.isEven
-                  ? List.filled(length, index ~/ 2)
-                  : List.filled(length, null),
+          (index, length) => index.isEven
+              ? List.filled(length, index ~/ 2)
+              : List.filled(length, null),
         )
         .toList()
         .iterate((l) {

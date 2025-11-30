@@ -65,12 +65,11 @@ int _energize({required _Move from, required Matrix<_Tile> matrix}) {
   var nextTiles = {from};
   final visited = {...nextTiles};
   while (nextTiles.isNotEmpty) {
-    nextTiles =
-        nextTiles
-            .expand((tile) => _nextMoves(matrix, tile))
-            .whereNot(visited.contains)
-            .where((e) => matrix.isIndexInBounds(e.position))
-            .toSet();
+    nextTiles = nextTiles
+        .expand((tile) => _nextMoves(matrix, tile))
+        .whereNot(visited.contains)
+        .where((e) => matrix.isIndexInBounds(e.position))
+        .toSet();
     visited.addAll(nextTiles);
   }
   return visited.map((e) => e.position).toSet().length;

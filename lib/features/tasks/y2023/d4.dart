@@ -28,18 +28,16 @@ class Y2023D4 extends DayData<_I> {
           .map(
             (m) => (
               index: int.parse(m.namedGroup('index')!),
-              winning:
-                  m
-                      .namedGroup('winning')!
-                      .split(RegExp(' +'))
-                      .map(int.parse)
-                      .toSet(),
-              yours:
-                  m
-                      .namedGroup('yours')!
-                      .split(RegExp(' +'))
-                      .map(int.parse)
-                      .toSet(),
+              winning: m
+                  .namedGroup('winning')!
+                  .split(RegExp(' +'))
+                  .map(int.parse)
+                  .toSet(),
+              yours: m
+                  .namedGroup('yours')!
+                  .split(RegExp(' +'))
+                  .map(int.parse)
+                  .toSet(),
             ),
           )
           .toList(),

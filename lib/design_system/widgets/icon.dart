@@ -1,6 +1,3 @@
-// Definition
-// ignore_for_file: use_design_system_item_AocIcon
-
 import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:flutter/material.dart';
@@ -38,15 +35,16 @@ class _AocIconState extends ImplicitlyAnimatedWidgetState<AocIcon> {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: animation,
-      builder:
-          (context, child) => Icon(
-            widget.icon,
-            size: _size?.evaluate(animation),
-            opticalSize: _size?.evaluate(animation),
-            color: _color?.evaluate(animation),
-            fill: _fill?.evaluate(animation),
-            weight: _weight?.evaluate(animation),
-          ),
+      // Definition
+      // ignore_for_file: leancode_lint/use_design_system_item
+      builder: (context, child) => Icon(
+        widget.icon,
+        size: _size?.evaluate(animation),
+        opticalSize: _size?.evaluate(animation),
+        color: _color?.evaluate(animation),
+        fill: _fill?.evaluate(animation),
+        weight: _weight?.evaluate(animation),
+      ),
     );
   }
 

@@ -29,15 +29,16 @@ mixin _$PartStatusStore on _PartStatusStore, Store {
     })
   >
   get runs =>
-      (_$runsComputed ??= Computed<
-            List<
-              ({
-                PartOutput? data,
-                ({Object error, StackTrace stackTrace})? error,
-                Duration runDuration,
-              })
-            >
-          >(() => super.runs, name: '_PartStatusStore.runs'))
+      (_$runsComputed ??=
+              Computed<
+                List<
+                  ({
+                    PartOutput? data,
+                    ({Object error, StackTrace stackTrace})? error,
+                    Duration runDuration,
+                  })
+                >
+              >(() => super.runs, name: '_PartStatusStore.runs'))
           .value;
 
   late final _$_runningAtom = Atom(

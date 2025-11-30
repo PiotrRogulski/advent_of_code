@@ -25,13 +25,12 @@ class _P1 extends PartImplementation<_I, _O> {
     inputData.matrix.cells
         .fold(Graph<MatrixCell<String>, void>.undirected(), (g, c) {
           g.addVertex(c);
-          final ns =
-              [
-                inputData.matrix.maybeCellAtIndex(c.index.up),
-                inputData.matrix.maybeCellAtIndex(c.index.down),
-                inputData.matrix.maybeCellAtIndex(c.index.left),
-                inputData.matrix.maybeCellAtIndex(c.index.right),
-              ].nonNulls;
+          final ns = [
+            inputData.matrix.maybeCellAtIndex(c.index.up),
+            inputData.matrix.maybeCellAtIndex(c.index.down),
+            inputData.matrix.maybeCellAtIndex(c.index.left),
+            inputData.matrix.maybeCellAtIndex(c.index.right),
+          ].nonNulls;
           for (final n in ns) {
             if (n.value == c.value) {
               g.addEdge(c, n);
@@ -61,13 +60,12 @@ class _P2 extends PartImplementation<_I, _O> {
     inputData.matrix.cells
         .fold(Graph<MatrixCell<String>, void>.undirected(), (g, c) {
           g.addVertex(c);
-          final ns =
-              [
-                inputData.matrix.maybeCellAtIndex(c.index.up),
-                inputData.matrix.maybeCellAtIndex(c.index.down),
-                inputData.matrix.maybeCellAtIndex(c.index.left),
-                inputData.matrix.maybeCellAtIndex(c.index.right),
-              ].nonNulls;
+          final ns = [
+            inputData.matrix.maybeCellAtIndex(c.index.up),
+            inputData.matrix.maybeCellAtIndex(c.index.down),
+            inputData.matrix.maybeCellAtIndex(c.index.left),
+            inputData.matrix.maybeCellAtIndex(c.index.right),
+          ].nonNulls;
           for (final n in ns) {
             if (n.value == c.value) {
               g.addEdge(c, n);
@@ -81,35 +79,32 @@ class _P2 extends PartImplementation<_I, _O> {
           if (g.edges.isEmpty) {
             return 4;
           }
-          final corners =
-              g.vertices.expand((v) {
-                final m = inputData.matrix;
-                final upLeft = m.maybeAtIndex(v.index.up.left);
-                final up = m.maybeAtIndex(v.index.up);
-                final upRight = m.maybeAtIndex(v.index.up.right);
-                final left = m.maybeAtIndex(v.index.left);
-                final right = m.maybeAtIndex(v.index.right);
-                final downLeft = m.maybeAtIndex(v.index.down.left);
-                final down = m.maybeAtIndex(v.index.down);
-                final downRight = m.maybeAtIndex(v.index.down.right);
+          final corners = g.vertices.expand((v) {
+            final m = inputData.matrix;
+            final upLeft = m.maybeAtIndex(v.index.up.left);
+            final up = m.maybeAtIndex(v.index.up);
+            final upRight = m.maybeAtIndex(v.index.up.right);
+            final left = m.maybeAtIndex(v.index.left);
+            final right = m.maybeAtIndex(v.index.right);
+            final downLeft = m.maybeAtIndex(v.index.down.left);
+            final down = m.maybeAtIndex(v.index.down);
+            final downRight = m.maybeAtIndex(v.index.down.right);
 
-                return {
-                  if (up != v.value && left != v.value ||
-                      up == v.value && left == v.value && upLeft != v.value)
-                    (v.index, _CornerDir.nw),
-                  if (up != v.value && right != v.value ||
-                      up == v.value && right == v.value && upRight != v.value)
-                    (v.index, _CornerDir.ne),
-                  if (down != v.value && left != v.value ||
-                      down == v.value && left == v.value && downLeft != v.value)
-                    (v.index, _CornerDir.sw),
-                  if (down != v.value && right != v.value ||
-                      down == v.value &&
-                          right == v.value &&
-                          downRight != v.value)
-                    (v.index, _CornerDir.se),
-                };
-              }).toSet();
+            return {
+              if (up != v.value && left != v.value ||
+                  up == v.value && left == v.value && upLeft != v.value)
+                (v.index, _CornerDir.nw),
+              if (up != v.value && right != v.value ||
+                  up == v.value && right == v.value && upRight != v.value)
+                (v.index, _CornerDir.ne),
+              if (down != v.value && left != v.value ||
+                  down == v.value && left == v.value && downLeft != v.value)
+                (v.index, _CornerDir.sw),
+              if (down != v.value && right != v.value ||
+                  down == v.value && right == v.value && downRight != v.value)
+                (v.index, _CornerDir.se),
+            };
+          }).toSet();
 
           return corners.length * g.vertices.length;
         })

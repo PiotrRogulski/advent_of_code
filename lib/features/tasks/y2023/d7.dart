@@ -128,12 +128,12 @@ int _compareHands(
 _HandType _getHandType(List<_Card> hand, [_Card jokerValue = _Card.j]) {
   final counts = hand.fold(
     <_Card, int>{},
-    (map, card) =>
-        map..update(
-          card == _Card.j ? jokerValue : card,
-          (v) => v + 1,
-          ifAbsent: () => 1,
-        ),
+    (map, card) => map
+      ..update(
+        card == _Card.j ? jokerValue : card,
+        (v) => v + 1,
+        ifAbsent: () => 1,
+      ),
   );
   final values = counts.values.toList()..sort();
   if (values.last == 5) {

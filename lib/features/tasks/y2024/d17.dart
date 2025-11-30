@@ -9,8 +9,14 @@ typedef _I =
     ObjectInput<({({int A, int B, int C}) registers, List<int> program})>;
 typedef _O = StringOutput;
 
-typedef _ComputerState =
-    ({int A, int B, int C, int pointer, List<int> output, List<int> program});
+typedef _ComputerState = ({
+  int A,
+  int B,
+  int C,
+  int pointer,
+  List<int> output,
+  List<int> program,
+});
 
 class Y2024D17 extends DayData<_I> {
   const Y2024D17() : super(2024, 17, parts: const {1: _P1(), 2: _P2()});
@@ -166,8 +172,10 @@ extension on _ComputerState {
     4 => A,
     5 => B,
     6 => C,
-    final operand =>
-      throw ArgumentError.value(operand, 'Invalid combo operand'),
+    final operand => throw ArgumentError.value(
+      operand,
+      'Invalid combo operand',
+    ),
   };
 
   int getLiteralValue() => program[pointer + 1];
@@ -199,14 +207,8 @@ extension on _ComputerState {
     program: program,
   );
 
-  _ComputerState setPointer(int value) => (
-    A: A,
-    B: B,
-    C: C,
-    pointer: value,
-    output: output,
-    program: program,
-  );
+  _ComputerState setPointer(int value) =>
+      (A: A, B: B, C: C, pointer: value, output: output, program: program);
 
   _ComputerState advance() => setPointer(pointer + 2);
 

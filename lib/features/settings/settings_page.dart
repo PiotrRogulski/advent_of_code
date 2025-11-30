@@ -24,17 +24,16 @@ class SettingsScreen extends StatelessObserverWidget {
       title: s.settings_title,
       bodySlivers: [
         SliverPadding(
-          padding: const EdgeInsets.all(16),
+          padding: const .all(16),
           sliver: SliverList.list(
             children: [
               Card(
                 child: SwitchListTile(
                   title: Text(s.settings_darkMode),
                   onChanged: (value) {
-                    settingsStore.themeMode =
-                        value ? ThemeMode.dark : ThemeMode.light;
+                    settingsStore.themeMode = value ? .dark : .light;
                   },
-                  value: settingsStore.themeMode == ThemeMode.dark,
+                  value: settingsStore.themeMode == .dark,
                 ),
               ),
               Card(
@@ -53,17 +52,15 @@ class SettingsScreen extends StatelessObserverWidget {
                 },
                 items: const [null, ...AppLocalizations.supportedLocales],
                 currentValue: settingsStore.locale,
-                itemLabelBuilder:
-                    (locale) => switch (locale?.languageCode) {
-                      null => s.settings_language_systemDefault,
-                      'en' => 'English',
-                      'fr' => 'Français',
-                      'ja' => '日本語',
-                      final languageCode =>
-                        throw UnimplementedError(
-                          'Unsupported language: $languageCode',
-                        ),
-                    },
+                itemLabelBuilder: (locale) => switch (locale?.languageCode) {
+                  null => s.settings_language_systemDefault,
+                  'en' => 'English',
+                  'fr' => 'Français',
+                  'ja' => '日本語',
+                  final languageCode => throw UnimplementedError(
+                    'Unsupported language: $languageCode',
+                  ),
+                },
               ),
             ].spaced(height: 16),
           ),

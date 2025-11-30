@@ -32,10 +32,10 @@ class _P1 extends PartImplementation<_I, _O> {
     return _O(
       0.to(64).fold(
         {start.index},
-        (front, i) =>
-            front
-                .expand(
-                  (e) => {
+        (front, i) => front
+            .expand(
+              (e) =>
+                  {
                         (row: -1, column: 0),
                         (row: 1, column: 0),
                         (row: 0, column: -1),
@@ -49,8 +49,8 @@ class _P1 extends PartImplementation<_I, _O> {
                       )
                       .where(inputData.matrix.isIndexInBounds)
                       .where((e) => inputData.matrix.atIndex(e) != _Tile.rocks),
-                )
-                .toSet(),
+            )
+            .toSet(),
       ).length,
     );
   }
@@ -70,20 +70,18 @@ class _P2 extends PartImplementation<_I, _O> {
     var front = {start.index};
     final points = <int>[];
     for (final s in 1.to(steps)) {
-      front =
-          front
-              .expand(
-                (e) => {
+      front = front
+          .expand(
+            (e) =>
+                {
                       (dr: -1, dc: 0),
                       (dr: 1, dc: 0),
                       (dr: 0, dc: -1),
                       (dr: 0, dc: 1),
                     }
                     .map(
-                      (diff) => (
-                        row: e.row + diff.dr,
-                        column: e.column + diff.dc,
-                      ),
+                      (diff) =>
+                          (row: e.row + diff.dr, column: e.column + diff.dc),
                     )
                     .where(
                       (e) =>
@@ -94,8 +92,8 @@ class _P2 extends PartImplementation<_I, _O> {
                           matrix.at(e.row % rows, e.column % columns) !=
                           _Tile.rocks,
                     ),
-              )
-              .toSet();
+          )
+          .toSet();
       if (s % rows == steps % rows) {
         points.add(front.length);
       }

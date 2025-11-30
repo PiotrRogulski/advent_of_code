@@ -25,18 +25,17 @@ class Y2023D25 extends DayData<_I> {
             Graph.undirected(),
             (g, e) => g..addEdge(e.source, e.target, value: 1),
           ),
-      stringifier:
-          (g) =>
-              (StringBuffer()
-                    ..writeln('Vertices: ${g.vertices.length}')
-                    ..writeAll(g.vertices, ' ')
-                    ..writeln()
-                    ..writeln('Edges: ${g.edges.length}')
-                    ..writeAll(
-                      g.edges.map((e) => '${e.source} -> ${e.target}'),
-                      '\n',
-                    ))
-                  .toString(),
+      stringifier: (g) =>
+          (StringBuffer()
+                ..writeln('Vertices: ${g.vertices.length}')
+                ..writeAll(g.vertices, ' ')
+                ..writeln()
+                ..writeln('Edges: ${g.edges.length}')
+                ..writeAll(
+                  g.edges.map((e) => '${e.source} -> ${e.target}'),
+                  '\n',
+                ))
+              .toString(),
     );
   }
 }

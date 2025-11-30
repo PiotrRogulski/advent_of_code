@@ -12,7 +12,7 @@ class Y2022D2 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
+    return .new(
       rawData
           .split('\n')
           .map((e) => e.split(' '))
@@ -27,13 +27,11 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values
           .map(
-            (t) => (
-              _Shape.fromOpponentSymbol(t.$1),
-              _Shape.fromYourSymbol(t.$2),
-            ),
+            (t) =>
+                (_Shape.fromOpponentSymbol(t.$1), _Shape.fromYourSymbol(t.$2)),
           )
           .map(_mapRoundScore)
           .sum,
@@ -57,7 +55,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values
           .map(
             (t) => (
@@ -73,9 +71,9 @@ class _P2 extends PartImplementation<_I, _O> {
   int _mapRoundScore((_Shape, _ExpectedOutcome) t) {
     final (opponent, outcome) = t;
     final diff = switch (outcome) {
-      _ExpectedOutcome.youLose => 2,
-      _ExpectedOutcome.draw => 0,
-      _ExpectedOutcome.youWin => 1,
+      .youLose => 2,
+      .draw => 0,
+      .youWin => 1,
     };
     final yourIndex = (opponent.index + diff) % 3;
     final your = _Shape.values[yourIndex];

@@ -1,10 +1,9 @@
 // Definition
 // ignore_for_file: use_design_system_item_AocScaffold
 
-import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
 
 class AocScaffold extends HookWidget {
   const AocScaffold({
@@ -33,15 +32,14 @@ class AocScaffold extends HookWidget {
       fontSizeFactor: titleScale.value,
       fontVariations: [
         for (final FontVariation(:axis, :value) in baseVariations)
-          FontVariation(
-            axis,
-            axis == 'opsz' ? value * titleScale.value : value,
-          ),
+          .new(axis, axis == 'opsz' ? value * titleScale.value : value),
       ],
     );
 
     final canPop = ModalRoute.canPopOf(context) ?? false;
 
+    // Definition
+    // ignore_for_file: leancode_lint/use_design_system_item
     return Scaffold(
       body: NotificationListener(
         onNotification: (notification) {
@@ -61,23 +59,21 @@ class AocScaffold extends HookWidget {
           controller: scrollController,
           slivers: [
             SliverAppBar.large(
-              leading:
-                  canPop
-                      ? AocIconButton(
-                        icon: AocIconData.arrowBack,
-                        onPressed: () => Navigator.of(context).maybePop(),
-                        iconSize: 24,
-                      )
-                      : null,
+              leading: canPop
+                  ? AocIconButton(
+                      icon: .arrowBack,
+                      onPressed: () => Navigator.of(context).maybePop(),
+                      iconSize: 24,
+                    )
+                  : null,
               flexibleSpace: SafeArea(
                 child: GestureDetector(
-                  onTap:
-                      () => scrollController.animateTo(
-                        0,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOutCubicEmphasized,
-                      ),
-                  behavior: HitTestBehavior.opaque,
+                  onTap: () => scrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOutCubicEmphasized,
+                  ),
+                  behavior: .opaque,
                   child: Center(child: Text(title, style: textStyle)),
                 ),
               ),

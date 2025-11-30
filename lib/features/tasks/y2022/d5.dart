@@ -24,39 +24,36 @@ class Y2022D5 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ObjectInput(
+    return .new(
       stringifier: _inputToString,
       rawData
           .split('\n\n')
           .apply(
             (l) => (
-              stacks:
-                  l[0]
-                      .split('\n')
-                      .reversed
-                      .skip(1)
-                      .map(
-                        (l) => l.characters.whereIndexed(
-                          (index, _) => index % 4 == 1,
-                        ),
-                      )
-                      .zip()
-                      .map((l) => l.whereNot((c) => c == ' '))
-                      .map(QueueList.from)
-                      .toList(),
-              moves:
-                  l[1]
-                      .split('\n')
-                      .map(_moveRegex.firstMatch)
-                      .nonNulls
-                      .map(
-                        (m) => (
-                          quantity: int.parse(m.namedGroup('quantity')!),
-                          from: int.parse(m.namedGroup('from')!) - 1,
-                          to: int.parse(m.namedGroup('to')!) - 1,
-                        ),
-                      )
-                      .toList(),
+              stacks: l[0]
+                  .split('\n')
+                  .reversed
+                  .skip(1)
+                  .map(
+                    (l) =>
+                        l.characters.whereIndexed((index, _) => index % 4 == 1),
+                  )
+                  .zip()
+                  .map((l) => l.whereNot((c) => c == ' '))
+                  .map(QueueList.from)
+                  .toList(),
+              moves: l[1]
+                  .split('\n')
+                  .map(_moveRegex.firstMatch)
+                  .nonNulls
+                  .map(
+                    (m) => (
+                      quantity: int.parse(m.namedGroup('quantity')!),
+                      from: int.parse(m.namedGroup('from')!) - 1,
+                      to: int.parse(m.namedGroup('to')!) - 1,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
     );
@@ -68,7 +65,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return StringOutput(
+    return .new(
       inputData.value.moves
           .expand((m) => List.filled(m.quantity, (from: m.from, to: m.to)))
           .fold(inputData.value.stacks, _performMove)
@@ -83,9 +80,9 @@ class _P1 extends PartImplementation<_I, _O> {
     return [
       for (final (index, stack) in stacks.indexed)
         if (index == from)
-          _Stack.from(stack.sublist(0, stack.length - 1))
+          .from(stack.sublist(0, stack.length - 1))
         else if (index == to)
-          _Stack.from([...stack, stacks[from].last])
+          .from([...stack, stacks[from].last])
         else
           stack,
     ];
@@ -97,7 +94,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return StringOutput(
+    return .new(
       inputData.value.moves
           .fold(inputData.value.stacks, _performMove)
           .map((s) => s.last)
@@ -124,21 +121,18 @@ class _P2 extends PartImplementation<_I, _O> {
 }
 
 String _inputToString(_Input input) {
-  final buffer =
-      StringBuffer()
-        ..writeAll(
-          input.stacks.mapIndexed(
-            (index, s) => '${index + 1}:  ${s.join(' ')}',
-          ),
-          '\n',
-        )
-        ..writeln()
-        ..writeAll(
-          input.moves.map(
-            (m) =>
-                'move ${m.quantity.toString().padRight(2)} | ${m.from} -> ${m.to}',
-          ),
-          '\n',
-        );
+  final buffer = StringBuffer()
+    ..writeAll(
+      input.stacks.mapIndexed((index, s) => '${index + 1}:  ${s.join(' ')}'),
+      '\n',
+    )
+    ..writeln()
+    ..writeAll(
+      input.moves.map(
+        (m) =>
+            'move ${m.quantity.toString().padRight(2)} | ${m.from} -> ${m.to}',
+      ),
+      '\n',
+    );
   return buffer.toString();
 }

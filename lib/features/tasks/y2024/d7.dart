@@ -37,12 +37,11 @@ class _P1 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) => _O(
     inputData.values
         .where(
-          (x) =>
-              _findSolutions(
-                x.number,
-                x.operands.reversed.toList(),
-                allowConcatenation: false,
-              ).isNotEmpty,
+          (x) => _findSolutions(
+            x.number,
+            x.operands.reversed.toList(),
+            allowConcatenation: false,
+          ).isNotEmpty,
         )
         .map((x) => x.number)
         .sum,
@@ -56,12 +55,11 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) => _O(
     inputData.values
         .where(
-          (x) =>
-              _findSolutions(
-                x.number,
-                x.operands.reversed.toList(),
-                allowConcatenation: true,
-              ).isNotEmpty,
+          (x) => _findSolutions(
+            x.number,
+            x.operands.reversed.toList(),
+            allowConcatenation: true,
+          ).isNotEmpty,
         )
         .map((x) => x.number)
         .sum,

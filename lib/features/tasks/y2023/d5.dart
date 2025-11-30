@@ -10,17 +10,16 @@ import 'package:more/collection.dart';
 
 typedef _Range = ({int start, int length});
 typedef _MapRange = ({int destStart, int sourceStart, int length});
-typedef _Maps =
-    ({
-      List<int> seeds,
-      List<_MapRange> seedToSoil,
-      List<_MapRange> soilToFertilizer,
-      List<_MapRange> fertilizerToWater,
-      List<_MapRange> waterToLight,
-      List<_MapRange> lightToTemperature,
-      List<_MapRange> temperatureToHumidity,
-      List<_MapRange> humidityToLocation,
-    });
+typedef _Maps = ({
+  List<int> seeds,
+  List<_MapRange> seedToSoil,
+  List<_MapRange> soilToFertilizer,
+  List<_MapRange> fertilizerToWater,
+  List<_MapRange> waterToLight,
+  List<_MapRange> lightToTemperature,
+  List<_MapRange> temperatureToHumidity,
+  List<_MapRange> humidityToLocation,
+});
 
 typedef _I = ObjectInput<_Maps>;
 typedef _O = NumericOutput<int>;

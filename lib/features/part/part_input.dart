@@ -25,7 +25,7 @@ class ListInput<T> extends PartInput {
 
 class MatrixInput<T> extends PartInput {
   MatrixInput(List<List<T>> values, {this.dense = false})
-    : matrix = Matrix.fromList(values);
+    : matrix = .fromList(values);
 
   final Matrix<T> matrix;
   final bool dense;

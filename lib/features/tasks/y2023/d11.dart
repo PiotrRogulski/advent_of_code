@@ -57,34 +57,31 @@ enum _SpaceCell {
 NumericOutput<int> _run(_I inputData, {required int dilation}) {
   final matrix = inputData.matrix;
 
-  final emptyColumnsIdx =
-      matrix.columns.indexed
-          .where((e) => e.$2.every((e) => e == _SpaceCell.empty))
-          .map((e) => e.$1)
-          .toList();
+  final emptyColumnsIdx = matrix.columns.indexed
+      .where((e) => e.$2.every((e) => e == _SpaceCell.empty))
+      .map((e) => e.$1)
+      .toList();
 
-  final emptyRowsIdx =
-      matrix.rows.indexed
-          .where((e) => e.$2.every((e) => e == _SpaceCell.empty))
-          .map((e) => e.$1)
-          .toList();
+  final emptyRowsIdx = matrix.rows.indexed
+      .where((e) => e.$2.every((e) => e == _SpaceCell.empty))
+      .map((e) => e.$1)
+      .toList();
 
-  final galaxyIndexes =
-      matrix.cells.where((c) => c.value == _SpaceCell.galaxy).toList();
+  final galaxyIndexes = matrix.cells
+      .where((c) => c.value == _SpaceCell.galaxy)
+      .toList();
 
   return NumericOutput(
     galaxyIndexes.combinations(2).map((p) {
       final [from, to] = p;
       final rowBounds = [from.index.row, to.index.row]..sort();
       final columnBounds = [from.index.column, to.index.column]..sort();
-      final emptyRowsCrossed =
-          emptyRowsIdx
-              .where((e) => e >= rowBounds.first && e <= rowBounds.last)
-              .length;
-      final emptyColumnsCrossed =
-          emptyColumnsIdx
-              .where((e) => e >= columnBounds.first && e <= columnBounds.last)
-              .length;
+      final emptyRowsCrossed = emptyRowsIdx
+          .where((e) => e >= rowBounds.first && e <= rowBounds.last)
+          .length;
+      final emptyColumnsCrossed = emptyColumnsIdx
+          .where((e) => e >= columnBounds.first && e <= columnBounds.last)
+          .length;
       return (from.index.row - to.index.row).abs() +
           (from.index.column - to.index.column).abs() +
           (emptyRowsCrossed + emptyColumnsCrossed) * (dilation - 1);

@@ -1,8 +1,6 @@
-import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
-import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
 
 class AocExpansionCard extends HookWidget {
   const AocExpansionCard({
@@ -10,7 +8,7 @@ class AocExpansionCard extends HookWidget {
     required this.title,
     this.trailing,
     this.margin,
-    this.bodyAlignment = Alignment.topCenter,
+    this.bodyAlignment = .topCenter,
     this.aboveBody,
     this.body,
   });
@@ -32,29 +30,24 @@ class AocExpansionCard extends HookWidget {
       margin: margin,
       child: ExpansionTile(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: .spaceBetween,
           children: [
             Expanded(child: Text(title)),
-            if (trailing case final trailing?) trailing,
+            ?trailing,
             const SizedBox(width: 16),
             AnimatedRotation(
               turns: isExpanded.value ? 0.25 : -0.25,
               duration: Durations.medium1,
               curve: Curves.easeInOutCubicEmphasized,
-              child: const AocIcon(AocIconData.chevronLeft, size: 24),
+              child: const AocIcon(.chevronLeft, size: 24),
             ),
           ],
         ),
-        tilePadding: const EdgeInsetsDirectional.only(
-          start: 32,
-          end: 24,
-          top: 8,
-          bottom: 8,
-        ),
+        tilePadding: const .directional(start: 32, end: 24, top: 8, bottom: 8),
         maintainState: true,
-        expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-        expandedAlignment: Alignment.bottomCenter,
-        expansionAnimationStyle: AnimationStyle(
+        expandedCrossAxisAlignment: .stretch,
+        expandedAlignment: .bottomCenter,
+        expansionAnimationStyle: .new(
           curve: Curves.easeInOutCubicEmphasized,
           reverseCurve: Curves.easeInOutCubicEmphasized.flipped,
           duration: Durations.medium1,
@@ -64,16 +57,11 @@ class AocExpansionCard extends HookWidget {
         shape: const Border(),
         collapsedShape: const Border(),
         children: [
-          if (aboveBody != null) aboveBody!,
+          ?aboveBody,
           Card(
             margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             color: colors.surface,
-            shape: SmoothRectangleBorder(
-              borderRadius: SmoothBorderRadius(
-                cornerRadius: 10,
-                cornerSmoothing: 1,
-              ),
-            ),
+            shape: RoundedSuperellipseBorder(borderRadius: .circular(10)),
             child: AnimatedSize(
               duration: Durations.medium1,
               curve: Curves.easeInOutCubicEmphasized,

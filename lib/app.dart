@@ -16,8 +16,8 @@ class AocApp extends StatelessWidget {
       builder: (lightDynamic, darkDynamic) {
         return Observer(
           builder: (context) {
-            final SettingsStore(:themeMode, :useSystemTheme, :locale) =
-                context.read();
+            final SettingsStore(:themeMode, :useSystemTheme, :locale) = context
+                .read();
 
             return MaterialApp.router(
               themeMode: themeMode,

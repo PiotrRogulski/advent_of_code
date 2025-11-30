@@ -1,6 +1,5 @@
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/common/widgets/error_stacktrace_dialog.dart';
-import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:advent_of_code/features/day/store/part_status_store.dart';
@@ -33,10 +32,10 @@ class PartStatus extends StatelessWidget {
         return AocExpansionCard(
           title: s.day_partTitle(part: index + 1),
           trailing: switch (store.part.completed) {
-            true => AocIcon(AocIconData.check, size: 24, color: colors.primary),
+            true => AocIcon(.check, size: 24, color: colors.primary),
             false => null,
           },
-          bodyAlignment: Alignment.bottomCenter,
+          bodyAlignment: .bottomCenter,
           body: Stack(
             children: [
               Column(
@@ -45,12 +44,10 @@ class PartStatus extends StatelessWidget {
                     ListTile(
                       title: Text(s.day_part_notRun),
                       subtitle: Text(s.day_part_notRunSubtitle),
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                      ),
+                      contentPadding: const .symmetric(horizontal: 16),
                       trailing: IconButton(
                         onPressed: () => store.run(data),
-                        icon: const AocIcon(AocIconData.playCircle, size: 32),
+                        icon: const AocIcon(.playCircle, size: 32),
                       ),
                     ),
                   ],
@@ -58,16 +55,12 @@ class PartStatus extends StatelessWidget {
                     for (final (index, run) in runs.indexed)
                       _RunInfoTile(
                         run: run,
-                        trailing:
-                            index == 0
-                                ? IconButton(
-                                  onPressed: () => store.run(data),
-                                  icon: const AocIcon(
-                                    AocIconData.playCircle,
-                                    size: 32,
-                                  ),
-                                )
-                                : null,
+                        trailing: index == 0
+                            ? IconButton(
+                                onPressed: () => store.run(data),
+                                icon: const AocIcon(.playCircle, size: 32),
+                              )
+                            : null,
                       ),
                   ],
                 },
@@ -104,7 +97,7 @@ class _RunInfoTile extends StatelessWidget {
           title: DefaultTextStyle.merge(
             style: const TextStyle(
               fontFamily: FontFamily.jetBrainsMono,
-              fontFeatures: [FontFeature.disable('calt')],
+              fontFeatures: [.disable('calt')],
               height: 1.2,
             ),
             child: Text(switch (run.data) {
@@ -114,7 +107,7 @@ class _RunInfoTile extends StatelessWidget {
             }),
           ),
           subtitle: Text(run.runDuration.toString()),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          contentPadding: const .symmetric(horizontal: 16),
           trailing: trailing,
         ),
       ),
@@ -126,10 +119,10 @@ class _RunInfoTile extends StatelessWidget {
             stackTrace: stackTrace,
           );
         },
-        leading: AocIcon(AocIconData.error, color: colors.error, size: 32),
-        title: Text(s.day_part_error, style: TextStyle(color: colors.error)),
+        leading: AocIcon(.error, color: colors.error, size: 32),
+        title: Text(s.day_part_error, style: .new(color: colors.error)),
         subtitle: Text(s.day_part_seeErrorDetails),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+        contentPadding: const .symmetric(horizontal: 16),
         trailing: trailing,
       ),
     };

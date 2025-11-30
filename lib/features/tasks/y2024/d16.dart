@@ -42,7 +42,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
     final costs = {start: 0};
     final previous = {start: <_Node>[]};
-    final queue = PriorityQueue<(int, _Node)>(delegateComparator((e) => e.$1))
+    final queue = PriorityQueue<(int, _Node)>(keyOf((e) => e.$1))
       ..add((0, start));
 
     while (queue.isNotEmpty) {
@@ -59,11 +59,10 @@ class _P2 extends PartImplementation<_I, _O> {
       }
     }
 
-    final end =
-        costs.entries
-            .where((e) => inputData.matrix.isEnd(e.key))
-            .min(comparator: (e1, e2) => e1.value.compareTo(e2.value))
-            .key;
+    final end = costs.entries
+        .where((e) => inputData.matrix.isEnd(e.key))
+        .min(comparator: (e1, e2) => e1.value.compareTo(e2.value))
+        .key;
 
     final visited = <MatrixIndex>{};
     final pathStack = [end];

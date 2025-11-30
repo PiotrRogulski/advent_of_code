@@ -16,7 +16,7 @@ class Y2022D7 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
+    return .new(
       rawData
           .split(_lineDelimRegex)
           .map((l) => l.substring(2))
@@ -45,12 +45,9 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values
-          .fold(
-            _FsExplorer(_Directory.root()),
-            (exp, cmd) => exp..executeCommand(cmd),
-          )
+          .fold(_FsExplorer(.root()), (exp, cmd) => exp..executeCommand(cmd))
           .allDirectories
           .map((e) => e.size)
           .where((s) => s <= 100_000)
@@ -64,12 +61,9 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values
-          .fold(
-            _FsExplorer(_Directory.root()),
-            (exp, cmd) => exp..executeCommand(cmd),
-          )
+          .fold(_FsExplorer(.root()), (exp, cmd) => exp..executeCommand(cmd))
           .apply((exp) => (exp: exp, sizeToRemove: exp.root.size - 40_000_000))
           .apply(
             (t) => t.exp.allDirectories.where((d) => d.size >= t.sizeToRemove),
@@ -151,7 +145,7 @@ sealed class _FsEntity {
 
 class _Directory extends _FsEntity {
   _Directory(super.name, List<_FsEntity> children)
-    : children = EqualitySet(EqualityBy((e) => e.name))..addAll(children);
+    : children = .new(EqualityBy((e) => e.name))..addAll(children);
   _Directory.root() : this('', []);
 
   final EqualitySet<_FsEntity> children;
@@ -161,10 +155,9 @@ class _Directory extends _FsEntity {
 
   @override
   String _toRichStringInternal(int level) {
-    final buffer =
-        StringBuffer()
-          ..write(' ' * 4 * level)
-          ..writeln(name);
+    final buffer = StringBuffer()
+      ..write(' ' * 4 * level)
+      ..writeln(name);
     for (final child in children) {
       buffer.write(child._toRichStringInternal(level + 1));
     }
@@ -185,11 +178,10 @@ class _File extends _FsEntity {
 
   @override
   String _toRichStringInternal(int level) {
-    final buffer =
-        StringBuffer()
-          ..write(' ' * 4 * (level - 1))
-          ..write('└── ')
-          ..writeln('$size $name');
+    final buffer = StringBuffer()
+      ..write(' ' * 4 * (level - 1))
+      ..write('└── ')
+      ..writeln('$size $name');
     return buffer.toString();
   }
 }

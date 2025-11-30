@@ -39,29 +39,28 @@ class Y2022D11 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
+    return .new(
       rawData
           .split('\n\n')
           .map(_monkeyRegex.firstMatch)
           .nonNulls
           .map(
             (m) => _Monkey(
-              id: int.parse(m.namedGroup('id')!),
-              items:
-                  m
-                      .namedGroup('items')!
-                      .split(', ')
-                      .map(_WorryLevel.parse)
-                      .toList(),
+              id: .parse(m.namedGroup('id')!),
+              items: m
+                  .namedGroup('items')!
+                  .split(', ')
+                  .map(_WorryLevel.parse)
+                  .toList(),
               op: switch (m.namedGroup('op')!.split(' ')) {
-                ['old', '+', final value] => Add(_WorryLevel.parse(value)),
+                ['old', '+', final value] => Add(.parse(value)),
                 ['old', '*', 'old'] => const Square(),
-                ['old', '*', final value] => Multiply(_WorryLevel.parse(value)),
+                ['old', '*', final value] => Multiply(.parse(value)),
                 _ => throw UnimplementedError(),
               },
-              div: _WorryLevel.parse(m.namedGroup('div')!),
-              ifTrue: int.parse(m.namedGroup('true')!),
-              ifFalse: int.parse(m.namedGroup('false')!),
+              div: .parse(m.namedGroup('div')!),
+              ifTrue: .parse(m.namedGroup('true')!),
+              ifFalse: .parse(m.namedGroup('false')!),
               inspectionCount: 0,
             ),
           )
@@ -95,7 +94,7 @@ _O _run(_I inputData, int roundCount, _WorryLevel divisor) {
   for (var i = 0; i < roundCount; i++) {
     _evalRound(monkeys, divisor: divisor);
   }
-  return NumericOutput(
+  return .new(
     monkeys
         .map((e) => e.inspectionCount)
         .sortedBy((e) => -e)

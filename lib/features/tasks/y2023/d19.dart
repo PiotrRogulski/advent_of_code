@@ -60,20 +60,19 @@ class Y2023D19 extends DayData<_I> {
                       ),
                     ),
               ),
-              parts:
-                  l.last
-                      .split('\n')
-                      .map(_partRegex.firstMatch)
-                      .nonNulls
-                      .map(
-                        (m) => (
-                          x: int.parse(m.namedGroup('x')!),
-                          m: int.parse(m.namedGroup('m')!),
-                          a: int.parse(m.namedGroup('a')!),
-                          s: int.parse(m.namedGroup('s')!),
-                        ),
-                      )
-                      .toList(),
+              parts: l.last
+                  .split('\n')
+                  .map(_partRegex.firstMatch)
+                  .nonNulls
+                  .map(
+                    (m) => (
+                      x: int.parse(m.namedGroup('x')!),
+                      m: int.parse(m.namedGroup('m')!),
+                      a: int.parse(m.namedGroup('a')!),
+                      s: int.parse(m.namedGroup('s')!),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
     );
@@ -197,8 +196,6 @@ extension on _Predicate? {
 }
 
 extension on _Range {
-  _Range merge(_Range other) => (
-    start: max(start, other.start),
-    end: min(end, other.end),
-  );
+  _Range merge(_Range other) =>
+      (start: max(start, other.start), end: min(end, other.end));
 }

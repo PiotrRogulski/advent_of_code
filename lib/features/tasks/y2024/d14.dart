@@ -78,16 +78,14 @@ class _P2 extends PartImplementation<_I, _O> {
         .map(
           (i) => (
             i: i,
-            counts:
-                inputData.values
-                    .map(
-                      (r) => (r.position + r.velocity * i).ensureInBounds(
-                        _boardSize,
-                      ),
-                    )
-                    .toMultiset()
-                    .elementCounts
-                    .toSet(),
+            counts: inputData.values
+                .map(
+                  (r) =>
+                      (r.position + r.velocity * i).ensureInBounds(_boardSize),
+                )
+                .toMultiset()
+                .elementCounts
+                .toSet(),
           ),
         )
         .firstWhere((s) => s.counts.length == 1 && s.counts.single == 1)
@@ -96,10 +94,8 @@ class _P2 extends PartImplementation<_I, _O> {
 }
 
 extension on ({int x, int y}) {
-  ({int x, int y}) operator +(({int dx, int dy}) other) => (
-    x: x + other.dx,
-    y: y + other.dy,
-  );
+  ({int x, int y}) operator +(({int dx, int dy}) other) =>
+      (x: x + other.dx, y: y + other.dy);
 
   ({int x, int y}) ensureInBounds(({int width, int height}) bounds) => (
     x: (x % bounds.width + bounds.width) % bounds.width,

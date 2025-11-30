@@ -120,9 +120,8 @@ enum _ModType {
 }
 
 ({int lowCount, int highCount}) _pushButton(Map<String, _ModuleState> states) {
-  final pendingMessages =
-      Queue<_ModuleMessage>()
-        ..add((destination: 'broadcaster', high: false, sender: 'button'));
+  final pendingMessages = Queue<_ModuleMessage>()
+    ..add((destination: 'broadcaster', high: false, sender: 'button'));
 
   var lowCount = 0;
   var highCount = 0;

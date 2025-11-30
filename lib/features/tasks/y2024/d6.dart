@@ -17,18 +17,17 @@ class Y2024D6 extends DayData<_I> {
     rawData
         .split('\n')
         .map(
-          (l) =>
-              l
-                  .split('')
-                  .map(
-                    (c) => switch (c) {
-                      '.' => _Tile.empty,
-                      '#' => _Tile.obstacle,
-                      '^' => _Tile.start,
-                      _ => throw ArgumentError('Invalid tile: $c'),
-                    },
-                  )
-                  .toList(),
+          (l) => l
+              .split('')
+              .map(
+                (c) => switch (c) {
+                  '.' => _Tile.empty,
+                  '#' => _Tile.obstacle,
+                  '^' => _Tile.start,
+                  _ => throw ArgumentError('Invalid tile: $c'),
+                },
+              )
+              .toList(),
         )
         .toList(),
     dense: true,
@@ -63,11 +62,11 @@ class _P1 extends PartImplementation<_I, _O> {
                         _ => (position: nextP, direction: d.position.direction),
                       },
                     ),
-                visited:
-                    d.visited..add((
-                      row: d.position.position.row,
-                      column: d.position.position.column,
-                    )),
+                visited: d.visited
+                  ..add((
+                    row: d.position.position.row,
+                    column: d.position.position.column,
+                  )),
               ),
             )
             .firstWhere((d) => !d.matrix.isIndexInBounds(d.position.position))
@@ -105,11 +104,11 @@ class _P2 extends PartImplementation<_I, _O> {
                     _ => (position: nextP, direction: d.position.direction),
                   },
                 ),
-            visited:
-                d.visited..add((
-                  row: d.position.position.row,
-                  column: d.position.position.column,
-                )),
+            visited: d.visited
+              ..add((
+                row: d.position.position.row,
+                column: d.position.position.column,
+              )),
           ),
         )
         .firstWhere((d) => !d.matrix.isIndexInBounds(d.position.position))

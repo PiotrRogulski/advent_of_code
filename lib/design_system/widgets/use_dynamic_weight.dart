@@ -1,23 +1,23 @@
 import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
 
 ({AocDynamicWeight weight, double fill, WidgetStatesController controller})
 useDynamicWeight() {
   final iconWeight = useState(AocDynamicWeight.light);
   final fill = useState<double>(0);
 
-  final statesController = useMaterialStatesController();
+  final statesController = useWidgetStatesController();
   useEffect(() {
     void listener() {
       if (statesController.value.contains(WidgetState.pressed)) {
-        iconWeight.value = AocDynamicWeight.bold;
+        iconWeight.value = .bold;
         fill.value = 1;
       } else if (statesController.value.contains(WidgetState.hovered)) {
-        iconWeight.value = AocDynamicWeight.regular;
+        iconWeight.value = .regular;
         fill.value = 1;
       } else {
-        iconWeight.value = AocDynamicWeight.light;
+        iconWeight.value = .light;
         fill.value = 0;
       }
     }

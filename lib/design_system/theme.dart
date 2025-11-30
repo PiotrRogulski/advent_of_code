@@ -1,14 +1,13 @@
 import 'package:advent_of_code/gen/fonts.gen.dart';
-import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:more/more.dart';
 
 class AocTheme {
   static const _seedColor = Color(0xFF00FF00);
 
-  static final dark = _makeTheme.bind0(Brightness.dark);
+  static final dark = _makeTheme.bind0(.dark);
 
-  static final light = _makeTheme.bind0(Brightness.light);
+  static final light = _makeTheme.bind0(.light);
 
   static ThemeData _makeTheme(
     Brightness brightness,
@@ -18,29 +17,24 @@ class AocTheme {
 
     final typography = Typography.material2021(colorScheme: colorScheme);
     final baseTextTheme = switch (brightness) {
-      Brightness.light => typography.black,
-      Brightness.dark => typography.white,
+      .light => typography.black,
+      .dark => typography.white,
     };
 
-    return ThemeData.from(
+    return .from(
       colorScheme: colorScheme,
       textTheme: baseTextTheme.apply(fontFamily: FontFamily.robotoFlex),
     ).copyWith(
       splashFactory: InkSparkle.splashFactory,
-      listTileTheme: const ListTileThemeData(
-        contentPadding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+      listTileTheme: const .new(
+        contentPadding: .symmetric(horizontal: 32, vertical: 8),
       ),
-      cardTheme: CardTheme(
-        clipBehavior: Clip.antiAlias,
+      cardTheme: .new(
+        clipBehavior: .antiAlias,
         elevation: 0,
         color: colorScheme.primaryContainer,
-        margin: EdgeInsets.zero,
-        shape: SmoothRectangleBorder(
-          borderRadius: SmoothBorderRadius(
-            cornerRadius: 16,
-            cornerSmoothing: 1,
-          ),
-        ),
+        margin: .zero,
+        shape: RoundedSuperellipseBorder(borderRadius: .circular(16)),
       ),
       splashColor: colorScheme.primary.withValues(alpha: 0.15),
       highlightColor: colorScheme.primary.withValues(alpha: 0.1),
@@ -52,17 +46,17 @@ class AocTheme {
             type: const FadeForwardsPageTransitionsBuilder(),
         },
       ),
-      progressIndicatorTheme: const ProgressIndicatorThemeData(year2023: false),
+      // Remove when it's the default
+      // ignore: deprecated_member_use
+      progressIndicatorTheme: const .new(year2023: false),
     );
   }
 
-  static ColorScheme _makeColorScheme(Brightness brightness) {
-    return ColorScheme.fromSeed(
-      seedColor: _seedColor,
-      brightness: brightness,
-      dynamicSchemeVariant: DynamicSchemeVariant.vibrant,
-    );
-  }
+  static ColorScheme _makeColorScheme(Brightness brightness) => .fromSeed(
+    seedColor: _seedColor,
+    brightness: brightness,
+    dynamicSchemeVariant: .vibrant,
+  );
 }
 
 class FontOpticalSizeAdjuster extends StatelessWidget {
@@ -104,7 +98,7 @@ extension on TextStyle {
   TextStyle get withOpticalSize => copyWith(
     fontVariations: [
       ...?fontVariations,
-      if (fontSize case final size?) FontVariation.opticalSize(size),
+      if (fontSize case final size?) .opticalSize(size),
     ],
   );
 }
