@@ -1,9 +1,0 @@
-<project version="4">
-  <component name="ProjectType">
-    <option name="id" value="io.flutter" />
-  </component>
-  <component name="pl.digsa.flutter_arb_action">
-    <option name="extensionName" value="textl10n" />
-    <option name="importPath" value="import 'package:advent_of_code/common/extensions.dart';" />
-  </component>
-</project>

@@ -1,18 +1,22 @@
 include: package:leancode_lint/analysis_options.yaml
 
-custom_lint:
-  rules:
-    - use_design_system_item:
-      AocScaffold:
-        - instead_of: Scaffold
-          from_package: flutter
-      AocIcon:
-        - instead_of: Icon
-          from_package: flutter
+plugins:
+  leancode_lint: ^20.0.0-dev.4
+
+leancode_lint:
+  use_design_system_item:
+    AocScaffold:
+      - instead_of: Scaffold
+        from_package: flutter
+    AocIcon:
+      - instead_of: Icon
+        from_package: flutter
 
 analyzer:
-  plugins:
-    - custom_lint
   exclude:
     - "**.g.dart"
     - "lib/l10n/*.dart"
+
+linter:
+  rules:
+    unsafe_variance: false
