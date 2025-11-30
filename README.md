@@ -1,11 +1,19 @@
-# :gift: Advent of Code 2024
+# :gift: Advent of Code 2025
 
 Solutions for the current year are located in the
-[`lib/features/tasks/y2024`](./lib/features/tasks/y2024) directory.
+[`lib/features/tasks/y2025`](./lib/features/tasks/y2025) directory.
 
 ## :classical_building: Previous years
 
 <table>
+<tr>
+    <td>
+        <b>2024</b>
+    </td>
+    <td>
+        See <a href="./lib/features/tasks/y2024"><code>lib/features/tasks/y2024</code></a>
+    </td>
+</tr>
 <tr>
     <td>
         <b>2023</b>

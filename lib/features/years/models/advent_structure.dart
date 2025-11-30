@@ -3,12 +3,17 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:meta/meta.dart';
 
-extension type const YearData(Map<int, DayData> days) {
+class YearData {
+  const YearData(this.days, {required this.count});
+
+  final Map<int, DayData> days;
+  final int count;
+
   double get progress =>
-      days.values.where((day) => day.complete || day.inProgress).length / 25;
+      days.values.where((day) => day.complete || day.inProgress).length / count;
 
   double get completeProgress =>
-      days.values.where((day) => day.complete).length / 25;
+      days.values.where((day) => day.complete).length / count;
 }
 
 @immutable
