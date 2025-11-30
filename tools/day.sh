@@ -79,7 +79,7 @@ if [ $status -ne 0 ]; then
 fi
 EXAMPLE_INPUT=$(
   echo "$DAY_HTML" |
-    xmllint --html --xpath '(//pre/code/text())[1]' - 2>/dev/null |
-    sed 's/&gt;/>/g; s/&lt;/</g'
+    xmllint --html --xpath '(//pre/code)[1]' - 2>/dev/null |
+    sed -E 's/&gt;/>/g; s/&lt;/</g; s/<\/?(code|em)>//g'
 )
 echo "$EXAMPLE_INPUT" >"assets/inputs/y$YEAR/d$DAY.example"
