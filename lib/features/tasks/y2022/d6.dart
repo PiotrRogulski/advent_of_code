@@ -12,35 +12,27 @@ class Y2022D6 extends DayData<_I> {
   const Y2022D6() : super(2022, 6, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(rawData);
-  }
+  _I parseInput(String rawData) => .new(rawData);
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return _findSignal(inputData, windowSize: 4);
-  }
+  _O runInternal(_I inputData) => _findSignal(inputData, windowSize: 4);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return _findSignal(inputData, windowSize: 14);
-  }
+  _O runInternal(_I inputData) => _findSignal(inputData, windowSize: 14);
 }
 
-_O _findSignal(_I inputData, {required int windowSize}) {
-  return .new(
-    inputData.value.characters
-            .window(windowSize)
-            .toList()
-            .indexWhere((e) => e.toSet().length == e.length) +
-        windowSize,
-  );
-}
+_O _findSignal(_I inputData, {required int windowSize}) => .new(
+  inputData.value.characters
+          .window(windowSize)
+          .toList()
+          .indexWhere((e) => e.toSet().length == e.length) +
+      windowSize,
+);

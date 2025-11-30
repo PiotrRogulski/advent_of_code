@@ -12,7 +12,6 @@ class HomeRoute extends GoRouteData with $HomeRoute {
   static final $parentNavigatorKey = HomeBranch.$navigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const HomePage();
-  }
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      const HomePage();
 }

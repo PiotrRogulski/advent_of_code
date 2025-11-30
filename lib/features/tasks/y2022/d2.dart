@@ -11,32 +11,27 @@ class Y2022D2 extends DayData<_I> {
   const Y2022D2() : super(2022, 2, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map((e) => e.split(' '))
-          .map((l) => (l[0], l[1]))
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map((e) => e.split(' '))
+        .map((l) => (l[0], l[1]))
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .map(
-            (t) =>
-                (_Shape.fromOpponentSymbol(t.$1), _Shape.fromYourSymbol(t.$2)),
-          )
-          .map(_mapRoundScore)
-          .sum,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+        .map(
+          (t) => (_Shape.fromOpponentSymbol(t.$1), _Shape.fromYourSymbol(t.$2)),
+        )
+        .map(_mapRoundScore)
+        .sum,
+  );
 
   int _mapRoundScore((_Shape, _Shape) t) {
     final (opponent, your) = t;
@@ -54,19 +49,17 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .map(
-            (t) => (
-              _Shape.fromOpponentSymbol(t.$1),
-              _ExpectedOutcome.fromSymbol(t.$2),
-            ),
-          )
-          .map(_mapRoundScore)
-          .sum,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+        .map(
+          (t) => (
+            _Shape.fromOpponentSymbol(t.$1),
+            _ExpectedOutcome.fromSymbol(t.$2),
+          ),
+        )
+        .map(_mapRoundScore)
+        .sum,
+  );
 
   int _mapRoundScore((_Shape, _ExpectedOutcome) t) {
     final (opponent, outcome) = t;

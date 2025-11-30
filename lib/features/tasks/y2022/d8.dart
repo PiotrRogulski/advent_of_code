@@ -13,28 +13,24 @@ class Y2022D8 extends DayData<_I> {
   const Y2022D8() : super(2022, 8, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map((l) => l.characters.map(int.parse).toList())
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map((l) => l.characters.map(int.parse).toList())
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.matrix.indexes.where((t) {
-        final (:row, :column) = t;
-        return _isVisibleFromOutside(row, column, inputData.matrix);
-      }).length,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.matrix.indexes.where((t) {
+      final (:row, :column) = t;
+      return _isVisibleFromOutside(row, column, inputData.matrix);
+    }).length,
+  );
 
   bool _isVisibleFromOutside(int row, int column, Matrix<int> matrix) {
     final theRow = matrix.rows.elementAt(row);
@@ -53,14 +49,12 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.matrix.indexes.map((t) {
-        final (:row, :column) = t;
-        return _calculateScenicScore(row, column, inputData.matrix);
-      }).max,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.matrix.indexes.map((t) {
+      final (:row, :column) = t;
+      return _calculateScenicScore(row, column, inputData.matrix);
+    }).max,
+  );
 
   int _calculateScenicScore(int row, int column, Matrix<int> matrix) {
     if (row == 0 ||

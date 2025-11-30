@@ -15,28 +15,24 @@ class Y2023D16 extends DayData<_I> {
   const Y2023D16() : super(2023, 16, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map((e) => e.split('').map(_Tile.fromSymbol).toList())
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map((e) => e.split('').map(_Tile.fromSymbol).toList())
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      _energize(
-        from: (position: (row: 0, column: 0), dir: .right),
-        matrix: inputData.matrix,
-      ),
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    _energize(
+      from: (position: (row: 0, column: 0), dir: .right),
+      matrix: inputData.matrix,
+    ),
+  );
 }
 
 class _P2 extends PartImplementation<_I, _O> {

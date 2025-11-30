@@ -12,7 +12,6 @@ class SettingsRoute extends GoRouteData with $SettingsRoute {
   static final $parentNavigatorKey = SettingsBranch.$navigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const SettingsPage();
-  }
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      const SettingsPage();
 }

@@ -19,61 +19,55 @@ class Y2023D8 extends DayData<_I> {
   );
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n\n')
-          .apply((l) => (moveString: l.first, nodeString: l.last))
-          .apply(
-            (t) => (
-              moves: t.moveString.split('').map(_Move.fromSymbol).toList(),
-              nodes: Map.fromEntries(
-                t.nodeString
-                    .split('\n')
-                    .map(_nodeRegex.firstMatch)
-                    .nonNulls
-                    .map(
-                      (m) => MapEntry(m.namedGroup('label')!, (
-                        left: m.namedGroup('left')!,
-                        right: m.namedGroup('right')!,
-                      )),
-                    ),
-              ),
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n\n')
+        .apply((l) => (moveString: l.first, nodeString: l.last))
+        .apply(
+          (t) => (
+            moves: t.moveString.split('').map(_Move.fromSymbol).toList(),
+            nodes: Map.fromEntries(
+              t.nodeString
+                  .split('\n')
+                  .map(_nodeRegex.firstMatch)
+                  .nonNulls
+                  .map(
+                    (m) => MapEntry(m.namedGroup('label')!, (
+                      left: m.namedGroup('left')!,
+                      right: m.namedGroup('right')!,
+                    )),
+                  ),
             ),
           ),
-    );
-  }
+        ),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      _findPathLength(inputData.value, 'AAA', isAtEnd: (node) => node == 'ZZZ'),
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    _findPathLength(inputData.value, 'AAA', isAtEnd: (node) => node == 'ZZZ'),
+  );
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.value.nodes.keys
-          .where((n) => n.endsWith('A'))
-          .map(
-            (node) => _findPathLength(
-              inputData.value,
-              node,
-              isAtEnd: (node) => node.endsWith('Z'),
-            ),
-          )
-          .lcm(),
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.value.nodes.keys
+        .where((n) => n.endsWith('A'))
+        .map(
+          (node) => _findPathLength(
+            inputData.value,
+            node,
+            isAtEnd: (node) => node.endsWith('Z'),
+          ),
+        )
+        .lcm(),
+  );
 }
 
 enum _Move {

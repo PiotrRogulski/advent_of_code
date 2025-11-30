@@ -12,18 +12,15 @@ class Y2023D1 extends DayData<_I> {
   const Y2023D1() : super(2023, 1, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(rawData.split('\n'));
-  }
+  _I parseInput(String rawData) => .new(rawData.split('\n'));
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return _run(inputData, (l) => l.characters.map(int.tryParse).nonNulls);
-  }
+  _O runInternal(_I inputData) =>
+      _run(inputData, (l) => l.characters.map(int.tryParse).nonNulls);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
@@ -46,22 +43,19 @@ class _P2 extends PartImplementation<_I, _O> {
   };
 
   @override
-  _O runInternal(_I inputData) {
-    return _run(
-      inputData,
-      (l) => List.generate(
-        l.length,
-        (i) => _digitNameRegex.firstMatch(l.substring(i))?.group(0),
-      ).nonNulls.map(digitNameToNumber),
-    );
-  }
-}
-
-_O _run(_I inputData, Iterable<int> Function(String line) digitExtractor) {
-  return .new(
-    inputData.values
-        .map(digitExtractor)
-        .map((numbers) => 10 * numbers.first + numbers.last)
-        .sum,
+  _O runInternal(_I inputData) => _run(
+    inputData,
+    (l) => List.generate(
+      l.length,
+      (i) => _digitNameRegex.firstMatch(l.substring(i))?.group(0),
+    ).nonNulls.map(digitNameToNumber),
   );
 }
+
+_O _run(_I inputData, Iterable<int> Function(String line) digitExtractor) =>
+    .new(
+      inputData.values
+          .map(digitExtractor)
+          .map((numbers) => 10 * numbers.first + numbers.last)
+          .sum,
+    );

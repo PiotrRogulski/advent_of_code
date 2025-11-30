@@ -15,13 +15,11 @@ class ErrorStackTraceDialog extends StatelessWidget {
     BuildContext context, {
     required Object? error,
     required StackTrace? stackTrace,
-  }) {
-    return showDialog(
-      context: context,
-      builder: (context) =>
-          ErrorStackTraceDialog._(error: error, stackTrace: stackTrace),
-    );
-  }
+  }) => showDialog(
+    context: context,
+    builder: (context) =>
+        ErrorStackTraceDialog._(error: error, stackTrace: stackTrace),
+  );
 
   @override
   Widget build(BuildContext context) {

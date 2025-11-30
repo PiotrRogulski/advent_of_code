@@ -19,70 +19,64 @@ class Y2023D4 extends DayData<_I> {
   );
 
   @override
-  _I parseInput(String rawData) {
-    return ListInput(
-      rawData
-          .split('\n')
-          .map(_cardRegex.firstMatch)
-          .nonNulls
-          .map(
-            (m) => (
-              index: int.parse(m.namedGroup('index')!),
-              winning: m
-                  .namedGroup('winning')!
-                  .split(RegExp(' +'))
-                  .map(int.parse)
-                  .toSet(),
-              yours: m
-                  .namedGroup('yours')!
-                  .split(RegExp(' +'))
-                  .map(int.parse)
-                  .toSet(),
-            ),
-          )
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => ListInput(
+    rawData
+        .split('\n')
+        .map(_cardRegex.firstMatch)
+        .nonNulls
+        .map(
+          (m) => (
+            index: int.parse(m.namedGroup('index')!),
+            winning: m
+                .namedGroup('winning')!
+                .split(RegExp(' +'))
+                .map(int.parse)
+                .toSet(),
+            yours: m
+                .namedGroup('yours')!
+                .split(RegExp(' +'))
+                .map(int.parse)
+                .toSet(),
+          ),
+        )
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .map((e) => e.winning.intersection(e.yours).length)
-          .map((e) => pow(2, e - 1).toInt())
-          .sum,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+        .map((e) => e.winning.intersection(e.yours).length)
+        .map((e) => pow(2, e - 1).toInt())
+        .sum,
+  );
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-              .fold(<int, int>{}, (additionalCards, card) {
-                final newAdditionalCards = Map.fromEntries(
-                  List.generate(
-                    card.winning.intersection(card.yours).length,
-                    (i) => MapEntry(
-                      card.index + i + 1,
-                      (additionalCards[card.index] ?? 0) +
-                          1 +
-                          (additionalCards[card.index + i + 1] ?? 0),
-                    ),
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+            .fold(<int, int>{}, (additionalCards, card) {
+              final newAdditionalCards = Map.fromEntries(
+                List.generate(
+                  card.winning.intersection(card.yours).length,
+                  (i) => MapEntry(
+                    card.index + i + 1,
+                    (additionalCards[card.index] ?? 0) +
+                        1 +
+                        (additionalCards[card.index + i + 1] ?? 0),
                   ),
-                );
-                return {...additionalCards, ...newAdditionalCards};
-              })
-              .values
-              .sum +
-          inputData.values.length,
-    );
-  }
+                ),
+              );
+              return {...additionalCards, ...newAdditionalCards};
+            })
+            .values
+            .sum +
+        inputData.values.length,
+  );
 }

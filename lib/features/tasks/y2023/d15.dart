@@ -14,18 +14,14 @@ class Y2023D15 extends DayData<_I> {
   const Y2023D15() : super(2023, 15, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(rawData.split(','));
-  }
+  _I parseInput(String rawData) => .new(rawData.split(','));
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(inputData.values.map(_hash).sum);
-  }
+  _O runInternal(_I inputData) => .new(inputData.values.map(_hash).sum);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
@@ -34,44 +30,39 @@ class _P2 extends PartImplementation<_I, _O> {
   static final _lensRegex = RegExp(r'^(?<label>\w+)(?:-|=(?<focal>\d+))$');
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .fold(Map.fromEntries(.generate(256, (i) => .new(i, <_Lens>[]))), (
-            acc,
-            e,
-          ) {
-            final m = _lensRegex.firstMatch(e)!;
-            final label = m.namedGroup('label')!;
-            final lenses = acc[_hash(label)]!;
-            final i = lenses.indexWhere((e) => e.label == label);
-            if (m.namedGroup('focal') case final focal?) {
-              final lens = (label: label, focal: int.parse(focal));
-              if (i != -1) {
-                lenses[i] = lens;
-              } else {
-                lenses.add(lens);
-              }
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+        .fold(Map.fromEntries(.generate(256, (i) => .new(i, <_Lens>[]))), (
+          acc,
+          e,
+        ) {
+          final m = _lensRegex.firstMatch(e)!;
+          final label = m.namedGroup('label')!;
+          final lenses = acc[_hash(label)]!;
+          final i = lenses.indexWhere((e) => e.label == label);
+          if (m.namedGroup('focal') case final focal?) {
+            final lens = (label: label, focal: int.parse(focal));
+            if (i != -1) {
+              lenses[i] = lens;
             } else {
-              if (i != -1) {
-                lenses.removeAt(i);
-              }
+              lenses.add(lens);
             }
-            return acc;
-          })
-          .entries
-          .expand(
-            (e) =>
-                e.value.mapIndexed((i, l) => (e.key + 1) * (i + 1) * l.focal),
-          )
-          .sum,
-    );
-  }
-}
-
-int _hash(String s) {
-  return s.characters.fold<int>(
-    0,
-    (value, element) => (value + element.codeUnitAt(0)) * 17 % 256,
+          } else {
+            if (i != -1) {
+              lenses.removeAt(i);
+            }
+          }
+          return acc;
+        })
+        .entries
+        .expand(
+          (e) => e.value.mapIndexed((i, l) => (e.key + 1) * (i + 1) * l.focal),
+        )
+        .sum,
   );
 }
+
+int _hash(String s) => s.characters.fold<int>(
+  0,
+  (value, element) => (value + element.codeUnitAt(0)) * 17 % 256,
+);

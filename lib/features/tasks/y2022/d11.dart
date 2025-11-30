@@ -38,53 +38,47 @@ class Y2022D11 extends DayData<_I> {
   );
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n\n')
-          .map(_monkeyRegex.firstMatch)
-          .nonNulls
-          .map(
-            (m) => _Monkey(
-              id: .parse(m.namedGroup('id')!),
-              items: m
-                  .namedGroup('items')!
-                  .split(', ')
-                  .map(_WorryLevel.parse)
-                  .toList(),
-              op: switch (m.namedGroup('op')!.split(' ')) {
-                ['old', '+', final value] => Add(.parse(value)),
-                ['old', '*', 'old'] => const Square(),
-                ['old', '*', final value] => Multiply(.parse(value)),
-                _ => throw UnimplementedError(),
-              },
-              div: .parse(m.namedGroup('div')!),
-              ifTrue: .parse(m.namedGroup('true')!),
-              ifFalse: .parse(m.namedGroup('false')!),
-              inspectionCount: 0,
-            ),
-          )
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n\n')
+        .map(_monkeyRegex.firstMatch)
+        .nonNulls
+        .map(
+          (m) => _Monkey(
+            id: .parse(m.namedGroup('id')!),
+            items: m
+                .namedGroup('items')!
+                .split(', ')
+                .map(_WorryLevel.parse)
+                .toList(),
+            op: switch (m.namedGroup('op')!.split(' ')) {
+              ['old', '+', final value] => Add(.parse(value)),
+              ['old', '*', 'old'] => const Square(),
+              ['old', '*', final value] => Multiply(.parse(value)),
+              _ => throw UnimplementedError(),
+            },
+            div: .parse(m.namedGroup('div')!),
+            ifTrue: .parse(m.namedGroup('true')!),
+            ifFalse: .parse(m.namedGroup('false')!),
+            inspectionCount: 0,
+          ),
+        )
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return _run(inputData, 20, 3);
-  }
+  _O runInternal(_I inputData) => _run(inputData, 20, 3);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return _run(inputData, 10000, 1);
-  }
+  _O runInternal(_I inputData) => _run(inputData, 10000, 1);
 }
 
 const _ringValue = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19;

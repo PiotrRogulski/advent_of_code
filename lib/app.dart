@@ -27,6 +27,8 @@ class AocApp extends StatelessWidget {
               supportedLocales: AppLocalizations.supportedLocales,
               locale: locale,
               routerConfig: router,
+              builder: (context, child) =>
+                  FontOpticalSizeAdjuster(child: child!),
             );
           },
         );

@@ -17,14 +17,12 @@ class Y2023D23 extends DayData<_I> {
   const Y2023D23() : super(2023, 23, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map((e) => e.split('').map(_Tile.fromSymbol).toList())
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map((e) => e.split('').map(_Tile.fromSymbol).toList())
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {

@@ -37,12 +37,10 @@ class AocIconButton extends HookWidget {
             duration: Durations.medium1,
             switchInCurve: Curves.easeInOutCubicEmphasized,
             switchOutCurve: Curves.easeInOutCubicEmphasized.flipped,
-            transitionBuilder: (child, animation) {
-              return FadeTransition(
-                opacity: animation,
-                child: ScaleTransition(scale: animation, child: child),
-              );
-            },
+            transitionBuilder: (child, animation) => FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(scale: animation, child: child),
+            ),
             child: AocIcon(
               key: ValueKey(icon),
               icon,

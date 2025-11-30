@@ -12,45 +12,41 @@ class Y2023D14 extends DayData<_I> {
   const Y2023D14() : super(2023, 14, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map((e) => e.split('').map(_Cell.fromSymbol).toList())
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map((e) => e.split('').map(_Cell.fromSymbol).toList())
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return _O(
-      inputData.matrix.columns
-          .map(
-            (c) => c.indexed
-                .where((e) => e.$2 == .round)
-                .map(
-                  (e) => (
-                    index: e.$1,
-                    emptySpacesAbove: c
-                        .take(e.$1)
-                        .toList()
-                        .reversed
-                        .takeWhile((e) => e != .cube)
-                        .where((e) => e == .empty)
-                        .length,
-                  ),
+  _O runInternal(_I inputData) => _O(
+    inputData.matrix.columns
+        .map(
+          (c) => c.indexed
+              .where((e) => e.$2 == .round)
+              .map(
+                (e) => (
+                  index: e.$1,
+                  emptySpacesAbove: c
+                      .take(e.$1)
+                      .toList()
+                      .reversed
+                      .takeWhile((e) => e != .cube)
+                      .where((e) => e == .empty)
+                      .length,
                 ),
-          )
-          .flattened
-          .map((e) => e.index - e.emptySpacesAbove)
-          .map((e) => inputData.matrix.columnCount - e)
-          .sum,
-    );
-  }
+              ),
+        )
+        .flattened
+        .map((e) => e.index - e.emptySpacesAbove)
+        .map((e) => inputData.matrix.columnCount - e)
+        .sum,
+  );
 }
 
 class _P2 extends PartImplementation<_I, _O> {
@@ -123,11 +119,9 @@ Matrix<_Cell> _rotate(Matrix<_Cell> matrix) {
   return newMatrix;
 }
 
-int _calcScore(Matrix<_Cell> matrix) {
-  return matrix.rows
-      .mapIndexed(
-        (rowIndex, r) =>
-            r.where((c) => c == .round).length * (matrix.rowCount - rowIndex),
-      )
-      .sum;
-}
+int _calcScore(Matrix<_Cell> matrix) => matrix.rows
+    .mapIndexed(
+      (rowIndex, r) =>
+          r.where((c) => c == .round).length * (matrix.rowCount - rowIndex),
+    )
+    .sum;

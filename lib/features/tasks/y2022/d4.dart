@@ -13,46 +13,36 @@ class Y2022D4 extends DayData<_I> {
   static final _lineRegex = RegExp(r'^(\d+)-(\d+),(\d+)-(\d+)$');
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map(_lineRegex.firstMatch)
-          .nonNulls
-          .map((m) => m.groups([1, 2, 3, 4]).nonNulls.map(int.parse).toList())
-          .map((l) => ((from: l[0], to: l[1]), (from: l[2], to: l[3])))
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map(_lineRegex.firstMatch)
+        .nonNulls
+        .map((m) => m.groups([1, 2, 3, 4]).nonNulls.map(int.parse).toList())
+        .map((l) => ((from: l[0], to: l[1]), (from: l[2], to: l[3])))
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values.where((t) => _containsOther(t.$1, t.$2)).length,
-    );
-  }
+  _O runInternal(_I inputData) =>
+      .new(inputData.values.where((t) => _containsOther(t.$1, t.$2)).length);
 
-  bool _containsOther(_Range range1, _Range range2) {
-    return range1.from >= range2.from && range1.to <= range2.to ||
-        range2.from >= range1.from && range2.to <= range1.to;
-  }
+  bool _containsOther(_Range range1, _Range range2) =>
+      range1.from >= range2.from && range1.to <= range2.to ||
+      range2.from >= range1.from && range2.to <= range1.to;
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values.where((t) => _hasIntersection(t.$1, t.$2)).length,
-    );
-  }
+  _O runInternal(_I inputData) =>
+      .new(inputData.values.where((t) => _hasIntersection(t.$1, t.$2)).length);
 
-  bool _hasIntersection(_Range range1, _Range range2) {
-    return range1.from <= range2.to && range1.to >= range2.from;
-  }
+  bool _hasIntersection(_Range range1, _Range range2) =>
+      range1.from <= range2.to && range1.to >= range2.from;
 }

@@ -15,64 +15,58 @@ class Y2022D7 extends DayData<_I> {
   static final _lineDelimRegex = RegExp(r'\n(?=\$)');
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split(_lineDelimRegex)
-          .map((l) => l.substring(2))
-          .map(
-            (l) => switch (l.substring(0, 2)) {
-              'cd' => _ChangeDirectory(l.substring(3)),
-              'ls' => _ListDirectory(
-                l.substring(3).split('\n').map((e) {
-                  final [size, name] = e.split(' ');
-                  return switch (size) {
-                    'dir' => _DirectoryLsEntry(name),
-                    _ => _FileLsEntry(name, .parse(size)),
-                  };
-                }).toList(),
-              ),
-              _ => throw UnimplementedError(),
-            },
-          )
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split(_lineDelimRegex)
+        .map((l) => l.substring(2))
+        .map(
+          (l) => switch (l.substring(0, 2)) {
+            'cd' => _ChangeDirectory(l.substring(3)),
+            'ls' => _ListDirectory(
+              l.substring(3).split('\n').map((e) {
+                final [size, name] = e.split(' ');
+                return switch (size) {
+                  'dir' => _DirectoryLsEntry(name),
+                  _ => _FileLsEntry(name, .parse(size)),
+                };
+              }).toList(),
+            ),
+            _ => throw UnimplementedError(),
+          },
+        )
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .fold(_FsExplorer(.root()), (exp, cmd) => exp..executeCommand(cmd))
-          .allDirectories
-          .map((e) => e.size)
-          .where((s) => s <= 100_000)
-          .sum,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+        .fold(_FsExplorer(.root()), (exp, cmd) => exp..executeCommand(cmd))
+        .allDirectories
+        .map((e) => e.size)
+        .where((s) => s <= 100_000)
+        .sum,
+  );
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .fold(_FsExplorer(.root()), (exp, cmd) => exp..executeCommand(cmd))
-          .apply((exp) => (exp: exp, sizeToRemove: exp.root.size - 40_000_000))
-          .apply(
-            (t) => t.exp.allDirectories.where((d) => d.size >= t.sizeToRemove),
-          )
-          .sortedBy((e) => e.size)
-          .first
-          .size,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+        .fold(_FsExplorer(.root()), (exp, cmd) => exp..executeCommand(cmd))
+        .apply((exp) => (exp: exp, sizeToRemove: exp.root.size - 40_000_000))
+        .apply(
+          (t) => t.exp.allDirectories.where((d) => d.size >= t.sizeToRemove),
+        )
+        .sortedBy((e) => e.size)
+        .first
+        .size,
+  );
 }
 
 sealed class _Command {
@@ -85,9 +79,7 @@ class _ChangeDirectory extends _Command {
   final String path;
 
   @override
-  String toString() {
-    return 'cd $path';
-  }
+  String toString() => 'cd $path';
 }
 
 class _ListDirectory extends _Command {
@@ -96,9 +88,7 @@ class _ListDirectory extends _Command {
   final List<_FileListing> files;
 
   @override
-  String toString() {
-    return 'ls ${files.map((e) => e.toString()).join(', ')}';
-  }
+  String toString() => 'ls ${files.map((e) => e.toString()).join(', ')}';
 }
 
 sealed class _FileListing {
@@ -111,9 +101,7 @@ class _DirectoryLsEntry extends _FileListing {
   final String name;
 
   @override
-  String toString() {
-    return 'dir $name';
-  }
+  String toString() => 'dir $name';
 }
 
 class _FileLsEntry extends _FileListing {
@@ -123,9 +111,7 @@ class _FileLsEntry extends _FileListing {
   final int size;
 
   @override
-  String toString() {
-    return '$size $name';
-  }
+  String toString() => '$size $name';
 }
 
 sealed class _FsEntity {
@@ -135,9 +121,7 @@ sealed class _FsEntity {
 
   int get size;
 
-  String toRichString() {
-    return _toRichStringInternal(0);
-  }
+  String toRichString() => _toRichStringInternal(0);
 
   @protected
   String _toRichStringInternal(int level);
@@ -165,9 +149,7 @@ class _Directory extends _FsEntity {
   }
 
   @override
-  String toString() {
-    return '$_Directory($name, ${children.length} children)';
-  }
+  String toString() => '$_Directory($name, ${children.length} children)';
 }
 
 class _File extends _FsEntity {

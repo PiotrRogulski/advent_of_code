@@ -19,21 +19,19 @@ abstract class PartImplementation<I extends PartInput, O extends PartOutput> {
   FutureOr<O> runInternal(I inputData);
 
   @nonVirtual
-  Future<RunInfo<O>> run(I data) {
-    return compute((data) async {
-      final stopwatch = Stopwatch()..start();
-      try {
-        final result = await runInternal(data);
-        return (data: result, runDuration: stopwatch.elapsed, error: null);
-      } catch (err, st) {
-        return (
-          data: null,
-          runDuration: stopwatch.elapsed,
-          error: (error: err, stackTrace: st),
-        );
-      } finally {
-        stopwatch.stop();
-      }
-    }, data);
-  }
+  Future<RunInfo<O>> run(I data) => compute((data) async {
+    final stopwatch = Stopwatch()..start();
+    try {
+      final result = await runInternal(data);
+      return (data: result, runDuration: stopwatch.elapsed, error: null);
+    } catch (err, st) {
+      return (
+        data: null,
+        runDuration: stopwatch.elapsed,
+        error: (error: err, stackTrace: st),
+      );
+    } finally {
+      stopwatch.stop();
+    }
+  }, data);
 }

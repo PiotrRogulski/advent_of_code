@@ -12,9 +12,8 @@ class YearsRoute extends GoRouteData with $YearsRoute {
   static final $parentNavigatorKey = YearsBranch.$navigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const YearsPage();
-  }
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      const YearsPage();
 }
 
 class YearRoute extends GoRouteData with $YearRoute {
@@ -25,9 +24,8 @@ class YearRoute extends GoRouteData with $YearRoute {
   static final $parentNavigatorKey = YearsBranch.$navigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return YearPage(year: year);
-  }
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      YearPage(year: year);
 }
 
 class DayRoute extends GoRouteData with $DayRoute {
@@ -39,7 +37,6 @@ class DayRoute extends GoRouteData with $DayRoute {
   static final $parentNavigatorKey = YearsBranch.$navigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return DayPage(year: year, day: day);
-  }
+  Page<void> buildPage(BuildContext context, GoRouterState state) =>
+      DayPage(year: year, day: day);
 }

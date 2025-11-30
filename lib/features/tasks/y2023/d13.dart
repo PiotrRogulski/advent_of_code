@@ -13,33 +13,25 @@ class Y2023D13 extends DayData<_I> {
   const Y2023D13() : super(2023, 13, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData.split('\n\n').map((e) => e.split('\n').toList()).toList(),
-    );
-  }
+  _I parseInput(String rawData) =>
+      .new(rawData.split('\n\n').map((e) => e.split('\n').toList()).toList());
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(inputData.values.map(_findReflection).sum);
-  }
+  _O runInternal(_I inputData) =>
+      .new(inputData.values.map(_findReflection).sum);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .map((e) => _findReflection(e, allowMismatches: true))
-          .sum,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.values.map((e) => _findReflection(e, allowMismatches: true)).sum,
+  );
 }
 
 int? _findReflectionInDim(List<String> input, {bool allowMismatches = false}) {

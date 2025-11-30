@@ -14,48 +14,42 @@ class Y2023D7 extends DayData<_I> {
   const Y2023D7() : super(2023, 7, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map((l) => l.split(' '))
-          .map(
-            (l) => (
-              hand: l.first.split('').map(_Card.fromSymbol).toList(),
-              bid: int.parse(l.last),
-            ),
-          )
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map((l) => l.split(' '))
+        .map(
+          (l) => (
+            hand: l.first.split('').map(_Card.fromSymbol).toList(),
+            bid: int.parse(l.last),
+          ),
+        )
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .sorted(_compareHands)
-          .mapIndexed((index, hand) => (index + 1) * hand.bid)
-          .sum,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+        .sorted(_compareHands)
+        .mapIndexed((index, hand) => (index + 1) * hand.bid)
+        .sum,
+  );
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .sorted((h1, h2) => _compareHands(h1, h2, sortJokersLast: true))
-          .mapIndexed((index, hand) => (index + 1) * hand.bid)
-          .sum,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+        .sorted((h1, h2) => _compareHands(h1, h2, sortJokersLast: true))
+        .mapIndexed((index, hand) => (index + 1) * hand.bid)
+        .sum,
+  );
 }
 
 enum _Card implements Comparable<_Card> {
@@ -153,6 +147,5 @@ _HandType _getHandType(List<_Card> hand, [_Card jokerValue = .j]) {
   }
 }
 
-_HandType _getHandTypeWithJokers(List<_Card> hand) {
-  return _Card.values.map((jokerValue) => _getHandType(hand, jokerValue)).max;
-}
+_HandType _getHandTypeWithJokers(List<_Card> hand) =>
+    _Card.values.map((jokerValue) => _getHandType(hand, jokerValue)).max;

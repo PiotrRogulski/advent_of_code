@@ -11,32 +11,25 @@ class Y2022D1 extends DayData<_I> {
   const Y2022D1() : super(2022, 1, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n\n')
-          .map((e) => e.split('\n').map(int.parse).toList())
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n\n')
+        .map((e) => e.split('\n').map(int.parse).toList())
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(inputData.values.map((e) => e.sum).max);
-  }
+  _O runInternal(_I inputData) => .new(inputData.values.map((e) => e.sum).max);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values.map((e) => e.sum).sortedBy((e) => -e).take(3).sum,
-    );
-  }
+  _O runInternal(_I inputData) =>
+      .new(inputData.values.map((e) => e.sum).sortedBy((e) => -e).take(3).sum);
 }

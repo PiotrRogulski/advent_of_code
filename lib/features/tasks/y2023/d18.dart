@@ -19,59 +19,53 @@ class Y2023D18 extends DayData<_I> {
   );
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map(_moveRegex.firstMatch)
-          .nonNulls
-          .map(
-            (m) => (
-              direction: _Dir.fromSymbol(m.namedGroup('dir')!),
-              steps: int.parse(m.namedGroup('steps')!),
-              colorHex: m.namedGroup('colorHex')!,
-            ),
-          )
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map(_moveRegex.firstMatch)
+        .nonNulls
+        .map(
+          (m) => (
+            direction: _Dir.fromSymbol(m.namedGroup('dir')!),
+            steps: int.parse(m.namedGroup('steps')!),
+            colorHex: m.namedGroup('colorHex')!,
+          ),
+        )
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(_area(inputData.values));
-  }
+  _O runInternal(_I inputData) => .new(_area(inputData.values));
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      _area(
-        inputData.values.map(
-          (move) => (
-            direction: switch (move.colorHex.characters.last) {
-              '0' => .right,
-              '1' => .down,
-              '2' => .left,
-              '3' => .up,
-              _ => throw StateError('Invalid colorHex: ${move.colorHex}'),
-            },
-            steps: .parse(
-              move.colorHex.substring(0, move.colorHex.length - 1),
-              radix: 16,
-            ),
-            colorHex: move.colorHex,
+  _O runInternal(_I inputData) => .new(
+    _area(
+      inputData.values.map(
+        (move) => (
+          direction: switch (move.colorHex.characters.last) {
+            '0' => .right,
+            '1' => .down,
+            '2' => .left,
+            '3' => .up,
+            _ => throw StateError('Invalid colorHex: ${move.colorHex}'),
+          },
+          steps: .parse(
+            move.colorHex.substring(0, move.colorHex.length - 1),
+            radix: 16,
           ),
+          colorHex: move.colorHex,
         ),
       ),
-    );
-  }
+    ),
+  );
 }
 
 int _area(Iterable<({String colorHex, _Dir direction, int steps})> points) {

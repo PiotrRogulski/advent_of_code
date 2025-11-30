@@ -24,89 +24,84 @@ class Y2023D22 extends DayData<_I> {
   const Y2023D22() : super(2023, 22, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map((l) => l.split('~'))
-          .map(
-            (l) => (
-              from: l.first
-                  .split(',')
-                  .map(int.parse)
-                  .toList()
-                  .apply((l) => (x: l[0], y: l[1], z: l[2])),
-              to: l.last
-                  .split(',')
-                  .map(int.parse)
-                  .toList()
-                  .apply((l) => (x: l[0], y: l[1], z: l[2])),
-              supports: <int>[],
-              supportedBy: <int>[],
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map((l) => l.split('~'))
+        .map(
+          (l) => (
+            from: l.first
+                .split(',')
+                .map(int.parse)
+                .toList()
+                .apply((l) => (x: l[0], y: l[1], z: l[2])),
+            to: l.last
+                .split(',')
+                .map(int.parse)
+                .toList()
+                .apply((l) => (x: l[0], y: l[1], z: l[2])),
+            supports: <int>[],
+            supportedBy: <int>[],
+          ),
+        )
+        .sortedBy((b) => b.from.z)
+        .fold((bricks: <_Brick>[], maxZReached: 1), (acc, current) {
+          var brick = current;
+          final diff = brick.to.z - brick.from.z;
+          brick = (
+            from: brick.from.apply(
+              (c) => (x: c.x, y: c.y, z: acc.maxZReached + 1),
             ),
-          )
-          .sortedBy((b) => b.from.z)
-          .fold((bricks: <_Brick>[], maxZReached: 1), (acc, current) {
-            var brick = current;
-            final diff = brick.to.z - brick.from.z;
+            to: brick.to.apply(
+              (c) => (x: c.x, y: c.y, z: acc.maxZReached + 1 + diff),
+            ),
+            supports: brick.supports,
+            supportedBy: brick.supportedBy,
+          );
+
+          while (true) {
+            var canMoveDown = true;
+
             brick = (
-              from: brick.from.apply(
-                (c) => (x: c.x, y: c.y, z: acc.maxZReached + 1),
-              ),
-              to: brick.to.apply(
-                (c) => (x: c.x, y: c.y, z: acc.maxZReached + 1 + diff),
-              ),
+              from: brick.from.apply((c) => (x: c.x, y: c.y, z: c.z - 1)),
+              to: brick.to.apply((c) => (x: c.x, y: c.y, z: c.z - 1)),
               supports: brick.supports,
               supportedBy: brick.supportedBy,
             );
 
-            while (true) {
-              var canMoveDown = true;
-
-              brick = (
-                from: brick.from.apply((c) => (x: c.x, y: c.y, z: c.z - 1)),
-                to: brick.to.apply((c) => (x: c.x, y: c.y, z: c.z - 1)),
-                supports: brick.supports,
-                supportedBy: brick.supportedBy,
-              );
-
-              for (final i in 0.to(acc.bricks.length).reversed) {
-                if (acc.bricks[i].to.z < brick.from.z) {
-                  continue;
-                }
-                final collision = _hasCollision(brick, acc.bricks[i]);
-                if (collision) {
-                  canMoveDown = false;
-                  final len = acc.bricks.length;
-                  acc.bricks[i].supports.add(len);
-                  brick.supportedBy.add(i);
-                }
+            for (final i in 0.to(acc.bricks.length).reversed) {
+              if (acc.bricks[i].to.z < brick.from.z) {
+                continue;
               }
-
-              if (!canMoveDown) {
-                brick = (
-                  from: brick.from.apply((c) => (x: c.x, y: c.y, z: c.z + 1)),
-                  to: brick.to.apply((c) => (x: c.x, y: c.y, z: c.z + 1)),
-                  supports: brick.supports,
-                  supportedBy: brick.supportedBy,
-                );
-                break;
-              }
-
-              if (brick.from.z == 1) {
-                break;
+              final collision = _hasCollision(brick, acc.bricks[i]);
+              if (collision) {
+                canMoveDown = false;
+                final len = acc.bricks.length;
+                acc.bricks[i].supports.add(len);
+                brick.supportedBy.add(i);
               }
             }
 
-            final newMaxZReached = max(acc.maxZReached, brick.to.z);
-            return (
-              bricks: acc.bricks..add(brick),
-              maxZReached: newMaxZReached,
-            );
-          })
-          .bricks,
-    );
-  }
+            if (!canMoveDown) {
+              brick = (
+                from: brick.from.apply((c) => (x: c.x, y: c.y, z: c.z + 1)),
+                to: brick.to.apply((c) => (x: c.x, y: c.y, z: c.z + 1)),
+                supports: brick.supports,
+                supportedBy: brick.supportedBy,
+              );
+              break;
+            }
+
+            if (brick.from.z == 1) {
+              break;
+            }
+          }
+
+          final newMaxZReached = max(acc.maxZReached, brick.to.z);
+          return (bricks: acc.bricks..add(brick), maxZReached: newMaxZReached);
+        })
+        .bricks,
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {

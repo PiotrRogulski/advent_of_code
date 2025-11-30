@@ -23,56 +23,52 @@ class Y2022D5 extends DayData<_I> {
   );
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      stringifier: _inputToString,
-      rawData
-          .split('\n\n')
-          .apply(
-            (l) => (
-              stacks: l[0]
-                  .split('\n')
-                  .reversed
-                  .skip(1)
-                  .map(
-                    (l) =>
-                        l.characters.whereIndexed((index, _) => index % 4 == 1),
-                  )
-                  .zip()
-                  .map((l) => l.whereNot((c) => c == ' '))
-                  .map(QueueList.from)
-                  .toList(),
-              moves: l[1]
-                  .split('\n')
-                  .map(_moveRegex.firstMatch)
-                  .nonNulls
-                  .map(
-                    (m) => (
-                      quantity: int.parse(m.namedGroup('quantity')!),
-                      from: int.parse(m.namedGroup('from')!) - 1,
-                      to: int.parse(m.namedGroup('to')!) - 1,
-                    ),
-                  )
-                  .toList(),
-            ),
+  _I parseInput(String rawData) => .new(
+    stringifier: _inputToString,
+    rawData
+        .split('\n\n')
+        .apply(
+          (l) => (
+            stacks: l[0]
+                .split('\n')
+                .reversed
+                .skip(1)
+                .map(
+                  (l) =>
+                      l.characters.whereIndexed((index, _) => index % 4 == 1),
+                )
+                .zip()
+                .map((l) => l.whereNot((c) => c == ' '))
+                .map(QueueList.from)
+                .toList(),
+            moves: l[1]
+                .split('\n')
+                .map(_moveRegex.firstMatch)
+                .nonNulls
+                .map(
+                  (m) => (
+                    quantity: int.parse(m.namedGroup('quantity')!),
+                    from: int.parse(m.namedGroup('from')!) - 1,
+                    to: int.parse(m.namedGroup('to')!) - 1,
+                  ),
+                )
+                .toList(),
           ),
-    );
-  }
+        ),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.value.moves
-          .expand((m) => List.filled(m.quantity, (from: m.from, to: m.to)))
-          .fold(inputData.value.stacks, _performMove)
-          .map((s) => s.last)
-          .join(),
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.value.moves
+        .expand((m) => List.filled(m.quantity, (from: m.from, to: m.to)))
+        .fold(inputData.value.stacks, _performMove)
+        .map((s) => s.last)
+        .join(),
+  );
 
   List<_Stack> _performMove(List<_Stack> stacks, _SingleMove move) {
     final (:from, :to) = move;
@@ -93,14 +89,12 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.value.moves
-          .fold(inputData.value.stacks, _performMove)
-          .map((s) => s.last)
-          .join(),
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.value.moves
+        .fold(inputData.value.stacks, _performMove)
+        .map((s) => s.last)
+        .join(),
+  );
 
   List<_Stack> _performMove(List<_Stack> stacks, _Move move) {
     final (:from, :to, :quantity) = move;

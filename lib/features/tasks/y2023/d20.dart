@@ -22,29 +22,25 @@ class Y2023D20 extends DayData<_I> {
   );
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map(_moduleRegex.firstMatch)
-          .nonNulls
-          .map(
-            (m) => (
-              name:
-                  m.namedGroup('flipFlop') ??
-                  m.namedGroup('conj') ??
-                  m.group(1)!,
-              type: switch ((m.namedGroup('flipFlop'), m.namedGroup('conj'))) {
-                (!= null, _) => _ModType.flipFlop,
-                (_, != null) => _ModType.conjunction,
-                _ => _ModType.broadcaster,
-              },
-              destinations: m.namedGroup('dest')!.split(', '),
-            ),
-          )
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map(_moduleRegex.firstMatch)
+        .nonNulls
+        .map(
+          (m) => (
+            name:
+                m.namedGroup('flipFlop') ?? m.namedGroup('conj') ?? m.group(1)!,
+            type: switch ((m.namedGroup('flipFlop'), m.namedGroup('conj'))) {
+              (!= null, _) => _ModType.flipFlop,
+              (_, != null) => _ModType.conjunction,
+              _ => _ModType.broadcaster,
+            },
+            destinations: m.namedGroup('dest')!.split(', '),
+          ),
+        )
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {

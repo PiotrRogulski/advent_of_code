@@ -25,104 +25,98 @@ class Y2023D19 extends DayData<_I> {
   );
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n\n')
-          .apply(
-            (l) => (
-              workflows: .fromEntries(
-                l.first
-                    .split('\n')
-                    .map(_workflowRegex.firstMatch)
-                    .nonNulls
-                    .map(
-                      (m) => .new(
-                        m.namedGroup('label')!,
-                        m
-                            .namedGroup('rules')!
-                            .split(',')
-                            .map(
-                              (r) => switch (r.split(':')) {
-                                [final cond, final target] => (
-                                  pred: (
-                                    variable: cond[0],
-                                    op: _Op.fromSymbol(cond[1]),
-                                    value: int.parse(cond.substring(2)),
-                                  ),
-                                  target: target,
-                                ),
-                                [final target] => (pred: null, target: target),
-                                _ => throw StateError('Invalid condition: $r'),
-                              },
-                            )
-                            .toList(),
-                      ),
-                    ),
-              ),
-              parts: l.last
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n\n')
+        .apply(
+          (l) => (
+            workflows: .fromEntries(
+              l.first
                   .split('\n')
-                  .map(_partRegex.firstMatch)
+                  .map(_workflowRegex.firstMatch)
                   .nonNulls
                   .map(
-                    (m) => (
-                      x: int.parse(m.namedGroup('x')!),
-                      m: int.parse(m.namedGroup('m')!),
-                      a: int.parse(m.namedGroup('a')!),
-                      s: int.parse(m.namedGroup('s')!),
+                    (m) => .new(
+                      m.namedGroup('label')!,
+                      m
+                          .namedGroup('rules')!
+                          .split(',')
+                          .map(
+                            (r) => switch (r.split(':')) {
+                              [final cond, final target] => (
+                                pred: (
+                                  variable: cond[0],
+                                  op: _Op.fromSymbol(cond[1]),
+                                  value: int.parse(cond.substring(2)),
+                                ),
+                                target: target,
+                              ),
+                              [final target] => (pred: null, target: target),
+                              _ => throw StateError('Invalid condition: $r'),
+                            },
+                          )
+                          .toList(),
                     ),
-                  )
-                  .toList(),
+                  ),
             ),
+            parts: l.last
+                .split('\n')
+                .map(_partRegex.firstMatch)
+                .nonNulls
+                .map(
+                  (m) => (
+                    x: int.parse(m.namedGroup('x')!),
+                    m: int.parse(m.namedGroup('m')!),
+                    a: int.parse(m.namedGroup('a')!),
+                    s: int.parse(m.namedGroup('s')!),
+                  ),
+                )
+                .toList(),
           ),
-    );
-  }
+        ),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.value.parts
-          .where((part) {
-            bool? status;
-            var workflow = 'in';
-            while (status == null) {
-              final rules = inputData.value.workflows[workflow]!;
-              final rule = rules.firstWhere((r) => r.pred(part));
-              switch (rule.target) {
-                case 'R':
-                  status = false;
-                case 'A':
-                  status = true;
-                case final target:
-                  workflow = target;
-              }
+  _O runInternal(_I inputData) => .new(
+    inputData.value.parts
+        .where((part) {
+          bool? status;
+          var workflow = 'in';
+          while (status == null) {
+            final rules = inputData.value.workflows[workflow]!;
+            final rule = rules.firstWhere((r) => r.pred(part));
+            switch (rule.target) {
+              case 'R':
+                status = false;
+              case 'A':
+                status = true;
+              case final target:
+                workflow = target;
             }
-            return status;
-          })
-          .map((part) => part.x + part.m + part.a + part.s)
-          .sum,
-    );
-  }
+          }
+          return status;
+        })
+        .map((part) => part.x + part.m + part.a + part.s)
+        .sum,
+  );
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      _run(inputData.value.workflows, 'in', {
-        'x': (start: 1, end: 4001),
-        'm': (start: 1, end: 4001),
-        'a': (start: 1, end: 4001),
-        's': (start: 1, end: 4001),
-      }),
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    _run(inputData.value.workflows, 'in', {
+      'x': (start: 1, end: 4001),
+      'm': (start: 1, end: 4001),
+      'a': (start: 1, end: 4001),
+      's': (start: 1, end: 4001),
+    }),
+  );
 
   int _run(
     Map<String, List<_Condition>> workflows,

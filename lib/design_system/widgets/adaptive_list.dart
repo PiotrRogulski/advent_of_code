@@ -52,10 +52,8 @@ class _SliverList<T> extends StatelessWidget {
       padding: padding,
       sliver: SliverList.separated(
         itemCount: items.length,
-        itemBuilder: (context, index) {
-          final item = items.elementAt(index);
-          return itemBuilder(context, item);
-        },
+        itemBuilder: (context, index) =>
+            itemBuilder(context, items.elementAt(index)),
         separatorBuilder: (context, index) =>
             SizedBox(height: padding.vertical / 2),
       ),

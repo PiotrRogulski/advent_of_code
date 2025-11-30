@@ -14,51 +14,46 @@ class Y2023D12 extends DayData<_I> {
   const Y2023D12() : super(2023, 12, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map((l) => l.split(' '))
-          .map(
-            (l) => (
-              parts: l.first.split('').map(_Part.fromSymbol).toList(),
-              damaged: l.last.split(',').map(int.parse).toList(),
-            ),
-          )
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map((l) => l.split(' '))
+        .map(
+          (l) => (
+            parts: l.first.split('').map(_Part.fromSymbol).toList(),
+            damaged: l.last.split(',').map(int.parse).toList(),
+          ),
+        )
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(inputData.values.map((e) => _s(e.parts, null, e.damaged)).sum);
-  }
+  _O runInternal(_I inputData) =>
+      .new(inputData.values.map((e) => _s(e.parts, null, e.damaged)).sum);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .map(
-            (e) => _s(
-              Iterable.generate(
-                5,
-                (_) => e.parts,
-              ).separatedBy(() => [.unknown]).flattenedToList,
-              null,
-              Iterable.generate(5, (_) => e.damaged).flattenedToList,
-            ),
-          )
-          .sum,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+        .map(
+          (e) => _s(
+            Iterable.generate(
+              5,
+              (_) => e.parts,
+            ).separatedBy(() => [.unknown]).flattenedToList,
+            null,
+            Iterable.generate(5, (_) => e.damaged).flattenedToList,
+          ),
+        )
+        .sum,
+  );
 }
 
 enum _Part {

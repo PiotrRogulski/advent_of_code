@@ -1,4 +1,3 @@
-import 'package:advent_of_code/design_system/theme.dart';
 import 'package:advent_of_code/features/day/day_page.dart';
 import 'package:advent_of_code/features/home/home_page.dart';
 import 'package:advent_of_code/features/settings/settings_page.dart';
@@ -59,9 +58,5 @@ class MainRoute extends StatefulShellRouteData {
     BuildContext context,
     GoRouterState state,
     StatefulNavigationShell navigationShell,
-  ) {
-    return FontOpticalSizeAdjuster(
-      child: AocAppShell(routerState: state, navigationShell: navigationShell),
-    );
-  }
+  ) => AocAppShell(routerState: state, navigationShell: navigationShell);
 }

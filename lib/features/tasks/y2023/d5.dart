@@ -28,69 +28,62 @@ class Y2023D5 extends DayData<_I> {
   const Y2023D5() : super(2023, 5, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData.split('\n\n').apply((parts) {
-        final [seedsPart, ...mapParts] = parts;
-        final seeds = seedsPart.substring(7).split(' ').map(int.parse).toList();
-        final maps = mapParts.map(_parseMap).toList();
-        return (
-          seeds: seeds,
-          seedToSoil: maps[0],
-          soilToFertilizer: maps[1],
-          fertilizerToWater: maps[2],
-          waterToLight: maps[3],
-          lightToTemperature: maps[4],
-          temperatureToHumidity: maps[5],
-          humidityToLocation: maps[6],
-        );
-      }),
-    );
-  }
-
-  List<_MapRange> _parseMap(String mapPart) {
-    return mapPart.split('\n').skip(1).map((l) {
-      final [destStart, sourceStart, length] = l.split(' ');
+  _I parseInput(String rawData) => .new(
+    rawData.split('\n\n').apply((parts) {
+      final [seedsPart, ...mapParts] = parts;
+      final seeds = seedsPart.substring(7).split(' ').map(int.parse).toList();
+      final maps = mapParts.map(_parseMap).toList();
       return (
-        destStart: int.parse(destStart),
-        sourceStart: int.parse(sourceStart),
-        length: int.parse(length),
+        seeds: seeds,
+        seedToSoil: maps[0],
+        soilToFertilizer: maps[1],
+        fertilizerToWater: maps[2],
+        waterToLight: maps[3],
+        lightToTemperature: maps[4],
+        temperatureToHumidity: maps[5],
+        humidityToLocation: maps[6],
       );
-    }).toList();
-  }
+    }),
+  );
+
+  List<_MapRange> _parseMap(String mapPart) =>
+      mapPart.split('\n').skip(1).map((l) {
+        final [destStart, sourceStart, length] = l.split(' ');
+        return (
+          destStart: int.parse(destStart),
+          sourceStart: int.parse(sourceStart),
+          length: int.parse(length),
+        );
+      }).toList();
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.value.seeds
-          .map(
-            (s) => s
-                .apply(_applyMap(inputData.value.seedToSoil))
-                .apply(_applyMap(inputData.value.soilToFertilizer))
-                .apply(_applyMap(inputData.value.fertilizerToWater))
-                .apply(_applyMap(inputData.value.waterToLight))
-                .apply(_applyMap(inputData.value.lightToTemperature))
-                .apply(_applyMap(inputData.value.temperatureToHumidity))
-                .apply(_applyMap(inputData.value.humidityToLocation)),
-          )
-          .min,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.value.seeds
+        .map(
+          (s) => s
+              .apply(_applyMap(inputData.value.seedToSoil))
+              .apply(_applyMap(inputData.value.soilToFertilizer))
+              .apply(_applyMap(inputData.value.fertilizerToWater))
+              .apply(_applyMap(inputData.value.waterToLight))
+              .apply(_applyMap(inputData.value.lightToTemperature))
+              .apply(_applyMap(inputData.value.temperatureToHumidity))
+              .apply(_applyMap(inputData.value.humidityToLocation)),
+        )
+        .min,
+  );
 
-  static int Function(int) _applyMap(List<_MapRange> map) {
-    return (value) {
-      for (final m in map) {
-        if (value >= m.sourceStart && value < m.sourceStart + m.length) {
-          return m.destStart + value - m.sourceStart;
-        }
+  static int Function(int) _applyMap(List<_MapRange> map) => (value) {
+    for (final m in map) {
+      if (value >= m.sourceStart && value < m.sourceStart + m.length) {
+        return m.destStart + value - m.sourceStart;
       }
-      return value;
-    };
-  }
+    }
+    return value;
+  };
 }
 
 class _P2 extends PartImplementation<_I, _O> {

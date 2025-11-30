@@ -15,47 +15,39 @@ class Y2022D9 extends DayData<_I> {
   const Y2022D9() : super(2022, 9, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map((l) => l.split(' '))
-          .map((l) => (move: _Move.fromSymbol(l[0]), count: int.parse(l[1])))
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map((l) => l.split(' '))
+        .map((l) => (move: _Move.fromSymbol(l[0]), count: int.parse(l[1])))
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return _run(inputData, 2);
-  }
+  _O runInternal(_I inputData) => _run(inputData, 2);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return _run(inputData, 10);
-  }
+  _O runInternal(_I inputData) => _run(inputData, 10);
 }
 
-_O _run(_I inputData, int ropeLength) {
-  return .new(
-    inputData.values
-        .expand((element) => List.filled(element.count, element.move))
-        .fold((
-          rope: List.filled(ropeLength, _origin),
-          tailHistory: {_origin},
-        ), _performMove)
-        .tailHistory
-        .length,
-  );
-}
+_O _run(_I inputData, int ropeLength) => .new(
+  inputData.values
+      .expand((element) => List.filled(element.count, element.move))
+      .fold((
+        rope: List.filled(ropeLength, _origin),
+        tailHistory: {_origin},
+      ), _performMove)
+      .tailHistory
+      .length,
+);
 
 _StepAccumulator _performMove(_StepAccumulator acc, _Move move) {
   final (:rope, :tailHistory) = acc;

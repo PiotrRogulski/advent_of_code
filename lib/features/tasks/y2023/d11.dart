@@ -12,32 +12,26 @@ class Y2023D11 extends DayData<_I> {
   const Y2023D11() : super(2023, 11, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map((e) => e.split('').map(_SpaceCell.fromSymbol).toList())
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map((e) => e.split('').map(_SpaceCell.fromSymbol).toList())
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return _run(inputData, dilation: 2);
-  }
+  _O runInternal(_I inputData) => _run(inputData, dilation: 2);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return _run(inputData, dilation: 1_000_000);
-  }
+  _O runInternal(_I inputData) => _run(inputData, dilation: 1_000_000);
 }
 
 enum _SpaceCell {

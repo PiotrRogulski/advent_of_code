@@ -18,51 +18,45 @@ class Y2023D24 extends DayData<_I> {
   const Y2023D24() : super(2023, 24, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .map(
-            (l) => l
-                .split(' @ ')
-                .map(
-                  (e) => e
-                      .split(', ')
-                      .map(double.parse)
-                      .toList()
-                      .apply(Tuple3.fromList),
-                ),
-          )
-          .map(
-            (l) => (
-              position: Vector3(l.first.$1, l.first.$2, l.first.$3),
-              velocity: Vector3(l.last.$1, l.last.$2, l.last.$3),
-            ),
-          )
-          .toList(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .map(
+          (l) => l
+              .split(' @ ')
+              .map(
+                (e) => e
+                    .split(', ')
+                    .map(double.parse)
+                    .toList()
+                    .apply(Tuple3.fromList),
+              ),
+        )
+        .map(
+          (l) => (
+            position: Vector3(l.first.$1, l.first.$2, l.first.$3),
+            velocity: Vector3(l.last.$1, l.last.$2, l.last.$3),
+          ),
+        )
+        .toList(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) {
-    return .new(
-      inputData.values
-          .permutations(2)
-          .where((l) => l.first < l.last)
-          .where((e) => !_xyParallel(e.first.velocity.xy, e.last.velocity.xy))
-          .map((l) => (l: l, t: _intersectT(l.first, l.last)))
-          .where((e) => e.t.x > 0 && e.t.y > 0)
-          .map((e) => (e.l.first.position + e.l.first.velocity * e.t.x).xy)
-          .where(
-            (v) => v.x >= 2e14 && v.x <= 4e14 && v.y >= 2e14 && v.y <= 4e14,
-          )
-          .length,
-    );
-  }
+  _O runInternal(_I inputData) => .new(
+    inputData.values
+        .permutations(2)
+        .where((l) => l.first < l.last)
+        .where((e) => !_xyParallel(e.first.velocity.xy, e.last.velocity.xy))
+        .map((l) => (l: l, t: _intersectT(l.first, l.last)))
+        .where((e) => e.t.x > 0 && e.t.y > 0)
+        .map((e) => (e.l.first.position + e.l.first.velocity * e.t.x).xy)
+        .where((v) => v.x >= 2e14 && v.x <= 4e14 && v.y >= 2e14 && v.y <= 4e14)
+        .length,
+  );
 }
 
 /// Part 2 was solved in Mathematica and deployed as a cloud function:

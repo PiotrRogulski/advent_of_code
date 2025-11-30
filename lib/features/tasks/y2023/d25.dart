@@ -13,31 +13,29 @@ class Y2023D25 extends DayData<_I> {
   const Y2023D25() : super(2023, 25, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) {
-    return .new(
-      rawData
-          .split('\n')
-          .expand((l) {
-            final [from, to] = l.split(': ');
-            return [for (final t in to.split(' ')) (source: from, target: t)];
-          })
-          .fold(
-            .undirected(),
-            (g, e) => g..addEdge(e.source, e.target, value: 1),
-          ),
-      stringifier: (g) =>
-          (StringBuffer()
-                ..writeln('Vertices: ${g.vertices.length}')
-                ..writeAll(g.vertices, ' ')
-                ..writeln()
-                ..writeln('Edges: ${g.edges.length}')
-                ..writeAll(
-                  g.edges.map((e) => '${e.source} -> ${e.target}'),
-                  '\n',
-                ))
-              .toString(),
-    );
-  }
+  _I parseInput(String rawData) => .new(
+    rawData
+        .split('\n')
+        .expand((l) {
+          final [from, to] = l.split(': ');
+          return [for (final t in to.split(' ')) (source: from, target: t)];
+        })
+        .fold(
+          .undirected(),
+          (g, e) => g..addEdge(e.source, e.target, value: 1),
+        ),
+    stringifier: (g) =>
+        (StringBuffer()
+              ..writeln('Vertices: ${g.vertices.length}')
+              ..writeAll(g.vertices, ' ')
+              ..writeln()
+              ..writeln('Edges: ${g.edges.length}')
+              ..writeAll(
+                g.edges.map((e) => '${e.source} -> ${e.target}'),
+                '\n',
+              ))
+            .toString(),
+  );
 }
 
 class _P1 extends PartImplementation<_I, _O> {
