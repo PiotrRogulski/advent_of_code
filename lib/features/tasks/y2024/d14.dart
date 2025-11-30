@@ -19,7 +19,7 @@ class Y2024D14 extends DayData<_I> {
   );
 
   @override
-  _I parseInput(String rawData) => _I(
+  _I parseInput(String rawData) => .new(
     rawData
         .split('\n')
         .map(robotRegex.firstMatch)
@@ -46,7 +46,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.values
         .map((r) => (r.position + r.velocity * 100).ensureInBounds(_boardSize))
         .groupListsBy(
@@ -62,7 +62,7 @@ class _P1 extends PartImplementation<_I, _O> {
           },
         )
         .entries
-        .whereNot((e) => e.key == _Quadrant.none)
+        .whereNot((e) => e.key == .none)
         .map((e) => e.value.length)
         .product,
   );
@@ -72,7 +72,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     1
         .iterate((n) => n + 1)
         .map(

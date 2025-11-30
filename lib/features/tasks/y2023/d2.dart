@@ -16,10 +16,10 @@ class Y2023D2 extends DayData<_I> {
 
   static final _gameRegex = RegExp(r'Game (?<index>\d+): (?<subsets>.+)');
   static RegExp _subsetColorEntry(String color) =>
-      RegExp('(?<count>\\d+) $color');
+      .new('(?<count>\\d+) $color');
 
   static int _extractColorCount(String color, String s) {
-    return int.parse(
+    return .parse(
       _subsetColorEntry(color).firstMatch(s)?.namedGroup('count') ?? '0',
     );
   }

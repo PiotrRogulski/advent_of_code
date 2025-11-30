@@ -16,14 +16,14 @@ class Y2024D16 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) =>
-      _I(rawData.split('\n').map((l) => l.split('')).toList(), dense: true);
+      .new(rawData.split('\n').map((l) => l.split('')).toList(), dense: true);
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     dijkstraSearch(
       startVertices: [inputData.matrix.start],
       successorsOf: inputData.matrix.successorsOf,
@@ -72,7 +72,7 @@ class _P2 extends PartImplementation<_I, _O> {
       pathStack.addAll(previous[current]!);
     }
 
-    return _O(visited.length);
+    return .new(visited.length);
   }
 }
 
@@ -105,10 +105,8 @@ enum _Direction {
 }
 
 extension on Matrix<String> {
-  _Node get start => (
-    index: cells.firstWhere((c) => c.value == 'S').index,
-    direction: _Direction.E,
-  );
+  _Node get start =>
+      (index: cells.firstWhere((c) => c.value == 'S').index, direction: .E);
 
   bool isEnd(_Node node) => atIndex(node.index) == 'E';
 

@@ -14,7 +14,7 @@ class Y2023D10 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .map((l) => l.split('').map(_Pipe.fromSymbol).toList())
@@ -29,9 +29,9 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       _cycle(
-            inputData.matrix.cells.firstWhere((c) => c.value == _Pipe.unknown),
+            inputData.matrix.cells.firstWhere((c) => c.value == .unknown),
             inputData.matrix,
           ).length ~/
           2,
@@ -47,11 +47,11 @@ class _P2 extends PartImplementation<_I, _O> {
     final matrix = inputData.matrix;
 
     final cycle = _cycle(
-      matrix.cells.firstWhere((c) => c.value == _Pipe.unknown),
+      matrix.cells.firstWhere((c) => c.value == .unknown),
       matrix,
     ).map((e) => e.index);
     for (final index in matrix.indexes.toSet().difference(cycle.toSet())) {
-      matrix.setIndex(index, _Pipe.empty);
+      matrix.setIndex(index, .empty);
     }
 
     var count = 0;
@@ -64,19 +64,19 @@ class _P2 extends PartImplementation<_I, _O> {
           .reversed;
       var countInRow = 0;
       var vBarCount = 0;
-      final rangesToRemove = ranges(RegExp('(L-*J)|(F-*7)'));
+      final rangesToRemove = ranges(.new('(L-*J)|(F-*7)'));
       for (final (start, end) in rangesToRemove) {
         row.removeRange(start, end);
       }
-      final rangesToReplace = ranges(RegExp('(L-*7)|(F-*J)'));
+      final rangesToReplace = ranges(.new('(L-*7)|(F-*J)'));
       for (final (start, end) in rangesToReplace) {
         row.replaceRange(start, end, [_Pipe.vertical]);
       }
       for (final cell in row) {
-        if (cell == _Pipe.vertical || cell == _Pipe.unknown) {
+        if (cell case .vertical || .unknown) {
           vBarCount++;
         }
-        if (vBarCount.isOdd && cell == _Pipe.empty) {
+        if (vBarCount.isOdd && cell == .empty) {
           countInRow++;
         }
       }

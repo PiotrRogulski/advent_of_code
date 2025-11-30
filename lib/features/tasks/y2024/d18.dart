@@ -13,7 +13,7 @@ class Y2024D18 extends DayData<_I> {
   const Y2024D18() : super(2024, 18, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => _I(
+  _I parseInput(String rawData) => .new(
     rawData
         .split('\n')
         .map(
@@ -34,7 +34,7 @@ class _P1 extends PartImplementation<_I, _O> {
   static const _inputLength = 1024;
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     _findPath(
       inputLength: _inputLength,
       memorySize: _memorySize,
@@ -66,7 +66,7 @@ class _P2 extends PartImplementation<_I, _O> {
     }
 
     final index = inputData.values[l];
-    return _O('${index.column},${index.row}');
+    return .new('${index.column},${index.row}');
   }
 }
 
@@ -77,9 +77,7 @@ Path<MatrixIndex, num>? _findPath({
 }) => input
     .take(inputLength)
     .fold(
-      Matrix.fromList(
-        List.generate(memorySize, (_) => List.filled(memorySize, true)),
-      ),
+      Matrix.fromList(.generate(memorySize, (_) => .filled(memorySize, true))),
       (m, index) => m..setIndex(index, false),
     )
     .apply(

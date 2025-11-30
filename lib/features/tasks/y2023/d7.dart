@@ -15,7 +15,7 @@ class Y2023D7 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
+    return .new(
       rawData
           .split('\n')
           .map((l) => l.split(' '))
@@ -35,7 +35,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values
           .sorted(_compareHands)
           .mapIndexed((index, hand) => (index + 1) * hand.bid)
@@ -49,7 +49,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values
           .sorted((h1, h2) => _compareHands(h1, h2, sortJokersLast: true))
           .mapIndexed((index, hand) => (index + 1) * hand.bid)
@@ -119,41 +119,37 @@ int _compareHands(
   ).zip().firstWhereOrNull((pair) => pair.$1 != pair.$2);
   return switch (card) {
     null => 0,
-    (_Card.j, _) when sortJokersLast => -1,
-    (_, _Card.j) when sortJokersLast => 1,
+    (.j, _) when sortJokersLast => -1,
+    (_, .j) when sortJokersLast => 1,
     (final c1, final c2) => c1.compareTo(c2),
   };
 }
 
-_HandType _getHandType(List<_Card> hand, [_Card jokerValue = _Card.j]) {
+_HandType _getHandType(List<_Card> hand, [_Card jokerValue = .j]) {
   final counts = hand.fold(
     <_Card, int>{},
     (map, card) => map
-      ..update(
-        card == _Card.j ? jokerValue : card,
-        (v) => v + 1,
-        ifAbsent: () => 1,
-      ),
+      ..update(card == .j ? jokerValue : card, (v) => v + 1, ifAbsent: () => 1),
   );
   final values = counts.values.toList()..sort();
   if (values.last == 5) {
-    return _HandType.fiveOfAKind;
+    return .fiveOfAKind;
   } else if (values.last == 4) {
-    return _HandType.fourOfAKind;
+    return .fourOfAKind;
   } else if (values.last == 3) {
     if (values[values.length - 2] == 2) {
-      return _HandType.fullHouse;
+      return .fullHouse;
     } else {
-      return _HandType.threeOfAKind;
+      return .threeOfAKind;
     }
   } else if (values.last == 2) {
     if (values[values.length - 2] == 2) {
-      return _HandType.twoPair;
+      return .twoPair;
     } else {
-      return _HandType.onePair;
+      return .onePair;
     }
   } else {
-    return _HandType.highCard;
+    return .highCard;
   }
 }
 

@@ -13,7 +13,7 @@ class Y2023D11 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .map((e) => e.split('').map(_SpaceCell.fromSymbol).toList())
@@ -58,18 +58,16 @@ NumericOutput<int> _run(_I inputData, {required int dilation}) {
   final matrix = inputData.matrix;
 
   final emptyColumnsIdx = matrix.columns.indexed
-      .where((e) => e.$2.every((e) => e == _SpaceCell.empty))
+      .where((e) => e.$2.every((e) => e == .empty))
       .map((e) => e.$1)
       .toList();
 
   final emptyRowsIdx = matrix.rows.indexed
-      .where((e) => e.$2.every((e) => e == _SpaceCell.empty))
+      .where((e) => e.$2.every((e) => e == .empty))
       .map((e) => e.$1)
       .toList();
 
-  final galaxyIndexes = matrix.cells
-      .where((c) => c.value == _SpaceCell.galaxy)
-      .toList();
+  final galaxyIndexes = matrix.cells.where((c) => c.value == .galaxy).toList();
 
   return NumericOutput(
     galaxyIndexes.combinations(2).map((p) {

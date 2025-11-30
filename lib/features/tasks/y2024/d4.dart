@@ -15,7 +15,7 @@ class Y2024D4 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) =>
-      _I(rawData.split('\n').map((l) => l.split('')).toList());
+      .new(rawData.split('\n').map((l) => l.split('')).toList());
 }
 
 class _P1 extends PartImplementation<_I, _O> {
@@ -24,7 +24,7 @@ class _P1 extends PartImplementation<_I, _O> {
   static const _patterns = ['XMAS', 'SAMX'];
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.matrix
         .apply(
           (m) => [...m.columns, ...m.rows, ...m.diagonals, ...m.antiDiagonals],
@@ -40,7 +40,7 @@ class _P2 extends PartImplementation<_I, _O> {
   static const _patterns = ['MAS', 'SAM'];
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.matrix.apply(
       (m) => m.cells.count(
         (c) => switch ((

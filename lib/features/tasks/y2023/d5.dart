@@ -29,7 +29,7 @@ class Y2023D5 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ObjectInput(
+    return .new(
       rawData.split('\n\n').apply((parts) {
         final [seedsPart, ...mapParts] = parts;
         final seeds = seedsPart.substring(7).split(' ').map(int.parse).toList();
@@ -65,7 +65,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.value.seeds
           .map(
             (s) => s
@@ -108,7 +108,7 @@ class _P2 extends PartImplementation<_I, _O> {
       inputData.value.humidityToLocation,
     ];
 
-    return NumericOutput(
+    return .new(
       maps
           .fold(
             inputData.value.seeds

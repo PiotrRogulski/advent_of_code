@@ -15,7 +15,7 @@ class Y2023D15 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(rawData.split(','));
+    return .new(rawData.split(','));
   }
 }
 
@@ -24,7 +24,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(inputData.values.map(_hash).sum);
+    return .new(inputData.values.map(_hash).sum);
   }
 }
 
@@ -35,32 +35,30 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(
+    return .new(
       inputData.values
-          .fold(
-            Map.fromEntries(
-              Iterable.generate(256, (i) => MapEntry(i, <_Lens>[])),
-            ),
-            (acc, e) {
-              final m = _lensRegex.firstMatch(e)!;
-              final label = m.namedGroup('label')!;
-              final lenses = acc[_hash(label)]!;
-              final i = lenses.indexWhere((e) => e.label == label);
-              if (m.namedGroup('focal') case final focal?) {
-                final lens = (label: label, focal: int.parse(focal));
-                if (i != -1) {
-                  lenses[i] = lens;
-                } else {
-                  lenses.add(lens);
-                }
+          .fold(Map.fromEntries(.generate(256, (i) => .new(i, <_Lens>[]))), (
+            acc,
+            e,
+          ) {
+            final m = _lensRegex.firstMatch(e)!;
+            final label = m.namedGroup('label')!;
+            final lenses = acc[_hash(label)]!;
+            final i = lenses.indexWhere((e) => e.label == label);
+            if (m.namedGroup('focal') case final focal?) {
+              final lens = (label: label, focal: int.parse(focal));
+              if (i != -1) {
+                lenses[i] = lens;
               } else {
-                if (i != -1) {
-                  lenses.removeAt(i);
-                }
+                lenses.add(lens);
               }
-              return acc;
-            },
-          )
+            } else {
+              if (i != -1) {
+                lenses.removeAt(i);
+              }
+            }
+            return acc;
+          })
           .entries
           .expand(
             (e) =>

@@ -12,7 +12,7 @@ class Y2024D10 extends DayData<_I> {
   const Y2024D10() : super(2024, 10, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => _I(
+  _I parseInput(String rawData) => .new(
     rawData
         .split('\n')
         .map((l) => l.split('').map(int.parse).toList())
@@ -24,7 +24,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.matrix.cells
         .where((c) => c.value == 0)
         .expand(
@@ -41,7 +41,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.matrix.cells
         .where((c) => c.value == 0)
         .expand((c) => _findTrails(inputData.matrix, start: c))

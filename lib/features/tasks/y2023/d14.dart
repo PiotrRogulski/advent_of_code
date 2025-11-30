@@ -13,7 +13,7 @@ class Y2023D14 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .map((e) => e.split('').map(_Cell.fromSymbol).toList())
@@ -31,7 +31,7 @@ class _P1 extends PartImplementation<_I, _O> {
       inputData.matrix.columns
           .map(
             (c) => c.indexed
-                .where((e) => e.$2 == _Cell.round)
+                .where((e) => e.$2 == .round)
                 .map(
                   (e) => (
                     index: e.$1,
@@ -39,8 +39,8 @@ class _P1 extends PartImplementation<_I, _O> {
                         .take(e.$1)
                         .toList()
                         .reversed
-                        .takeWhile((e) => e != _Cell.cube)
-                        .where((e) => e == _Cell.empty)
+                        .takeWhile((e) => e != .cube)
+                        .where((e) => e == .empty)
                         .length,
                   ),
                 ),
@@ -73,7 +73,7 @@ class _P2 extends PartImplementation<_I, _O> {
           (e) => e.cycle >= value.cycle && (1_000_000_000 - e.cycle) % n == 0,
         );
         if (entry != null) {
-          return _O(entry.result);
+          return .new(entry.result);
         }
       }
       memo[key] = (cycle: index, result: _calcScore(matrix));
@@ -100,13 +100,13 @@ void _slide(Matrix<_Cell> matrix) {
   for (var j = 0; j < matrix.columnCount; j++) {
     var ci = 0;
     for (var i = 0; i < matrix.rowCount; i++) {
-      if (matrix.at(i, j) == _Cell.cube) {
+      if (matrix.at(i, j) == .cube) {
         ci = i + 1;
       }
-      if (matrix.at(i, j) == _Cell.round) {
+      if (matrix.at(i, j) == .round) {
         matrix
-          ..set(i, j, _Cell.empty)
-          ..set(ci, j, _Cell.round);
+          ..set(i, j, .empty)
+          ..set(ci, j, .round);
         ci++;
       }
     }
@@ -127,8 +127,7 @@ int _calcScore(Matrix<_Cell> matrix) {
   return matrix.rows
       .mapIndexed(
         (rowIndex, r) =>
-            r.where((c) => c == _Cell.round).length *
-            (matrix.rowCount - rowIndex),
+            r.where((c) => c == .round).length * (matrix.rowCount - rowIndex),
       )
       .sum;
 }

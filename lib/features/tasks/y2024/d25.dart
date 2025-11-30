@@ -13,7 +13,7 @@ class Y2024D25 extends DayData<_I> {
   const Y2024D25() : super(2024, 25, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => _I(
+  _I parseInput(String rawData) => .new(
     rawData
         .split('\n\n')
         .partition((s) => s.startsWith('#'))
@@ -30,7 +30,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     (inputData.value.locks, inputData.value.keys)
         .product()
         .where((p) => p.zip().every((p) => p.$1 + p.$2 < 6))
@@ -43,7 +43,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => const _O('Merry Christmas!');
+  _O runInternal(_I inputData) => const .new('Merry Christmas!');
 }
 
 List<int> _parseElement(String element) => element

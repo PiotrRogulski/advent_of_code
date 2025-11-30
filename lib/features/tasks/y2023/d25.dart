@@ -14,7 +14,7 @@ class Y2023D25 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .expand((l) {
@@ -22,7 +22,7 @@ class Y2023D25 extends DayData<_I> {
             return [for (final t in to.split(' ')) (source: from, target: t)];
           })
           .fold(
-            Graph.undirected(),
+            .undirected(),
             (g, e) => g..addEdge(e.source, e.target, value: 1),
           ),
       stringifier: (g) =>
@@ -62,7 +62,7 @@ class _P1 extends PartImplementation<_I, _O> {
         ..removeEdge(v1, v2)
         ..removeEdge(v2, v1);
     }
-    return _O(G.connected().map((g) => g.vertices.length).product);
+    return .new(G.connected().map((g) => g.vertices.length).product);
   }
 }
 

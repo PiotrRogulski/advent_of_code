@@ -11,7 +11,7 @@ class Y2024D3 extends DayData<_I> {
   const Y2024D3() : super(2024, 3, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => _I(rawData);
+  _I parseInput(String rawData) => .new(rawData);
 }
 
 class _P1 extends PartImplementation<_I, _O> {
@@ -20,7 +20,7 @@ class _P1 extends PartImplementation<_I, _O> {
   static final _validInstructionRegex = RegExp(r'mul\((\d+),(\d+)\)');
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     _validInstructionRegex
         .allMatches(inputData.value)
         .map((m) => int.parse(m[1]!) * int.parse(m[2]!))
@@ -36,7 +36,7 @@ class _P2 extends PartImplementation<_I, _O> {
   static final _dontRegex = RegExp(r"(don't)\(\)");
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     [
       ..._mulRegex.allMatches(inputData.value),
       ..._doRegex.allMatches(inputData.value),

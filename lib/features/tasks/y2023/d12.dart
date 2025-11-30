@@ -15,7 +15,7 @@ class Y2023D12 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .map((l) => l.split(' '))
@@ -35,7 +35,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(inputData.values.map((e) => _s(e.parts, null, e.damaged)).sum);
+    return .new(inputData.values.map((e) => _s(e.parts, null, e.damaged)).sum);
   }
 }
 
@@ -44,14 +44,14 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(
+    return .new(
       inputData.values
           .map(
             (e) => _s(
               Iterable.generate(
                 5,
                 (_) => e.parts,
-              ).separatedBy(() => [_Part.unknown]).flattenedToList,
+              ).separatedBy(() => [.unknown]).flattenedToList,
               null,
               Iterable.generate(5, (_) => e.damaged).flattenedToList,
             ),
@@ -88,33 +88,28 @@ int _s(List<_Part> s, int? currentRun, List<int> remain) {
       _ => 0,
     };
   }
-  final possible = s
-      .where((e) => e == _Part.damaged || e == _Part.unknown)
-      .length;
+  final possible = s.where((e) => e == .damaged || e == .unknown).length;
   if ((currentRun != null &&
           (remain.isEmpty || possible + currentRun < remain.sum)) ||
       (currentRun == null && possible < remain.sum)) {
     return 0;
   }
 
-  if (s[0] == _Part.ok && currentRun != null && currentRun != remain[0]) {
+  if (s[0] == .ok && currentRun != null && currentRun != remain[0]) {
     return 0;
   }
 
   final [first, ...rest] = s;
 
   final ret = [
-    if (first == _Part.ok && currentRun != null)
+    if (first == .ok && currentRun != null) _s(rest, null, remain.sublist(1)),
+    if (first == .unknown && currentRun != null && currentRun == remain[0])
       _s(rest, null, remain.sublist(1)),
-    if (first == _Part.unknown && currentRun != null && currentRun == remain[0])
-      _s(rest, null, remain.sublist(1)),
-    if ((first == _Part.damaged || first == _Part.unknown) &&
-        currentRun != null)
+    if (first case .damaged || .unknown when currentRun != null)
       _s(rest, currentRun + 1, remain),
-    if ((first == _Part.damaged || first == _Part.unknown) &&
-        currentRun == null)
+    if (first case .damaged || .unknown when currentRun == null)
       _s(rest, 1, remain),
-    if ((first == _Part.unknown || first == _Part.ok) && currentRun == null)
+    if (first case .unknown || .ok when currentRun == null)
       _s(rest, null, remain),
   ].sum;
 

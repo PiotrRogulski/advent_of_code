@@ -16,7 +16,7 @@ class Y2023D16 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .map((e) => e.split('').map(_Tile.fromSymbol).toList())
@@ -30,9 +30,9 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(
+    return .new(
       _energize(
-        from: (position: (row: 0, column: 0), dir: _D.right),
+        from: (position: (row: 0, column: 0), dir: .right),
         matrix: inputData.matrix,
       ),
     );
@@ -55,7 +55,7 @@ class _P2 extends PartImplementation<_I, _O> {
         (position: (row: row, column: matrix.columnCount - 1), dir: _D.left),
       ],
     ];
-    return _O(
+    return .new(
       allEnterPoints.map((e) => _energize(from: e, matrix: matrix)).max,
     );
   }
@@ -124,29 +124,27 @@ Iterable<_Move> _nextMoves(Matrix<_Tile> matrix, _Move move) {
   final tile = matrix.atIndex(position);
 
   return switch (tile) {
-    _Tile.empty => [(position: position + dir.diff, dir: dir)],
-    _Tile.mirrorR => switch (dir) {
-      _D.up || _D.down => [(position: position + dir.rotL.diff, dir: dir.rotL)],
-      _D.left ||
-      _D.right => [(position: position + dir.rotR.diff, dir: dir.rotR)],
+    .empty => [(position: position + dir.diff, dir: dir)],
+    .mirrorR => switch (dir) {
+      .up || .down => [(position: position + dir.rotL.diff, dir: dir.rotL)],
+      .left || .right => [(position: position + dir.rotR.diff, dir: dir.rotR)],
     },
-    _Tile.mirrorL => switch (dir) {
-      _D.up || _D.down => [(position: position + dir.rotR.diff, dir: dir.rotR)],
-      _D.left ||
-      _D.right => [(position: position + dir.rotL.diff, dir: dir.rotL)],
+    .mirrorL => switch (dir) {
+      .up || .down => [(position: position + dir.rotR.diff, dir: dir.rotR)],
+      .left || .right => [(position: position + dir.rotL.diff, dir: dir.rotL)],
     },
-    _Tile.splitH => switch (dir) {
-      _D.left || _D.right => [(position: position + dir.diff, dir: dir)],
-      _D.up || _D.down => [
-        (position: position + _D.left.diff, dir: _D.left),
-        (position: position + _D.right.diff, dir: _D.right),
+    .splitH => switch (dir) {
+      .left || .right => [(position: position + dir.diff, dir: dir)],
+      .up || .down => [
+        (position: position + _D.left.diff, dir: .left),
+        (position: position + _D.right.diff, dir: .right),
       ],
     },
-    _Tile.splitV => switch (dir) {
-      _D.up || _D.down => [(position: position + dir.diff, dir: dir)],
-      _D.left || _D.right => [
-        (position: position + _D.up.diff, dir: _D.up),
-        (position: position + _D.down.diff, dir: _D.down),
+    .splitV => switch (dir) {
+      .up || .down => [(position: position + dir.diff, dir: dir)],
+      .left || .right => [
+        (position: position + _D.up.diff, dir: .up),
+        (position: position + _D.down.diff, dir: .down),
       ],
     },
   };

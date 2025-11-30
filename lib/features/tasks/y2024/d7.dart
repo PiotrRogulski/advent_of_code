@@ -13,7 +13,7 @@ class Y2024D7 extends DayData<_I> {
   const Y2024D7() : super(2024, 7, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => _I(
+  _I parseInput(String rawData) => .new(
     rawData
         .split('\n')
         .map(
@@ -34,7 +34,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.values
         .where(
           (x) => _findSolutions(
@@ -52,7 +52,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.values
         .where(
           (x) => _findSolutions(
@@ -80,15 +80,15 @@ List<List<_Operator>> _findSolutions(
   if (operands case [final first, final second]) {
     if (first + second == number) {
       return [
-        [_Operator.add],
+        [.add],
       ];
     } else if (first * second == number) {
       return [
-        [_Operator.multiply],
+        [.multiply],
       ];
     } else if (allowConcatenation && '$number' == '$second$first') {
       return [
-        [_Operator.concatenate],
+        [.concatenate],
       ];
     } else {
       return [];
@@ -104,20 +104,20 @@ List<List<_Operator>> _findSolutions(
         rest,
         allowConcatenation: allowConcatenation,
       ))
-        [_Operator.multiply, ...solution],
+        [.multiply, ...solution],
     if (number - operand > 0)
       for (final solution in _findSolutions(
         number - operand,
         rest,
         allowConcatenation: allowConcatenation,
       ))
-        [_Operator.add, ...solution],
+        [.add, ...solution],
     if (allowConcatenation && '$number'.endsWith('$operand'))
       for (final solution in _findSolutions(
-        int.tryParse('$number'.removeSuffix('$operand')) ?? 0,
+        .tryParse('$number'.removeSuffix('$operand')) ?? 0,
         rest,
         allowConcatenation: allowConcatenation,
       ))
-        [_Operator.concatenate, ...solution],
+        [.concatenate, ...solution],
   ];
 }

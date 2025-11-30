@@ -25,7 +25,7 @@ class Y2023D22 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .map((l) => l.split('~'))
@@ -115,7 +115,7 @@ class _P1 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     final bricks = inputData.values;
-    return _O(
+    return .new(
       bricks.count(
         (b) => b.supports.every((i) => bricks[i].supportedBy.length > 1),
       ),
@@ -129,7 +129,7 @@ class _P2 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     final bricks = inputData.values;
-    return _O(
+    return .new(
       bricks.mapIndexed((i, b) {
         if (b.supports.isEmpty) {
           return 0;

@@ -14,7 +14,7 @@ class Y2024D5 extends DayData<_I> {
   const Y2024D5() : super(2024, 5, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => _I(
+  _I parseInput(String rawData) => .new(
     rawData
         .split('\n\n')
         .apply(
@@ -40,7 +40,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.value.apply(
       (i) =>
           i.updates.where(i.rules.isOrdered).map((u) => u[u.length ~/ 2]).sum,
@@ -52,7 +52,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.value.apply(
       (i) => i.updates
           .whereNot(i.rules.isOrdered)

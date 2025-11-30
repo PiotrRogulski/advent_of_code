@@ -22,7 +22,7 @@ class Y2024D17 extends DayData<_I> {
   const Y2024D17() : super(2024, 17, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => _I(
+  _I parseInput(String rawData) => .new(
     rawData
         .split('\n\n')
         .apply(
@@ -31,9 +31,9 @@ class Y2024D17 extends DayData<_I> {
                 .split('\n')
                 .apply(
                   (regs) => (
-                    A: int.parse(regs[0].substring(12)),
-                    B: int.parse(regs[1].substring(12)),
-                    C: int.parse(regs[2].substring(12)),
+                    A: .parse(regs[0].substring(12)),
+                    B: .parse(regs[1].substring(12)),
+                    C: .parse(regs[2].substring(12)),
                   ),
                 ),
             program: d.last.substring(9).split(',').map(int.parse).toList(),
@@ -46,7 +46,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     _compute(
       inputData.value.apply(
         (d) => (
@@ -92,24 +92,24 @@ class _P2 extends PartImplementation<_I, _O> {
               operand = c;
           }
           switch (_Op.fromOpcode(g[i])) {
-            case _Op.adv:
+            case .adv:
               a >>= operand;
-            case _Op.bxl:
+            case .bxl:
               b ^= g[i + 1];
-            case _Op.bst:
+            case .bst:
               b = operand & 7;
-            case _Op.jnz:
+            case .jnz:
               if (a != 0) {
                 i = g[i + 1] - 2;
               }
-            case _Op.bxc:
+            case .bxc:
               b ^= c;
-            case _Op.out:
+            case .out:
               w = operand & 7;
               break loop;
-            case _Op.bdv:
+            case .bdv:
               b = a >> operand;
-            case _Op.cdv:
+            case .cdv:
               c = a >> operand;
           }
           i += 2;
@@ -132,17 +132,17 @@ _ComputerState _compute(_ComputerState initialState) {
 
   while (state.pointer < state.program.length) {
     state = switch (_Op.fromOpcode(state.program[state.pointer])) {
-      _Op.adv => state.setA(state.A >> state.getComboValue()).advance(),
-      _Op.bxl => state.setB(state.B ^ state.getLiteralValue()).advance(),
-      _Op.bst => state.setB(state.getComboValue() & 7).advance(),
-      _Op.jnz =>
+      .adv => state.setA(state.A >> state.getComboValue()).advance(),
+      .bxl => state.setB(state.B ^ state.getLiteralValue()).advance(),
+      .bst => state.setB(state.getComboValue() & 7).advance(),
+      .jnz =>
         state.A == 0
             ? state.advance()
             : state.setPointer(state.getLiteralValue()),
-      _Op.bxc => state.setB(state.B ^ state.C).advance(),
-      _Op.out => state.addOutput(state.getComboValue() & 7).advance(),
-      _Op.bdv => state.setB(state.A >> state.getComboValue()).advance(),
-      _Op.cdv => state.setC(state.A >> state.getComboValue()).advance(),
+      .bxc => state.setB(state.B ^ state.C).advance(),
+      .out => state.addOutput(state.getComboValue() & 7).advance(),
+      .bdv => state.setB(state.A >> state.getComboValue()).advance(),
+      .cdv => state.setC(state.A >> state.getComboValue()).advance(),
     };
   }
 

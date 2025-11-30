@@ -23,7 +23,7 @@ class Y2023D20 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .map(_moduleRegex.firstMatch)
@@ -54,10 +54,10 @@ class _P1 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final states = Map.fromEntries(
       inputData.values.map(
-        (m) => MapEntry(m.name, (
+        (m) => .new(m.name, (
           module: m,
           storage: {
-            if (m.type == _ModType.conjunction)
+            if (m.type == .conjunction)
               for (final inputM in inputData.values)
                 if (inputM.destinations.contains(m.name) &&
                     inputM.name != m.name)
@@ -73,7 +73,7 @@ class _P1 extends PartImplementation<_I, _O> {
       lows += lowCount;
       highs += highCount;
     }
-    return _O(lows * highs);
+    return .new(lows * highs);
   }
 }
 
@@ -84,10 +84,10 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final states = Map.fromEntries(
       inputData.values.map(
-        (m) => MapEntry(m.name, (
+        (m) => .new(m.name, (
           module: m,
           storage: {
-            if (m.type == _ModType.conjunction)
+            if (m.type == .conjunction)
               for (final inputM in inputData.values)
                 if (inputM.destinations.contains(m.name) &&
                     inputM.name != m.name)
@@ -106,7 +106,7 @@ class _P2 extends PartImplementation<_I, _O> {
       (m) => m.destinations.contains(outletInput.name),
     );
     final d = _waitForOutletInputs(states, outletInputs);
-    return _O(d.values.lcm());
+    return .new(d.values.lcm());
   }
 }
 
@@ -185,12 +185,12 @@ List<_ModuleMessage> _invokeModule(
   required bool high,
 }) {
   switch (state.module.type) {
-    case _ModType.broadcaster:
+    case .broadcaster:
       return [
         for (final destination in state.module.destinations)
           (destination: destination, high: high, sender: state.module.name),
       ];
-    case _ModType.flipFlop:
+    case .flipFlop:
       final isOn = state.storage['isOn'] ?? false;
       if (!high) {
         state.storage['isOn'] = !isOn;
@@ -201,7 +201,7 @@ List<_ModuleMessage> _invokeModule(
       } else {
         return [];
       }
-    case _ModType.conjunction:
+    case .conjunction:
       state.storage[sender] = high;
       final allHigh = state.storage.values.every((e) => e);
       return [

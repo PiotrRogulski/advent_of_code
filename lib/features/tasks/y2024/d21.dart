@@ -16,14 +16,14 @@ class Y2024D21 extends DayData<_I> {
   const Y2024D21() : super(2024, 21, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => _I(rawData.split('\n'));
+  _I parseInput(String rawData) => .new(rawData.split('\n'));
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.values
         .map((i) => _findLength(i, 2, 0) * int.parse(i.substring(0, 3)))
         .sum,
@@ -34,7 +34,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.values
         .map((i) => _findLength(i, 25, 0) * int.parse(i.substring(0, 3)))
         .sum,

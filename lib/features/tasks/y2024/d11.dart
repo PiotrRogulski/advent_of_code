@@ -13,7 +13,7 @@ class Y2024D11 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) =>
-      _I(rawData.split(' ').map(int.parse).toList());
+      .new(rawData.split(' ').map(int.parse).toList());
 }
 
 class _P1 extends PartImplementation<_I, _O> {
@@ -21,7 +21,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) =>
-      _O(inputData.values.map(_blink.bind1(25)).sum);
+      .new(inputData.values.map(_blink.bind1(25)).sum);
 }
 
 class _P2 extends PartImplementation<_I, _O> {
@@ -29,7 +29,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) =>
-      _O(inputData.values.map(_blink.bind1(75)).sum);
+      .new(inputData.values.map(_blink.bind1(75)).sum);
 }
 
 final _memo = <(int, int), int>{};
@@ -44,8 +44,8 @@ int _blink(int value, int count) {
     () => switch (value.toString()) {
       '0' => _blink(1, count - 1),
       final str && String(:final length) when length.isEven =>
-        _blink(int.parse(str.substring(0, length ~/ 2)), count - 1) +
-            _blink(int.parse(str.substring(length ~/ 2)), count - 1),
+        _blink(.parse(str.substring(0, length ~/ 2)), count - 1) +
+            _blink(.parse(str.substring(length ~/ 2)), count - 1),
       _ => _blink(value * 2024, count - 1),
     },
   );

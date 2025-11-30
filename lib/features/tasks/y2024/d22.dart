@@ -14,14 +14,14 @@ class Y2024D22 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) =>
-      _I(rawData.split('\n').map(int.parse).toList());
+      .new(rawData.split('\n').map(int.parse).toList());
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.values.map((s) => s.iterate(_nextSecret).skip(2000).first).sum,
   );
 }
@@ -30,7 +30,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.values
         .map(
           (initial) => initial

@@ -26,18 +26,18 @@ class Y2023D19 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n\n')
           .apply(
             (l) => (
-              workflows: Map.fromEntries(
+              workflows: .fromEntries(
                 l.first
                     .split('\n')
                     .map(_workflowRegex.firstMatch)
                     .nonNulls
                     .map(
-                      (m) => MapEntry(
+                      (m) => .new(
                         m.namedGroup('label')!,
                         m
                             .namedGroup('rules')!
@@ -84,7 +84,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(
+    return .new(
       inputData.value.parts
           .where((part) {
             bool? status;
@@ -114,7 +114,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(
+    return .new(
       _run(inputData.value.workflows, 'in', {
         'x': (start: 1, end: 4001),
         'm': (start: 1, end: 4001),
@@ -144,12 +144,12 @@ class _P2 extends PartImplementation<_I, _O> {
                 return runRec(target, newRanges);
               case (:final variable, :final op, :final value):
                 final range = newRanges[variable]!.merge(switch (op) {
-                  _Op.lt => (start: 1, end: value),
-                  _Op.gt => (start: value + 1, end: 4001),
+                  .lt => (start: 1, end: value),
+                  .gt => (start: value + 1, end: 4001),
                 });
                 final reverseRange = newRanges[variable]!.merge(switch (op) {
-                  _Op.lt => (start: value, end: 4001),
-                  _Op.gt => (start: 1, end: value + 1),
+                  .lt => (start: value, end: 4001),
+                  .gt => (start: 1, end: value + 1),
                 });
                 newRanges[variable] = range;
                 final res = runRec(target, newRanges);

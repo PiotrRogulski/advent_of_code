@@ -15,7 +15,7 @@ class Y2024D23 extends DayData<_I> {
   const Y2024D23() : super(2024, 23, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => _I(
+  _I parseInput(String rawData) => .new(
     rawData.split('\n').map((l) => Tuple2.fromList(l.split('-'))).toList(),
   );
 }
@@ -24,7 +24,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData
         .asNetwork()
         .apply(_generateTriples)
@@ -37,7 +37,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData
         .asNetwork()
         .findCliques()
@@ -60,8 +60,6 @@ Iterable<(String, String, String)> _generateTriples(_Network graph) => graph
     .toSet();
 
 extension on _I {
-  _Network asNetwork() => values.fold(
-    Graph<String, int>.undirected(),
-    (g, p) => g..addEdge(p.$1, p.$2, value: 1),
-  );
+  _Network asNetwork() =>
+      values.fold(.undirected(), (g, p) => g..addEdge(p.$1, p.$2, value: 1));
 }

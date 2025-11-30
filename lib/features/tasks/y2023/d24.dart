@@ -19,7 +19,7 @@ class Y2023D24 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .map(
@@ -49,7 +49,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(
+    return .new(
       inputData.values
           .permutations(2)
           .where((l) => l.first < l.last)
@@ -102,7 +102,7 @@ class _P2 extends PartImplementation<_I, _O> {
         'dz3': inputData.values[2].velocity.z,
       },
     );
-    return _O(int.parse(r.data!));
+    return .new(.parse(r.data!));
   }
 }
 

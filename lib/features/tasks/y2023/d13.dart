@@ -14,7 +14,7 @@ class Y2023D13 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData.split('\n\n').map((e) => e.split('\n').toList()).toList(),
     );
   }
@@ -25,7 +25,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(inputData.values.map(_findReflection).sum);
+    return .new(inputData.values.map(_findReflection).sum);
   }
 }
 
@@ -34,7 +34,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return _O(
+    return .new(
       inputData.values
           .map((e) => _findReflection(e, allowMismatches: true))
           .sum,

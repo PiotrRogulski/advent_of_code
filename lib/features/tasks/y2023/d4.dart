@@ -50,7 +50,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values
           .map((e) => e.winning.intersection(e.yours).length)
           .map((e) => pow(2, e - 1).toInt())
@@ -64,7 +64,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values
               .fold(<int, int>{}, (additionalCards, card) {
                 final newAdditionalCards = Map.fromEntries(

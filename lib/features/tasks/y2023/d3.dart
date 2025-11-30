@@ -17,7 +17,7 @@ class Y2023D3 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return MatrixInput(
+    return .new(
       rawData
           .split('\n')
           .map(
@@ -40,7 +40,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.matrix.cells
           .whereType<_Cell<_Digit>>()
           .apply(_cellsToNumbers)
@@ -75,7 +75,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.matrix.cells
           .whereType<_Cell<_Digit>>()
           .apply(_cellsToNumbers)

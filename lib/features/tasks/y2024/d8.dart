@@ -15,14 +15,14 @@ class Y2024D8 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) =>
-      _I(rawData.split('\n').map((l) => l.split('')).toList());
+      .new(rawData.split('\n').map((l) => l.split('')).toList());
 }
 
 class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.matrix.cells
         .groupListsBy((c) => c.value)
         .entries
@@ -39,7 +39,7 @@ class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     inputData.matrix.cells
         .groupListsBy((c) => c.value)
         .entries

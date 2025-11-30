@@ -20,7 +20,7 @@ class Y2023D18 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .map(_moveRegex.firstMatch)
@@ -42,7 +42,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(_area(inputData.values));
+    return .new(_area(inputData.values));
   }
 }
 
@@ -51,18 +51,18 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       _area(
         inputData.values.map(
           (move) => (
             direction: switch (move.colorHex.characters.last) {
-              '0' => _Dir.right,
-              '1' => _Dir.down,
-              '2' => _Dir.left,
-              '3' => _Dir.up,
+              '0' => .right,
+              '1' => .down,
+              '2' => .left,
+              '3' => .up,
               _ => throw StateError('Invalid colorHex: ${move.colorHex}'),
             },
-            steps: int.parse(
+            steps: .parse(
               move.colorHex.substring(0, move.colorHex.length - 1),
               radix: 16,
             ),

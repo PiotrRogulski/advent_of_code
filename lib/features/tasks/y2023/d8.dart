@@ -20,7 +20,7 @@ class Y2023D8 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ObjectInput(
+    return .new(
       rawData
           .split('\n\n')
           .apply((l) => (moveString: l.first, nodeString: l.last))
@@ -50,7 +50,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       _findPathLength(inputData.value, 'AAA', isAtEnd: (node) => node == 'ZZZ'),
     );
   }
@@ -61,7 +61,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.value.nodes.keys
           .where((n) => n.endsWith('A'))
           .map(
@@ -98,7 +98,7 @@ int _findPathLength(
   while (!isAtEnd(node)) {
     final move = map.moves[moveIndex];
     final connections = map.nodes[node]!;
-    node = move == _Move.left ? connections.left : connections.right;
+    node = move == .left ? connections.left : connections.right;
     count++;
     moveIndex = (moveIndex + 1) % map.moves.length;
   }

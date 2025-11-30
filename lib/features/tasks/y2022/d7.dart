@@ -28,7 +28,7 @@ class Y2022D7 extends DayData<_I> {
                   final [size, name] = e.split(' ');
                   return switch (size) {
                     'dir' => _DirectoryLsEntry(name),
-                    _ => _FileLsEntry(name, int.parse(size)),
+                    _ => _FileLsEntry(name, .parse(size)),
                   };
                 }).toList(),
               ),

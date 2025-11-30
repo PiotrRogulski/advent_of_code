@@ -14,7 +14,7 @@ class Y2024D20 extends DayData<_I> {
   const Y2024D20() : super(2024, 20, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => _I(
+  _I parseInput(String rawData) => .new(
     rawData
         .split('\n')
         .map((l) => l.split('').map(_Tile.fromSymbol).toList())
@@ -27,7 +27,7 @@ class _P1 extends PartImplementation<_I, _O> {
   const _P1() : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     _findCheats(
       inputData.matrix,
       dijkstraSearch(
@@ -46,7 +46,7 @@ class _P2 extends PartImplementation<_I, _O> {
   static const cheatLength = 20;
 
   @override
-  _O runInternal(_I inputData) => _O(
+  _O runInternal(_I inputData) => .new(
     dijkstraSearch(
       startVertices: [inputData.matrix.start],
       successorsOf: inputData.matrix.successorsOf,
@@ -99,7 +99,7 @@ Iterable<({_Ix cheatIndex, int savedTime})> _findCheats(
       };
 
   return [
-    for (final c in map.cells.where((c) => c.value == _Tile.wall)) ...[
+    for (final c in map.cells.where((c) => c.value == .wall)) ...[
       tryGetCheat(c.index, c.index.up, c.index.down),
       tryGetCheat(c.index, c.index.left, c.index.right),
     ],
@@ -107,20 +107,19 @@ Iterable<({_Ix cheatIndex, int savedTime})> _findCheats(
 }
 
 extension on Matrix<_Tile> {
-  MatrixIndex get start =>
-      cells.firstWhere((c) => c.value == _Tile.start).index;
+  MatrixIndex get start => cells.firstWhere((c) => c.value == .start).index;
 
-  bool isEnd(MatrixIndex index) => atIndex(index) == _Tile.end;
+  bool isEnd(MatrixIndex index) => atIndex(index) == .end;
 
   Iterable<MatrixIndex> successorsOf(MatrixIndex index) => [
     index.up,
     index.down,
     index.left,
     index.right,
-  ].where((v) => isIndexInBounds(v) && atIndex(v) != _Tile.wall);
+  ].where((v) => isIndexInBounds(v) && atIndex(v) != .wall);
 
   bool isWalkable(MatrixIndex index) => switch (maybeAtIndex(index)) {
-    null || _Tile.wall => false,
+    null || .wall => false,
     _ => true,
   };
 }

@@ -28,7 +28,7 @@ class Y2024D24 extends DayData<_I> {
   );
 
   @override
-  _I parseInput(String rawData) => _I(
+  _I parseInput(String rawData) => .new(
     rawData
         .split('\n\n')
         .apply(
@@ -106,20 +106,20 @@ class _P2 extends PartImplementation<_I, _O> {
         edgeLabel: (e) => e.value.symbol,
         edgeAttributes: (e) => {
           'fontcolor': switch (e.value) {
-            _Op.and => 'red',
-            _Op.xor => 'blue',
-            _Op.or => 'green',
+            .and => 'red',
+            .xor => 'blue',
+            .or => 'green',
           },
           'color': switch (e.value) {
-            _Op.and => 'red',
-            _Op.xor => 'blue',
-            _Op.or => 'green',
+            .and => 'red',
+            .xor => 'blue',
+            .or => 'green',
           },
         },
       ),
     );
 
-    return const _O('Just look at the graph bruh');
+    return const .new('Just look at the graph bruh');
   }
 }
 
@@ -148,8 +148,8 @@ Future<void> _setupEquation(
   final arg2 = await completers[eq.arg2]!.future;
 
   completers[eq.target]!.complete(switch (eq.op) {
-    _Op.and => arg1 & arg2,
-    _Op.xor => arg1 ^ arg2,
-    _Op.or => arg1 | arg2,
+    .and => arg1 & arg2,
+    .xor => arg1 ^ arg2,
+    .or => arg1 | arg2,
   });
 }

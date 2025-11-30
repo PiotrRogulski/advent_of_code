@@ -13,7 +13,7 @@ class Y2023D21 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData.split('\n').map((line) {
         return line.split('').map(_Tile.fromSymbol).toList();
       }).toList(),
@@ -26,10 +26,8 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    final start = inputData.matrix.cells.singleWhere(
-      (e) => e.value == _Tile.start,
-    );
-    return _O(
+    final start = inputData.matrix.cells.singleWhere((e) => e.value == .start);
+    return .new(
       0.to(64).fold(
         {start.index},
         (front, i) => front
@@ -48,7 +46,7 @@ class _P1 extends PartImplementation<_I, _O> {
                         ),
                       )
                       .where(inputData.matrix.isIndexInBounds)
-                      .where((e) => inputData.matrix.atIndex(e) != _Tile.rocks),
+                      .where((e) => inputData.matrix.atIndex(e) != .rocks),
             )
             .toSet(),
       ).length,
@@ -65,7 +63,7 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final matrix = inputData.matrix;
     final (:columns, :rows) = matrix.size;
-    final start = matrix.cells.singleWhere((e) => e.value == _Tile.start);
+    final start = matrix.cells.singleWhere((e) => e.value == .start);
 
     var front = {start.index};
     final points = <int>[];
@@ -89,8 +87,7 @@ class _P2 extends PartImplementation<_I, _O> {
                     )
                     .where(
                       (e) =>
-                          matrix.at(e.row % rows, e.column % columns) !=
-                          _Tile.rocks,
+                          matrix.at(e.row % rows, e.column % columns) != .rocks,
                     ),
           )
           .toSet();
@@ -108,7 +105,7 @@ class _P2 extends PartImplementation<_I, _O> {
     final a = (p2 - 2 * p1 + p0) ~/ 2;
     final b = p1 - p0 - a;
     final n = steps ~/ rows;
-    return _O(a * n * n + b * n + c);
+    return .new(a * n * n + b * n + c);
   }
 }
 

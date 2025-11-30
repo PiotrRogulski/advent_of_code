@@ -18,7 +18,7 @@ class Y2023D23 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return _I(
+    return .new(
       rawData
           .split('\n')
           .map((e) => e.split('').map(_Tile.fromSymbol).toList())
@@ -35,7 +35,7 @@ class _P1 extends PartImplementation<_I, _O> {
     final matrix = inputData.matrix;
     const start = (row: 0, column: 1);
     final target = (row: matrix.rowCount - 1, column: matrix.columnCount - 2);
-    return _O(_dfs(matrix, {start}, start, target)!);
+    return .new(_dfs(matrix, {start}, start, target)!);
   }
 }
 
@@ -48,7 +48,7 @@ class _P2 extends PartImplementation<_I, _O> {
     final graph = _mkCostGraph(matrix);
     const start = (row: 0, column: 1);
     final target = (row: matrix.rowCount - 1, column: matrix.columnCount - 2);
-    return _O(_dfs2(graph, {start: 1}, start, target)!);
+    return .new(_dfs2(graph, {start: 1}, start, target)!);
   }
 }
 
@@ -84,18 +84,18 @@ int? _dfs(Matrix<_Tile> m, Set<_Coord> visited, _Coord coord, _Coord target) {
     return visited.length - 1;
   }
   final neighbors = switch (m.at(coord.row, coord.column)) {
-    _Tile.path => _neighbors(m, coord),
-    _Tile.slopeN => [(row: coord.row - 1, column: coord.column)],
-    _Tile.slopeS => [(row: coord.row + 1, column: coord.column)],
-    _Tile.slopeE => [(row: coord.row, column: coord.column + 1)],
-    _Tile.slopeW => [(row: coord.row, column: coord.column - 1)],
-    _Tile.forest => throw StateError('Cannot walk on a forest tile'),
+    .path => _neighbors(m, coord),
+    .slopeN => [(row: coord.row - 1, column: coord.column)],
+    .slopeS => [(row: coord.row + 1, column: coord.column)],
+    .slopeE => [(row: coord.row, column: coord.column + 1)],
+    .slopeW => [(row: coord.row, column: coord.column - 1)],
+    .forest => throw StateError('Cannot walk on a forest tile'),
   };
 
   int? best;
   for (final neighbor in neighbors) {
     final (:row, :column) = neighbor;
-    if (visited.contains(neighbor) || m.at(row, column) == _Tile.forest) {
+    if (visited.contains(neighbor) || m.at(row, column) == .forest) {
       continue;
     }
     visited.add(neighbor);
@@ -112,11 +112,10 @@ int? _dfs(Matrix<_Tile> m, Set<_Coord> visited, _Coord coord, _Coord target) {
 _CostGraph _mkCostGraph(Matrix<_Tile> m) {
   final result = {
     for (final (:index, :value) in m.cells)
-      if (value != _Tile.forest)
+      if (value != .forest)
         index: {
           for (final neighbor in _neighbors(m, index))
-            if (m.at(neighbor.row, neighbor.column) != _Tile.forest)
-              neighbor: 1,
+            if (m.at(neighbor.row, neighbor.column) != .forest) neighbor: 1,
         },
   };
   final keys = result.keys.toList();

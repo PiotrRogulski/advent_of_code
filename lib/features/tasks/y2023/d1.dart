@@ -13,7 +13,7 @@ class Y2023D1 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(rawData.split('\n'));
+    return .new(rawData.split('\n'));
   }
 }
 
@@ -42,7 +42,7 @@ class _P2 extends PartImplementation<_I, _O> {
     'seven' => 7,
     'eight' => 8,
     'nine' => 9,
-    _ => int.parse(string),
+    _ => .parse(string),
   };
 
   @override
@@ -58,7 +58,7 @@ class _P2 extends PartImplementation<_I, _O> {
 }
 
 _O _run(_I inputData, Iterable<int> Function(String line) digitExtractor) {
-  return NumericOutput(
+  return .new(
     inputData.values
         .map(digitExtractor)
         .map((numbers) => 10 * numbers.first + numbers.last)

@@ -13,7 +13,7 @@ class Y2023D9 extends DayData<_I> {
 
   @override
   _I parseInput(String rawData) {
-    return ListInput(
+    return .new(
       rawData
           .split('\n')
           .map((l) => l.split(' ').map(int.parse).toList())
@@ -27,7 +27,7 @@ class _P1 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values
           .map(
             (l) => l
@@ -46,7 +46,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    return NumericOutput(
+    return .new(
       inputData.values
           .map(
             (l) => l
