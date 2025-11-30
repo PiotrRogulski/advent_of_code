@@ -46,7 +46,8 @@ class Y2023D22 extends DayData<_I> {
             ),
           )
           .sortedBy((b) => b.from.z)
-          .fold((bricks: <_Brick>[], maxZReached: 1), (acc, brick) {
+          .fold((bricks: <_Brick>[], maxZReached: 1), (acc, current) {
+            var brick = current;
             final diff = brick.to.z - brick.from.z;
             brick = (
               from: brick.from.apply(
