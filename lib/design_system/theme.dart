@@ -15,16 +15,7 @@ class AocTheme {
   ) {
     final colorScheme = systemScheme ?? _makeColorScheme(brightness);
 
-    final typography = Typography.material2021(colorScheme: colorScheme);
-    final baseTextTheme = switch (brightness) {
-      .light => typography.black,
-      .dark => typography.white,
-    };
-
-    return .from(
-      colorScheme: colorScheme,
-      textTheme: baseTextTheme.apply(fontFamily: FontFamily.robotoFlex),
-    ).copyWith(
+    return .from(colorScheme: colorScheme).copyWith(
       splashFactory: InkSparkle.splashFactory,
       listTileTheme: const .new(
         contentPadding: .symmetric(horizontal: 32, vertical: 8),
@@ -59,8 +50,8 @@ class AocTheme {
   );
 }
 
-class FontOpticalSizeAdjuster extends StatelessWidget {
-  const FontOpticalSizeAdjuster({super.key, required this.child});
+class AocTextTheme extends StatelessWidget {
+  const AocTextTheme({super.key, required this.child});
 
   final Widget child;
 
@@ -72,21 +63,21 @@ class FontOpticalSizeAdjuster extends StatelessWidget {
     return Theme(
       data: baseTheme.copyWith(
         textTheme: textTheme.copyWith(
-          displayLarge: textTheme.displayLarge?.withOpticalSize,
-          displayMedium: textTheme.displayMedium?.withOpticalSize,
-          displaySmall: textTheme.displaySmall?.withOpticalSize,
-          headlineLarge: textTheme.headlineLarge?.withOpticalSize,
-          headlineMedium: textTheme.headlineMedium?.withOpticalSize,
-          headlineSmall: textTheme.headlineSmall?.withOpticalSize,
-          titleLarge: textTheme.titleLarge?.withOpticalSize,
-          titleMedium: textTheme.titleMedium?.withOpticalSize,
-          titleSmall: textTheme.titleSmall?.withOpticalSize,
-          bodyLarge: textTheme.bodyLarge?.withOpticalSize,
-          bodyMedium: textTheme.bodyMedium?.withOpticalSize,
-          bodySmall: textTheme.bodySmall?.withOpticalSize,
-          labelLarge: textTheme.labelLarge?.withOpticalSize,
-          labelMedium: textTheme.labelMedium?.withOpticalSize,
-          labelSmall: textTheme.labelSmall?.withOpticalSize,
+          displayLarge: textTheme.displayLarge?.variable,
+          displayMedium: textTheme.displayMedium?.variable,
+          displaySmall: textTheme.displaySmall?.variable,
+          headlineLarge: textTheme.headlineLarge?.variable,
+          headlineMedium: textTheme.headlineMedium?.variable,
+          headlineSmall: textTheme.headlineSmall?.variable,
+          titleLarge: textTheme.titleLarge?.variable,
+          titleMedium: textTheme.titleMedium?.variable,
+          titleSmall: textTheme.titleSmall?.variable,
+          bodyLarge: textTheme.bodyLarge?.variable,
+          bodyMedium: textTheme.bodyMedium?.variable,
+          bodySmall: textTheme.bodySmall?.variable,
+          labelLarge: textTheme.labelLarge?.variable,
+          labelMedium: textTheme.labelMedium?.variable,
+          labelSmall: textTheme.labelSmall?.variable,
         ),
       ),
       child: child,
@@ -95,9 +86,11 @@ class FontOpticalSizeAdjuster extends StatelessWidget {
 }
 
 extension on TextStyle {
-  TextStyle get withOpticalSize => copyWith(
+  TextStyle get variable => copyWith(
+    fontFamily: FontFamily.robotoFlex,
     fontVariations: [
       ...?fontVariations,
+      .weight((fontWeight ?? .normal).value.toDouble()),
       if (fontSize case final size?) .opticalSize(size),
     ],
   );
