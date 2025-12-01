@@ -55,6 +55,7 @@ flutter:
     - assets/inputs/y2022/
     - assets/inputs/y2023/
     - assets/inputs/y2024/
+    - assets/inputs/y2025/
 
   fonts:
     - family: MaterialSymbolsRounded

@@ -50,6 +50,7 @@ DAY=${2:-$DAY}
 
 info "Fetching day $DAY of year $YEAR"
 
+mkdir -p "assets/inputs/y$YEAR"
 INPUT_FILE="assets/inputs/y$YEAR/d$DAY"
 
 if [ -f "$INPUT_FILE" ]; then
