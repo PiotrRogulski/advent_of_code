@@ -81,6 +81,20 @@ class Matrix<T> with EquatableMixin {
       indexes.firstWhere((i) => atIndex(i) == value);
 
   Matrix<T> copy() => .fromList(_values.map((e) => e.toList()).toList());
+
+  Iterable<MatrixCell<T>> neighborsOf(int row, int column) =>
+      neighborsOfIndex((row: row, column: column));
+
+  Iterable<MatrixCell<T>> neighborsOfIndex(MatrixIndex index) => [
+    index.up,
+    index.down,
+    index.left,
+    index.right,
+    index.up.left,
+    index.down.right,
+    index.up.right,
+    index.down.left,
+  ].where(isIndexInBounds).map(cellAtIndex);
 }
 
 extension MatrixIndexX on MatrixIndex {
