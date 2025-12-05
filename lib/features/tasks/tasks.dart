@@ -63,6 +63,7 @@ import 'package:advent_of_code/features/tasks/y2025/d1.dart';
 import 'package:advent_of_code/features/tasks/y2025/d2.dart';
 import 'package:advent_of_code/features/tasks/y2025/d3.dart';
 import 'package:advent_of_code/features/tasks/y2025/d4.dart';
+import 'package:advent_of_code/features/tasks/y2025/d5.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 
 const allYears = {
@@ -138,6 +139,7 @@ const allYears = {
     2: Y2025D2(),
     3: Y2025D3(),
     4: Y2025D4(),
+    5: Y2025D5(),
   }),
 };
 
