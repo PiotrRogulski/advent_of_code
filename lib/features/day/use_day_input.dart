@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:more/collection.dart';
 
 AsyncSnapshot<({I example, I full})> useDayInput<I extends PartInput>(
   DayData<I> dayData,
@@ -17,10 +18,10 @@ AsyncSnapshot<({I example, I full})> useDayInput<I extends PartInput>(
       () => (
         rootBundle
             .loadString(examplePath)
-            .then((d) => compute(dayData.parseInput, d.trim())),
+            .then((d) => compute(dayData.parseInput, d.removeSuffix('\n'))),
         rootBundle
             .loadString(fullInputPath)
-            .then((d) => compute(dayData.parseInput, d.trim())),
+            .then((d) => compute(dayData.parseInput, d.removeSuffix('\n'))),
       ).wait.then((t) => (example: t.$1, full: t.$2)),
       [dayData.year, dayData.day],
     ),

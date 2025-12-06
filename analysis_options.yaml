@@ -1,7 +1,7 @@
 include: package:leancode_lint/analysis_options.yaml
 
 plugins:
-  leancode_lint: ^20.0.0-dev.4
+  leancode_lint: ^20.0.0-dev.5
 
 leancode_lint:
   use_design_system_item:
