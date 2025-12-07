@@ -25,7 +25,7 @@ class AocApp extends StatelessWidget {
               darkTheme: AocTheme.dark(useSystemTheme ? darkDynamic : null),
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              locale: locale,
+              locale: locale.locale,
               routerConfig: router,
               builder: (context, child) => AocTextTheme(child: child!),
             );

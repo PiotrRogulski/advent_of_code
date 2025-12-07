@@ -1,5 +1,5 @@
-import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/common/utils/persistent_store.dart';
+import 'package:advent_of_code/features/settings/app_locale.dart';
 import 'package:advent_of_code/shared_preferences.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ abstract class _SettingsStoreBase with Store {
   bool useSystemTheme = false;
 
   @observable
-  Locale? locale;
+  AppLocale locale = .systemDefault;
 }
 
 class SettingsData with EquatableMixin {
@@ -49,17 +49,17 @@ class SettingsData with EquatableMixin {
   SettingsData.fromJson(Map<String, dynamic> json)
     : themeMode = .values.byName(json['themeMode'] as String),
       useSystemTheme = json['useSystemTheme'] as bool,
-      locale = (json['locale'] as String?)?.apply(Locale.new);
+      locale = .fromCode(json['locale'] as String?);
 
   Map<String, dynamic> toJson() => {
     'themeMode': themeMode.name,
     'useSystemTheme': useSystemTheme,
-    'locale': locale?.toString(),
+    'locale': locale.localeCode,
   };
 
   final ThemeMode themeMode;
   final bool useSystemTheme;
-  final Locale? locale;
+  final AppLocale locale;
 
   @override
   List<Object?> get props => [themeMode, useSystemTheme, locale];

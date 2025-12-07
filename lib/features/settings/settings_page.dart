@@ -2,8 +2,8 @@ import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/design_system/page.dart';
 import 'package:advent_of_code/design_system/widgets/dropdown_list_tile.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
+import 'package:advent_of_code/features/settings/app_locale.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
-import 'package:advent_of_code/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -46,21 +46,13 @@ class SettingsScreen extends StatelessObserverWidget {
                 ),
               ),
               AocDropdownListTile(
-                title: Text(s.settings_language_title),
+                title: s.settings_language_title,
                 onSelected: (locale) {
                   settingsStore.locale = locale;
                 },
-                items: const [null, ...AppLocalizations.supportedLocales],
+                items: AppLocale.values,
                 currentValue: settingsStore.locale,
-                itemLabelBuilder: (locale) => switch (locale?.languageCode) {
-                  null => s.settings_language_systemDefault,
-                  'en' => 'English',
-                  'fr' => 'Français',
-                  'ja' => '日本語',
-                  final languageCode => throw UnimplementedError(
-                    'Unsupported language: $languageCode',
-                  ),
-                },
+                itemLabelBuilder: (locale) => locale.label(s),
               ),
             ].spaced(height: 16),
           ),

@@ -61,7 +61,7 @@ class AocExpansionCard extends HookWidget {
           Card(
             margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             color: colors.surface,
-            shape: RoundedSuperellipseBorder(borderRadius: .circular(10)),
+            shape: RoundedSuperellipseBorder(borderRadius: .circular(16)),
             child: AnimatedSize(
               duration: Durations.medium1,
               curve: Curves.easeInOutCubicEmphasized,

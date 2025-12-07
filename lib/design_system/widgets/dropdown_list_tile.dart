@@ -1,9 +1,7 @@
-import 'package:advent_of_code/common/hooks/collect_as_notifier.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:flutter/material.dart';
-import 'package:leancode_hooks/leancode_hooks.dart';
 
-class AocDropdownListTile<T> extends HookWidget {
+class AocDropdownListTile<T> extends StatelessWidget {
   const AocDropdownListTile({
     super.key,
     required this.title,
@@ -13,48 +11,59 @@ class AocDropdownListTile<T> extends HookWidget {
     required this.itemLabelBuilder,
   });
 
-  final Widget title;
-  final ValueChanged<T?> onSelected;
+  final String title;
+  final ValueChanged<T> onSelected;
   final List<T> items;
   final T currentValue;
   final String Function(T) itemLabelBuilder;
 
   @override
   Widget build(BuildContext context) {
-    final (theme && ThemeData(:colorScheme, :textTheme)) = Theme.of(context);
+    final ThemeData(:colorScheme, :textTheme) = Theme.of(context);
 
-    final openDropdownListenable = useValueNotifier(Object());
-
-    void openDropdown() => openDropdownListenable.value = Object();
-
-    final value = useCollectAsNotifier(currentValue);
-
-    return Card(
-      child: DropdownButton2(
-        openDropdownListenable: openDropdownListenable,
-        isExpanded: true,
-        underline: const SizedBox(),
-        valueListenable: value,
-        items: [
-          for (final item in items)
-            DropdownItem(value: item, child: Text(itemLabelBuilder(item))),
-        ],
-        barrierColor: colorScheme.surface.withValues(alpha: 0.5),
-        dropdownStyleData: .new(
-          useRootNavigator: true,
-          elevation: 0,
-          offset: const .new(0, -16),
-          padding: .zero,
-          dropdownBuilder: (context, child) => Card(child: child),
-        ),
-        onChanged: onSelected,
-        customButton: ListTile(
-          title: title,
-          trailing: Text(
-            itemLabelBuilder(currentValue),
-            style: textTheme.labelLarge,
+    return AocExpansionCard(
+      title: title,
+      trailing: Text(
+        itemLabelBuilder(currentValue),
+        style: textTheme.labelLarge,
+      ),
+      body: RadioGroup(
+        groupValue: currentValue,
+        onChanged: (value) {
+          if (value != null) {
+            onSelected(value);
+          }
+        },
+        child: Padding(
+          padding: const .all(8),
+          child: Column(
+            spacing: 8,
+            children: [
+              for (final item in items)
+                Material(
+                  shape: RoundedSuperellipseBorder(
+                    borderRadius: .circular(8),
+                    side: .new(
+                      color: currentValue == item
+                          ? Colors.transparent
+                          : colorScheme.primary.withValues(alpha: 0.5),
+                    ),
+                  ),
+                  clipBehavior: .antiAlias,
+                  child: RadioListTile(
+                    title: Text(itemLabelBuilder(item)),
+                    value: item,
+                    tileColor: currentValue == item
+                        ? colorScheme.primaryContainer.withValues(alpha: 0.5)
+                        : null,
+                    contentPadding: const .symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                  ),
+                ),
+            ],
           ),
-          onTap: openDropdown,
         ),
       ),
     );

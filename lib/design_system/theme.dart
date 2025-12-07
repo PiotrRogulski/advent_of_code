@@ -25,7 +25,7 @@ class AocTheme {
         elevation: 0,
         color: colorScheme.primaryContainer,
         margin: .zero,
-        shape: RoundedSuperellipseBorder(borderRadius: .circular(16)),
+        shape: RoundedSuperellipseBorder(borderRadius: .circular(24)),
       ),
       splashColor: colorScheme.primary.withValues(alpha: 0.15),
       highlightColor: colorScheme.primary.withValues(alpha: 0.1),

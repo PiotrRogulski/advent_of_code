@@ -51,13 +51,13 @@ mixin _$SettingsStore on _SettingsStoreBase, Store {
   );
 
   @override
-  Locale? get locale {
+  AppLocale get locale {
     _$localeAtom.reportRead();
     return super.locale;
   }
 
   @override
-  set locale(Locale? value) {
+  set locale(AppLocale value) {
     _$localeAtom.reportWrite(value, super.locale, () {
       super.locale = value;
     });
