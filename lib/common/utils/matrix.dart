@@ -57,7 +57,12 @@ class Matrix<T> with EquatableMixin {
   MatrixCell<T>? maybeCellAtIndex(MatrixIndex index) =>
       maybeCellAt(index.row, index.column);
 
-  void set(int row, int column, T value) => _values[row][column] = value;
+  void set(int row, int column, T value) {
+    if (isInBounds(row, column)) {
+      _values[row][column] = value;
+    }
+  }
+
   void setIndex(MatrixIndex index, T value) =>
       set(index.row, index.column, value);
 
