@@ -1,6 +1,9 @@
 // Definition
 // ignore_for_file: use_design_system_item_AocScaffold
 
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:advent_of_code/design_system/widgets/icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
@@ -17,10 +20,15 @@ class AocScaffold extends HookWidget {
 
   static const _expandedHeight = 152.0;
   static const _collapsedHeight = 64.0;
+  static const _titleArmedDistance = _expandedHeight - _collapsedHeight;
+  static const _titleCurve = Curves.easeInOut;
 
   @override
   Widget build(BuildContext context) {
-    final titleScale = useState<double>(1);
+    final shrinkProgress = useState<double>(0);
+    final titleScale = lerpDouble(1.25, 0.5, shrinkProgress.value)!;
+    final titleWeight = lerpDouble(200, 400, shrinkProgress.value)!;
+    final titleWidth = lerpDouble(125, 50, shrinkProgress.value)!;
 
     final safeArea = MediaQuery.paddingOf(context);
 
@@ -29,10 +37,12 @@ class AocScaffold extends HookWidget {
     final baseTextStyle = Theme.of(context).textTheme.displayLarge;
     final baseVariations = baseTextStyle?.fontVariations ?? [];
     final textStyle = baseTextStyle?.apply(
-      fontSizeFactor: titleScale.value,
+      fontSizeFactor: titleScale,
       fontVariations: [
         for (final FontVariation(:axis, :value) in baseVariations)
-          .new(axis, axis == 'opsz' ? value * titleScale.value : value),
+          .new(axis, axis == 'opsz' ? value * titleScale : value),
+        .weight(titleWeight),
+        .width(titleWidth),
       ],
     );
 
@@ -41,17 +51,14 @@ class AocScaffold extends HookWidget {
     // Definition
     // ignore_for_file: leancode_lint/use_design_system_item
     return Scaffold(
-      body: NotificationListener(
+      body: NotificationListener<ScrollMetricsNotification>(
         onNotification: (notification) {
-          if (notification case ScrollMetricsNotification(
-            :final metrics,
-            depth: 0,
-          )) {
-            final newValue =
-                (metrics.pixels / (_expandedHeight - _collapsedHeight))
-                    .clamp(0, 1)
-                    .toDouble();
-            titleScale.value = 1 - Curves.easeInOut.transform(newValue) / 2;
+          if (notification.depth == 0) {
+            final scaled = notification.metrics.pixels / _titleArmedDistance;
+            shrinkProgress.value = switch (scaled) {
+              < 0 => -_titleCurve.transform(-atan(scaled) * 2 / pi) / 2,
+              _ => _titleCurve.transform(scaled.clamp(0, 1).toDouble()),
+            };
           }
           return false;
         },

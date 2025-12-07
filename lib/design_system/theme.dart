@@ -87,11 +87,13 @@ class AocTextTheme extends StatelessWidget {
 
 extension on TextStyle {
   TextStyle get variable => copyWith(
-    fontFamily: FontFamily.robotoFlex,
+    fontFamily: FontFamily.googleSansFlex,
+    fontFamilyFallback: [FontFamily.robotoFlex, FontFamily.notoSansJP],
     fontVariations: [
       ...?fontVariations,
       .weight((fontWeight ?? .normal).value.toDouble()),
       if (fontSize case final size?) .opticalSize(size),
+      const .new('ROND', 100),
     ],
   );
 }

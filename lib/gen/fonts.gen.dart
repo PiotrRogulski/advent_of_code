@@ -11,12 +11,18 @@
 class FontFamily {
   FontFamily._();
 
-  /// Font family: JetBrainsMono
-  static const String jetBrainsMono = 'JetBrainsMono';
+  /// Font family: Google Sans Flex
+  static const String googleSansFlex = 'Google Sans Flex';
 
-  /// Font family: MaterialSymbolsRounded
-  static const String materialSymbolsRounded = 'MaterialSymbolsRounded';
+  /// Font family: JetBrains Mono
+  static const String jetBrainsMono = 'JetBrains Mono';
 
-  /// Font family: RobotoFlex
-  static const String robotoFlex = 'RobotoFlex';
+  /// Font family: Material Symbols Rounded
+  static const String materialSymbolsRounded = 'Material Symbols Rounded';
+
+  /// Font family: Noto Sans JP
+  static const String notoSansJP = 'Noto Sans JP';
+
+  /// Font family: Roboto Flex
+  static const String robotoFlex = 'Roboto Flex';
 }

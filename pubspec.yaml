@@ -56,12 +56,18 @@ flutter:
     - assets/inputs/y2025/
 
   fonts:
-    - family: MaterialSymbolsRounded
+    - family: Material Symbols Rounded
       fonts:
         - asset: assets/fonts/MaterialSymbolsRounded.ttf
-    - family: RobotoFlex
+    - family: Roboto Flex
       fonts:
         - asset: assets/fonts/RobotoFlex.ttf
-    - family: JetBrainsMono
+    - family: Google Sans Flex
+      fonts:
+        - asset: assets/fonts/GoogleSansFlex.ttf
+    - family: Noto Sans JP
+      fonts:
+        - asset: assets/fonts/NotoSansJP.ttf
+    - family: JetBrains Mono
       fonts:
         - asset: assets/fonts/JetBrainsMono.ttf
