@@ -67,6 +67,7 @@ import 'package:advent_of_code/features/tasks/y2025/d5.dart';
 import 'package:advent_of_code/features/tasks/y2025/d6.dart';
 import 'package:advent_of_code/features/tasks/y2025/d7.dart';
 import 'package:advent_of_code/features/tasks/y2025/d8.dart';
+import 'package:advent_of_code/features/tasks/y2025/d9.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 
 const allYears = {
@@ -146,6 +147,7 @@ const allYears = {
     6: Y2025D6(),
     7: Y2025D7(),
     8: Y2025D8(),
+    9: Y2025D9(),
   }),
 };
 
