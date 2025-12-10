@@ -4,11 +4,11 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: ^3.11.0-187.0.dev
-  flutter: ^3.39.0-1.0.pre-334
+  sdk: ^3.11.0-227.0.dev
+  flutter: ^3.40.0-1.0.pre-109
 
 dependencies:
-  characters: ^1.4.0
+  characters: ^1.4.1
   collection: ^1.19.1
   dio: ^5.9.0
   dynamic_color: ^1.8.1
@@ -27,8 +27,9 @@ dependencies:
   mobx: ^2.5.0
   more: ^4.6.1
   provider: ^6.1.5+1
-  shared_preferences: ^2.5.3
+  shared_preferences: ^2.5.4
   vector_math: ^2.2.0
+  z3: ^0.1.0
 
 dev_dependencies:
   arb_utils:
