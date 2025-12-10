@@ -60,6 +60,7 @@ import 'package:advent_of_code/features/tasks/y2024/d7.dart';
 import 'package:advent_of_code/features/tasks/y2024/d8.dart';
 import 'package:advent_of_code/features/tasks/y2024/d9.dart';
 import 'package:advent_of_code/features/tasks/y2025/d1.dart';
+import 'package:advent_of_code/features/tasks/y2025/d10.dart';
 import 'package:advent_of_code/features/tasks/y2025/d2.dart';
 import 'package:advent_of_code/features/tasks/y2025/d3.dart';
 import 'package:advent_of_code/features/tasks/y2025/d4.dart';
@@ -148,6 +149,7 @@ const allYears = {
     7: Y2025D7(),
     8: Y2025D8(),
     9: Y2025D9(),
+    10: Y2025D10(),
   }),
 };
 

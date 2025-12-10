@@ -1139,6 +1139,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.3"
+  z3:
+    dependency: "direct main"
+    description:
+      name: z3
+      sha256: c5ab13ade33a364c2fbea4cc328a2037ab008594a82b4d95cf6a01c59afd3b84
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
 sdks:
   dart: ">=3.11.0-187.0.dev <4.0.0"
   flutter: ">=3.39.0-1.0.pre-334 <4.0.0"
