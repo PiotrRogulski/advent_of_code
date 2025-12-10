@@ -27,7 +27,7 @@ dependencies:
   mobx: ^2.5.0
   more: ^4.6.1
   provider: ^6.1.5+1
-  shared_preferences: ^2.5.3
+  shared_preferences: ^2.5.4
   vector_math: ^2.2.0
   z3: ^0.1.0
 
