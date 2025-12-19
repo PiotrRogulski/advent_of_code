@@ -23,7 +23,7 @@ class _P1 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) => .new(
     inputData.matrix.cells
-        .fold(Graph<MatrixCell<String>, void>.undirected(), (g, c) {
+        .fold(Graph<MatrixCell<String>, void>(isDirected: false), (g, c) {
           g.addVertex(c);
           final ns = [
             inputData.matrix.maybeCellAtIndex(c.index.up),
@@ -58,7 +58,7 @@ class _P2 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) => .new(
     inputData.matrix.cells
-        .fold(Graph<MatrixCell<String>, void>.undirected(), (g, c) {
+        .fold(Graph<MatrixCell<String>, void>(isDirected: false), (g, c) {
           g.addVertex(c);
           final ns = [
             inputData.matrix.maybeCellAtIndex(c.index.up),

@@ -21,7 +21,7 @@ class Y2023D25 extends DayData<_I> {
           return [for (final t in to.split(' ')) (source: from, target: t)];
         })
         .fold(
-          .undirected(),
+          .new(isDirected: false),
           (g, e) => g..addEdge(e.source, e.target, value: 1),
         ),
     stringifier: (g) =>

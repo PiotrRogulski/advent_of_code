@@ -94,7 +94,7 @@ class _P2 extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     final g = inputData.value.equations.fold(
-      Graph<String, _Op>.directed(),
+      Graph<String, _Op>(isDirected: true),
       (graph, eq) => graph
         ..addEdge(eq.arg1, eq.target, value: eq.op)
         ..addEdge(eq.arg2, eq.target, value: eq.op),

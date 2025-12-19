@@ -60,6 +60,8 @@ Iterable<(String, String, String)> _generateTriples(_Network graph) => graph
     .toSet();
 
 extension on _I {
-  _Network asNetwork() =>
-      values.fold(.undirected(), (g, p) => g..addEdge(p.$1, p.$2, value: 1));
+  _Network asNetwork() => values.fold(
+    .new(isDirected: false),
+    (g, p) => g..addEdge(p.$1, p.$2, value: 1),
+  );
 }

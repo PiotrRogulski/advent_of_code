@@ -4,8 +4,8 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: ^3.11.0-227.0.dev
-  flutter: ^3.40.0-1.0.pre-109
+  sdk: ^3.11.0-263.0.dev
+  flutter: ^3.40.0-1.0.pre-278
 
 dependencies:
   characters: ^1.4.1
@@ -20,12 +20,12 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_mobx: ^2.3.0
-  go_router: ^17.0.0
+  go_router: ^17.0.1
   intl: ^0.20.2
   leancode_hooks: ^0.1.2
   meta: ^1.17.0
   mobx: ^2.5.0
-  more: ^4.6.1
+  more: ^4.7.0
   provider: ^6.1.5+1
   shared_preferences: ^2.5.4
   vector_math: ^2.2.0
