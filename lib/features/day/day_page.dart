@@ -15,6 +15,7 @@ import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:provider/provider.dart';
 
 class DayPage extends MaterialPage<void> {
   DayPage({required int year, required int day})
@@ -46,51 +47,54 @@ class DayScreen extends HookWidget {
 
     final useFullData = useState(false);
 
-    return AocScaffold(
-      title: s.day_title(day: day, year: year),
-      bodySlivers: [
-        switch (inputDataSnapshot) {
-          AsyncSnapshot(:final data?) => BreakpointSelector(
-            builders: {
-              Breakpoints.small: (context) => _SliverBodyColumn(
-                stores: partStores,
-                inputData: data,
-                useFullData: useFullData,
-              ),
-              null: (context) => _SliverBodySideBySide(
-                stores: partStores,
-                inputData: data,
-                useFullData: useFullData,
-              ),
-            },
-          ),
-          AsyncSnapshot(:final error?, :final stackTrace) =>
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Center(
-                child: Column(
-                  mainAxisSize: .min,
-                  children: [
-                    AocText(s.day_inputData_errorLoading),
-                    AocUnit.medium.gap,
-                    FilledButton.tonal(
-                      onPressed: () => ErrorStackTraceDialog.show(
-                        context,
-                        error: error,
-                        stackTrace: stackTrace,
+    return Provider.value(
+      value: dayData,
+      child: AocScaffold(
+        title: s.day_title(day: day, year: year),
+        bodySlivers: [
+          switch (inputDataSnapshot) {
+            AsyncSnapshot(:final data?) => BreakpointSelector(
+              builders: {
+                Breakpoints.small: (context) => _SliverBodyColumn(
+                  stores: partStores,
+                  inputData: data,
+                  useFullData: useFullData,
+                ),
+                null: (context) => _SliverBodySideBySide(
+                  stores: partStores,
+                  inputData: data,
+                  useFullData: useFullData,
+                ),
+              },
+            ),
+            AsyncSnapshot(:final error?, :final stackTrace) =>
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: .min,
+                    children: [
+                      AocText(s.day_inputData_errorLoading),
+                      AocUnit.medium.gap,
+                      FilledButton.tonal(
+                        onPressed: () => ErrorStackTraceDialog.show(
+                          context,
+                          error: error,
+                          stackTrace: stackTrace,
+                        ),
+                        child: AocText(s.common_showDetails),
                       ),
-                      child: AocText(s.common_showDetails),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
+            _ => const SliverFillRemaining(
+              hasScrollBody: false,
+              child: Center(child: CircularProgressIndicator()),
             ),
-          _ => const SliverFillRemaining(
-            hasScrollBody: false,
-            child: Center(child: CircularProgressIndicator()),
-          ),
-        },
-      ],
+          },
+        ],
+      ),
     );
   }
 }
@@ -230,7 +234,7 @@ class _SliverPartList extends StatelessWidget {
             key: PageStorageKey('part-$index'),
             store: partStore,
             data: inputData,
-            index: index,
+            partNumber: index + 1,
           );
         },
         separatorBuilder: (context, index) => AocUnit.medium.gap,

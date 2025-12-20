@@ -160,3 +160,6 @@ const allYears = {
 YearData getYear(int year) => allYears[year]!;
 
 DayData getDay(int year, int day) => getYear(year).days[day]!;
+
+PartVisualizer? getPartVisualizer(DayData day, int part) =>
+    visualizers[day.year]?[day.day]?.resolvePart(part);

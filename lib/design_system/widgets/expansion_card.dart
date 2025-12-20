@@ -10,6 +10,7 @@ class AocExpansionCard extends HookWidget {
   const AocExpansionCard({
     super.key,
     required this.title,
+    this.titleTrailing,
     this.trailing,
     this.margin,
     this.bodyAlignment = .topCenter,
@@ -18,6 +19,7 @@ class AocExpansionCard extends HookWidget {
   });
 
   final String title;
+  final Widget? titleTrailing;
   final Widget? trailing;
   final AocEdgeInsets? margin;
   final AlignmentGeometry bodyAlignment;
@@ -36,9 +38,14 @@ class AocExpansionCard extends HookWidget {
         title: Row(
           mainAxisAlignment: .spaceBetween,
           children: [
-            Expanded(child: AocText(title)),
+            Expanded(
+              child: Row(
+                spacing: AocUnit.small,
+                children: [AocText(title), ?titleTrailing],
+              ),
+            ),
             ?trailing,
-            AocUnit.medium.gap,
+            AocUnit.small.gap,
             AnimatedRotation(
               turns: isExpanded.value ? 0.25 : -0.25,
               duration: Durations.medium1,

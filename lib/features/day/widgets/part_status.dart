@@ -7,37 +7,53 @@ import 'package:advent_of_code/design_system/widgets/icon_button.dart';
 import 'package:advent_of_code/design_system/widgets/list_tile.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/day/store/part_status_store.dart';
+import 'package:advent_of_code/features/day/widgets/visualizer_button.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
+import 'package:advent_of_code/features/tasks/tasks.dart';
+import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class PartStatus extends StatelessWidget {
   const PartStatus({
     super.key,
     required this.store,
     required this.data,
-    required this.index,
+    required this.partNumber,
   });
 
   final PartStatusStore store;
   final PartInput data;
-  final int index;
+  final int partNumber;
 
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;
     final colors = Theme.of(context).colorScheme;
 
+    final partVisualizer = getPartVisualizer(
+      context.read<DayData>(),
+      partNumber,
+    );
+
     return Observer(
       builder: (context) {
         return AocExpansionCard(
-          title: s.day_partTitle(part: index + 1),
-          trailing: switch (store.part.completed) {
+          title: s.day_partTitle(part: partNumber),
+          titleTrailing: switch (store.part.completed) {
             true => AocIcon(.check, size: .large, color: colors.primary),
             false => null,
           },
+          trailing: partVisualizer != null
+              ? PartVisualizerButton(
+                  partVisualizer: partVisualizer,
+                  data: data,
+                  partNumber: partNumber,
+                )
+              : null,
           bodyAlignment: .bottomCenter,
           body: Stack(
             children: [
