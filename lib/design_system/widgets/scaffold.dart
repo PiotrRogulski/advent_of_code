@@ -70,14 +70,14 @@ class AocScaffold extends HookWidget {
                   ? AocIconButton(
                       icon: .arrowBack,
                       onPressed: () => Navigator.of(context).maybePop(),
-                      iconSize: 24,
+                      iconSize: .large,
                     )
                   : null,
               flexibleSpace: SafeArea(
                 child: GestureDetector(
                   onTap: () => scrollController.animateTo(
                     0,
-                    duration: const Duration(milliseconds: 500),
+                    duration: const .new(milliseconds: 500),
                     curve: Curves.easeInOutCubicEmphasized,
                   ),
                   behavior: .opaque,

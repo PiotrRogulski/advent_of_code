@@ -1,7 +1,9 @@
 import 'package:advent_of_code/common/extensions.dart';
+import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/page.dart';
 import 'package:advent_of_code/design_system/widgets/dropdown_list_tile.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
+import 'package:advent_of_code/design_system/widgets/switch_list_tile.dart';
 import 'package:advent_of_code/features/settings/app_locale.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:flutter/material.dart';
@@ -23,13 +25,13 @@ class SettingsScreen extends StatelessObserverWidget {
     return AocScaffold(
       title: s.settings_title,
       bodySlivers: [
-        SliverPadding(
-          padding: const .all(16),
+        AocSliverPadding(
+          padding: const .all(.medium),
           sliver: SliverList.list(
             children: [
               Card(
-                child: SwitchListTile(
-                  title: Text(s.settings_darkMode),
+                child: AocSwitchListTile(
+                  title: s.settings_darkMode,
                   onChanged: (value) {
                     settingsStore.themeMode = value ? .dark : .light;
                   },
@@ -37,8 +39,8 @@ class SettingsScreen extends StatelessObserverWidget {
                 ),
               ),
               Card(
-                child: SwitchListTile(
-                  title: Text(s.settings_useSystemTheme),
+                child: AocSwitchListTile(
+                  title: s.settings_useSystemTheme,
                   onChanged: (value) {
                     settingsStore.useSystemTheme = value;
                   },
@@ -54,7 +56,7 @@ class SettingsScreen extends StatelessObserverWidget {
                 currentValue: settingsStore.locale,
                 itemLabelBuilder: (locale) => locale.label(s),
               ),
-            ].spaced(height: 16),
+            ].spaced(height: .medium),
           ),
         ),
       ],

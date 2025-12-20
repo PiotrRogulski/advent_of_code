@@ -1,82 +1,46 @@
+import 'package:advent_of_code/common/hooks/use_spring.dart';
 import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/icons.dart';
+import 'package:advent_of_code/design_system/unit.dart';
 import 'package:flutter/material.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
 
-class AocIcon extends ImplicitlyAnimatedWidget {
+class AocIcon extends HookWidget {
   const AocIcon(
     this.icon, {
     super.key,
     required this.size,
     this.color,
-    this.fill = 0,
+    this.fill,
     this.weight,
-  }) : super(
-         duration: Durations.medium4,
-         curve: Curves.easeInOutCubicEmphasized,
-       );
+  });
 
   final AocIconData icon;
-  final double size;
+  final AocUnit size;
   final Color? color;
-  final double fill;
+  final double? fill;
   final AocDynamicWeight? weight;
 
   @override
-  ImplicitlyAnimatedWidgetState<AocIcon> createState() => _AocIconState();
-}
-
-class _AocIconState extends ImplicitlyAnimatedWidgetState<AocIcon> {
-  Tween<double>? _size;
-  ColorTween? _color;
-  Tween<double>? _fill;
-  Tween<double?>? _weight;
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: animation,
-      // Definition
-      // ignore_for_file: leancode_lint/use_design_system_item
-      builder: (context, child) => Icon(
-        widget.icon,
-        size: _size?.evaluate(animation),
-        opticalSize: _size?.evaluate(animation),
-        color: _color?.evaluate(animation),
-        fill: _fill?.evaluate(animation),
-        weight: _weight?.evaluate(animation),
-      ),
+    final size = useValueSpring(this.size);
+    final fill = useValueSpring(
+      this.fill ?? DynamicWeight.maybeOf(context)?.fill ?? 0,
     );
-  }
+    final weight = useValueSpring(
+      (this.weight ?? DynamicWeight.maybeOf(context)?.weight ?? .regular).value,
+    );
+    final color = useColorSpring(this.color ?? IconTheme.of(context).color!);
 
-  @override
-  void forEachTween(TweenVisitor<dynamic> visitor) {
-    _size =
-        visitor(
-              _size,
-              widget.size,
-              (value) => Tween<double>(begin: value as double),
-            )
-            as Tween<double>?;
-    _color =
-        visitor(
-              _color,
-              widget.color,
-              (value) => ColorTween(begin: value as Color?),
-            )
-            as ColorTween?;
-    _fill =
-        visitor(
-              _fill,
-              widget.fill,
-              (value) => Tween<double>(begin: value as double),
-            )
-            as Tween<double>?;
-    _weight =
-        visitor(
-              _weight,
-              widget.weight?.value,
-              (value) => Tween<double>(begin: value as double?),
-            )
-            as Tween<double?>?;
+    // This is the definition
+    // ignore: leancode_lint/use_design_system_item
+    return Icon(
+      icon,
+      size: size,
+      opticalSize: size,
+      color: color,
+      fill: fill,
+      weight: weight,
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:advent_of_code/design_system/border.dart';
 import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:more/more.dart';
@@ -25,13 +26,13 @@ class AocTheme {
         elevation: 0,
         color: colorScheme.primaryContainer,
         margin: .zero,
-        shape: RoundedSuperellipseBorder(borderRadius: .circular(24)),
+        shape: AocBorder(.large),
       ),
       splashColor: colorScheme.primary.withValues(alpha: 0.15),
       highlightColor: colorScheme.primary.withValues(alpha: 0.1),
       hoverColor: colorScheme.primary.withValues(alpha: 0.05),
       focusColor: colorScheme.primary.withValues(alpha: 0.1),
-      pageTransitionsTheme: PageTransitionsTheme(
+      pageTransitionsTheme: .new(
         builders: {
           for (final type in TargetPlatform.values)
             type: const FadeForwardsPageTransitionsBuilder(),

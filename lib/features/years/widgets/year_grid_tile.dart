@@ -13,29 +13,36 @@ class _YearGridTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Card(
       child: Stack(
+        alignment: .center,
         children: [
-          Positioned.fill(
-            child: Center(
-              child: _ProgressIndicator(
-                progress: progress,
-                completeProgress: completeProgress,
-              ),
-            ),
+          _ProgressIndicator(
+            progress: progress,
+            completeProgress: completeProgress,
           ),
           Positioned.fill(
             child: Center(
               child: Container(
-                decoration: BoxDecoration(borderRadius: .circular(8)),
+                decoration: BoxDecoration(
+                  borderRadius: AocBorderRadius(.medium),
+                  color: theme.colorScheme.primaryContainer.withValues(
+                    alpha: 0.25,
+                  ),
+                ),
                 clipBehavior: .antiAlias,
                 child: BackdropFilter(
                   filter: .blur(sigmaX: 4, sigmaY: 4),
-                  child: Padding(
-                    padding: const .all(4),
-                    child: Text(
+                  child: AocPadding(
+                    padding: const .symmetric(
+                      vertical: .xsmall,
+                      horizontal: .small,
+                    ),
+                    child: AocText(
                       year.toString(),
-                      style: Theme.of(context).textTheme.titleLarge,
+                      style: theme.textTheme.titleLarge,
                     ),
                   ),
                 ),
@@ -45,7 +52,7 @@ class _YearGridTile extends StatelessWidget {
           Positioned.fill(
             child: Material(
               type: .transparency,
-              child: InkWell(onTap: () => YearRoute(year: year).go(context)),
+              child: AocInkWell(onTap: () => YearRoute(year: year).go(context)),
             ),
           ),
         ],
@@ -72,7 +79,11 @@ class _ProgressIndicator extends StatelessWidget {
         final maxSize = constraints.biggest.shortestSide;
 
         if (completeProgress == 1.0) {
-          return AocIcon(.check, color: colors.primary, size: maxSize);
+          return AocIcon(
+            .check,
+            color: colors.primary,
+            size: AocUnit.xlarge * 4,
+          );
         }
 
         return SizedBox.square(
@@ -82,7 +93,7 @@ class _ProgressIndicator extends StatelessWidget {
               Positioned.fill(
                 child: CircularProgressIndicator(
                   value: progress,
-                  strokeWidth: 8,
+                  strokeWidth: AocUnit.small,
                   strokeCap: .round,
                   backgroundColor: colors.surface,
                   color: colors.primary.withValues(alpha: 0.3),
@@ -91,7 +102,7 @@ class _ProgressIndicator extends StatelessWidget {
               Positioned.fill(
                 child: CircularProgressIndicator(
                   value: completeProgress,
-                  strokeWidth: 8,
+                  strokeWidth: AocUnit.small,
                   strokeCap: .round,
                   backgroundColor: Colors.transparent,
                 ),

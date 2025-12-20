@@ -1,12 +1,15 @@
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/common/widgets/error_stacktrace_dialog.dart';
+import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
+import 'package:advent_of_code/design_system/widgets/icon_button.dart';
+import 'package:advent_of_code/design_system/widgets/list_tile.dart';
+import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/day/store/part_status_store.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
-import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -32,7 +35,7 @@ class PartStatus extends StatelessWidget {
         return AocExpansionCard(
           title: s.day_partTitle(part: index + 1),
           trailing: switch (store.part.completed) {
-            true => AocIcon(.check, size: 24, color: colors.primary),
+            true => AocIcon(.check, size: .large, color: colors.primary),
             false => null,
           },
           bodyAlignment: .bottomCenter,
@@ -41,13 +44,14 @@ class PartStatus extends StatelessWidget {
               Column(
                 children: switch (store.runs) {
                   [] => [
-                    ListTile(
-                      title: Text(s.day_part_notRun),
-                      subtitle: Text(s.day_part_notRunSubtitle),
-                      contentPadding: const .symmetric(horizontal: 16),
-                      trailing: IconButton(
+                    AocListTile(
+                      title: AocText(s.day_part_notRun),
+                      subtitle: AocText(s.day_part_notRunSubtitle),
+                      contentPadding: const .symmetric(horizontal: .medium),
+                      trailing: AocIconButton(
                         onPressed: () => store.run(data),
-                        icon: const AocIcon(.playCircle, size: 32),
+                        icon: .playCircle,
+                        iconSize: .xlarge,
                       ),
                     ),
                   ],
@@ -56,9 +60,10 @@ class PartStatus extends StatelessWidget {
                       _RunInfoTile(
                         run: run,
                         trailing: index == 0
-                            ? IconButton(
+                            ? AocIconButton(
                                 onPressed: () => store.run(data),
-                                icon: const AocIcon(.playCircle, size: 32),
+                                icon: .playCircle,
+                                iconSize: .xlarge,
                               )
                             : null,
                       ),
@@ -93,37 +98,32 @@ class _RunInfoTile extends StatelessWidget {
 
     return switch (run.error) {
       null => SelectionArea(
-        child: ListTile(
-          title: DefaultTextStyle.merge(
-            style: const TextStyle(
-              fontFamily: FontFamily.jetBrainsMono,
-              fontFeatures: [.disable('calt')],
-              height: 1.2,
-            ),
-            child: Text(switch (run.data) {
-              StringOutput(:final value) => value,
-              NumericOutput(:final value) => value.toString(),
-              null => s.day_part_noOutput,
-            }),
-          ),
-          subtitle: Text(run.runDuration.toString()),
-          contentPadding: const .symmetric(horizontal: 16),
+        child: AocListTile(
+          title: AocText(switch (run.data) {
+            StringOutput(:final value) => value,
+            NumericOutput(:final value) => value.toString(),
+            null => s.day_part_noOutput,
+          }, monospaced: true),
+          subtitle: AocText(run.runDuration.toString()),
+          contentPadding: const .symmetric(horizontal: .medium),
           trailing: trailing,
         ),
       ),
-      (:final error, :final stackTrace) => ListTile(
-        onTap: () {
-          ErrorStackTraceDialog.show(
-            context,
-            error: error,
-            stackTrace: stackTrace,
-          );
-        },
-        leading: AocIcon(.error, color: colors.error, size: 32),
-        title: Text(s.day_part_error, style: .new(color: colors.error)),
-        subtitle: Text(s.day_part_seeErrorDetails),
-        contentPadding: const .symmetric(horizontal: 16),
-        trailing: trailing,
+      (:final error, :final stackTrace) => DynamicWeight(
+        child: AocListTile(
+          onTap: () {
+            ErrorStackTraceDialog.show(
+              context,
+              error: error,
+              stackTrace: stackTrace,
+            );
+          },
+          leading: AocIcon(.error, color: colors.error, size: .xlarge),
+          title: AocText(s.day_part_error, style: .new(color: colors.error)),
+          subtitle: AocText(s.day_part_seeErrorDetails),
+          contentPadding: const .symmetric(horizontal: .medium),
+          trailing: trailing,
+        ),
       ),
     };
   }

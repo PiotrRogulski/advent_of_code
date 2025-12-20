@@ -16,20 +16,19 @@ class _YearListTile extends StatelessWidget {
     return Card(
       child: Stack(
         children: [
-          ListTile(
+          AocListTile(
             title: Row(
               children: [
                 Expanded(
                   child: Row(
                     mainAxisAlignment: .spaceBetween,
                     children: [
-                      Text(year.toString()),
+                      AocText(year.toString()),
                       if (progress == 1)
                         AocIcon(
                           .check,
-                          size: 24,
+                          size: .large,
                           color: Theme.of(context).colorScheme.primary,
-                          weight: .bold,
                         ),
                     ],
                   ),
@@ -47,7 +46,7 @@ class _YearListTile extends StatelessWidget {
           Positioned.fill(
             child: Material(
               type: .transparency,
-              child: InkWell(onTap: () => YearRoute(year: year).go(context)),
+              child: AocInkWell(onTap: () => YearRoute(year: year).go(context)),
             ),
           ),
         ],
@@ -62,8 +61,8 @@ class _ProgressBar extends HookWidget {
   final double progress;
   final double completeProgress;
 
-  static const _height = 8.0;
-  static final _borderRadius = BorderRadius.circular(_height / 2);
+  static const _height = AocUnit.small;
+  static final _borderRadius = AocBorderRadius(_height * 0.5);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +75,7 @@ class _ProgressBar extends HookWidget {
         text: TextSpan(text: formatter.format(1), style: textStyle),
         textDirection: .ltr,
       )..layout();
-      return painter.width;
+      return painter.width * 1.1;
     });
 
     final colors = Theme.of(context).colorScheme;
@@ -108,7 +107,7 @@ class _ProgressBar extends HookWidget {
         const SizedBox(width: 8),
         SizedBox(
           width: percentWidth,
-          child: Text(formatter.format(completeProgress)),
+          child: AocText(formatter.format(completeProgress)),
         ),
       ],
     );

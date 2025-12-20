@@ -31,14 +31,10 @@ AsyncSnapshot<({I example, I full})> useDayInput<I extends PartInput>(
     error: ParallelWaitError(errors: (final err1, final err2)),
   )) {
     if ((err1 as Object?) ?? (err2 as Object?) case final err?) {
-      return AsyncSnapshot.withError(
-        snapshot.connectionState,
-        err,
-        switch (err) {
-          Error(:final stackTrace?) => stackTrace,
-          _ => .empty,
-        },
-      );
+      return .withError(snapshot.connectionState, err, switch (err) {
+        Error(:final stackTrace?) => stackTrace,
+        _ => .empty,
+      });
     }
   }
 

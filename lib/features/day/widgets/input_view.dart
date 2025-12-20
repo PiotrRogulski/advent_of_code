@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/common/utils/matrix.dart';
+import 'package:advent_of_code/design_system/padding.dart';
+import 'package:advent_of_code/design_system/widgets/checkbox_list_tile.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/gen/fonts.gen.dart';
@@ -42,24 +44,18 @@ class DayInputView extends HookWidget {
 
     return AocExpansionCard(
       title: s.day_inputData(label: label),
-      aboveBody: CheckboxListTile(
+      aboveBody: AocCheckboxListTile(
         value: wrapText.value,
         onChanged: (value) => wrapText.value = value!,
-        title: Text(
-          s.day_inputData_wrap,
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
-        controlAffinity: .leading,
-        contentPadding: const .symmetric(horizontal: 16),
-        materialTapTargetSize: .padded,
+        title: s.day_inputData_wrap,
         dense: true,
       ),
       body: SingleChildScrollView(
         key: PageStorageKey(inputData),
         scrollDirection: wrapText.value ? .vertical : .horizontal,
-        padding: const EdgeInsets.all(16),
+        padding: const AocEdgeInsets.all(.medium),
         child: DefaultTextStyle.merge(
-          style: const TextStyle(fontFamily: FontFamily.jetBrainsMono),
+          style: const .new(fontFamily: FontFamily.jetBrainsMono),
           child: switch (inputData) {
             RawStringInput(:final value) => _TextData(.new(text: value)),
             ListInput(:final values) => _ListData(values: values),
@@ -153,6 +149,8 @@ class _TextData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // No dynamic weight here
+    // ignore: leancode_lint/use_design_system_item
     return SelectionArea(child: Text.rich(textSpan));
   }
 }
@@ -170,6 +168,8 @@ class _ListData<T> extends StatelessWidget {
         .length;
 
     return SelectionArea(
+      // No dynamic weight here
+      // ignore: leancode_lint/use_design_system_item
       child: Text.rich(
         TextSpan(
           children: [

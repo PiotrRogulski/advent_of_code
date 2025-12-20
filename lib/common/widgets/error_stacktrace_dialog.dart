@@ -1,5 +1,7 @@
 import 'package:advent_of_code/common/extensions.dart';
-import 'package:advent_of_code/gen/fonts.gen.dart';
+import 'package:advent_of_code/design_system/padding.dart';
+import 'package:advent_of_code/design_system/unit.dart';
+import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:flutter/material.dart';
 
 class ErrorStackTraceDialog extends StatelessWidget {
@@ -26,47 +28,34 @@ class ErrorStackTraceDialog extends StatelessWidget {
     final s = context.l10n;
 
     return AlertDialog(
-      title: Text(s.errorDetails_title),
+      title: AocText(s.errorDetails_title),
       scrollable: true,
       content: SelectionArea(
         child: Column(
           crossAxisAlignment: .stretch,
+          spacing: AocUnit.small,
           children: [
             Card(
-              child: Padding(
-                padding: const .all(16),
-                child: Text(
-                  error.toString(),
-                  style: const TextStyle(
-                    fontFamily: FontFamily.jetBrainsMono,
-                    height: 1.2,
-                    fontSize: 12,
-                  ),
-                ),
+              child: AocPadding(
+                padding: const .all(.medium),
+                child: AocText(error.toString(), monospaced: true),
               ),
             ),
             if (stackTrace != null)
               Card(
                 child: SingleChildScrollView(
-                  padding: const .all(16),
+                  padding: const AocEdgeInsets.all(.medium),
                   scrollDirection: .horizontal,
-                  child: Text(
-                    stackTrace.toString(),
-                    style: const TextStyle(
-                      fontFamily: FontFamily.jetBrainsMono,
-                      height: 1.2,
-                      fontSize: 12,
-                    ),
-                  ),
+                  child: AocText(stackTrace.toString(), monospaced: true),
                 ),
               ),
-          ].spaced(height: 8),
+          ],
         ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(s.common_close),
+          child: AocText(s.common_close),
         ),
       ],
     );

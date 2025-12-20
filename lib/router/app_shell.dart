@@ -1,5 +1,4 @@
 import 'package:advent_of_code/common/extensions.dart';
-import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:flutter/material.dart';
@@ -26,19 +25,19 @@ class AocAppShell extends StatelessWidget {
 
     final destinations = [
       _Destination(
-        icon: AocIconData.home,
+        icon: .home,
         label: s.home_title,
         index: 0,
         currentIndex: index,
       ),
       _Destination(
-        icon: AocIconData.calendarMonth,
+        icon: .calendarMonth,
         label: s.years_title,
         index: 1,
         currentIndex: index,
       ),
       _Destination(
-        icon: AocIconData.settings,
+        icon: .settings,
         label: s.settings_title,
         index: 2,
         currentIndex: index,
@@ -102,10 +101,10 @@ class _DestinationIcon extends StatelessWidget {
 
     return AocIcon(
       icon,
-      size: 24,
+      size: .large,
       color: selected ? colors.primary : colors.onSurface,
       fill: selected ? 1 : 0,
-      weight: selected ? AocDynamicWeight.regular : AocDynamicWeight.light,
+      weight: selected ? .regular : .light,
     );
   }
 }

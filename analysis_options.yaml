@@ -4,12 +4,60 @@ plugins:
   leancode_lint: ^20.0.0-dev.5
 
 leancode_lint:
+  application_prefix: Aoc
   use_design_system_item:
     AocScaffold:
       - instead_of: Scaffold
         from_package: flutter
     AocIcon:
       - instead_of: Icon
+        from_package: flutter
+    AocIconData:
+      - instead_of: IconData
+        from_package: flutter
+      - instead_of: Icons
+        from_package: flutter
+    AocIconButton:
+      - instead_of: IconButton
+        from_package: flutter
+    AocInkWell:
+      - instead_of: InkWell
+        from_package: flutter
+    AocBorderRadius:
+      - instead_of: BorderRadius
+        from_package: flutter
+    AocBorder:
+      - instead_of: RoundedRectangleBorder
+        from_package: flutter
+      - instead_of: RoundedSuperellipseBorder
+        from_package: flutter
+    AocText:
+      - instead_of: Text
+        from_package: flutter
+    AocRadioListTile:
+      - instead_of: RadioListTile
+        from_package: flutter
+    AocSwitchListTile:
+      - instead_of: SwitchListTile
+        from_package: flutter
+    AocCheckboxListTile:
+      - instead_of: CheckboxListTile
+        from_package: flutter
+    AocListTile:
+      - instead_of: ListTile
+        from_package: flutter
+    AocEdgeInsets:
+      - instead_of: EdgeInsets
+        from_package: flutter
+      - instead_of: EdgeInsetsGeometry
+        from_package: flutter
+      - instead_of: EdgeInsetsDirectional
+        from_package: flutter
+    AocPadding:
+      - instead_of: Padding
+        from_package: flutter
+    AocSliverPadding:
+      - instead_of: SliverPadding
         from_package: flutter
 
 analyzer:

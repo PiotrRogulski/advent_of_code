@@ -1,8 +1,15 @@
 import 'package:advent_of_code/common/extensions.dart';
+import 'package:advent_of_code/design_system/border.dart';
+import 'package:advent_of_code/design_system/dynamic_weight.dart';
+import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/page.dart';
+import 'package:advent_of_code/design_system/unit.dart';
 import 'package:advent_of_code/design_system/widgets/adaptive_list.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
+import 'package:advent_of_code/design_system/widgets/ink_well.dart';
+import 'package:advent_of_code/design_system/widgets/list_tile.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
+import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:advent_of_code/router/routes.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +35,7 @@ class YearsScreen extends StatelessWidget {
       bodySlivers: [
         SliverAdaptiveList(
           items: allYears.entries,
+          itemWrapper: (context, child) => DynamicWeight(child: child),
           listItemBuilder: (context, entry) {
             final MapEntry(key: year, value: yearData) = entry;
             return _YearListTile(

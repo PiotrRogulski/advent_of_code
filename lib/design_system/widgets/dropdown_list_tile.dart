@@ -1,4 +1,7 @@
+import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
+import 'package:advent_of_code/design_system/widgets/radio_list_tile.dart';
+import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:flutter/material.dart';
 
 class AocDropdownListTile<T> extends StatelessWidget {
@@ -23,7 +26,7 @@ class AocDropdownListTile<T> extends StatelessWidget {
 
     return AocExpansionCard(
       title: title,
-      trailing: Text(
+      trailing: AocText(
         itemLabelBuilder(currentValue),
         style: textTheme.labelLarge,
       ),
@@ -34,34 +37,13 @@ class AocDropdownListTile<T> extends StatelessWidget {
             onSelected(value);
           }
         },
-        child: Padding(
-          padding: const .all(8),
+        child: AocPadding(
+          padding: const .all(.small),
           child: Column(
             spacing: 8,
             children: [
               for (final item in items)
-                Material(
-                  shape: RoundedSuperellipseBorder(
-                    borderRadius: .circular(8),
-                    side: .new(
-                      color: currentValue == item
-                          ? Colors.transparent
-                          : colorScheme.primary.withValues(alpha: 0.5),
-                    ),
-                  ),
-                  clipBehavior: .antiAlias,
-                  child: RadioListTile(
-                    title: Text(itemLabelBuilder(item)),
-                    value: item,
-                    tileColor: currentValue == item
-                        ? colorScheme.primaryContainer.withValues(alpha: 0.5)
-                        : null,
-                    contentPadding: const .symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                  ),
-                ),
+                AocRadioListTile(title: itemLabelBuilder(item), value: item),
             ],
           ),
         ),

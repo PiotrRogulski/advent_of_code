@@ -1,7 +1,11 @@
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/common/widgets/breakpoint_selector.dart';
 import 'package:advent_of_code/common/widgets/error_stacktrace_dialog.dart';
+import 'package:advent_of_code/design_system/padding.dart';
+import 'package:advent_of_code/design_system/unit.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
+import 'package:advent_of_code/design_system/widgets/switch_list_tile.dart';
+import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/day/store/part_status_store.dart';
 import 'package:advent_of_code/features/day/use_day_input.dart';
 import 'package:advent_of_code/features/day/widgets/input_view.dart';
@@ -67,15 +71,15 @@ class DayScreen extends HookWidget {
                 child: Column(
                   mainAxisSize: .min,
                   children: [
-                    Text(s.day_inputData_errorLoading),
-                    const SizedBox(height: 16),
+                    AocText(s.day_inputData_errorLoading),
+                    AocUnit.medium.gap,
                     FilledButton.tonal(
                       onPressed: () => ErrorStackTraceDialog.show(
                         context,
                         error: error,
                         stackTrace: stackTrace,
                       ),
-                      child: Text(s.common_showDetails),
+                      child: AocText(s.common_showDetails),
                     ),
                   ],
                 ),
@@ -110,16 +114,16 @@ class _SliverBodyColumn extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: Card(
-            margin: const .symmetric(horizontal: 16),
-            child: SwitchListTile(
+            margin: const AocEdgeInsets.symmetric(horizontal: .medium),
+            child: AocSwitchListTile(
               value: useFullData.value,
               onChanged: (value) => useFullData.value = value,
-              title: Text(s.day_useFullInput),
+              title: s.day_useFullInput,
             ),
           ),
         ),
         _SliverPartList(
-          padding: const .all(16),
+          padding: const .all(.medium),
           stores: stores,
           inputData: useFullData.value ? inputData.full : inputData.example,
         ),
@@ -127,13 +131,13 @@ class _SliverBodyColumn extends StatelessWidget {
         _SliverInputView(
           key: const PageStorageKey('input-example'),
           label: s.day_inputExample,
-          padding: const .all(16),
+          padding: const .all(.medium),
           inputData: inputData.example,
         ),
         _SliverInputView(
           key: const PageStorageKey('input-full'),
           label: s.day_inputFull,
-          padding: const EdgeInsets.all(16),
+          padding: const .all(.medium),
           inputData: inputData.full,
         ),
       ],
@@ -156,14 +160,14 @@ class _SliverBodySideBySide extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = context.l10n;
 
-    return SliverPadding(
-      padding: const .all(8),
+    return AocSliverPadding(
+      padding: const .all(.small),
       sliver: SliverCrossAxisGroup(
         slivers: [
           SliverCrossAxisExpanded(
             flex: 1,
             sliver: _SliverPartList(
-              padding: const .all(8),
+              padding: const .all(.small),
               stores: stores,
               inputData: useFullData.value ? inputData.full : inputData.example,
             ),
@@ -174,24 +178,24 @@ class _SliverBodySideBySide extends StatelessWidget {
               slivers: [
                 SliverToBoxAdapter(
                   child: Card(
-                    margin: const .all(8),
-                    child: SwitchListTile(
+                    margin: const AocEdgeInsets.all(.small),
+                    child: AocSwitchListTile(
                       value: useFullData.value,
                       onChanged: (value) => useFullData.value = value,
-                      title: Text(s.day_useFullInput),
+                      title: s.day_useFullInput,
                     ),
                   ),
                 ),
                 _SliverInputView(
                   key: const PageStorageKey('input-example'),
                   label: s.day_inputExample,
-                  padding: const .all(8),
+                  padding: const .all(.small),
                   inputData: inputData.example,
                 ),
                 _SliverInputView(
                   key: const PageStorageKey('input-full'),
                   label: s.day_inputFull,
-                  padding: const .all(8),
+                  padding: const .all(.small),
                   inputData: inputData.full,
                 ),
               ],
@@ -210,13 +214,13 @@ class _SliverPartList extends StatelessWidget {
     required this.inputData,
   });
 
-  final EdgeInsetsGeometry padding;
+  final AocEdgeInsets padding;
   final List<PartStatusStore> stores;
   final PartInput inputData;
 
   @override
   Widget build(BuildContext context) {
-    return SliverPadding(
+    return AocSliverPadding(
       padding: padding,
       sliver: SliverList.separated(
         itemCount: stores.length,
@@ -229,7 +233,7 @@ class _SliverPartList extends StatelessWidget {
             index: index,
           );
         },
-        separatorBuilder: (context, index) => const SizedBox(height: 16),
+        separatorBuilder: (context, index) => AocUnit.medium.gap,
       ),
     );
   }
@@ -244,12 +248,12 @@ class _SliverInputView extends StatelessWidget {
   });
 
   final String label;
-  final EdgeInsetsGeometry padding;
+  final AocEdgeInsets padding;
   final PartInput inputData;
 
   @override
   Widget build(BuildContext context) {
-    return SliverPadding(
+    return AocSliverPadding(
       padding: padding,
       sliver: SliverDayInputView(inputData: inputData, label: label),
     );

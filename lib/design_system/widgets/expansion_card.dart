@@ -1,4 +1,8 @@
+import 'package:advent_of_code/design_system/border.dart';
+import 'package:advent_of_code/design_system/padding.dart';
+import 'package:advent_of_code/design_system/unit.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
+import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 
@@ -15,7 +19,7 @@ class AocExpansionCard extends HookWidget {
 
   final String title;
   final Widget? trailing;
-  final EdgeInsetsGeometry? margin;
+  final AocEdgeInsets? margin;
   final AlignmentGeometry bodyAlignment;
   final Widget? aboveBody;
   final Widget? body;
@@ -32,18 +36,19 @@ class AocExpansionCard extends HookWidget {
         title: Row(
           mainAxisAlignment: .spaceBetween,
           children: [
-            Expanded(child: Text(title)),
+            Expanded(child: AocText(title)),
             ?trailing,
-            const SizedBox(width: 16),
+            AocUnit.medium.gap,
             AnimatedRotation(
               turns: isExpanded.value ? 0.25 : -0.25,
               duration: Durations.medium1,
               curve: Curves.easeInOutCubicEmphasized,
-              child: const AocIcon(.chevronLeft, size: 24),
+              child: const AocIcon(.chevronLeft, size: .large),
             ),
           ],
         ),
-        tilePadding: const .directional(start: 32, end: 24, top: 8, bottom: 8),
+        minTileHeight: AocUnit.xlarge * 2,
+        tilePadding: const AocEdgeInsets.only(start: .xlarge, end: .large),
         maintainState: true,
         expandedCrossAxisAlignment: .stretch,
         expandedAlignment: .bottomCenter,
@@ -59,9 +64,13 @@ class AocExpansionCard extends HookWidget {
         children: [
           ?aboveBody,
           Card(
-            margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+            margin: const AocEdgeInsets.only(
+              start: .small,
+              end: .small,
+              bottom: .small,
+            ),
             color: colors.surface,
-            shape: RoundedSuperellipseBorder(borderRadius: .circular(16)),
+            shape: AocBorder(.medium),
             child: AnimatedSize(
               duration: Durations.medium1,
               curve: Curves.easeInOutCubicEmphasized,
