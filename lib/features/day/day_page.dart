@@ -10,6 +10,7 @@ import 'package:advent_of_code/features/day/store/part_status_store.dart';
 import 'package:advent_of_code/features/day/use_day_input.dart';
 import 'package:advent_of_code/features/day/widgets/input_view.dart';
 import 'package:advent_of_code/features/day/widgets/part_status.dart';
+import 'package:advent_of_code/features/day/widgets/visualizer_button.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,14 @@ class DayScreen extends HookWidget {
       value: dayData,
       child: AocScaffold(
         title: s.day_title(day: day, year: year),
+        actions: [
+          if (inputDataSnapshot.data case final input?)
+            if (getDayVisualizer(dayData) case final visualizer?)
+              PartVisualizerButton(
+                partVisualizer: visualizer,
+                data: useFullData.value ? input.full : input.example,
+              ),
+        ],
         bodySlivers: [
           switch (inputDataSnapshot) {
             AsyncSnapshot(:final data?) => BreakpointSelector(

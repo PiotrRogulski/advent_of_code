@@ -86,6 +86,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_useSystemTheme => 'Use system theme';
 
   @override
+  String get visualizer_2025_01_timesPassedZero => 'Times passed zero';
+
+  @override
+  String get visualizer_2025_01_timesStoppedAtZero => 'Times stopped at zero';
+
+  @override
   String year_day({required int day}) {
     return 'Day $day';
   }

@@ -33,7 +33,7 @@ class AocInkWell extends StatelessWidget {
       hoverColor: hoverColor,
       highlightColor: highlightColor,
       splashColor: splashColor,
-      borderRadius: borderRadius,
+      borderRadius: borderRadius?.resolve(Directionality.of(context)),
       child: child,
     );
   }

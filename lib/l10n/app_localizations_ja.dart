@@ -86,6 +86,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settings_useSystemTheme => 'システムテーマを使用する';
 
   @override
+  String get visualizer_2025_01_timesPassedZero => 'ゼロを通過した回数';
+
+  @override
+  String get visualizer_2025_01_timesStoppedAtZero => 'ゼロに停止した回数';
+
+  @override
   String year_day({required int day}) {
     return '$day日目';
   }

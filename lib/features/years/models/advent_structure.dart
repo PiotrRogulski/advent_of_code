@@ -31,13 +31,14 @@ abstract class DayData<I extends PartInput> {
 }
 
 abstract class DayVisualizer<I extends PartInput> {
-  const DayVisualizer(this.year, this.day, {required this.parts});
+  const DayVisualizer(this.year, this.day, {this.parts, this.commonVisualizer});
 
   final int year;
   final int day;
-  final Map<int, PartVisualizer<I>> parts;
+  final Map<int, PartVisualizer<I>>? parts;
+  final PartVisualizer<I>? commonVisualizer;
 
-  PartVisualizer<I>? resolvePart(int part) => parts[part];
+  PartVisualizer<I>? resolvePart(int part) => parts?[part];
 }
 
 class PartVisualizer<I extends PartInput> {

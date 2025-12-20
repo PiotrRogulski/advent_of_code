@@ -13,10 +13,12 @@ class AocScaffold extends HookWidget {
     super.key,
     required this.title,
     this.bodySlivers = const [],
+    this.actions = const [],
   });
 
   final String title;
   final List<Widget> bodySlivers;
+  final List<Widget> actions;
 
   static const _expandedHeight = 152.0;
   static const _collapsedHeight = 64.0;
@@ -84,6 +86,7 @@ class AocScaffold extends HookWidget {
                   child: Center(child: Text(title, style: textStyle)),
                 ),
               ),
+              actions: actions,
             ),
             ...bodySlivers,
             SliverToBoxAdapter(child: SizedBox(height: safeArea.bottom)),

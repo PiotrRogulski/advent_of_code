@@ -23,6 +23,8 @@
   "settings_language_title": "Langue",
   "settings_title": "Paramètres",
   "settings_useSystemTheme": "Utiliser le thème du système",
+  "visualizer_2025_01_timesPassedZero": "Nombre de fois passé par zéro",
+  "visualizer_2025_01_timesStoppedAtZero": "Nombre de fois arrêté à zéro",
   "year_day": "Jour {day}",
   "year_title": "Année {year}",
   "years_title": "Années"

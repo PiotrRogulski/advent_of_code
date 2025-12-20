@@ -27,6 +27,7 @@ class AocApp extends StatelessWidget {
               supportedLocales: AppLocalizations.supportedLocales,
               locale: locale.locale,
               routerConfig: router,
+              debugShowCheckedModeBanner: false,
               builder: (context, child) => AocTextTheme(child: child!),
             );
           },

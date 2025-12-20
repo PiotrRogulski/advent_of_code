@@ -23,6 +23,8 @@
   "settings_language_title": "言語",
   "settings_title": "設定",
   "settings_useSystemTheme": "システムテーマを使用する",
+  "visualizer_2025_01_timesPassedZero": "ゼロを通過した回数",
+  "visualizer_2025_01_timesStoppedAtZero": "ゼロに停止した回数",
   "year_day": "{day}日目",
   "year_title": "{year}年",
   "years_title": "年々"

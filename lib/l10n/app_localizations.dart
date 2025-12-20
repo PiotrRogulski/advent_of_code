@@ -238,6 +238,18 @@ abstract class AppLocalizations {
   /// **'Use system theme'**
   String get settings_useSystemTheme;
 
+  /// No description provided for @visualizer_2025_01_timesPassedZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Times passed zero'**
+  String get visualizer_2025_01_timesPassedZero;
+
+  /// No description provided for @visualizer_2025_01_timesStoppedAtZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Times stopped at zero'**
+  String get visualizer_2025_01_timesStoppedAtZero;
+
   /// No description provided for @year_day.
   ///
   /// In en, this message translates to:

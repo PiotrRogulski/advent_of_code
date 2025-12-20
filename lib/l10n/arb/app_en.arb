@@ -73,6 +73,10 @@
   "@settings_title": {},
   "settings_useSystemTheme": "Use system theme",
   "@settings_useSystemTheme": {},
+  "visualizer_2025_01_timesPassedZero": "Times passed zero",
+  "@visualizer_2025_01_timesPassedZero": {},
+  "visualizer_2025_01_timesStoppedAtZero": "Times stopped at zero",
+  "@visualizer_2025_01_timesStoppedAtZero": {},
   "year_day": "Day {day}",
   "@year_day": {
     "placeholders": {
