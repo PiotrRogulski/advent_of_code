@@ -77,6 +77,8 @@
   "@visualizer_2025_01_timesPassedZero": {},
   "visualizer_2025_01_timesStoppedAtZero": "Times stopped at zero",
   "@visualizer_2025_01_timesStoppedAtZero": {},
+  "visualizer_2025_04_removedCountLabel": "Removed elements",
+  "@visualizer_2025_04_removedCountLabel": {},
   "year_day": "Day {day}",
   "@year_day": {
     "placeholders": {

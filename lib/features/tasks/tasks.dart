@@ -67,6 +67,7 @@ import 'package:advent_of_code/features/tasks/y2025/d1_viz.dart';
 import 'package:advent_of_code/features/tasks/y2025/d2.dart';
 import 'package:advent_of_code/features/tasks/y2025/d3.dart';
 import 'package:advent_of_code/features/tasks/y2025/d4.dart';
+import 'package:advent_of_code/features/tasks/y2025/d4_viz.dart';
 import 'package:advent_of_code/features/tasks/y2025/d5.dart';
 import 'package:advent_of_code/features/tasks/y2025/d6.dart';
 import 'package:advent_of_code/features/tasks/y2025/d7.dart';
@@ -159,7 +160,7 @@ const allYears = {
 };
 
 const visualizers = {
-  2025: {1: Y2025D1Visualizer() as DayVisualizer},
+  2025: <int, DayVisualizer>{1: Y2025D1Visualizer(), 4: Y2025D4Visualizer()},
 };
 
 YearData getYear(int year) => allYears[year]!;

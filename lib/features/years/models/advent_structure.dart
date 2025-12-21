@@ -46,5 +46,6 @@ class PartVisualizer<I extends PartInput> {
 
   final Widget Function(I input) _builder;
 
-  Widget call(I input) => _builder(input);
+  Widget call(I input) =>
+      KeyedSubtree(key: GlobalObjectKey(this), child: _builder(input));
 }

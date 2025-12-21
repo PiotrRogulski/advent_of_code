@@ -92,6 +92,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get visualizer_2025_01_timesStoppedAtZero => 'ゼロに停止した回数';
 
   @override
+  String get visualizer_2025_04_removedCountLabel => '削除された要素数';
+
+  @override
   String year_day({required int day}) {
     return '$day日目';
   }

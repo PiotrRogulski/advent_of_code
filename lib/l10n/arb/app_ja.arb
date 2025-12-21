@@ -25,6 +25,7 @@
   "settings_useSystemTheme": "システムテーマを使用する",
   "visualizer_2025_01_timesPassedZero": "ゼロを通過した回数",
   "visualizer_2025_01_timesStoppedAtZero": "ゼロに停止した回数",
+  "visualizer_2025_04_removedCountLabel": "削除された要素数",
   "year_day": "{day}日目",
   "year_title": "{year}年",
   "years_title": "年々"

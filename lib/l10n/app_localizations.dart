@@ -250,6 +250,12 @@ abstract class AppLocalizations {
   /// **'Times stopped at zero'**
   String get visualizer_2025_01_timesStoppedAtZero;
 
+  /// No description provided for @visualizer_2025_04_removedCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed elements'**
+  String get visualizer_2025_04_removedCountLabel;
+
   /// No description provided for @year_day.
   ///
   /// In en, this message translates to:

@@ -96,6 +96,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Nombre de fois arrêté à zéro';
 
   @override
+  String get visualizer_2025_04_removedCountLabel => 'Éléments supprimés';
+
+  @override
   String year_day({required int day}) {
     return 'Jour $day';
   }
