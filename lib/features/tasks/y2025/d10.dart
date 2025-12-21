@@ -110,8 +110,7 @@ class _P2 extends PartImplementation<_I, _O> {
     final opt = optimize();
 
     final btnVars = [
-      for (final i in 0.to(machine.buttons.length))
-        constVar('btn$i', IntSort()),
+      for (final i in 0.to(machine.buttons.length)) constVar('btn$i', intSort),
     ];
     for (final btn in btnVars) {
       opt.add(btn >= 0);
@@ -129,7 +128,7 @@ class _P2 extends PartImplementation<_I, _O> {
       );
     }
 
-    final total = constVar('total', IntSort());
+    final total = constVar('total', intSort);
     opt
       ..add(total >= 0)
       ..add(eq(total, addN(btnVars)))

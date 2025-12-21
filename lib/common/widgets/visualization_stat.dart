@@ -1,10 +1,9 @@
-import 'package:advent_of_code/common/hooks/use_unbounded_animation_controller.dart';
+import 'package:advent_of_code/common/hooks/use_emphasize.dart';
 import 'package:advent_of_code/design_system/border.dart';
 import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/widgets/blur.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 
 class VisualizationStat extends HookWidget {
@@ -35,23 +34,7 @@ class VisualizationStat extends HookWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final emphasisController = useUnboundedAnimationController();
-
-    useValueChanged<int, void>(value, (_, _) {
-      emphasisController
-        ..value = 0
-        ..animateWith(
-          SpringSimulation(
-            .withDampingRatio(mass: 10, stiffness: 500),
-            0,
-            0,
-            20,
-            snapToEnd: true,
-          ),
-        );
-    });
-
-    final emphasisProgress = useAnimation(emphasisController);
+    final emphasisProgress = useEmphasize(value);
 
     return Container(
       decoration: ShapeDecoration(color: theme.cardTheme.color, shape: shape),

@@ -90,7 +90,7 @@ Widget _part1and2(_I input) => HookBuilder(
           dialController.addListener(zeroPassListener);
           await dialController.animateWith(
             SpringSimulation(
-              .withDampingRatio(mass: 1, stiffness: 200),
+              .withDampingRatio(mass: 1, stiffness: 500),
               dialController.value,
               dialController.value + (direction * value),
               0,
@@ -115,7 +115,7 @@ Widget _part1and2(_I input) => HookBuilder(
 
           await tapeController.animateToItem(
             itemIndex.value,
-            duration: Durations.long4,
+            duration: Durations.long1,
             curve: Curves.easeInOutCubicEmphasized,
           );
         }
