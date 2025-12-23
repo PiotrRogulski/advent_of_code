@@ -71,6 +71,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get home_title => 'ホーム';
 
   @override
+  String get settings_christmasSpirit => 'クリスマスムード';
+
+  @override
   String get settings_darkMode => 'ダークモード';
 
   @override

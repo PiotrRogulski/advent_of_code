@@ -208,6 +208,12 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get home_title;
 
+  /// No description provided for @settings_christmasSpirit.
+  ///
+  /// In en, this message translates to:
+  /// **'Christmas spirit'**
+  String get settings_christmasSpirit;
+
   /// No description provided for @settings_darkMode.
   ///
   /// In en, this message translates to:

@@ -71,6 +71,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_title => 'Home';
 
   @override
+  String get settings_christmasSpirit => 'Christmas spirit';
+
+  @override
   String get settings_darkMode => 'Dark mode';
 
   @override

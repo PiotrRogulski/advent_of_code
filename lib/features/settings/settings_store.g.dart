@@ -63,12 +63,31 @@ mixin _$SettingsStore on _SettingsStoreBase, Store {
     });
   }
 
+  late final _$christmasSpiritAtom = Atom(
+    name: '_SettingsStoreBase.christmasSpirit',
+    context: context,
+  );
+
+  @override
+  bool get christmasSpirit {
+    _$christmasSpiritAtom.reportRead();
+    return super.christmasSpirit;
+  }
+
+  @override
+  set christmasSpirit(bool value) {
+    _$christmasSpiritAtom.reportWrite(value, super.christmasSpirit, () {
+      super.christmasSpirit = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
 themeMode: ${themeMode},
 useSystemTheme: ${useSystemTheme},
-locale: ${locale}
+locale: ${locale},
+christmasSpirit: ${christmasSpirit}
     ''';
   }
 }

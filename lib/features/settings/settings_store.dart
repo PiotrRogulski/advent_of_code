@@ -18,6 +18,7 @@ class SettingsStore extends _SettingsStoreBase
     themeMode: themeMode,
     useSystemTheme: useSystemTheme,
     locale: locale,
+    christmasSpirit: christmasSpirit,
   );
 
   @override
@@ -25,6 +26,7 @@ class SettingsStore extends _SettingsStoreBase
     themeMode = data.themeMode;
     useSystemTheme = data.useSystemTheme;
     locale = data.locale;
+    christmasSpirit = data.christmasSpirit;
   }
 }
 
@@ -37,6 +39,9 @@ abstract class _SettingsStoreBase with Store {
 
   @observable
   AppLocale locale = .systemDefault;
+
+  @observable
+  bool christmasSpirit = false;
 }
 
 class SettingsData with EquatableMixin {
@@ -44,23 +49,32 @@ class SettingsData with EquatableMixin {
     required this.themeMode,
     required this.useSystemTheme,
     required this.locale,
+    required this.christmasSpirit,
   });
 
   SettingsData.fromJson(Map<String, dynamic> json)
     : themeMode = .values.byName(json['themeMode'] as String),
       useSystemTheme = json['useSystemTheme'] as bool,
-      locale = .fromCode(json['locale'] as String?);
+      locale = .fromCode(json['locale'] as String?),
+      christmasSpirit = json['christmasSpirit'] as bool;
 
   Map<String, dynamic> toJson() => {
     'themeMode': themeMode.name,
     'useSystemTheme': useSystemTheme,
     'locale': locale.localeCode,
+    'christmasSpirit': christmasSpirit,
   };
 
   final ThemeMode themeMode;
   final bool useSystemTheme;
   final AppLocale locale;
+  final bool christmasSpirit;
 
   @override
-  List<Object?> get props => [themeMode, useSystemTheme, locale];
+  List<Object?> get props => [
+    themeMode,
+    useSystemTheme,
+    locale,
+    christmasSpirit,
+  ];
 }

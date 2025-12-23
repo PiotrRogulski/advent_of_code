@@ -1,4 +1,5 @@
 import 'package:advent_of_code/design_system/theme.dart';
+import 'package:advent_of_code/features/christmas/snow_overlay.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:advent_of_code/l10n/app_localizations.dart';
 import 'package:advent_of_code/router/routes.dart';
@@ -28,7 +29,8 @@ class AocApp extends StatelessWidget {
               locale: locale.locale,
               routerConfig: router,
               debugShowCheckedModeBanner: false,
-              builder: (context, child) => AocTextTheme(child: child!),
+              builder: (context, child) =>
+                  SnowOverlay(child: AocTextTheme(child: child!)),
             );
           },
         );

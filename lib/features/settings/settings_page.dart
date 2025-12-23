@@ -47,6 +47,15 @@ class SettingsScreen extends StatelessObserverWidget {
                   value: settingsStore.useSystemTheme,
                 ),
               ),
+              Card(
+                child: AocSwitchListTile(
+                  title: s.settings_christmasSpirit,
+                  onChanged: (value) {
+                    settingsStore.christmasSpirit = value;
+                  },
+                  value: settingsStore.christmasSpirit,
+                ),
+              ),
               AocDropdownListTile(
                 title: s.settings_language_title,
                 onSelected: (locale) {
