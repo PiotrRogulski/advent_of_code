@@ -27,6 +27,11 @@ class SparklesOverlay extends StatelessObserverWidget {
 
 typedef _Sparkle = ({Duration age, double x, double y, double size, int seed});
 
+extension on _Sparkle {
+  double get progress =>
+      age.inMicroseconds / _SparklesOverlay._sparkleLifespan.inMicroseconds;
+}
+
 class _SparklesOverlay extends HookWidget {
   const _SparklesOverlay({required this.child});
 
@@ -104,8 +109,14 @@ class _SparklesOverlay extends HookWidget {
                   radius: sparkle.size,
                 ),
                 child: IgnorePointer(
-                  child: CustomPaint(
-                    painter: _SparklePainter(seed: sparkle.seed),
+                  child: Transform.translate(
+                    offset: .new(0, 50 * pow(sparkle.progress, 2).toDouble()),
+                    child: Opacity(
+                      opacity: 1 - sparkle.progress,
+                      child: CustomPaint(
+                        painter: _SparklePainter(seed: sparkle.seed),
+                      ),
+                    ),
                   ),
                 ),
               ),
