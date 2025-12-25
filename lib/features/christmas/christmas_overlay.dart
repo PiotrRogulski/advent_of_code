@@ -10,8 +10,8 @@ class ChristmasOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LightsOverlay(
-      child: SparklesOverlay(child: SnowOverlay(child: child)),
+    return SparklesOverlay(
+      child: LightsOverlay(child: SnowOverlay(child: child)),
     );
   }
 }

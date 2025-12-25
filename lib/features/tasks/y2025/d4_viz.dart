@@ -54,6 +54,9 @@ Widget _part1and2(_I input) => HookBuilder(
 
           indicesToRemove.value = toRemove;
           await Future<void>.delayed(const .new(milliseconds: 300));
+          if (canceled) {
+            return;
+          }
 
           final newGrid = currentGrid.copy();
           for (final idx in toRemove) {

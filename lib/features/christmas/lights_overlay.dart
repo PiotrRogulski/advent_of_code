@@ -1,5 +1,15 @@
 import 'dart:math';
 
+import 'package:advent_of_code/common/hooks/use_spring.dart';
+import 'package:advent_of_code/design_system/border.dart';
+import 'package:advent_of_code/design_system/dynamic_weight.dart';
+import 'package:advent_of_code/design_system/icons.dart';
+import 'package:advent_of_code/design_system/padding.dart';
+import 'package:advent_of_code/design_system/unit.dart';
+import 'package:advent_of_code/design_system/widgets/blur.dart';
+import 'package:advent_of_code/design_system/widgets/icon.dart';
+import 'package:advent_of_code/design_system/widgets/ink_well.dart';
+import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,9 +18,14 @@ import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:provider/provider.dart';
 
 class _LightsProgram {
-  const _LightsProgram(this.cycle, this.intensity);
+  const _LightsProgram({
+    required this.cycle,
+    required this.icon,
+    required this.intensity,
+  });
 
   final Duration cycle;
+  final AocIconData icon;
   final double Function(int i, double cycleProgress) intensity;
 }
 
@@ -50,10 +65,15 @@ class _LightsOverlay extends HookWidget {
       return null;
     }, [programIndex.value]);
 
+    final hudVisible = useState(false);
+
     useEffect(() {
       final keyboard = HardwareKeyboard.instance;
       bool handler(KeyEvent event) {
-        if (int.tryParse(event.character ?? '') case final index?
+        if (event case KeyDownEvent(logicalKey: .period)) {
+          hudVisible.value = !hudVisible.value;
+          return true;
+        } else if (int.tryParse(event.character ?? '') case final index?
             when 1 <= index && index <= _programs.length) {
           programIndex.value = index - 1;
           return true;
@@ -71,7 +91,112 @@ class _LightsOverlay extends HookWidget {
         program: program,
         controller: controller,
       ),
-      child: child,
+      child: Stack(
+        children: [
+          Positioned.fill(child: child),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: AocUnit.xlarge * 3,
+            child: BlurSwitcher(
+              child: hudVisible.value
+                  ? _LightsProgramChooser(
+                      currentProgram: programIndex.value,
+                      onProgramChosen: (i) => programIndex.value = i,
+                    )
+                  : null,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LightsProgramChooser extends StatelessWidget {
+  const _LightsProgramChooser({
+    required this.currentProgram,
+    required this.onProgramChosen,
+  });
+
+  final int currentProgram;
+  final ValueChanged<int> onProgramChosen;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: AocPadding(
+        padding: const .all(.small),
+        child: Row(
+          spacing: AocUnit.small,
+          mainAxisSize: .min,
+          children: [
+            for (final (i, program) in _programs.indexed)
+              _LightsProgramChooserButton(
+                label: '${i + 1}',
+                icon: program.icon,
+                selected: currentProgram == i,
+                onSelected: () => onProgramChosen(i),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LightsProgramChooserButton extends HookWidget {
+  const _LightsProgramChooserButton({
+    required this.label,
+    required this.icon,
+    required this.selected,
+    required this.onSelected,
+  });
+
+  final String label;
+  final AocIconData icon;
+  final bool selected;
+  final VoidCallback onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    final backgroundColor = useColorSpring(
+      selected ? theme.colorScheme.primary : theme.colorScheme.surface,
+    );
+    final rawForegroundColor = selected
+        ? theme.colorScheme.onPrimary
+        : theme.colorScheme.onSurface;
+    final foregroundColor = useColorSpring(rawForegroundColor);
+
+    return SizedBox(
+      width: 64,
+      child: DynamicWeight(
+        child: Card(
+          color: backgroundColor,
+          shape: AocBorder(.medium),
+          child: AocInkWell(
+            onTap: onSelected,
+            child: AocPadding(
+              padding: const .symmetric(vertical: .small),
+              child: Column(
+                spacing: AocUnit.small,
+                children: [
+                  AocIcon(icon, size: .xlarge, color: rawForegroundColor),
+                  AocText(
+                    label,
+                    style: theme.textTheme.headlineSmall!.copyWith(
+                      color: foregroundColor,
+                      height: 1,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -205,22 +330,37 @@ class _LightsPainter extends CustomPainter {
 }
 
 final _programs = <_LightsProgram>[
-  .new(const .new(seconds: 1), (_, _) => 1),
   .new(
-    const .new(seconds: 4),
-    (_, cycleProgress) => (cos(cycleProgress * 2 * pi) + 1) / 2,
+    cycle: const .new(seconds: 1),
+    icon: .sunny,
+    intensity: (i, cycleProgress) => 1,
   ),
-  .new(const .new(seconds: 2), (i, cycleProgress) {
-    final progress = cycleProgress - (i % 3) / 3;
-    return switch (progress) {
-      >= 0 && <= 2 / 3 || <= -1 / 3 => sin(6 * progress * 2 * pi) >= 0 ? 1 : 0,
-      _ => 0,
-    };
-  }),
   .new(
-    const .new(seconds: 4),
-    (i, cycleProgress) =>
+    cycle: const .new(seconds: 4),
+    icon: .cadence,
+    intensity: (i, cycleProgress) => (cos(cycleProgress * 2 * pi) + 1) / 2,
+  ),
+  .new(
+    cycle: const .new(seconds: 2),
+    icon: .flare,
+    intensity: (i, cycleProgress) {
+      final progress = cycleProgress - (i % 3) / 3;
+      return switch (progress) {
+        >= 0 && <= 2 / 3 ||
+        <= -1 / 3 => sin(6 * progress * 2 * pi) >= 0 ? 1 : 0,
+        _ => 0,
+      };
+    },
+  ),
+  .new(
+    cycle: const .new(seconds: 4),
+    icon: .altRoute,
+    intensity: (i, cycleProgress) =>
         max(0, cos((cycleProgress + (i.isOdd ? 0.5 : 0)) * 2 * pi)),
   ),
-  .new(const .new(seconds: 4), (_, _) => 0),
+  .new(
+    cycle: const .new(seconds: 4),
+    icon: .powerOff,
+    intensity: (i, cycleProgress) => 0,
+  ),
 ];

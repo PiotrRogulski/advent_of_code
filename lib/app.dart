@@ -30,7 +30,7 @@ class AocApp extends StatelessWidget {
               routerConfig: router,
               debugShowCheckedModeBanner: false,
               builder: (context, child) =>
-                  ChristmasOverlay(child: AocTextTheme(child: child!)),
+                  AocTextTheme(child: ChristmasOverlay(child: child!)),
             );
           },
         );
