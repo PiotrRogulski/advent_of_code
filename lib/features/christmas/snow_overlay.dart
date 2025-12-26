@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:advent_of_code/features/settings/settings_store.dart';
@@ -50,7 +49,7 @@ class _SnowOverlay extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final snowflakes = useState(<_Snowflake>[]);
-    final lastFrameTime = useRef(DateTime.now());
+    final lastFrameDuration = useRef(Duration.zero);
     final timeSinceLastSnowflake = useRef(Duration.zero);
     final availableSize = useRef(this.availableSize);
 
@@ -59,11 +58,12 @@ class _SnowOverlay extends HookWidget {
       (_, _) => availableSize.value = this.availableSize,
     );
 
+    final tickerProvider = useSingleTickerProvider();
+
     useEffect(() {
-      final t = Timer.periodic(const .new(milliseconds: 5), (t) {
-        final now = DateTime.now();
-        final delta = now.difference(lastFrameTime.value);
-        lastFrameTime.value = now;
+      final ticker = tickerProvider.createTicker((dt) {
+        final delta = dt - lastFrameDuration.value;
+        lastFrameDuration.value = dt;
 
         final newSnowflakes = <_Snowflake>[];
         for (final snowflake in snowflakes.value) {
@@ -100,8 +100,8 @@ class _SnowOverlay extends HookWidget {
         }
 
         snowflakes.value = newSnowflakes;
-      });
-      return t.cancel;
+      })..start();
+      return ticker.dispose;
     }, []);
 
     return CustomPaint(

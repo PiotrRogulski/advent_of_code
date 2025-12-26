@@ -47,11 +47,13 @@ class _SparklesOverlay extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final sparkles = useState(<_Sparkle>[]);
-    final lastFrameTime = useRef(DateTime.now());
+    final lastFrameDuration = useRef(Duration.zero);
     final pointerPositionController = useDisposable(
       builder: StreamController<Offset>.new,
       dispose: (controller) => controller.close(),
     );
+
+    final tickerProvider = useSingleTickerProvider();
 
     useEffect(() {
       final sub = pointerPositionController.stream.listen((offset) {
@@ -63,10 +65,9 @@ class _SparklesOverlay extends HookWidget {
           seed: _random.nextInt(1 << 32),
         ));
       });
-      final timer = Timer.periodic(const .new(milliseconds: 5), (t) {
-        final now = DateTime.now();
-        final delta = now.difference(lastFrameTime.value);
-        lastFrameTime.value = now;
+      final ticker = tickerProvider.createTicker((dt) {
+        final delta = dt - lastFrameDuration.value;
+        lastFrameDuration.value = dt;
         final newSparkles = <_Sparkle>[];
         for (final sparkle in sparkles.value) {
           final newAge = sparkle.age + delta;
@@ -85,11 +86,11 @@ class _SparklesOverlay extends HookWidget {
           max(0, newSparkles.length - _sparkleCountLimit),
           newSparkles.length,
         );
-      });
+      })..start();
 
       return () {
         sub.cancel();
-        timer.cancel();
+        ticker.dispose();
       };
     }, []);
 
