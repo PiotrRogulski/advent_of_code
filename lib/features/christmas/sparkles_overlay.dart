@@ -30,6 +30,8 @@ typedef _Sparkle = ({Duration age, double x, double y, double size, int seed});
 extension on _Sparkle {
   double get progress =>
       age.inMicroseconds / _SparklesOverlay._sparkleLifespan.inMicroseconds;
+
+  Offset get center => .new(x, y + 50 * pow(progress, 2).toDouble());
 }
 
 class _SparklesOverlay extends HookWidget {
@@ -57,12 +59,11 @@ class _SparklesOverlay extends HookWidget {
           age: .zero,
           x: offset.dx,
           y: offset.dy,
-          size: lerpDouble(4, 16, _random.nextDouble())!,
+          size: lerpDouble(8, 32, _random.nextDouble())!,
           seed: _random.nextInt(1 << 32),
         ));
       });
-
-      final t = Timer.periodic(const .new(milliseconds: 5), (t) {
+      final timer = Timer.periodic(const .new(milliseconds: 5), (t) {
         final now = DateTime.now();
         final delta = now.difference(lastFrameTime.value);
         lastFrameTime.value = now;
@@ -85,41 +86,27 @@ class _SparklesOverlay extends HookWidget {
           newSparkles.length,
         );
       });
+
       return () {
         sub.cancel();
-        t.cancel();
+        timer.cancel();
       };
     }, []);
 
     return MouseRegion(
-      onHover: (details) {
-        pointerPositionController.add(details.position);
-      },
+      onHover: (event) => pointerPositionController.add(event.position),
       child: Listener(
-        onPointerMove: (details) {
-          pointerPositionController.add(details.position);
-        },
+        onPointerMove: (event) => pointerPositionController.add(event.position),
         child: Stack(
           children: [
             child,
-            for (final sparkle in sparkles.value)
-              Positioned.fromRect(
-                rect: .fromCircle(
-                  center: .new(sparkle.x, sparkle.y),
-                  radius: sparkle.size,
-                ),
-                child: IgnorePointer(
-                  child: Transform.translate(
-                    offset: .new(0, 50 * pow(sparkle.progress, 2).toDouble()),
-                    child: Opacity(
-                      opacity: 1 - sparkle.progress,
-                      child: CustomPaint(
-                        painter: _SparklePainter(seed: sparkle.seed),
-                      ),
-                    ),
-                  ),
+            Positioned.fill(
+              child: IgnorePointer(
+                child: CustomPaint(
+                  painter: _SparklesPainter(sparkles: sparkles.value),
                 ),
               ),
+            ),
           ],
         ),
       ),
@@ -127,51 +114,48 @@ class _SparklesOverlay extends HookWidget {
   }
 }
 
-class _SparklePainter extends CustomPainter {
-  const _SparklePainter({required this.seed});
+class _SparklesPainter extends CustomPainter {
+  const _SparklesPainter({required this.sparkles});
 
-  final int seed;
+  final List<_Sparkle> sparkles;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final random = Random(seed);
-
-    final center = size.center(.zero);
-    final armCount = 10 + random.nextInt(6);
-    final path = Path();
-    for (final i in 0.to(armCount)) {
-      final angle = pi * 2 / armCount * i + random.nextDouble() * pi;
-      final d = Offset.fromDirection(
-        angle,
-        size.shortestSide * random.nextDouble(),
-      );
-      path
-        ..moveTo(center.dx, center.dy)
-        ..relativeLineTo(d.dx, d.dy);
-    }
-
-    canvas
-      ..drawShadow(
+    for (final _Sparkle(:size, :progress, :center) in sparkles) {
+      canvas.drawShadow(
         .new()..addOval(
-          .fromCircle(
-            center: center.translate(0, -24),
-            radius: size.shortestSide,
-          ),
+          .fromCircle(center: center.translate(0, -24), radius: size),
         ),
-        Colors.orange,
+        Colors.orange.withValues(alpha: 1 - progress),
         24,
         true,
-      )
-      ..drawPath(
+      );
+    }
+
+    for (final _Sparkle(:size, :seed, :progress, :center) in sparkles) {
+      final random = Random(seed);
+
+      final armCount = 10 + random.nextInt(6);
+      final path = Path();
+      for (final i in 0.to(armCount)) {
+        final angle = pi * 2 / armCount * i + random.nextDouble() * pi;
+        final d = Offset.fromDirection(angle, size * random.nextDouble());
+        path
+          ..moveTo(center.dx, center.dy)
+          ..relativeLineTo(d.dx, d.dy);
+      }
+
+      canvas.drawPath(
         path,
         .new()
-          ..color = Colors.yellow
+          ..color = Colors.yellow.withValues(alpha: 1 - progress)
           ..style = .stroke
           ..strokeWidth = 4
           ..strokeCap = .round,
       );
+    }
   }
 
   @override
-  bool shouldRepaint(_SparklePainter oldDelegate) => seed != oldDelegate.seed;
+  bool shouldRepaint(_SparklesPainter oldDelegate) => false;
 }
