@@ -1,3 +1,4 @@
+import 'package:advent_of_code/common/hooks/use_value_stream.dart';
 import 'package:advent_of_code/design_system/theme.dart';
 import 'package:advent_of_code/features/christmas/christmas_overlay.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
@@ -5,7 +6,7 @@ import 'package:advent_of_code/l10n/app_localizations.dart';
 import 'package:advent_of_code/router/routes.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:provider/provider.dart';
 
 class AocApp extends StatelessWidget {
@@ -15,10 +16,12 @@ class AocApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) {
-        return Observer(
+        return HookBuilder(
           builder: (context) {
-            final SettingsStore(:themeMode, :useSystemTheme, :locale) = context
-                .read();
+            final settings = context.read<SettingsStore>();
+            final themeMode = useValueStream(settings.themeMode);
+            final locale = useValueStream(settings.locale);
+            final useSystemTheme = useValueStream(settings.useSystemTheme);
 
             return MaterialApp.router(
               themeMode: themeMode,

@@ -11,6 +11,7 @@ dependencies:
   characters: ^1.4.1
   collection: ^1.19.1
   dio: ^5.9.0
+  dispose_scope: ^2.1.0
   dynamic_color: ^1.8.1
   equatable: ^2.0.7
   flutter:
@@ -19,15 +20,14 @@ dependencies:
   flutter_gen: ^5.12.0
   flutter_localizations:
     sdk: flutter
-  flutter_mobx: ^2.3.0
   gap: ^3.0.1
   go_router: ^17.0.1
   intl: ^0.20.2
   leancode_hooks: ^0.1.2
   meta: ^1.17.0
-  mobx: ^2.5.0
   more: ^4.7.0
   provider: ^6.1.5+1
+  rxdart: ^0.28.0
   shared_preferences: ^2.5.4
   vector_math: ^2.2.0
   z3: ^0.1.0
@@ -43,7 +43,6 @@ dev_dependencies:
     sdk: flutter
   go_router_builder: ^4.1.3
   leancode_lint: ^20.0.0-dev.5
-  mobx_codegen: ^2.7.4
 
 flutter:
   uses-material-design: true

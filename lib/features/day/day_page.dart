@@ -38,12 +38,13 @@ class DayScreen extends HookWidget {
 
     final inputDataSnapshot = useDayInput(dayData);
 
-    final partStores = useMemoized(
-      () => [
+    final partStores = useDisposable(
+      builder: () => [
         for (final part in dayData.parts.entries)
           PartStatusStore(part: part.value),
       ],
-      [year, day],
+      dispose: (stores) => stores.map((s) => s.dispose()).wait,
+      keys: [dayData],
     );
 
     final useFullData = useState(false);

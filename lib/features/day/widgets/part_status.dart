@@ -1,4 +1,5 @@
 import 'package:advent_of_code/common/extensions.dart';
+import 'package:advent_of_code/common/hooks/use_value_stream.dart';
 import 'package:advent_of_code/common/widgets/error_stacktrace_dialog.dart';
 import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
@@ -14,10 +15,10 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:provider/provider.dart';
 
-class PartStatus extends StatelessWidget {
+class PartStatus extends HookWidget {
   const PartStatus({
     super.key,
     required this.store,
@@ -39,64 +40,61 @@ class PartStatus extends StatelessWidget {
       partNumber,
     );
 
-    return Observer(
-      builder: (context) {
-        return AocExpansionCard(
-          title: s.day_partTitle(part: partNumber),
-          titleTrailing: switch (store.part.completed) {
-            true => AocIcon(.check, size: .large, color: colors.primary),
-            false => null,
-          },
-          trailing: partVisualizer != null
-              ? PartVisualizerButton(
-                  partVisualizer: partVisualizer,
-                  data: data,
-                  partNumber: partNumber,
-                )
-              : null,
-          bodyAlignment: .bottomCenter,
-          body: Stack(
-            children: [
-              Column(
-                children: switch (store.runs) {
-                  [] => [
-                    AocListTile(
-                      title: AocText(s.day_part_notRun),
-                      subtitle: AocText(s.day_part_notRunSubtitle),
-                      contentPadding: const .symmetric(horizontal: .medium),
-                      trailing: AocIconButton(
-                        onPressed: () => store.run(data),
-                        icon: .playCircle,
-                        iconSize: .xlarge,
-                      ),
-                    ),
-                  ],
-                  final runs => [
-                    for (final (index, run) in runs.indexed)
-                      _RunInfoTile(
-                        run: run,
-                        trailing: index == 0
-                            ? AocIconButton(
-                                onPressed: () => store.run(data),
-                                icon: .playCircle,
-                                iconSize: .xlarge,
-                              )
-                            : null,
-                      ),
-                  ],
-                },
-              ),
-              if (store.running)
-                Positioned.fill(
-                  child: ColoredBox(
-                    color: colors.surface.withValues(alpha: 0.5),
-                    child: const Center(child: CircularProgressIndicator()),
+    final runs = useValueStream(store.runs);
+    final running = useValueStream(store.running);
+
+    return AocExpansionCard(
+      title: s.day_partTitle(part: partNumber),
+      titleTrailing: switch (store.part.completed) {
+        true => AocIcon(.check, size: .large, color: colors.primary),
+        false => null,
+      },
+      trailing: partVisualizer != null
+          ? PartVisualizerButton(
+              partVisualizer: partVisualizer,
+              data: data,
+              partNumber: partNumber,
+            )
+          : null,
+      bodyAlignment: .bottomCenter,
+      body: Stack(
+        children: [
+          Column(
+            children: switch (runs) {
+              [] => [
+                AocListTile(
+                  title: AocText(s.day_part_notRun),
+                  subtitle: AocText(s.day_part_notRunSubtitle),
+                  contentPadding: const .symmetric(horizontal: .medium),
+                  trailing: AocIconButton(
+                    onPressed: () => store.run(data),
+                    icon: .playCircle,
+                    iconSize: .xlarge,
                   ),
                 ),
-            ],
+              ],
+              [final lastRun, ...final runs] => [
+                _RunInfoTile(
+                  run: lastRun,
+                  trailing: AocIconButton(
+                    onPressed: () => store.run(data),
+                    icon: .playCircle,
+                    iconSize: .xlarge,
+                  ),
+                ),
+                for (final run in runs) _RunInfoTile(run: run, trailing: null),
+              ],
+            },
           ),
-        );
-      },
+          if (running)
+            Positioned.fill(
+              child: ColoredBox(
+                color: colors.surface.withValues(alpha: 0.5),
+                child: const Center(child: CircularProgressIndicator()),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

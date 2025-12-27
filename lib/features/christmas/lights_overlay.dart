@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:advent_of_code/common/hooks/use_spring.dart';
+import 'package:advent_of_code/common/hooks/use_value_stream.dart';
 import 'package:advent_of_code/design_system/border.dart';
 import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/icons.dart';
@@ -13,7 +14,6 @@ import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,7 @@ class _LightsProgram {
   final double Function(int i, double cycleProgress) intensity;
 }
 
-class LightsOverlay extends StatelessObserverWidget {
+class LightsOverlay extends HookWidget {
   const LightsOverlay({super.key, required this.child});
 
   final Widget child;
@@ -37,8 +37,9 @@ class LightsOverlay extends StatelessObserverWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.read<SettingsStore>();
+    final christmasSpirit = useValueStream(settings.christmasSpirit);
 
-    if (!settings.christmasSpirit) {
+    if (!christmasSpirit) {
       return child;
     }
 

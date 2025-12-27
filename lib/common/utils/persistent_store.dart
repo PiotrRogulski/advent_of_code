@@ -1,17 +1,25 @@
+import 'package:dispose_scope/dispose_scope.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mobx/mobx.dart';
+import 'package:rxdart/rxdart.dart';
 
-mixin PersistentStore<T extends Object> on Store {
-  @protected
-  void restore(T data);
+abstract class PersistentStore<T extends Object> {
+  PersistentStore({required T? Function() read, required this.write}) {
+    restore(read());
+  }
 
-  @protected
+  final void Function(T) write;
+
+  void restore(T? data);
+
   T get data;
 
-  void persist({required T? Function() read, required void Function(T) write}) {
-    if (read() case final saved?) {
-      runInAction(() => restore(saved));
-    }
-    reaction((_) => data, write);
-  }
+  @protected
+  final scope = DisposeScope();
+
+  @protected
+  BehaviorSubject<U> makeSubject<U>(U initialValue) => .seeded(initialValue)
+    ..listen((_) => write(data)).disposedBy(scope)
+    ..disposedBy(scope);
+
+  Future<void> dispose() => scope.dispose();
 }

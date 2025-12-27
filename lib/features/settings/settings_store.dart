@@ -3,45 +3,32 @@ import 'package:advent_of_code/features/settings/app_locale.dart';
 import 'package:advent_of_code/shared_preferences.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
+import 'package:rxdart/rxdart.dart';
 
-part 'settings_store.g.dart';
-
-class SettingsStore extends _SettingsStoreBase
-    with _$SettingsStore, PersistentStore<SettingsData> {
-  SettingsStore({required AppSharedPreferences prefs}) {
-    persist(read: prefs.readSettings, write: prefs.writeSettings);
-  }
+class SettingsStore extends PersistentStore<SettingsData> {
+  SettingsStore({required AppSharedPreferences prefs})
+    : super(read: prefs.readSettings, write: prefs.writeSettings);
 
   @override
   SettingsData get data => .new(
-    themeMode: themeMode,
-    useSystemTheme: useSystemTheme,
-    locale: locale,
-    christmasSpirit: christmasSpirit,
+    themeMode: themeMode.value,
+    useSystemTheme: useSystemTheme.value,
+    locale: locale.value,
+    christmasSpirit: christmasSpirit.value,
   );
 
   @override
-  void restore(SettingsData data) {
-    themeMode = data.themeMode;
-    useSystemTheme = data.useSystemTheme;
-    locale = data.locale;
-    christmasSpirit = data.christmasSpirit;
+  void restore(SettingsData? data) {
+    themeMode = makeSubject(data?.themeMode ?? .dark);
+    useSystemTheme = makeSubject(data?.useSystemTheme ?? false);
+    locale = makeSubject(data?.locale ?? .systemDefault);
+    christmasSpirit = makeSubject(data?.christmasSpirit ?? false);
   }
-}
 
-abstract class _SettingsStoreBase with Store {
-  @observable
-  ThemeMode themeMode = .dark;
-
-  @observable
-  bool useSystemTheme = false;
-
-  @observable
-  AppLocale locale = .systemDefault;
-
-  @observable
-  bool christmasSpirit = false;
+  late final BehaviorSubject<ThemeMode> themeMode;
+  late final BehaviorSubject<bool> useSystemTheme;
+  late final BehaviorSubject<AppLocale> locale;
+  late final BehaviorSubject<bool> christmasSpirit;
 }
 
 class SettingsData with EquatableMixin {

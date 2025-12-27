@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:advent_of_code/common/hooks/use_value_stream.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:more/collection.dart';
 import 'package:provider/provider.dart';
 
-class SparklesOverlay extends StatelessObserverWidget {
+class SparklesOverlay extends HookWidget {
   const SparklesOverlay({super.key, required this.child});
 
   final Widget child;
@@ -17,10 +17,12 @@ class SparklesOverlay extends StatelessObserverWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.read<SettingsStore>();
+    final christmasSpirit = useValueStream(settings.christmasSpirit);
 
-    if (!settings.christmasSpirit) {
+    if (!christmasSpirit) {
       return child;
     }
+
     return _SparklesOverlay(child: child);
   }
 }

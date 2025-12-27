@@ -19,7 +19,10 @@ class AocProviders extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (context) => AppSharedPreferences(sharedPreferences)),
-        Provider(create: (context) => SettingsStore(prefs: context.read())),
+        Provider(
+          create: (context) => SettingsStore(prefs: context.read()),
+          dispose: (context, store) => store.dispose(),
+        ),
       ],
       child: child,
     );
