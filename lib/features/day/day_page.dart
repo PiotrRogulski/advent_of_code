@@ -141,17 +141,24 @@ class _SliverBodyColumn extends StatelessWidget {
           inputData: useFullData.value ? inputData.full : inputData.example,
         ),
         const SliverToBoxAdapter(child: Divider()),
-        _SliverInputView(
-          key: const PageStorageKey('input-example'),
-          label: s.day_inputExample,
-          padding: const .all(.medium),
-          inputData: inputData.example,
-        ),
-        _SliverInputView(
-          key: const PageStorageKey('input-full'),
-          label: s.day_inputFull,
-          padding: const .all(.medium),
-          inputData: inputData.full,
+        AocSliverPadding(
+          padding: const .all(.small),
+          sliver: SliverMainAxisGroup(
+            slivers: [
+              _SliverInputView(
+                key: const PageStorageKey('input-example'),
+                label: s.day_inputExample,
+                padding: const .all(.small),
+                inputData: inputData.example,
+              ),
+              _SliverInputView(
+                key: const PageStorageKey('input-full'),
+                label: s.day_inputFull,
+                padding: const .all(.small),
+                inputData: inputData.full,
+              ),
+            ],
+          ),
         ),
       ],
     );
