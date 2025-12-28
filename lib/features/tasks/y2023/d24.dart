@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:advent_of_code/common/extensions.dart';
@@ -5,9 +6,10 @@ import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
-import 'package:dio/dio.dart';
-import 'package:more/more.dart';
+import 'package:collection/collection.dart';
+import 'package:more/more.dart' hide IndexedIterableExtension;
 import 'package:vector_math/vector_math_64.dart';
+import 'package:z3/z3.dart';
 
 typedef _Hailstone = ({Vector3 position, Vector3 velocity});
 
@@ -59,44 +61,38 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-/// Part 2 was solved in Mathematica and deployed as a cloud function:
-/// ```wolfram
-/// Total[({xR, yR, zR} /. Solve[{
-///   {xR, yR, zR} + {dxR, dyR, dzR} * t1 == {#x1, #y1, #z1} + {#dx1, #dy1, #dz1} * t1,
-///   {xR, yR, zR} + {dxR, dyR, dzR} * t2 == {#x2, #y2, #z2} + {#dx2, #dy2, #dz2} * t2,
-///   {xR, yR, zR} + {dxR, dyR, dzR} * t3 == {#x3, #y3, #z3} + {#dx3, #dy3, #dz3} * t3
-/// }, {xR, yR, zR, dxR, dyR, dzR, t1, t2, t3}])[[1]]]&
-/// ```
 class _P2 extends PartImplementation<_I, _O> {
   const _P2() : super(completed: true);
 
   @override
-  Future<_O> runInternal(_I inputData) async {
-    final dio = Dio();
-    final r = await dio.get<String>(
-      'https://www.wolframcloud.com/obj/79cacc8c-941c-488d-abf7-3c36b517095c',
-      queryParameters: {
-        'x1': inputData.values[0].position.x,
-        'y1': inputData.values[0].position.y,
-        'z1': inputData.values[0].position.z,
-        'x2': inputData.values[1].position.x,
-        'y2': inputData.values[1].position.y,
-        'z2': inputData.values[1].position.z,
-        'x3': inputData.values[2].position.x,
-        'y3': inputData.values[2].position.y,
-        'z3': inputData.values[2].position.z,
-        'dx1': inputData.values[0].velocity.x,
-        'dy1': inputData.values[0].velocity.y,
-        'dz1': inputData.values[0].velocity.z,
-        'dx2': inputData.values[1].velocity.x,
-        'dy2': inputData.values[1].velocity.y,
-        'dz2': inputData.values[1].velocity.z,
-        'dx3': inputData.values[2].velocity.x,
-        'dy3': inputData.values[2].velocity.y,
-        'dz3': inputData.values[2].velocity.z,
-      },
-    );
-    return .new(.parse(r.data!));
+  _O runInternal(_I inputData) {
+    if (Platform.isMacOS) {
+      libz3Override = .open('libz3.4.15.4.0.dylib');
+    }
+
+    final sol = solver();
+
+    final xR = constVar('xR', intSort);
+    final yR = constVar('yR', intSort);
+    final zR = constVar('zR', intSort);
+    final dxR = constVar('dxR', intSort);
+    final dyR = constVar('dyR', intSort);
+    final dzR = constVar('dzR', intSort);
+
+    for (final (rI, r) in inputData.values.take(3).indexed) {
+      final t = constVar('t$rI', intSort);
+      for (final (i, (pos, vel)) in [(xR, dxR), (yR, dyR), (zR, dzR)].indexed) {
+        sol.add(
+          eq(
+            pos + vel * t,
+            t * intFrom(r.velocity[i].toInt()) + intFrom(r.position[i].toInt()),
+          ),
+        );
+      }
+    }
+
+    final model = sol.ensureSat();
+    return .new([xR, yR, zR].map(model.evalConst).map((e) => e!.toInt()).sum);
   }
 }
 

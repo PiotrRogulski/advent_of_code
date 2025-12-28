@@ -10,7 +10,6 @@ environment:
 dependencies:
   characters: ^1.4.1
   collection: ^1.19.1
-  dio: ^5.9.0
   dispose_scope: ^2.1.0
   dynamic_color: ^1.8.1
   equatable: ^2.0.7
