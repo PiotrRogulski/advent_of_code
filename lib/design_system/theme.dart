@@ -1,5 +1,4 @@
 import 'package:advent_of_code/design_system/border.dart';
-import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:more/more.dart';
 
@@ -88,8 +87,8 @@ class AocTextTheme extends StatelessWidget {
 
 extension on TextStyle {
   TextStyle get variable => copyWith(
-    fontFamily: FontFamily.googleSansFlex,
-    fontFamilyFallback: [FontFamily.robotoFlex, FontFamily.notoSansJP],
+    fontFamily: 'Google Sans Flex',
+    fontFamilyFallback: ['Roboto Flex', 'Noto Sans JP'],
     fontVariations: [
       ...?fontVariations,
       .weight((fontWeight ?? .normal).value.toDouble()),

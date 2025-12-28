@@ -6,7 +6,6 @@ import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/widgets/checkbox_list_tile.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
-import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +54,7 @@ class DayInputView extends HookWidget {
         scrollDirection: wrapText.value ? .vertical : .horizontal,
         padding: const AocEdgeInsets.all(.medium),
         child: DefaultTextStyle.merge(
-          style: const .new(fontFamily: FontFamily.jetBrainsMono),
+          style: const .new(fontFamily: 'JetBrains Mono'),
           child: switch (inputData) {
             RawStringInput(:final value) => _TextData(.new(text: value)),
             ListInput(:final values) => _ListData(values: values),

@@ -71,10 +71,7 @@ void main() {
                 ..name = 'fontFamily'
                 ..modifier = .final$
                 ..annotations.add(refer('override'))
-                ..assignment = refer(
-                  'FontFamily',
-                  'package:advent_of_code/gen/fonts.gen.dart',
-                ).property('materialSymbolsRounded').code;
+                ..assignment = literalString('Material Symbols Rounded').code;
             }),
             .new((f) {
               f

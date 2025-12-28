@@ -1,6 +1,5 @@
 import 'package:advent_of_code/common/hooks/use_spring.dart';
 import 'package:advent_of_code/design_system/dynamic_weight.dart';
-import 'package:advent_of_code/gen/fonts.gen.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
@@ -50,7 +49,7 @@ class AocText extends HookWidget {
       overflow: overflow,
       style: monospaced
           ? effectiveTextStyle.copyWith(
-              fontFamily: FontFamily.jetBrainsMono,
+              fontFamily: 'JetBrains Mono',
               height: 1.3,
             )
           : effectiveTextStyle,
