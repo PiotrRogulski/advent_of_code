@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:advent_of_code/common/extensions.dart';
+import 'package:advent_of_code/common/utils/z3_setup.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
@@ -103,9 +102,7 @@ class _P2 extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) => .new(inputData.values.map(_solve).sum);
 
   int _solve(_Machine machine) {
-    if (Platform.isMacOS) {
-      libz3Override = .open('libz3.4.15.4.0.dylib');
-    }
+    setupZ3();
 
     final opt = optimize();
 

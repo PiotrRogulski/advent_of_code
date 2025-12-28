@@ -1,7 +1,7 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:advent_of_code/common/hooks/use_emphasize.dart';
+import 'package:advent_of_code/common/utils/z3_setup.dart';
 import 'package:advent_of_code/design_system/border.dart';
 import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/unit.dart';
@@ -345,9 +345,7 @@ class _MachineJoltageSimulation extends HookWidget {
   final VoidCallback goToNext;
 
   static List<int> _calculateCounts(_Machine machine) {
-    if (Platform.isMacOS) {
-      libz3Override = .open('libz3.4.15.4.0.dylib');
-    }
+    setupZ3();
 
     final opt = optimize();
 

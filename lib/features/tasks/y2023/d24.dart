@@ -1,7 +1,7 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:advent_of_code/common/extensions.dart';
+import 'package:advent_of_code/common/utils/z3_setup.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
@@ -66,9 +66,7 @@ class _P2 extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) {
-    if (Platform.isMacOS) {
-      libz3Override = .open('libz3.4.15.4.0.dylib');
-    }
+    setupZ3();
 
     final sol = solver();
 
