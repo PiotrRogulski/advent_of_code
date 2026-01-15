@@ -174,10 +174,10 @@ packages:
     dependency: "direct dev"
     description:
       name: code_builder
-      sha256: "11654819532ba94c34de52ff5feb52bd81cba1de00ef2ed622fd50295f9d4243"
+      sha256: "6a6cab2ba4680d6423f34a9b972a4c9a94ebe1b62ecec4e1a1f2cba91fd1319d"
       url: "https://pub.dev"
     source: hosted
-    version: "4.11.0"
+    version: "4.11.1"
   collection:
     dependency: "direct main"
     description:
@@ -1029,4 +1029,4 @@ packages:
     version: "0.1.0"
 sdks:
   dart: ">=3.11.0-274.0.dev <4.0.0"
-  flutter: ">=3.40.0-1.0.pre-341 <4.0.0"
+  flutter: ">=3.40.0-1.0.pre-341"
