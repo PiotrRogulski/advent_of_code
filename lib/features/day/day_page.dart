@@ -18,6 +18,8 @@ import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
+// Bug in the lint: https://github.com/dart-lang/sdk/issues/64037
+// ignore: prefer_const_constructors_in_immutables
 class DayPage({required int year, required int day})
     extends MaterialPage<void> {
   this

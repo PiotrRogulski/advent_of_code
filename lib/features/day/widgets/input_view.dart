@@ -136,7 +136,7 @@ class const _TextData(final TextSpan textSpan) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // No dynamic weight here
-    // ignore: leancode_lint/use_design_system_item
+    // ignore: aoc_lint/use_design_system_item_AocText
     return SelectionArea(child: Text.rich(textSpan));
   }
 }
@@ -152,7 +152,7 @@ class const _ListData<T>({required final List<T> values})
 
     return SelectionArea(
       // No dynamic weight here
-      // ignore: leancode_lint/use_design_system_item
+      // ignore: aoc_lint/use_design_system_item_AocText
       child: Text.rich(
         TextSpan(
           children: [

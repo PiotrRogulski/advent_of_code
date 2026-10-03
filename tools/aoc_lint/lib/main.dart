@@ -12,7 +12,6 @@ final plugin = LeanCodeLintPlugin(
       'AocIconData': [..._material('IconData'), ..._material('Icons')],
       'AocIconButton': [..._material('IconButton')],
       'AocInkWell': [..._material('InkWell')],
-      'AocCard': [..._material('Card')],
       'AocRadioListTile': [..._material('RadioListTile')],
       'AocSwitchListTile': [..._material('SwitchListTile')],
       'AocCheckboxListTile': [..._material('CheckboxListTile')],

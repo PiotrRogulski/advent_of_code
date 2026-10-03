@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:advent_of_code/design_system/widgets/icon_button.dart';
+import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -74,7 +75,7 @@ class const AocScaffold({
                     curve: Curves.easeInOutCubicEmphasized,
                   ),
                   behavior: .opaque,
-                  child: Center(child: Text(title, style: textStyle)),
+                  child: Center(child: AocText(title, style: textStyle)),
                 ),
               ),
               actions: actions,

@@ -9,6 +9,8 @@ import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:advent_of_code/router/routes.dart';
 import 'package:material_ui/material_ui.dart';
 
+// Bug in the lint: https://github.com/dart-lang/sdk/issues/64037
+// ignore: prefer_const_constructors_in_immutables
 class YearPage({required int year}) extends MaterialPage<void> {
   this : super(child: YearScreen(year: year));
 }

@@ -65,6 +65,8 @@ class const AocAppShell({
   }
 }
 
+// Bug in the lint: https://github.com/dart-lang/sdk/issues/64037
+// ignore: prefer_const_constructors_in_immutables
 class _Destination({
   required AocIconData icon,
   required super.label,

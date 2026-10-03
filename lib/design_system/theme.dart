@@ -1,4 +1,5 @@
 import 'package:advent_of_code/design_system/border.dart';
+import 'package:advent_of_code/design_system/padding.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:more/more.dart';
 
@@ -18,13 +19,16 @@ class AocTheme() {
     return .from(colorScheme: colorScheme).copyWith(
       splashFactory: InkSparkle.splashFactory,
       listTileTheme: const .new(
-        contentPadding: .symmetric(horizontal: 32, vertical: 8),
+        contentPadding: AocEdgeInsets.symmetric(
+          horizontal: .xlarge,
+          vertical: .small,
+        ),
       ),
       cardTheme: .new(
         clipBehavior: .antiAlias,
         elevation: 0,
         color: colorScheme.primaryContainer,
-        margin: .zero,
+        margin: AocEdgeInsets.zero,
         shape: AocBorder(.large),
       ),
       splashColor: colorScheme.primary.withValues(alpha: 0.15),
