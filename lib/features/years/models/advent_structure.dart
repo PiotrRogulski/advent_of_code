@@ -23,9 +23,7 @@ abstract class const DayData<I extends PartInput>(
   bool get inProgress => parts.isNotEmpty;
 }
 
-abstract class const DayVisualizer<I extends PartInput>(
-  final int year,
-  final int day, {
+abstract class const DayVisualizer<I extends PartInput>({
   final Map<int, PartVisualizer<I>>? parts,
   final PartVisualizer<I>? commonVisualizer,
 }) {

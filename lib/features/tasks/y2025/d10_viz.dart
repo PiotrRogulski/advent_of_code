@@ -24,7 +24,7 @@ class const _Machine({
 typedef _I = ListInput<_Machine>;
 
 class const Y2025D10Visualizer() extends DayVisualizer<_I> {
-  this : super(2025, 10, parts: const {1: .new(_part1), 2: .new(_part2)});
+  this : super(parts: const {1: .new(_part1), 2: .new(_part2)});
 }
 
 Widget _part1(_I input) => _MachineSwitcher(

@@ -1,0 +1,4 @@
+exclude:
+  - lib/design_system/icons.dart
+  - tools/aoc_lint/lib/main.dart
+set-exit-if-changed: true

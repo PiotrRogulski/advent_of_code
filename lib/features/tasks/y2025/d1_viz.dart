@@ -18,7 +18,7 @@ import 'package:more/collection.dart';
 typedef _I = ListInput<String>;
 
 class const Y2025D1Visualizer() extends DayVisualizer<_I> {
-  this : super(2025, 1, commonVisualizer: const .new(_part1and2));
+  this : super(commonVisualizer: const .new(_part1and2));
 }
 
 Widget _part1and2(_I input) => HookBuilder(

@@ -12,7 +12,7 @@ import 'package:more/collection.dart' hide IndexedIterableExtension;
 typedef _I = MatrixInput<String>;
 
 class const Y2025D4Visualizer() extends DayVisualizer<_I> {
-  this : super(2025, 4, commonVisualizer: const .new(_part1and2));
+  this : super(commonVisualizer: const .new(_part1and2));
 }
 
 Widget _part1and2(_I input) => HookBuilder(

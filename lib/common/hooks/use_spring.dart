@@ -3,11 +3,6 @@ import 'package:flutter/physics.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:material_ui/material_ui.dart';
 
-enum SpringState({required final double value, required final double ratio}) {
-  first(value: 0, ratio: 1),
-  second(value: 1, ratio: 0.4),
-}
-
 SpringDescription _spring({required double ratio, required double stiffness}) =>
     .withDampingRatio(mass: 1, stiffness: stiffness, ratio: ratio);
 

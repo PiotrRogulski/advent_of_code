@@ -4,7 +4,6 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
-import 'package:meta/meta.dart';
 
 typedef _I = ListInput<_Command>;
 typedef _O = NumericOutput<int>;
@@ -96,11 +95,6 @@ class const _FileLsEntry(final String name, final int size)
 
 sealed class const _FsEntity(final String name) {
   int get size;
-
-  String toRichString() => _toRichStringInternal(0);
-
-  @protected
-  String _toRichStringInternal(int level);
 }
 
 class _Directory(super.name, List<_FsEntity> children) extends _FsEntity {
@@ -113,35 +107,13 @@ class _Directory(super.name, List<_FsEntity> children) extends _FsEntity {
   int get size => children.map((e) => e.size).sum;
 
   @override
-  String _toRichStringInternal(int level) {
-    final buffer = StringBuffer()
-      ..write(' ' * 4 * level)
-      ..writeln(name);
-    for (final child in children) {
-      buffer.write(child._toRichStringInternal(level + 1));
-    }
-    return buffer.toString();
-  }
-
-  @override
   String toString() => '$_Directory($name, ${children.length} children)';
 }
 
-class const _File(super.name, @override final int size) extends _FsEntity {
-  @override
-  String _toRichStringInternal(int level) {
-    final buffer = StringBuffer()
-      ..write(' ' * 4 * (level - 1))
-      ..write('└── ')
-      ..writeln('$size $name');
-    return buffer.toString();
-  }
-}
+class const _File(super.name, @override final int size) extends _FsEntity;
 
 class _FsExplorer(final _Directory root) {
   late final List<_Directory> currentPath = [root];
-
-  String get cwd => currentPath.map((e) => e.name).join('/');
 
   void executeCommand(_Command cmd) {
     switch (cmd) {
