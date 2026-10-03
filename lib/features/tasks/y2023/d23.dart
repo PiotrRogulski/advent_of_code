@@ -31,8 +31,11 @@ class const _P1() extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     final matrix = inputData.matrix;
-    const start = (row: 0, column: 1);
-    final target = (row: matrix.rowCount - 1, column: matrix.columnCount - 2);
+    const start = _Coord(row: 0, column: 1);
+    final target = _Coord(
+      row: matrix.rowCount - 1,
+      column: matrix.columnCount - 2,
+    );
     return .new(_dfs(matrix, {start}, start, target)!);
   }
 }
@@ -44,8 +47,11 @@ class const _P2() extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final matrix = inputData.matrix;
     final graph = _mkCostGraph(matrix);
-    const start = (row: 0, column: 1);
-    final target = (row: matrix.rowCount - 1, column: matrix.columnCount - 2);
+    const start = _Coord(row: 0, column: 1);
+    final target = _Coord(
+      row: matrix.rowCount - 1,
+      column: matrix.columnCount - 2,
+    );
     return .new(_dfs2(graph, {start: 1}, start, target)!);
   }
 }
@@ -65,12 +71,12 @@ enum _Tile(final String symbol) {
 }
 
 Iterable<_Coord> _neighbors(Matrix<_Tile> m, _Coord v) {
-  final (:row, :column) = v;
+  final _Coord(:row, :column) = v;
   return [
-    (row: row - 1, column: column),
-    (row: row + 1, column: column),
-    (row: row, column: column - 1),
-    (row: row, column: column + 1),
+    MatrixIndex(row: row - 1, column: column),
+    MatrixIndex(row: row + 1, column: column),
+    MatrixIndex(row: row, column: column - 1),
+    MatrixIndex(row: row, column: column + 1),
   ].where(m.isIndexInBounds);
 }
 
@@ -80,16 +86,15 @@ int? _dfs(Matrix<_Tile> m, Set<_Coord> visited, _Coord coord, _Coord target) {
   }
   final neighbors = switch (m.at(coord.row, coord.column)) {
     .path => _neighbors(m, coord),
-    .slopeN => [(row: coord.row - 1, column: coord.column)],
-    .slopeS => [(row: coord.row + 1, column: coord.column)],
-    .slopeE => [(row: coord.row, column: coord.column + 1)],
-    .slopeW => [(row: coord.row, column: coord.column - 1)],
+    .slopeN => [MatrixIndex(row: coord.row - 1, column: coord.column)],
+    .slopeS => [MatrixIndex(row: coord.row + 1, column: coord.column)],
+    .slopeE => [MatrixIndex(row: coord.row, column: coord.column + 1)],
+    .slopeW => [MatrixIndex(row: coord.row, column: coord.column - 1)],
     .forest => throw StateError('Cannot walk on a forest tile'),
   };
 
   int? best;
-  for (final neighbor in neighbors) {
-    final (:row, :column) = neighbor;
+  for (final (MatrixIndex(:row, :column) && neighbor) in neighbors) {
     if (visited.contains(neighbor) || m.at(row, column) == .forest) {
       continue;
     }
@@ -106,7 +111,7 @@ int? _dfs(Matrix<_Tile> m, Set<_Coord> visited, _Coord coord, _Coord target) {
 
 _CostGraph _mkCostGraph(Matrix<_Tile> m) {
   final result = {
-    for (final (:index, :value) in m.cells)
+    for (final MatrixCell(:index, :value) in m.cells)
       if (value != .forest)
         index: {
           for (final neighbor in _neighbors(m, index))

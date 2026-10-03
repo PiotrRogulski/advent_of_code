@@ -5,7 +5,7 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:more/collection.dart';
 
-typedef _Race = ({int time, int distance});
+class const _Race({required final int time, required final int distance});
 
 typedef _I = ListInput<_Race>;
 typedef _O = NumericOutput<int>;
@@ -20,7 +20,7 @@ class const Y2023D6() extends DayData<_I> {
         .map((e) => e.split(RegExp(' +')))
         .zip()
         .skip(1)
-        .map((l) => (time: int.parse(l.first), distance: int.parse(l.last)))
+        .map((l) => _Race(time: .parse(l.first), distance: .parse(l.last)))
         .toList(),
   );
 }

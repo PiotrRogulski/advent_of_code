@@ -7,9 +7,20 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:more/collection.dart';
 import 'package:more/math.dart';
 
-typedef _Module = ({String name, _ModType type, List<String> destinations});
-typedef _ModuleState = ({_Module module, Map<String, bool> storage});
-typedef _ModuleMessage = ({String destination, bool high, String sender});
+class const _Module({
+  required final String name,
+  required final _ModType type,
+  required final List<String> destinations,
+});
+class const _ModuleState({
+  required final _Module module,
+  required final Map<String, bool> storage,
+});
+class const _ModuleMessage({
+  required final String destination,
+  required final bool high,
+  required final String sender,
+});
 
 typedef _I = ListInput<_Module>;
 typedef _O = NumericOutput<int>;
@@ -28,13 +39,13 @@ class const Y2023D20() extends DayData<_I> {
         .map(_moduleRegex.firstMatch)
         .nonNulls
         .map(
-          (m) => (
+          (m) => _Module(
             name:
                 m.namedGroup('flipFlop') ?? m.namedGroup('conj') ?? m.group(1)!,
             type: switch ((m.namedGroup('flipFlop'), m.namedGroup('conj'))) {
-              (!= null, _) => _ModType.flipFlop,
-              (_, != null) => _ModType.conjunction,
-              _ => _ModType.broadcaster,
+              (!= null, _) => .flipFlop,
+              (_, != null) => .conjunction,
+              _ => .broadcaster,
             },
             destinations: m.namedGroup('dest')!.split(', '),
           ),
@@ -50,16 +61,19 @@ class const _P1() extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final states = Map.fromEntries(
       inputData.values.map(
-        (m) => .new(m.name, (
-          module: m,
-          storage: {
-            if (m.type == .conjunction)
-              for (final inputM in inputData.values)
-                if (inputM.destinations.contains(m.name) &&
-                    inputM.name != m.name)
-                  inputM.name: false,
-          },
-        )),
+        (m) => .new(
+          m.name,
+          _ModuleState(
+            module: m,
+            storage: {
+              if (m.type == .conjunction)
+                for (final inputM in inputData.values)
+                  if (inputM.destinations.contains(m.name) &&
+                      inputM.name != m.name)
+                    inputM.name: false,
+            },
+          ),
+        ),
       ),
     );
     var lows = 0;
@@ -80,16 +94,19 @@ class const _P2() extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) {
     final states = Map.fromEntries(
       inputData.values.map(
-        (m) => .new(m.name, (
-          module: m,
-          storage: {
-            if (m.type == .conjunction)
-              for (final inputM in inputData.values)
-                if (inputM.destinations.contains(m.name) &&
-                    inputM.name != m.name)
-                  inputM.name: false,
-          },
-        )),
+        (m) => .new(
+          m.name,
+          _ModuleState(
+            module: m,
+            storage: {
+              if (m.type == .conjunction)
+                for (final inputM in inputData.values)
+                  if (inputM.destinations.contains(m.name) &&
+                      inputM.name != m.name)
+                    inputM.name: false,
+            },
+          ),
+        ),
       ),
     );
     final outlet = inputData.values
@@ -116,8 +133,9 @@ enum _ModType() {
 }
 
 ({int lowCount, int highCount}) _pushButton(Map<String, _ModuleState> states) {
-  final pendingMessages = Queue<_ModuleMessage>()
-    ..add((destination: 'broadcaster', high: false, sender: 'button'));
+  final pendingMessages = Queue<_ModuleMessage>.of([
+    const .new(destination: 'broadcaster', high: false, sender: 'button'),
+  ]);
 
   var lowCount = 0;
   var highCount = 0;
@@ -151,14 +169,13 @@ Map<String, int> _waitForOutletInputs(
   var i = 1;
 
   while (map.length < rxInputs.length) {
-    pendingMessages.add((
-      destination: 'broadcaster',
-      high: false,
-      sender: 'button',
-    ));
+    pendingMessages.add(
+      const .new(destination: 'broadcaster', high: false, sender: 'button'),
+    );
 
     while (pendingMessages.isNotEmpty) {
-      final (:sender, :high, :destination) = pendingMessages.removeFirst();
+      final _ModuleMessage(:sender, :high, :destination) = pendingMessages
+          .removeFirst();
       if (rxInputs.map((e) => e.name).contains(destination) && !high) {
         map[destination] = i;
       }
@@ -184,7 +201,7 @@ List<_ModuleMessage> _invokeModule(
     case .broadcaster:
       return [
         for (final destination in state.module.destinations)
-          (destination: destination, high: high, sender: state.module.name),
+          .new(destination: destination, high: high, sender: state.module.name),
       ];
     case .flipFlop:
       final isOn = state.storage['isOn'] ?? false;
@@ -192,7 +209,11 @@ List<_ModuleMessage> _invokeModule(
         state.storage['isOn'] = !isOn;
         return [
           for (final destination in state.module.destinations)
-            (destination: destination, high: !isOn, sender: state.module.name),
+            .new(
+              destination: destination,
+              high: !isOn,
+              sender: state.module.name,
+            ),
         ];
       } else {
         return [];
@@ -202,7 +223,11 @@ List<_ModuleMessage> _invokeModule(
       final allHigh = state.storage.values.every((e) => e);
       return [
         for (final destination in state.module.destinations)
-          (destination: destination, high: !allHigh, sender: state.module.name),
+          .new(
+            destination: destination,
+            high: !allHigh,
+            sender: state.module.name,
+          ),
       ];
   }
 }

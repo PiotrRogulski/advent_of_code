@@ -6,10 +6,13 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 typedef _I = ListInput<({_Move move, int count})>;
 typedef _O = NumericOutput<int>;
 
-typedef _Point = ({int x, int y});
-const _origin = (x: 0, y: 0);
+class const _Point({required final int x, required final int y});
+const _origin = _Point(x: 0, y: 0);
 
-typedef _StepAccumulator = ({List<_Point> rope, Set<_Point> tailHistory});
+class const _StepAccumulator({
+  required final List<_Point> rope,
+  required final Set<_Point> tailHistory,
+});
 
 class const Y2022D9() extends DayData<_I> {
   this : super(2022, 9, parts: const {1: _P1(), 2: _P2()});
@@ -41,23 +44,26 @@ class const _P2() extends PartImplementation<_I, _O> {
 _O _run(_I inputData, int ropeLength) => .new(
   inputData.values
       .expand((element) => List.filled(element.count, element.move))
-      .fold((
-        rope: List.filled(ropeLength, _origin),
-        tailHistory: {_origin},
-      ), _performMove)
+      .fold(
+        _StepAccumulator(
+          rope: List.filled(ropeLength, _origin),
+          tailHistory: {_origin},
+        ),
+        _performMove,
+      )
       .tailHistory
       .length,
 );
 
 _StepAccumulator _performMove(_StepAccumulator acc, _Move move) {
-  final (:rope, :tailHistory) = acc;
+  final _StepAccumulator(:rope, :tailHistory) = acc;
   final [head, ...tail] = rope;
-  final newRope = [
+  final newRope = <_Point>[
     switch (move) {
-      .right => (x: head.x + 1, y: head.y),
-      .left => (x: head.x - 1, y: head.y),
-      .up => (x: head.x, y: head.y + 1),
-      .down => (x: head.x, y: head.y - 1),
+      .right => .new(x: head.x + 1, y: head.y),
+      .left => .new(x: head.x - 1, y: head.y),
+      .up => .new(x: head.x, y: head.y + 1),
+      .down => .new(x: head.x, y: head.y - 1),
     },
   ];
   for (final link in tail) {
@@ -67,13 +73,13 @@ _StepAccumulator _performMove(_StepAccumulator acc, _Move move) {
 
     newRope.add(switch ((dX: dX, dY: dY, distSq: dX * dX + dY * dY)) {
       (dX: _, dY: _, distSq: < 4) => link,
-      (dX: 0, dY: _, distSq: _) => (x: link.x, y: link.y - dY.sign),
-      (dX: _, dY: 0, distSq: _) => (x: link.x - dX.sign, y: link.y),
-      _ => (x: link.x - dX.sign, y: link.y - dY.sign),
+      (dX: 0, dY: _, distSq: _) => .new(x: link.x, y: link.y - dY.sign),
+      (dX: _, dY: 0, distSq: _) => .new(x: link.x - dX.sign, y: link.y),
+      _ => .new(x: link.x - dX.sign, y: link.y - dY.sign),
     });
   }
 
-  return (rope: newRope, tailHistory: {...tailHistory, newRope.last});
+  return .new(rope: newRope, tailHistory: {...tailHistory, newRope.last});
 }
 
 enum _Move(final String symbol) {

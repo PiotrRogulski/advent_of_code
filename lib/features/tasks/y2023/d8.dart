@@ -5,8 +5,11 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:more/math.dart';
 
-typedef _Node = ({String left, String right});
-typedef _Map = ({List<_Move> moves, Map<String, _Node> nodes});
+class const _Node({required final String left, required final String right});
+class const _Map({
+  required final List<_Move> moves,
+  required final Map<String, _Node> nodes,
+});
 
 typedef _I = ObjectInput<_Map>;
 typedef _O = NumericOutput<int>;
@@ -24,18 +27,21 @@ class const Y2023D8() extends DayData<_I> {
         .split('\n\n')
         .apply((l) => (moveString: l.first, nodeString: l.last))
         .apply(
-          (t) => (
+          (t) => .new(
             moves: t.moveString.split('').map(_Move.fromSymbol).toList(),
-            nodes: Map.fromEntries(
+            nodes: .fromEntries(
               t.nodeString
                   .split('\n')
                   .map(_nodeRegex.firstMatch)
                   .nonNulls
                   .map(
-                    (m) => MapEntry(m.namedGroup('label')!, (
-                      left: m.namedGroup('left')!,
-                      right: m.namedGroup('right')!,
-                    )),
+                    (m) => .new(
+                      m.namedGroup('label')!,
+                      .new(
+                        left: m.namedGroup('left')!,
+                        right: m.namedGroup('right')!,
+                      ),
+                    ),
                   ),
             ),
           ),

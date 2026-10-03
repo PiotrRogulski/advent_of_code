@@ -6,16 +6,33 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/more.dart';
 
+class const _Position({required final int x, required final int y}) {
+  _Position operator +(_Velocity other) =>
+      .new(x: x + other.dx, y: y + other.dy);
+
+  _Position ensureInBounds(({int width, int height}) bounds) => .new(
+    x: (x % bounds.width + bounds.width) % bounds.width,
+    y: (y % bounds.height + bounds.height) % bounds.height,
+  );
+}
+
+class const _Velocity({required final int dx, required final int dy}) {
+  _Velocity operator *(int other) => .new(dx: dx * other, dy: dy * other);
+}
+
+class const _Robot({
+  required final _Position position,
+  required final _Velocity velocity,
+});
+
 typedef _I = ListInput<_Robot>;
 typedef _O = NumericOutput<int>;
-
-typedef _Robot = ({({int x, int y}) position, ({int dx, int dy}) velocity});
 
 class const Y2024D14() extends DayData<_I> {
   this : super(2024, 14, parts: const {1: _P1(), 2: _P2()});
 
   static final robotRegex = RegExp(
-    r'p=(?<px>\d+),(?<py>\d+) v=(?<vx>(\d|-)+),(?<vy>(\d|-)+)',
+    r'p=(?<px>\d+),(?<py>\d+) v=(?<vx>([\d\-])+),(?<vy>([\d\-])+)',
   );
 
   @override
@@ -25,14 +42,14 @@ class const Y2024D14() extends DayData<_I> {
         .map(robotRegex.firstMatch)
         .nonNulls
         .map(
-          (m) => (
-            position: (
-              x: int.parse(m.namedGroup('px')!),
-              y: int.parse(m.namedGroup('py')!),
+          (m) => _Robot(
+            position: .new(
+              x: .parse(m.namedGroup('px')!),
+              y: .parse(m.namedGroup('py')!),
             ),
-            velocity: (
-              dx: int.parse(m.namedGroup('vx')!),
-              dy: int.parse(m.namedGroup('vy')!),
+            velocity: .new(
+              dx: .parse(m.namedGroup('vx')!),
+              dy: .parse(m.namedGroup('vy')!),
             ),
           ),
         )
@@ -49,16 +66,16 @@ class const _P1() extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) => .new(
     inputData.values
         .map((r) => (r.position + r.velocity * 100).ensureInBounds(_boardSize))
-        .groupListsBy(
+        .groupListsBy<_Quadrant>(
           (p) => switch ((
             p.x.compareTo(_boardSize.width ~/ 2),
             p.y.compareTo(_boardSize.height ~/ 2),
           )) {
-            (< 0, < 0) => _Quadrant.topLeft,
-            (> 0, < 0) => _Quadrant.topRight,
-            (< 0, > 0) => _Quadrant.bottomLeft,
-            (> 0, > 0) => _Quadrant.bottomRight,
-            _ => _Quadrant.none,
+            (< 0, < 0) => .topLeft,
+            (> 0, < 0) => .topRight,
+            (< 0, > 0) => .bottomLeft,
+            (> 0, > 0) => .bottomRight,
+            _ => .none,
           },
         )
         .entries
@@ -91,20 +108,6 @@ class const _P2() extends PartImplementation<_I, _O> {
         .firstWhere((s) => s.counts.length == 1 && s.counts.single == 1)
         .i,
   );
-}
-
-extension on ({int x, int y}) {
-  ({int x, int y}) operator +(({int dx, int dy}) other) =>
-      (x: x + other.dx, y: y + other.dy);
-
-  ({int x, int y}) ensureInBounds(({int width, int height}) bounds) => (
-    x: (x % bounds.width + bounds.width) % bounds.width,
-    y: (y % bounds.height + bounds.height) % bounds.height,
-  );
-}
-
-extension on ({int dx, int dy}) {
-  ({int dx, int dy}) operator *(int other) => (dx: dx * other, dy: dy * other);
 }
 
 enum _Quadrant() {

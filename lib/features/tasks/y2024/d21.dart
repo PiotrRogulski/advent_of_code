@@ -98,10 +98,10 @@ final _dirpad = Matrix.fromList([
 
 extension on String {
   MatrixIndexDelta get delta => switch (this) {
-    '^' => (dr: -1, dc: 0),
-    'v' => (dr: 1, dc: 0),
-    '<' => (dr: 0, dc: -1),
-    '>' => (dr: 0, dc: 1),
+    '^' => .up,
+    'v' => .down,
+    '<' => .left,
+    '>' => .right,
     _ => throw UnsupportedError('Invalid direction character: $this'),
   };
 }

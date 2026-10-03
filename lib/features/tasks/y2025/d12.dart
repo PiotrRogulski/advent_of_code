@@ -8,9 +8,16 @@ import 'package:characters/characters.dart';
 import 'package:collection/collection.dart';
 import 'package:more/more.dart';
 
-typedef _Region = ({int width, int length, List<int> quantities});
-typedef _I =
-    ObjectInput<({List<Matrix<String>> shapes, List<_Region> regions})>;
+class const _Region({
+  required final int width,
+  required final int length,
+  required final List<int> quantities,
+});
+class const _Input({
+  required final List<Matrix<String>> shapes,
+  required final List<_Region> regions,
+});
+typedef _I = ObjectInput<_Input>;
 typedef _O = NumericOutput<int>;
 
 class const Y2025D12() extends DayData<_I> {
@@ -21,7 +28,7 @@ class const Y2025D12() extends DayData<_I> {
     rawData
         .split('\n\n')
         .apply(
-          (l) => (
+          (l) => .new(
             shapes: l
                 .skipLast(1)
                 .map(
@@ -39,9 +46,9 @@ class const Y2025D12() extends DayData<_I> {
                   (l) => l
                       .split(RegExp('x|(: )'))
                       .apply(
-                        (l) => (
-                          width: int.parse(l[0]),
-                          length: int.parse(l[1]),
+                        (l) => _Region(
+                          width: .parse(l[0]),
+                          length: .parse(l[1]),
                           quantities: l[2].split(' ').map(int.parse).toList(),
                         ),
                       ),

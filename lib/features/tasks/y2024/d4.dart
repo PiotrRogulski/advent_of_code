@@ -1,5 +1,4 @@
 import 'package:advent_of_code/common/extensions.dart';
-import 'package:advent_of_code/common/utils/matrix.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
@@ -44,10 +43,10 @@ class const _P2() extends PartImplementation<_I, _O> {
     inputData.matrix.apply(
       (m) => m.cells.count(
         (c) => switch ((
-          m.maybeAtIndex(c.index + (dr: -1, dc: -1)),
-          m.maybeAtIndex(c.index + (dr: -1, dc: 1)),
-          m.maybeAtIndex(c.index + (dr: 1, dc: -1)),
-          m.maybeAtIndex(c.index + (dr: 1, dc: 1)),
+          m.maybeAtIndex(c.index + .upLeft),
+          m.maybeAtIndex(c.index + .upRight),
+          m.maybeAtIndex(c.index + .downLeft),
+          m.maybeAtIndex(c.index + .downRight),
         )) {
           (final upLeft?, final upRight?, final downLeft?, final downRight?) =>
             _patterns.contains('$upLeft${c.value}$downRight') &&

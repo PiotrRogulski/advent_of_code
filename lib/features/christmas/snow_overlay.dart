@@ -26,12 +26,12 @@ class const SnowOverlay({super.key, required final Widget child})
   }
 }
 
-typedef _Snowflake = ({
-  double x,
-  double y,
-  double size,
-  double velocity,
-  double rotation,
+class const _Snowflake({
+  required final double x,
+  required final double y,
+  required final double size,
+  required final double velocity,
+  required final double rotation,
 });
 
 class const _SnowOverlay({
@@ -68,13 +68,15 @@ class const _SnowOverlay({
           if (newY > availableSize.value.height + snowflake.size) {
             continue;
           }
-          newSnowflakes.add((
-            x: snowflake.x,
-            y: newY,
-            size: snowflake.size,
-            velocity: snowflake.velocity,
-            rotation: snowflake.rotation,
-          ));
+          newSnowflakes.add(
+            .new(
+              x: snowflake.x,
+              y: newY,
+              size: snowflake.size,
+              velocity: snowflake.velocity,
+              rotation: snowflake.rotation,
+            ),
+          );
         }
 
         timeSinceLastSnowflake.value += delta;
@@ -86,13 +88,15 @@ class const _SnowOverlay({
           final newVelocity = _random.nextDouble() * 100 + 25;
           final newRotation = _random.nextDouble() * pi * 2;
 
-          newSnowflakes.add((
-            x: newX,
-            y: -newSize,
-            size: newSize,
-            velocity: newVelocity,
-            rotation: newRotation,
-          ));
+          newSnowflakes.add(
+            .new(
+              x: newX,
+              y: -newSize,
+              size: newSize,
+              velocity: newVelocity,
+              rotation: newRotation,
+            ),
+          );
         }
 
         snowflakes.value = newSnowflakes;

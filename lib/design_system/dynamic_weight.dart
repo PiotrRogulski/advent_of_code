@@ -13,10 +13,10 @@ const _stateMap = {
   WidgetState.any: (AocDynamicWeight.light, 0.0),
 };
 
-typedef DynamicWeightData = ({
-  AocDynamicWeight weight,
-  double fill,
-  WidgetStatesController controller,
+class const DynamicWeightData({
+  required final AocDynamicWeight weight,
+  required final double fill,
+  required final WidgetStatesController controller,
 });
 
 class DynamicWeight extends HookWidget {
@@ -33,7 +33,11 @@ class DynamicWeight extends HookWidget {
     if (data == null) {
       return null;
     }
-    return (weight: data.weight, fill: data.fill, controller: data.controller);
+    return .new(
+      weight: data.weight,
+      fill: data.fill,
+      controller: data.controller,
+    );
   }
 
   static DynamicWeightData of(BuildContext context) {

@@ -6,10 +6,13 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/more.dart';
 
+class const _Node({
+  required final MatrixIndex index,
+  required final _Direction direction,
+});
+
 typedef _I = MatrixInput<String>;
 typedef _O = NumericOutput<int>;
-
-typedef _Node = ({MatrixIndex index, _Direction direction});
 
 class const Y2024D16() extends DayData<_I> {
   this : super(2024, 16, parts: const {1: _P1(), 2: _P2()});
@@ -83,10 +86,10 @@ enum _Direction() {
   S;
 
   MatrixIndexDelta get delta => switch (this) {
-    N => (dr: -1, dc: 0),
-    E => (dr: 0, dc: 1),
-    W => (dr: 0, dc: -1),
-    S => (dr: 1, dc: 0),
+    N => .up,
+    E => .right,
+    W => .left,
+    S => .down,
   };
 
   _Direction get clockwise => switch (this) {
@@ -106,14 +109,14 @@ enum _Direction() {
 
 extension on Matrix<String> {
   _Node get start =>
-      (index: cells.firstWhere((c) => c.value == 'S').index, direction: .E);
+      .new(index: cells.firstWhere((c) => c.value == 'S').index, direction: .E);
 
   bool isEnd(_Node node) => atIndex(node.index) == 'E';
 
   Iterable<_Node> successorsOf(_Node node) => [
-    (index: node.index + node.direction.delta, direction: node.direction),
-    (index: node.index, direction: node.direction.clockwise),
-    (index: node.index, direction: node.direction.counterClockwise),
+    _Node(index: node.index + node.direction.delta, direction: node.direction),
+    _Node(index: node.index, direction: node.direction.clockwise),
+    _Node(index: node.index, direction: node.direction.counterClockwise),
   ].where((v) => isIndexInBounds(v.index) && atIndex(v.index) != '#');
 }
 

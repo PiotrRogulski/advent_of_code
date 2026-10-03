@@ -3,7 +3,7 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 
-typedef _Range = ({int from, int to});
+class const _Range({required final int from, required final int to});
 typedef _I = ListInput<(_Range, _Range)>;
 typedef _O = NumericOutput<int>;
 
@@ -19,7 +19,9 @@ class const Y2022D4() extends DayData<_I> {
         .map(_lineRegex.firstMatch)
         .nonNulls
         .map((m) => m.groups([1, 2, 3, 4]).nonNulls.map(int.parse).toList())
-        .map((l) => ((from: l[0], to: l[1]), (from: l[2], to: l[3])))
+        .map(
+          (l) => (_Range(from: l[0], to: l[1]), _Range(from: l[2], to: l[3])),
+        )
         .toList(),
   );
 }

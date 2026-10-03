@@ -126,9 +126,7 @@ Matrix<_Entity2> _performMove2(Matrix<_Entity2> map, _Move move) {
     final box = robot
         .iterate((r) => r + dir)
         .skip(1)
-        .firstWhere(
-          (r) => ![_Entity2.boxL, _Entity2.boxR].contains(map.atIndex(r)),
-        );
+        .firstWhere((r) => !<_Entity2>[.boxL, .boxR].contains(map.atIndex(r)));
     if (map.atIndex(box) == .empty) {
       var push = box + (-move.diff);
       while (push != robot) {
@@ -239,9 +237,9 @@ enum _Move(final String symbol) {
   String toString() => symbol;
 
   MatrixIndexDelta get diff => switch (this) {
-    up => (dr: -1, dc: 0),
-    down => (dr: 1, dc: 0),
-    left => (dr: 0, dc: -1),
-    right => (dr: 0, dc: 1),
+    up => .up,
+    down => .down,
+    left => .left,
+    right => .right,
   };
 }

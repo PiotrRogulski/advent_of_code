@@ -10,11 +10,12 @@ import 'package:more/collection.dart' hide IndexedIterableExtension;
 import 'package:more/comparator.dart';
 import 'package:z3/z3.dart';
 
-typedef _Machine = ({
-  ({String diagram, int bits}) target,
-  List<({List<int> ids, int mask})> buttons,
-  List<int> joltageRequirements,
+class const _Machine({
+  required final ({String diagram, int bits}) target,
+  required final List<({List<int> ids, int mask})> buttons,
+  required final List<int> joltageRequirements,
 });
+
 typedef _I = ListInput<_Machine>;
 typedef _O = NumericOutput<int>;
 
@@ -29,7 +30,7 @@ class const Y2025D10() extends DayData<_I> {
           (l) => l
               .split(' ')
               .apply(
-                (p) => (
+                (p) => _Machine(
                   target: p.first
                       .removePrefix('[')
                       .removeSuffix(']')

@@ -4,10 +4,10 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:flutter/foundation.dart';
 
-typedef RunInfo<O extends PartOutput> = ({
-  O? data,
-  Duration runDuration,
-  ({Object error, StackTrace stackTrace})? error,
+class const RunInfo<O extends PartOutput>({
+  final O? data,
+  required final Duration runDuration,
+  final ({Object error, StackTrace stackTrace})? error,
 });
 
 abstract class const PartImplementation<
@@ -22,10 +22,9 @@ abstract class const PartImplementation<
     final stopwatch = Stopwatch()..start();
     try {
       final result = await runInternal(data);
-      return (data: result, runDuration: stopwatch.elapsed, error: null);
+      return .new(data: result, runDuration: stopwatch.elapsed);
     } catch (err, st) {
-      return (
-        data: null,
+      return .new(
         runDuration: stopwatch.elapsed,
         error: (error: err, stackTrace: st),
       );

@@ -11,7 +11,22 @@ import 'package:more/more.dart' hide IndexedIterableExtension;
 import 'package:vector_math/vector_math_64.dart';
 import 'package:z3/z3.dart';
 
-typedef _Hailstone = ({Vector3 position, Vector3 velocity});
+class const _Hailstone({
+  required final Vector3 position,
+  required final Vector3 velocity,
+}) {
+  bool operator <(_Hailstone other) {
+    final thisProps = [...position.storage, ...velocity.storage];
+    final otherProps = [...other.position.storage, ...other.velocity.storage];
+    for (final (thisProp, otherProp) in (thisProps, otherProps).zip()) {
+      final res = thisProp.compareTo(otherProp);
+      if (res != 0) {
+        return res < 0;
+      }
+    }
+    return false;
+  }
+}
 
 typedef _I = ListInput<_Hailstone>;
 typedef _O = NumericOutput<int>;
@@ -35,9 +50,9 @@ class const Y2023D24() extends DayData<_I> {
               ),
         )
         .map(
-          (l) => (
-            position: Vector3(l.first.$1, l.first.$2, l.first.$3),
-            velocity: Vector3(l.last.$1, l.last.$2, l.last.$3),
+          (l) => _Hailstone(
+            position: .new(l.first.$1, l.first.$2, l.first.$3),
+            velocity: .new(l.last.$1, l.last.$2, l.last.$3),
           ),
         )
         .toList(),
@@ -91,20 +106,6 @@ class const _P2() extends PartImplementation<_I, _O> {
 
     final model = sol.ensureSat();
     return .new([xR, yR, zR].map(model.evalConst).map((e) => e!.toInt()).sum);
-  }
-}
-
-extension on _Hailstone {
-  bool operator <(_Hailstone other) {
-    final thisProps = [...position.storage, ...velocity.storage];
-    final otherProps = [...other.position.storage, ...other.velocity.storage];
-    for (final (thisProp, otherProp) in (thisProps, otherProps).zip()) {
-      final res = thisProp.compareTo(otherProp);
-      if (res != 0) {
-        return res < 0;
-      }
-    }
-    return false;
   }
 }
 

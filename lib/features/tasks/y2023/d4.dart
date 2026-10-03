@@ -6,7 +6,11 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 
-typedef _Card = ({int index, Set<int> winning, Set<int> yours});
+class const _Card({
+  required final int index,
+  required final Set<int> winning,
+  required final Set<int> yours,
+});
 
 typedef _I = ListInput<_Card>;
 typedef _O = NumericOutput<int>;
@@ -25,8 +29,8 @@ class const Y2023D4() extends DayData<_I> {
         .map(_cardRegex.firstMatch)
         .nonNulls
         .map(
-          (m) => (
-            index: int.parse(m.namedGroup('index')!),
+          (m) => _Card(
+            index: .parse(m.namedGroup('index')!),
             winning: m
                 .namedGroup('winning')!
                 .split(RegExp(' +'))
@@ -63,9 +67,9 @@ class const _P2() extends PartImplementation<_I, _O> {
     inputData.values
             .fold(<int, int>{}, (additionalCards, card) {
               final newAdditionalCards = Map.fromEntries(
-                List.generate(
+                .generate(
                   card.winning.intersection(card.yours).length,
-                  (i) => MapEntry(
+                  (i) => .new(
                     card.index + i + 1,
                     (additionalCards[card.index] ?? 0) +
                         1 +

@@ -5,18 +5,72 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:more/more.dart';
 
+class const _ComputerState({
+  required final int A,
+  required final int B,
+  required final int C,
+  required final int pointer,
+  required final List<int> output,
+  required final List<int> program,
+}) {
+  int getComboValue() => switch (program[pointer + 1]) {
+    (0 || 1 || 2 || 3) && final operand => operand,
+    4 => A,
+    5 => B,
+    6 => C,
+    final operand => throw ArgumentError.value(
+      operand,
+      'Invalid combo operand',
+    ),
+  };
+
+  int getLiteralValue() => program[pointer + 1];
+
+  _ComputerState setA(int value) => .new(
+    A: value,
+    B: B,
+    C: C,
+    pointer: pointer,
+    output: output,
+    program: program,
+  );
+
+  _ComputerState setB(int value) => .new(
+    A: A,
+    B: value,
+    C: C,
+    pointer: pointer,
+    output: output,
+    program: program,
+  );
+
+  _ComputerState setC(int value) => .new(
+    A: A,
+    B: B,
+    C: value,
+    pointer: pointer,
+    output: output,
+    program: program,
+  );
+
+  _ComputerState setPointer(int value) =>
+      .new(A: A, B: B, C: C, pointer: value, output: output, program: program);
+
+  _ComputerState advance() => setPointer(pointer + 2);
+
+  _ComputerState addOutput(int value) => .new(
+    A: A,
+    B: B,
+    C: C,
+    pointer: pointer,
+    output: [...output, value],
+    program: program,
+  );
+}
+
 typedef _I =
     ObjectInput<({({int A, int B, int C}) registers, List<int> program})>;
 typedef _O = StringOutput;
-
-typedef _ComputerState = ({
-  int A,
-  int B,
-  int C,
-  int pointer,
-  List<int> output,
-  List<int> program,
-});
 
 class const Y2024D17() extends DayData<_I> {
   this : super(2024, 17, parts: const {1: _P1(), 2: _P2()});
@@ -49,7 +103,7 @@ class const _P1() extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) => .new(
     _compute(
       inputData.value.apply(
-        (d) => (
+        (d) => .new(
           A: d.registers.A,
           B: d.registers.B,
           C: d.registers.C,
@@ -161,60 +215,4 @@ enum _Op(final int opcode) {
 
   factory fromOpcode(int opcode) =>
       values.firstWhere((op) => op.opcode == opcode);
-}
-
-extension on _ComputerState {
-  int getComboValue() => switch (program[pointer + 1]) {
-    (0 || 1 || 2 || 3) && final operand => operand,
-    4 => A,
-    5 => B,
-    6 => C,
-    final operand => throw ArgumentError.value(
-      operand,
-      'Invalid combo operand',
-    ),
-  };
-
-  int getLiteralValue() => program[pointer + 1];
-
-  _ComputerState setA(int value) => (
-    A: value,
-    B: B,
-    C: C,
-    pointer: pointer,
-    output: output,
-    program: program,
-  );
-
-  _ComputerState setB(int value) => (
-    A: A,
-    B: value,
-    C: C,
-    pointer: pointer,
-    output: output,
-    program: program,
-  );
-
-  _ComputerState setC(int value) => (
-    A: A,
-    B: B,
-    C: value,
-    pointer: pointer,
-    output: output,
-    program: program,
-  );
-
-  _ComputerState setPointer(int value) =>
-      (A: A, B: B, C: C, pointer: value, output: output, program: program);
-
-  _ComputerState advance() => setPointer(pointer + 2);
-
-  _ComputerState addOutput(int value) => (
-    A: A,
-    B: B,
-    C: C,
-    pointer: pointer,
-    output: [...output, value],
-    program: program,
-  );
 }

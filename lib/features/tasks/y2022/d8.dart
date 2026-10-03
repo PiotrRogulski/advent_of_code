@@ -26,10 +26,9 @@ class const _P1() extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) => .new(
-    inputData.matrix.indexes.where((t) {
-      final (:row, :column) = t;
-      return _isVisibleFromOutside(row, column, inputData.matrix);
-    }).length,
+    inputData.matrix.indexes
+        .where((t) => _isVisibleFromOutside(t.row, t.column, inputData.matrix))
+        .length,
   );
 
   bool _isVisibleFromOutside(int row, int column, Matrix<int> matrix) {
@@ -50,10 +49,9 @@ class const _P2() extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) => .new(
-    inputData.matrix.indexes.map((t) {
-      final (:row, :column) = t;
-      return _calculateScenicScore(row, column, inputData.matrix);
-    }).max,
+    inputData.matrix.indexes
+        .map((t) => _calculateScenicScore(t.row, t.column, inputData.matrix))
+        .max,
   );
 
   int _calculateScenicScore(int row, int column, Matrix<int> matrix) {

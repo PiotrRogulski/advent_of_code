@@ -7,10 +7,17 @@ import 'package:characters/characters.dart';
 import 'package:collection/collection.dart';
 import 'package:more/collection.dart' hide IndexedIterableExtension;
 
-typedef _Move = ({int quantity, int from, int to});
-typedef _SingleMove = ({int from, int to});
+class const _Move({
+  required final int quantity,
+  required final int from,
+  required final int to,
+});
+class const _SingleMove({required final int from, required final int to});
 typedef _Stack = List<String>;
-typedef _Input = ({List<_Stack> stacks, List<_Move> moves});
+class const _Input({
+  required final List<_Stack> stacks,
+  required final List<_Move> moves,
+});
 
 typedef _I = ObjectInput<_Input>;
 typedef _O = StringOutput;
@@ -28,7 +35,7 @@ class const Y2022D5() extends DayData<_I> {
     rawData
         .split('\n\n')
         .apply(
-          (l) => (
+          (l) => .new(
             stacks: l[0]
                 .split('\n')
                 .reversed
@@ -46,7 +53,7 @@ class const Y2022D5() extends DayData<_I> {
                 .map(_moveRegex.firstMatch)
                 .nonNulls
                 .map(
-                  (m) => (
+                  (m) => _Move(
                     quantity: int.parse(m.namedGroup('quantity')!),
                     from: int.parse(m.namedGroup('from')!) - 1,
                     to: int.parse(m.namedGroup('to')!) - 1,
@@ -64,14 +71,16 @@ class const _P1() extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) => .new(
     inputData.value.moves
-        .expand((m) => List.filled(m.quantity, (from: m.from, to: m.to)))
+        .expand(
+          (m) => List.filled(m.quantity, _SingleMove(from: m.from, to: m.to)),
+        )
         .fold(inputData.value.stacks, _performMove)
         .map((s) => s.last)
         .join(),
   );
 
   List<_Stack> _performMove(List<_Stack> stacks, _SingleMove move) {
-    final (:from, :to) = move;
+    final _SingleMove(:from, :to) = move;
 
     return [
       for (final (index, stack) in stacks.indexed)
@@ -97,7 +106,7 @@ class const _P2() extends PartImplementation<_I, _O> {
   );
 
   List<_Stack> _performMove(List<_Stack> stacks, _Move move) {
-    final (:from, :to, :quantity) = move;
+    final _Move(:from, :to, :quantity) = move;
 
     return [
       for (final (index, stack) in stacks.indexed)

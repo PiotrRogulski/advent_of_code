@@ -6,7 +6,7 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/collection.dart';
 
-typedef _Move = ({MatrixIndex position, _D dir});
+class const _Move({required final MatrixIndex position, required final _D dir});
 
 typedef _I = MatrixInput<_Tile>;
 typedef _O = NumericOutput<int>;
@@ -29,7 +29,7 @@ class const _P1() extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) => .new(
     _energize(
-      from: (position: (row: 0, column: 0), dir: .right),
+      from: const .new(position: .new(row: 0, column: 0), dir: .right),
       matrix: inputData.matrix,
     ),
   );
@@ -41,14 +41,26 @@ class const _P2() extends PartImplementation<_I, _O> {
   @override
   _O runInternal(_I inputData) {
     final matrix = inputData.matrix;
-    final allEnterPoints = [
+    final allEnterPoints = <_Move>[
       for (final column in 0.to(matrix.columnCount)) ...[
-        (position: (row: 0, column: column), dir: _D.down),
-        (position: (row: matrix.rowCount - 1, column: column), dir: _D.up),
+        .new(
+          position: .new(row: 0, column: column),
+          dir: .down,
+        ),
+        .new(
+          position: .new(row: matrix.rowCount - 1, column: column),
+          dir: .up,
+        ),
       ],
       for (final row in 0.to(matrix.rowCount)) ...[
-        (position: (row: row, column: 0), dir: _D.right),
-        (position: (row: row, column: matrix.columnCount - 1), dir: _D.left),
+        .new(
+          position: .new(row: row, column: 0),
+          dir: .right,
+        ),
+        .new(
+          position: .new(row: row, column: matrix.columnCount - 1),
+          dir: .left,
+        ),
       ],
     ];
     return .new(
@@ -105,39 +117,41 @@ enum _D() {
   };
 
   MatrixIndexDelta get diff => switch (this) {
-    up => (dr: -1, dc: 0),
-    down => (dr: 1, dc: 0),
-    left => (dr: 0, dc: -1),
-    right => (dr: 0, dc: 1),
+    up => .up,
+    down => .down,
+    left => .left,
+    right => .right,
   };
 }
 
 Iterable<_Move> _nextMoves(Matrix<_Tile> matrix, _Move move) {
-  final (:position, :dir) = move;
+  final _Move(:position, :dir) = move;
   final tile = matrix.atIndex(position);
 
   return switch (tile) {
-    .empty => [(position: position + dir.diff, dir: dir)],
+    .empty => [.new(position: position + dir.diff, dir: dir)],
     .mirrorR => switch (dir) {
-      .up || .down => [(position: position + dir.rotL.diff, dir: dir.rotL)],
-      .left || .right => [(position: position + dir.rotR.diff, dir: dir.rotR)],
+      .up || .down => [.new(position: position + dir.rotL.diff, dir: dir.rotL)],
+      .left ||
+      .right => [.new(position: position + dir.rotR.diff, dir: dir.rotR)],
     },
     .mirrorL => switch (dir) {
-      .up || .down => [(position: position + dir.rotR.diff, dir: dir.rotR)],
-      .left || .right => [(position: position + dir.rotL.diff, dir: dir.rotL)],
+      .up || .down => [.new(position: position + dir.rotR.diff, dir: dir.rotR)],
+      .left ||
+      .right => [.new(position: position + dir.rotL.diff, dir: dir.rotL)],
     },
     .splitH => switch (dir) {
-      .left || .right => [(position: position + dir.diff, dir: dir)],
+      .left || .right => [.new(position: position + dir.diff, dir: dir)],
       .up || .down => [
-        (position: position + _D.left.diff, dir: .left),
-        (position: position + _D.right.diff, dir: .right),
+        .new(position: position + _D.left.diff, dir: .left),
+        .new(position: position + _D.right.diff, dir: .right),
       ],
     },
     .splitV => switch (dir) {
-      .up || .down => [(position: position + dir.diff, dir: dir)],
+      .up || .down => [.new(position: position + dir.diff, dir: dir)],
       .left || .right => [
-        (position: position + _D.up.diff, dir: .up),
-        (position: position + _D.down.diff, dir: .down),
+        .new(position: position + _D.up.diff, dir: .up),
+        .new(position: position + _D.down.diff, dir: .down),
       ],
     },
   };

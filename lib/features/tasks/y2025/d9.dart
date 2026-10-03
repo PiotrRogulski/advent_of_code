@@ -8,7 +8,7 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/more.dart';
 
-typedef _Point = (int, int);
+class const _Point(final int x, final int y);
 typedef _I = ListInput<_Point>;
 typedef _O = NumericOutput<int>;
 
@@ -19,7 +19,13 @@ class const Y2025D9() extends DayData<_I> {
   _I parseInput(String rawData) => .new(
     rawData
         .split('\n')
-        .map((l) => l.split(',').map(int.parse).toList().apply(Tuple2.fromList))
+        .map(
+          (l) => l
+              .split(',')
+              .map(int.parse)
+              .toList()
+              .apply((l) => _Point(l[0], l[1])),
+        )
         .toList(),
   );
 }
@@ -64,11 +70,11 @@ class const _P2() extends PartImplementation<_I, _O> {
 }
 
 int _area(_Point a, _Point b) =>
-    ((a.$1 - b.$1).abs() + 1) * ((a.$2 - b.$2).abs() + 1);
+    ((a.x - b.x).abs() + 1) * ((a.y - b.y).abs() + 1);
 
 ({int minX, int maxX, int minY, int maxY}) _bounds(_Point a, _Point b) => (
-  minX: min(a.$1, b.$1),
-  maxX: max(a.$1, b.$1),
-  minY: min(a.$2, b.$2),
-  maxY: max(a.$2, b.$2),
+  minX: min(a.x, b.x),
+  maxX: max(a.x, b.x),
+  minY: min(a.y, b.y),
+  maxY: max(a.y, b.y),
 );

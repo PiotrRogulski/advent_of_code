@@ -4,9 +4,16 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 
-typedef _Subset = ({int red, int green, int blue});
+class const _Subset({
+  required final int red,
+  required final int green,
+  required final int blue,
+});
 
-typedef _Game = ({int index, Iterable<_Subset> subsets});
+class const _Game({
+  required final int index,
+  required final Iterable<_Subset> subsets,
+});
 
 typedef _I = ListInput<_Game>;
 typedef _O = NumericOutput<int>;
@@ -29,13 +36,13 @@ class const Y2023D2() extends DayData<_I> {
         .map(_gameRegex.firstMatch)
         .nonNulls
         .map(
-          (m) => (
-            index: int.parse(m.namedGroup('index')!),
+          (m) => _Game(
+            index: .parse(m.namedGroup('index')!),
             subsets: m
                 .namedGroup('subsets')!
                 .split('; ')
                 .map(
-                  (s) => (
+                  (s) => _Subset(
                     red: _extractColorCount('red', s),
                     green: _extractColorCount('green', s),
                     blue: _extractColorCount('blue', s),
@@ -51,7 +58,7 @@ class const _P1() extends PartImplementation<_I, _O> {
   this : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => NumericOutput(
+  _O runInternal(_I inputData) => .new(
     inputData.values
         .where(
           (game) => game.subsets.every(
@@ -68,7 +75,7 @@ class const _P2() extends PartImplementation<_I, _O> {
   this : super(completed: true);
 
   @override
-  _O runInternal(_I inputData) => NumericOutput(
+  _O runInternal(_I inputData) => .new(
     inputData.values
         .map(
           (game) =>

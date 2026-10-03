@@ -151,7 +151,7 @@ class const _GridPainter({
     final regularPaint = Paint()..color = colorScheme.primary;
     final toRemovePaint = Paint()..color = colorScheme.error;
 
-    for (final (:value, :index) in grid.cells) {
+    for (final MatrixCell(:value, :index) in grid.cells) {
       if (value == '@') {
         canvas.drawRSuperellipse(
           .fromRectAndRadius(

@@ -1,12 +1,18 @@
+import 'package:advent_of_code/common/utils/matrix.dart';
 import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:characters/characters.dart';
 
-typedef _Cell = ({int r, int c});
-typedef _Delta = ({int dr, int dc});
-typedef _Move = ({_Dir direction, int steps, String colorHex});
+typedef _Cell = MatrixIndex;
+typedef _Delta = MatrixIndexDelta;
+
+class const _Move({
+  required final _Dir direction,
+  required final int steps,
+  required final String colorHex,
+});
 
 typedef _I = ListInput<_Move>;
 typedef _O = NumericOutput<int>;
@@ -25,9 +31,9 @@ class const Y2023D18() extends DayData<_I> {
         .map(_moveRegex.firstMatch)
         .nonNulls
         .map(
-          (m) => (
-            direction: _Dir.fromSymbol(m.namedGroup('dir')!),
-            steps: int.parse(m.namedGroup('steps')!),
+          (m) => _Move(
+            direction: .fromSymbol(m.namedGroup('dir')!),
+            steps: .parse(m.namedGroup('steps')!),
             colorHex: m.namedGroup('colorHex')!,
           ),
         )
@@ -49,7 +55,7 @@ class const _P2() extends PartImplementation<_I, _O> {
   _O runInternal(_I inputData) => .new(
     _area(
       inputData.values.map(
-        (move) => (
+        (move) => .new(
           direction: switch (move.colorHex.characters.last) {
             '0' => .right,
             '1' => .down,
@@ -68,16 +74,16 @@ class const _P2() extends PartImplementation<_I, _O> {
   );
 }
 
-int _area(Iterable<({String colorHex, _Dir direction, int steps})> points) {
+int _area(Iterable<_Move> points) {
   final (:area, :perimeter, p: _) = points.fold(
-    (p: (r: 0, c: 0), perimeter: 0, area: 0),
+    (p: const _Cell(row: 0, column: 0), perimeter: 0, area: 0),
     (acc, move) {
       final delta = move.direction.delta * move.steps;
       final p = acc.p + delta;
       return (
         p: p,
         perimeter: acc.perimeter + move.steps,
-        area: acc.area + p.c * delta.dr,
+        area: acc.area + p.column * delta.dr,
       );
     },
   );
@@ -96,17 +102,9 @@ enum _Dir(final String symbol) {
   String toString() => symbol;
 
   _Delta get delta => switch (this) {
-    up => (dr: -1, dc: 0),
-    down => (dr: 1, dc: 0),
-    left => (dr: 0, dc: -1),
-    right => (dr: 0, dc: 1),
+    up => .up,
+    down => .down,
+    left => .left,
+    right => .right,
   };
-}
-
-extension on _Cell {
-  _Cell operator +(_Delta delta) => (r: r + delta.dr, c: c + delta.dc);
-}
-
-extension on _Delta {
-  _Delta operator *(int factor) => (dr: dr * factor, dc: dc * factor);
 }

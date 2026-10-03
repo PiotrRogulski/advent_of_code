@@ -24,9 +24,13 @@ class const SparklesOverlay({super.key, required final Widget child})
   }
 }
 
-typedef _Sparkle = ({Duration age, double x, double y, double size, int seed});
-
-extension on _Sparkle {
+class const _Sparkle({
+  required final Duration age,
+  required final double x,
+  required final double y,
+  required final double size,
+  required final int seed,
+}) {
   double get progress =>
       age.inMicroseconds / _SparklesOverlay._sparkleLifespan.inMicroseconds;
 
@@ -53,13 +57,15 @@ class const _SparklesOverlay({required final Widget child}) extends HookWidget {
 
     useEffect(() {
       final sub = pointerPositionController.stream.listen((offset) {
-        sparkles.value.add((
-          age: .zero,
-          x: offset.dx,
-          y: offset.dy,
-          size: lerpDouble(8, 32, _random.nextDouble())!,
-          seed: _random.nextInt(1 << 32),
-        ));
+        sparkles.value.add(
+          .new(
+            age: .zero,
+            x: offset.dx,
+            y: offset.dy,
+            size: lerpDouble(8, 32, _random.nextDouble())!,
+            seed: _random.nextInt(1 << 32),
+          ),
+        );
       });
       final ticker = tickerProvider.createTicker((dt) {
         final delta = dt - lastFrameDuration.value;
@@ -70,13 +76,15 @@ class const _SparklesOverlay({required final Widget child}) extends HookWidget {
           if (newAge >= _sparkleLifespan) {
             continue;
           }
-          newSparkles.add((
-            age: newAge,
-            x: sparkle.x,
-            y: sparkle.y,
-            size: sparkle.size,
-            seed: sparkle.seed,
-          ));
+          newSparkles.add(
+            .new(
+              age: newAge,
+              x: sparkle.x,
+              y: sparkle.y,
+              size: sparkle.size,
+              seed: sparkle.seed,
+            ),
+          );
         }
         sparkles.value = newSparkles.sublist(
           max(0, newSparkles.length - _sparkleCountLimit),

@@ -20,7 +20,8 @@ class const Y2024D18() extends DayData<_I> {
           (l) => l
               .split(',')
               .apply(
-                (p) => (column: int.parse(p.first), row: int.parse(p.last)),
+                (p) =>
+                    MatrixIndex(column: .parse(p.first), row: .parse(p.last)),
               ),
         )
         .toList(),
@@ -82,14 +83,14 @@ Path<MatrixIndex, num>? _findPath({
     )
     .apply(
       (memory) => dijkstraSearch(
-        startVertices: [(row: 0, column: 0)],
+        startVertices: [const MatrixIndex(row: 0, column: 0)],
         successorsOf: (v) => [
-          v + (dr: -1, dc: 0),
-          v + (dr: 1, dc: 0),
-          v + (dr: 0, dc: -1),
-          v + (dr: 0, dc: 1),
+          v + .up,
+          v + .down,
+          v + .left,
+          v + .right,
         ].where(memory.isIndexInBounds).where(memory.atIndex),
         targetPredicate: (v) =>
-            v == (row: memorySize - 1, column: memorySize - 1),
+            v == .new(row: memorySize - 1, column: memorySize - 1),
       ).lastOrNull,
     );

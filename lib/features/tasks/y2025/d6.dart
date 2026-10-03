@@ -8,45 +8,54 @@ import 'package:characters/characters.dart';
 import 'package:collection/collection.dart';
 import 'package:more/more.dart';
 
-typedef _Problem = ({List<int> operands, String operation});
-typedef _I = ObjectInput<({List<_Problem> part1, List<_Problem> part2})>;
+class const _Problem({
+  required final List<int> operands,
+  required final String operation,
+});
+class const _Input({
+  required final List<_Problem> part1,
+  required final List<_Problem> part2,
+});
+typedef _I = ObjectInput<_Input>;
 typedef _O = NumericOutput<int>;
 
 class const Y2025D6() extends DayData<_I> {
   this : super(2025, 6, parts: const {1: _P1(), 2: _P2()});
 
   @override
-  _I parseInput(String rawData) => .new((
-    part1: rawData
-        .split('\n')
-        .map((l) => l.trim().split(RegExp(r'\s+')))
-        .zip()
-        .map(
-          (l) => (
-            operands: l.take(l.length - 1).map(int.parse).toList(),
-            operation: l.last,
-          ),
-        )
-        .toList(),
-    part2: rawData
-        .split('\n')
-        .map((l) => l.characters)
-        .zip()
-        .toList()
-        .reversed
-        .map((l) => l.join())
-        .splitBefore((e) => e.trim().isEmpty)
-        .map((ls) => ls.where((l) => l.trim().isNotEmpty))
-        .map(
-          (e) => (
-            operands: e
-                .map((l) => int.parse(l.substring(0, l.length - 1).trim()))
-                .toList(),
-            operation: e.last.characters.last,
-          ),
-        )
-        .toList(),
-  ));
+  _I parseInput(String rawData) => .new(
+    .new(
+      part1: rawData
+          .split('\n')
+          .map((l) => l.trim().split(RegExp(r'\s+')))
+          .zip()
+          .map(
+            (l) => _Problem(
+              operands: l.take(l.length - 1).map(int.parse).toList(),
+              operation: l.last,
+            ),
+          )
+          .toList(),
+      part2: rawData
+          .split('\n')
+          .map((l) => l.characters)
+          .zip()
+          .toList()
+          .reversed
+          .map((l) => l.join())
+          .splitBefore((e) => e.trim().isEmpty)
+          .map((ls) => ls.where((l) => l.trim().isNotEmpty))
+          .map(
+            (e) => _Problem(
+              operands: e
+                  .map((l) => int.parse(l.substring(0, l.length - 1).trim()))
+                  .toList(),
+              operation: e.last.characters.last,
+            ),
+          )
+          .toList(),
+    ),
+  );
 }
 
 class const _P1() extends PartImplementation<_I, _O> {

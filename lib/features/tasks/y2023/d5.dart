@@ -8,17 +8,21 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/collection.dart';
 
-typedef _Range = ({int start, int length});
-typedef _MapRange = ({int destStart, int sourceStart, int length});
-typedef _Maps = ({
-  List<int> seeds,
-  List<_MapRange> seedToSoil,
-  List<_MapRange> soilToFertilizer,
-  List<_MapRange> fertilizerToWater,
-  List<_MapRange> waterToLight,
-  List<_MapRange> lightToTemperature,
-  List<_MapRange> temperatureToHumidity,
-  List<_MapRange> humidityToLocation,
+class const _Range({required final int start, required final int length});
+class const _MapRange({
+  required final int destStart,
+  required final int sourceStart,
+  required final int length,
+});
+class const _Maps({
+  required final List<int> seeds,
+  required final List<_MapRange> seedToSoil,
+  required final List<_MapRange> soilToFertilizer,
+  required final List<_MapRange> fertilizerToWater,
+  required final List<_MapRange> waterToLight,
+  required final List<_MapRange> lightToTemperature,
+  required final List<_MapRange> temperatureToHumidity,
+  required final List<_MapRange> humidityToLocation,
 });
 
 typedef _I = ObjectInput<_Maps>;
@@ -33,7 +37,7 @@ class const Y2023D5() extends DayData<_I> {
       final [seedsPart, ...mapParts] = parts;
       final seeds = seedsPart.substring(7).split(' ').map(int.parse).toList();
       final maps = mapParts.map(_parseMap).toList();
-      return (
+      return .new(
         seeds: seeds,
         seedToSoil: maps[0],
         soilToFertilizer: maps[1],
@@ -49,10 +53,10 @@ class const Y2023D5() extends DayData<_I> {
   List<_MapRange> _parseMap(String mapPart) =>
       mapPart.split('\n').skip(1).map((l) {
         final [destStart, sourceStart, length] = l.split(' ');
-        return (
-          destStart: int.parse(destStart),
-          sourceStart: int.parse(sourceStart),
-          length: int.parse(length),
+        return _MapRange(
+          destStart: .parse(destStart),
+          sourceStart: .parse(sourceStart),
+          length: .parse(length),
         );
       }).toList();
 }
@@ -106,24 +110,27 @@ class const _P2() extends PartImplementation<_I, _O> {
           .fold(
             inputData.value.seeds
                 .chunked(2)
-                .map((s) => (start: s.first, length: s.last)),
+                .map((s) => _Range(start: s.first, length: s.last)),
             (ranges, m) {
               final newRanges = <_Range>[];
 
-              for (var (:start, length: rangeLen) in ranges) {
+              for (var _Range(:start, length: rangeLen) in ranges) {
                 final end = start + rangeLen;
                 while (start < end) {
                   var foundMatch = false;
                   var bestDistance = end - start;
 
-                  for (final (:destStart, :sourceStart, length: mapLen) in m) {
+                  for (final _MapRange(:destStart, :sourceStart, length: mapLen)
+                      in m) {
                     if (sourceStart <= start && start < sourceStart + mapLen) {
                       final offset = start - sourceStart;
                       final remainingLength = min(mapLen - offset, end - start);
-                      newRanges.add((
-                        start: destStart + offset,
-                        length: remainingLength,
-                      ));
+                      newRanges.add(
+                        .new(
+                          start: destStart + offset,
+                          length: remainingLength,
+                        ),
+                      );
                       start += remainingLength;
                       foundMatch = true;
                       break;
@@ -136,7 +143,7 @@ class const _P2() extends PartImplementation<_I, _O> {
 
                   if (!foundMatch) {
                     final effectiveLen = min(bestDistance, end - start);
-                    newRanges.add((start: start, length: effectiveLen));
+                    newRanges.add(.new(start: start, length: effectiveLen));
                     start += effectiveLen;
                   }
                 }

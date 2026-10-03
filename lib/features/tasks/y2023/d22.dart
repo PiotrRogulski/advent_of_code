@@ -9,13 +9,28 @@ import 'package:collection/collection.dart';
 import 'package:more/collection.dart';
 import 'package:more/comparator.dart';
 
-typedef _Brick = ({
-  _Coord from,
-  _Coord to,
-  List<int> supports,
-  List<int> supportedBy,
+class const _Brick({
+  required final _Coord from,
+  required final _Coord to,
+  required final List<int> supports,
+  required final List<int> supportedBy,
+}) {
+  Iterable<_Coord> get cubes sync* {
+    for (var x = from.x; x <= to.x; x++) {
+      for (var y = from.y; y <= to.y; y++) {
+        for (var z = from.z; z <= to.z; z++) {
+          yield .new(x: x, y: y, z: z);
+        }
+      }
+    }
+  }
+}
+
+class const _Coord({
+  required final int x,
+  required final int y,
+  required final int z,
 });
-typedef _Coord = ({int x, int y, int z});
 
 typedef _I = ListInput<_Brick>;
 typedef _O = NumericOutput<int>;
@@ -29,31 +44,31 @@ class const Y2023D22() extends DayData<_I> {
         .split('\n')
         .map((l) => l.split('~'))
         .map(
-          (l) => (
+          (l) => _Brick(
             from: l.first
                 .split(',')
                 .map(int.parse)
                 .toList()
-                .apply((l) => (x: l[0], y: l[1], z: l[2])),
+                .apply((l) => .new(x: l[0], y: l[1], z: l[2])),
             to: l.last
                 .split(',')
                 .map(int.parse)
                 .toList()
-                .apply((l) => (x: l[0], y: l[1], z: l[2])),
-            supports: <int>[],
-            supportedBy: <int>[],
+                .apply((l) => .new(x: l[0], y: l[1], z: l[2])),
+            supports: [],
+            supportedBy: [],
           ),
         )
         .sortedBy((b) => b.from.z)
         .fold((bricks: <_Brick>[], maxZReached: 1), (acc, current) {
           var brick = current;
           final diff = brick.to.z - brick.from.z;
-          brick = (
+          brick = .new(
             from: brick.from.apply(
-              (c) => (x: c.x, y: c.y, z: acc.maxZReached + 1),
+              (c) => .new(x: c.x, y: c.y, z: acc.maxZReached + 1),
             ),
             to: brick.to.apply(
-              (c) => (x: c.x, y: c.y, z: acc.maxZReached + 1 + diff),
+              (c) => .new(x: c.x, y: c.y, z: acc.maxZReached + 1 + diff),
             ),
             supports: brick.supports,
             supportedBy: brick.supportedBy,
@@ -62,9 +77,9 @@ class const Y2023D22() extends DayData<_I> {
           while (true) {
             var canMoveDown = true;
 
-            brick = (
-              from: brick.from.apply((c) => (x: c.x, y: c.y, z: c.z - 1)),
-              to: brick.to.apply((c) => (x: c.x, y: c.y, z: c.z - 1)),
+            brick = _Brick(
+              from: brick.from.apply((c) => .new(x: c.x, y: c.y, z: c.z - 1)),
+              to: brick.to.apply((c) => .new(x: c.x, y: c.y, z: c.z - 1)),
               supports: brick.supports,
               supportedBy: brick.supportedBy,
             );
@@ -83,9 +98,9 @@ class const Y2023D22() extends DayData<_I> {
             }
 
             if (!canMoveDown) {
-              brick = (
-                from: brick.from.apply((c) => (x: c.x, y: c.y, z: c.z + 1)),
-                to: brick.to.apply((c) => (x: c.x, y: c.y, z: c.z + 1)),
+              brick = .new(
+                from: brick.from.apply((c) => .new(x: c.x, y: c.y, z: c.z + 1)),
+                to: brick.to.apply((c) => .new(x: c.x, y: c.y, z: c.z + 1)),
                 supports: brick.supports,
                 supportedBy: brick.supportedBy,
               );
@@ -149,18 +164,6 @@ class const _P2() extends PartImplementation<_I, _O> {
         return fallenIndexes.length - 1;
       }).sum,
     );
-  }
-}
-
-extension on _Brick {
-  Iterable<_Coord> get cubes sync* {
-    for (var x = from.x; x <= to.x; x++) {
-      for (var y = from.y; y <= to.y; y++) {
-        for (var z = from.z; z <= to.z; z++) {
-          yield (x: x, y: y, z: z);
-        }
-      }
-    }
   }
 }
 

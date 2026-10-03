@@ -99,20 +99,15 @@ enum _Pipe(final String symbol, final String ascii) {
   String toString() => ascii;
 
   Iterable<MatrixIndex> adjacent(MatrixIndex index) {
-    final diffs = switch (this) {
-      empty => <MatrixIndexDelta>[],
-      vertical => [(dr: -1, dc: 0), (dr: 1, dc: 0)],
-      horizontal => [(dr: 0, dc: -1), (dr: 0, dc: 1)],
-      topLeft => [(dr: 1, dc: 0), (dr: 0, dc: 1)],
-      topRight => [(dr: 1, dc: 0), (dr: 0, dc: -1)],
-      bottomLeft => [(dr: -1, dc: 0), (dr: 0, dc: 1)],
-      bottomRight => [(dr: -1, dc: 0), (dr: 0, dc: -1)],
-      unknown => [
-        (dr: 0, dc: -1),
-        (dr: 0, dc: 1),
-        (dr: -1, dc: 0),
-        (dr: 1, dc: 0),
-      ],
+    final List<MatrixIndexDelta> diffs = switch (this) {
+      empty => [],
+      vertical => [.up, .down],
+      horizontal => [.left, .right],
+      topLeft => [.down, .right],
+      topRight => [.down, .left],
+      bottomLeft => [.up, .right],
+      bottomRight => [.up, .left],
+      unknown => [.up, .down, .left, .right],
     };
     return diffs.map((d) => index + d);
   }
@@ -127,7 +122,7 @@ Iterable<_Cell> _cycle(_Cell start, Matrix<_Pipe> matrix) sync* {
     final adjacent = current.value
         .adjacent(current.index)
         .where(matrix.isIndexInBounds)
-        .map((c) => (index: c, value: matrix.atIndex(c)))
+        .map((c) => _Cell(index: c, value: matrix.atIndex(c)))
         .where((c) => !visited.contains(c) && _canConnect(current, c));
     if (adjacent.isEmpty) {
       break;
@@ -137,8 +132,8 @@ Iterable<_Cell> _cycle(_Cell start, Matrix<_Pipe> matrix) sync* {
 }
 
 bool _canConnect(_Cell from, _Cell to) {
-  final (index: ix1, value: cell1) = from;
-  final (index: ix2, value: cell2) = to;
+  final _Cell(index: ix1, value: cell1) = from;
+  final _Cell(index: ix2, value: cell2) = to;
 
   return cell1.adjacent(ix1).contains(ix2) && cell2.adjacent(ix2).contains(ix1);
 }

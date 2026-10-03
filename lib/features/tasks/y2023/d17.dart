@@ -6,7 +6,10 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/more.dart';
 
-typedef _VertexDir<D extends _D?> = ({MatrixIndex v, D dir});
+class const _VertexDir<D extends _D?>({
+  required final MatrixIndex v,
+  required final D dir,
+});
 
 typedef _I = MatrixInput<int>;
 typedef _O = NumericOutput<int>;
@@ -47,14 +50,14 @@ enum _D(final int dr, final int dc) {
 
   bool isOpposite(_D other) => dr == -other.dr && dc == -other.dc;
 
-  MatrixIndexDelta get delta => (dr: dr, dc: dc);
+  MatrixIndexDelta get delta => .new(dr: dr, dc: dc);
 }
 
 int _dist(Matrix<int> matrix, {required int minStep, required int maxStep}) =>
     dijkstraSearch<_VertexDir<_D?>>(
-      startVertices: [(v: (row: 0, column: 0), dir: null)],
+      startVertices: [const .new(v: .new(row: 0, column: 0), dir: null)],
       targetPredicate: (v) =>
-          v.v == (row: matrix.rowCount - 1, column: matrix.columnCount - 1),
+          v.v == .new(row: matrix.rowCount - 1, column: matrix.columnCount - 1),
       successorsOf: (v) => _D.values
           .where((d) => d != v.dir && (v.dir == null || !d.isOpposite(v.dir!)))
           .expand(
@@ -62,11 +65,11 @@ int _dist(Matrix<int> matrix, {required int minStep, required int maxStep}) =>
                 .to(maxStep + 1)
                 .map((distance) => v.v + d.delta * distance)
                 .where(matrix.isIndexInBounds)
-                .map((newV) => (v: newV, dir: d)),
+                .map((newV) => .new(v: newV, dir: d)),
           ),
       edgeCost: (v1, v2) {
-        final (row: r1, column: c1) = v1.v;
-        final (row: r2, column: c2) = v2.v;
+        final MatrixIndex(row: r1, column: c1) = v1.v;
+        final MatrixIndex(row: r2, column: c2) = v2.v;
         final costs = switch (r1 == r2) {
           true => switch (c1 < c2) {
             true => (c1 + 1).to(c2 + 1).map((c) => matrix.at(r1, c)),

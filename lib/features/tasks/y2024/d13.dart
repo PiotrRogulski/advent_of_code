@@ -5,14 +5,14 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:vector_math/vector_math_64.dart';
 
+class const _ClawMachine({
+  required final ({double dx, double dy}) buttonA,
+  required final ({double dx, double dy}) buttonB,
+  required final ({double x, double y}) prize,
+});
+
 typedef _I = ListInput<_ClawMachine>;
 typedef _O = NumericOutput<int>;
-
-typedef _ClawMachine = ({
-  ({double dx, double dy}) buttonA,
-  ({double dx, double dy}) buttonB,
-  ({double x, double y}) prize,
-});
 
 class const Y2024D13() extends DayData<_I> {
   this : super(2024, 13, parts: const {1: _P1(), 2: _P2()});
@@ -24,18 +24,18 @@ class const Y2024D13() extends DayData<_I> {
         .map(_clawRegex.firstMatch)
         .nonNulls
         .map(
-          (m) => (
+          (m) => _ClawMachine(
             buttonA: (
-              dx: double.parse(m.namedGroup('ax')!),
-              dy: double.parse(m.namedGroup('ay')!),
+              dx: .parse(m.namedGroup('ax')!),
+              dy: .parse(m.namedGroup('ay')!),
             ),
             buttonB: (
-              dx: double.parse(m.namedGroup('bx')!),
-              dy: double.parse(m.namedGroup('by')!),
+              dx: .parse(m.namedGroup('bx')!),
+              dy: .parse(m.namedGroup('by')!),
             ),
             prize: (
-              x: double.parse(m.namedGroup('x')!),
-              y: double.parse(m.namedGroup('y')!),
+              x: .parse(m.namedGroup('x')!),
+              y: .parse(m.namedGroup('y')!),
             ),
           ),
         )

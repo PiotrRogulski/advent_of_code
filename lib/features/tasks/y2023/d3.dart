@@ -6,7 +6,11 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 
-typedef _NumberRun = ({int row, int column, String number});
+class const _NumberRun({
+  required final int row,
+  required final int column,
+  required final String number,
+});
 typedef _Cell<T extends _MapCell> = MatrixCell<T>;
 
 typedef _I = MatrixInput<_MapCell>;
@@ -49,15 +53,17 @@ class const _P1() extends PartImplementation<_I, _O> {
 
   bool _isAdjacentToSymbol(Matrix<_MapCell> matrix, _NumberRun run) =>
       [
-            (row: run.row, column: run.column - 1),
-            (row: run.row, column: run.column + run.number.length),
+            MatrixIndex(row: run.row, column: run.column - 1),
+            MatrixIndex(row: run.row, column: run.column + run.number.length),
             ...List.generate(
               run.number.length + 2,
-              (index) => (row: run.row - 1, column: run.column + index - 1),
+              (index) =>
+                  MatrixIndex(row: run.row - 1, column: run.column + index - 1),
             ),
             ...List.generate(
               run.number.length + 2,
-              (index) => (row: run.row + 1, column: run.column + index - 1),
+              (index) =>
+                  MatrixIndex(row: run.row + 1, column: run.column + index - 1),
             ),
           ]
           .where(matrix.isIndexInBounds)
@@ -94,15 +100,17 @@ class const _P2() extends PartImplementation<_I, _O> {
     _NumberRun run,
   ) =>
       [
-            (row: run.row, column: run.column - 1),
-            (row: run.row, column: run.column + run.number.length),
+            MatrixIndex(row: run.row, column: run.column - 1),
+            MatrixIndex(row: run.row, column: run.column + run.number.length),
             ...List.generate(
               run.number.length + 2,
-              (index) => (row: run.row - 1, column: run.column + index - 1),
+              (index) =>
+                  MatrixIndex(row: run.row - 1, column: run.column + index - 1),
             ),
             ...List.generate(
               run.number.length + 2,
-              (index) => (row: run.row + 1, column: run.column + index - 1),
+              (index) =>
+                  MatrixIndex(row: run.row + 1, column: run.column + index - 1),
             ),
           ]
           .where(matrix.isIndexInBounds)
@@ -153,7 +161,7 @@ Iterable<_NumberRun> _cellsToNumbers(Iterable<_Cell<_Digit>> cells) => cells
           currentRun.column == cell.index.column - 1) {
         return [
           ...previousValue.take(previousValue.length - 1),
-          (
+          .new(
             row: cell.index.row,
             column: cell.index.column,
             number: currentRun.number + cell.value.value.toString(),
@@ -163,7 +171,7 @@ Iterable<_NumberRun> _cellsToNumbers(Iterable<_Cell<_Digit>> cells) => cells
 
       return [
         ...previousValue,
-        (
+        .new(
           row: cell.index.row,
           column: cell.index.column,
           number: cell.value.value.toString(),
@@ -171,7 +179,7 @@ Iterable<_NumberRun> _cellsToNumbers(Iterable<_Cell<_Digit>> cells) => cells
       ];
     })
     .map(
-      (e) => (
+      (e) => .new(
         row: e.row,
         column: e.column - e.number.length + 1,
         number: e.number,

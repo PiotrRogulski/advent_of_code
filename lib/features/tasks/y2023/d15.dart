@@ -5,7 +5,7 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:characters/characters.dart';
 import 'package:collection/collection.dart';
 
-typedef _Lens = ({String label, int focal});
+class const _Lens({required final String label, required final int focal});
 
 typedef _I = ListInput<String>;
 typedef _O = NumericOutput<int>;
@@ -41,7 +41,7 @@ class const _P2() extends PartImplementation<_I, _O> {
           final lenses = acc[_hash(label)]!;
           final i = lenses.indexWhere((e) => e.label == label);
           if (m.namedGroup('focal') case final focal?) {
-            final lens = (label: label, focal: int.parse(focal));
+            final lens = _Lens(label: label, focal: .parse(focal));
             if (i != -1) {
               lenses[i] = lens;
             } else {

@@ -16,10 +16,10 @@ import 'package:material_ui/material_ui.dart';
 import 'package:more/more.dart' hide IndexedIterableExtension;
 import 'package:z3/z3.dart';
 
-typedef _Machine = ({
-  ({String diagram, int bits}) target,
-  List<({List<int> ids, int mask})> buttons,
-  List<int> joltageRequirements,
+class const _Machine({
+  required final ({String diagram, int bits}) target,
+  required final List<({List<int> ids, int mask})> buttons,
+  required final List<int> joltageRequirements,
 });
 typedef _I = ListInput<_Machine>;
 

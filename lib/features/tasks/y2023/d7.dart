@@ -5,7 +5,10 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/collection.dart';
 
-typedef _HandWithBid = ({List<_Card> hand, int bid});
+class const _HandWithBid({
+  required final List<_Card> hand,
+  required final int bid,
+});
 
 typedef _I = ListInput<_HandWithBid>;
 typedef _O = NumericOutput<int>;
@@ -19,9 +22,9 @@ class const Y2023D7() extends DayData<_I> {
         .split('\n')
         .map((l) => l.split(' '))
         .map(
-          (l) => (
+          (l) => _HandWithBid(
             hand: l.first.split('').map(_Card.fromSymbol).toList(),
-            bid: int.parse(l.last),
+            bid: .parse(l.last),
           ),
         )
         .toList(),

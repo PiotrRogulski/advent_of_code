@@ -6,7 +6,11 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/more.dart';
 
-typedef _JunctionBox = ({int x, int y, int z});
+class const _JunctionBox({
+  required final int x,
+  required final int y,
+  required final int z,
+});
 typedef _I = ListInput<_JunctionBox>;
 typedef _O = NumericOutput<int>;
 
@@ -21,10 +25,10 @@ class const Y2025D8() extends DayData<_I> {
           (l) => l
               .split(',')
               .apply(
-                (l) => (
-                  x: int.parse(l[0]),
-                  y: int.parse(l[1]),
-                  z: int.parse(l[2]),
+                (l) => _JunctionBox(
+                  x: .parse(l[0]),
+                  y: .parse(l[1]),
+                  z: .parse(l[2]),
                 ),
               ),
         )

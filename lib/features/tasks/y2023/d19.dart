@@ -7,13 +7,43 @@ import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 
-typedef _Part = ({int x, int m, int a, int s});
-typedef _Predicate = ({String variable, _Op op, int value});
-typedef _Condition = ({_Predicate? pred, String target});
-typedef _Range = ({int start, int end});
+class const _Part({
+  required final int x,
+  required final int m,
+  required final int a,
+  required final int s,
+});
 
-typedef _I =
-    ObjectInput<({Map<String, List<_Condition>> workflows, List<_Part> parts})>;
+class const _Predicate({
+  required final String variable,
+  required final _Op op,
+  required final int value,
+}) {
+  bool call(_Part part) => switch (variable) {
+    'x' => op(part.x, value),
+    'm' => op(part.m, value),
+    'a' => op(part.a, value),
+    's' => op(part.s, value),
+    _ => throw StateError('Invalid variable: $variable'),
+  };
+}
+
+class const _Condition({
+  required final _Predicate? pred,
+  required final String target,
+});
+
+class const _Range({required final int start, required final int end}) {
+  _Range merge(_Range other) =>
+      .new(start: max(start, other.start), end: min(end, other.end));
+}
+
+class const _Input({
+  required final Map<String, List<_Condition>> workflows,
+  required final List<_Part> parts,
+});
+
+typedef _I = ObjectInput<_Input>;
 typedef _O = NumericOutput<int>;
 
 class const Y2023D19() extends DayData<_I> {
@@ -29,7 +59,7 @@ class const Y2023D19() extends DayData<_I> {
     rawData
         .split('\n\n')
         .apply(
-          (l) => (
+          (l) => .new(
             workflows: .fromEntries(
               l.first
                   .split('\n')
@@ -43,15 +73,18 @@ class const Y2023D19() extends DayData<_I> {
                           .split(',')
                           .map(
                             (r) => switch (r.split(':')) {
-                              [final cond, final target] => (
-                                pred: (
+                              [final cond, final target] => _Condition(
+                                pred: .new(
                                   variable: cond[0],
                                   op: _Op.fromSymbol(cond[1]),
                                   value: int.parse(cond.substring(2)),
                                 ),
                                 target: target,
                               ),
-                              [final target] => (pred: null, target: target),
+                              [final target] => _Condition(
+                                pred: null,
+                                target: target,
+                              ),
                               _ => throw StateError('Invalid condition: $r'),
                             },
                           )
@@ -64,11 +97,11 @@ class const Y2023D19() extends DayData<_I> {
                 .map(_partRegex.firstMatch)
                 .nonNulls
                 .map(
-                  (m) => (
-                    x: int.parse(m.namedGroup('x')!),
-                    m: int.parse(m.namedGroup('m')!),
-                    a: int.parse(m.namedGroup('a')!),
-                    s: int.parse(m.namedGroup('s')!),
+                  (m) => _Part(
+                    x: .parse(m.namedGroup('x')!),
+                    m: .parse(m.namedGroup('m')!),
+                    a: .parse(m.namedGroup('a')!),
+                    s: .parse(m.namedGroup('s')!),
                   ),
                 )
                 .toList(),
@@ -88,7 +121,7 @@ class const _P1() extends PartImplementation<_I, _O> {
           var workflow = 'in';
           while (status == null) {
             final rules = inputData.value.workflows[workflow]!;
-            final rule = rules.firstWhere((r) => r.pred(part));
+            final rule = rules.firstWhere((r) => r.pred?.call(part) ?? true);
             switch (rule.target) {
               case 'R':
                 status = false;
@@ -110,11 +143,11 @@ class const _P2() extends PartImplementation<_I, _O> {
 
   @override
   _O runInternal(_I inputData) => .new(
-    _run(inputData.value.workflows, 'in', {
-      'x': (start: 1, end: 4001),
-      'm': (start: 1, end: 4001),
-      'a': (start: 1, end: 4001),
-      's': (start: 1, end: 4001),
+    _run(inputData.value.workflows, 'in', const {
+      'x': .new(start: 1, end: 4001),
+      'm': .new(start: 1, end: 4001),
+      'a': .new(start: 1, end: 4001),
+      's': .new(start: 1, end: 4001),
     }),
   );
 
@@ -132,18 +165,18 @@ class const _P2() extends PartImplementation<_I, _O> {
         default:
           final newRanges = {...ranges};
           return workflows[target]!.map((rule) {
-            final (:pred, :target) = rule;
+            final _Condition(:pred, :target) = rule;
             switch (pred) {
               case null:
                 return runRec(target, newRanges);
-              case (:final variable, :final op, :final value):
+              case _Predicate(:final variable, :final op, :final value):
                 final range = newRanges[variable]!.merge(switch (op) {
-                  .lt => (start: 1, end: value),
-                  .gt => (start: value + 1, end: 4001),
+                  .lt => .new(start: 1, end: value),
+                  .gt => .new(start: value + 1, end: 4001),
                 });
                 final reverseRange = newRanges[variable]!.merge(switch (op) {
-                  .lt => (start: value, end: 4001),
-                  .gt => (start: 1, end: value + 1),
+                  .lt => .new(start: value, end: 4001),
+                  .gt => .new(start: 1, end: value + 1),
                 });
                 newRanges[variable] = range;
                 final res = runRec(target, newRanges);
@@ -171,22 +204,4 @@ enum _Op(final String symbol) {
     gt => a > b,
     lt => a < b,
   };
-}
-
-extension on _Predicate? {
-  bool call(_Part part) => switch (this) {
-    null => true,
-    (:final variable, :final op, :final value) => switch (variable) {
-      'x' => op(part.x, value),
-      'm' => op(part.m, value),
-      'a' => op(part.a, value),
-      's' => op(part.s, value),
-      _ => throw StateError('Invalid variable: $variable'),
-    },
-  };
-}
-
-extension on _Range {
-  _Range merge(_Range other) =>
-      (start: max(start, other.start), end: min(end, other.end));
 }

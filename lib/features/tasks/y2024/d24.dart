@@ -8,16 +8,19 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/more.dart';
 
-typedef _I =
-    ObjectInput<
-      ({
-        List<({String name, int value})> initialValues,
-        List<_Equation> equations,
-      })
-    >;
-typedef _O = StringOutput;
+class const _Equation({
+  required final String arg1,
+  required final String arg2,
+  required final _Op op,
+  required final String target,
+});
+class const _Input({
+  required final List<({String name, int value})> initialValues,
+  required final List<_Equation> equations,
+});
 
-typedef _Equation = ({String arg1, String arg2, _Op op, String target});
+typedef _I = ObjectInput<_Input>;
+typedef _O = StringOutput;
 
 class const Y2024D24() extends DayData<_I> {
   this : super(2024, 24, parts: const {1: _P1(), 2: _P2()});
@@ -32,7 +35,7 @@ class const Y2024D24() extends DayData<_I> {
     rawData
         .split('\n\n')
         .apply(
-          (p) => (
+          (p) => .new(
             initialValues: p.first
                 .split('\n')
                 .map(_initRegex.firstMatch)
@@ -49,10 +52,10 @@ class const Y2024D24() extends DayData<_I> {
                 .map(_eqRegex.firstMatch)
                 .nonNulls
                 .map(
-                  (m) => (
+                  (m) => _Equation(
                     arg1: m.namedGroup('arg1')!,
                     arg2: m.namedGroup('arg2')!,
-                    op: _Op.fromString(m.namedGroup('op')!),
+                    op: .fromString(m.namedGroup('op')!),
                     target: m.namedGroup('target')!,
                   ),
                 )

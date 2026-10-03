@@ -5,7 +5,10 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
 import 'package:more/collection.dart';
 
-typedef _SpringRecord = ({List<_Part> parts, List<int> damaged});
+class const _SpringRecord({
+  required final List<_Part> parts,
+  required final List<int> damaged,
+});
 
 typedef _I = ListInput<_SpringRecord>;
 typedef _O = NumericOutput<int>;
@@ -19,7 +22,7 @@ class const Y2023D12() extends DayData<_I> {
         .split('\n')
         .map((l) => l.split(' '))
         .map(
-          (l) => (
+          (l) => _SpringRecord(
             parts: l.first.split('').map(_Part.fromSymbol).toList(),
             damaged: l.last.split(',').map(int.parse).toList(),
           ),
@@ -44,12 +47,12 @@ class const _P2() extends PartImplementation<_I, _O> {
     inputData.values
         .map(
           (e) => _s(
-            Iterable.generate(
+            .generate(
               5,
               (_) => e.parts,
             ).separatedBy(() => [.unknown]).flattenedToList,
             null,
-            Iterable.generate(5, (_) => e.damaged).flattenedToList,
+            .generate(5, (_) => e.damaged).flattenedToList,
           ),
         )
         .sum,

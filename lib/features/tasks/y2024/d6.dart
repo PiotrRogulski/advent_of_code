@@ -62,11 +62,7 @@ class const _P1() extends PartImplementation<_I, _O> {
                         _ => (position: nextP, direction: d.position.direction),
                       },
                     ),
-                visited: d.visited
-                  ..add((
-                    row: d.position.position.row,
-                    column: d.position.position.column,
-                  )),
+                visited: d.visited..add(d.position.position),
               ),
             )
             .firstWhere((d) => !d.matrix.isIndexInBounds(d.position.position))
@@ -104,11 +100,7 @@ class const _P2() extends PartImplementation<_I, _O> {
                     _ => (position: nextP, direction: d.position.direction),
                   },
                 ),
-            visited: d.visited
-              ..add((
-                row: d.position.position.row,
-                column: d.position.position.column,
-              )),
+            visited: d.visited..add(d.position.position),
           ),
         )
         .firstWhere((d) => !d.matrix.isIndexInBounds(d.position.position))
@@ -172,9 +164,9 @@ enum _Direction() {
   };
 
   MatrixIndexDelta get positionDelta => switch (this) {
-    up => (dr: -1, dc: 0),
-    down => (dr: 1, dc: 0),
-    left => (dr: 0, dc: -1),
-    right => (dr: 0, dc: 1),
+    up => .up,
+    down => .down,
+    left => .left,
+    right => .right,
   };
 }
