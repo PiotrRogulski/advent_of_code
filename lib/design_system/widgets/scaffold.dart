@@ -1,6 +1,3 @@
-// Definition
-// ignore_for_file: use_design_system_item_AocScaffold
-
 import 'dart:math';
 import 'dart:ui';
 
@@ -45,7 +42,7 @@ class const AocScaffold({
     final canPop = ModalRoute.canPopOf(context) ?? false;
 
     // Definition
-    // ignore_for_file: leancode_lint/use_design_system_item
+    // ignore: aoc_lint/use_design_system_item_AocScaffold
     return Scaffold(
       body: NotificationListener<ScrollMetricsNotification>(
         onNotification: (notification) {

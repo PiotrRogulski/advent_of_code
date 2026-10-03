@@ -25,7 +25,7 @@ class const AocIcon(
     final color = useColorSpring(this.color ?? IconTheme.of(context).color!);
 
     // This is the definition
-    // ignore: leancode_lint/use_design_system_item
+    // ignore: aoc_lint/use_design_system_item_AocIcon
     return Icon(
       icon.iconData,
       size: size,

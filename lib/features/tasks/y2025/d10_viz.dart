@@ -366,7 +366,7 @@ class const _MachineJoltageSimulation({
     }
 
     // That's ok
-    // ignore: leancode_lint/avoid_conditional_hooks
+    // ignore: aoc_lint/avoid_conditional_hooks
     useEffect(() {
       var canceled = false;
 

@@ -31,7 +31,7 @@ class const AocText(
     );
 
     // This is the definition
-    // ignore: leancode_lint/use_design_system_item
+    // ignore: aoc_lint/use_design_system_item_AocText
     return Text(
       data,
       textAlign: textAlign,

@@ -19,7 +19,7 @@ class const SettingsScreen({super.key}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;
-    final settingsStore = context.read<SettingsStore>();
+    final settingsStore = context.watch<SettingsStore>();
 
     return AocScaffold(
       title: s.settings_title,

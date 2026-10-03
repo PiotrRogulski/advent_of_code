@@ -30,7 +30,7 @@ class const PartStatus({
     final colors = Theme.of(context).colorScheme;
 
     final partVisualizer = getPartVisualizer(
-      context.read<DayData>(),
+      context.watch<DayData>(),
       partNumber,
     );
 

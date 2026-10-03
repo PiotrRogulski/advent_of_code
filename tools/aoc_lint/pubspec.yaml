@@ -1,0 +1,10 @@
+name: aoc_lint
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.14.0-271.0.dev
+  flutter: ^3.49.0-1.0.pre-256
+
+dependencies:
+  leancode_lint: ^27.0.0

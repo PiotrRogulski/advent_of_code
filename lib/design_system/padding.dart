@@ -9,7 +9,7 @@ class const AocPadding({
   @override
   Widget build(BuildContext context) {
     // This is the definition
-    // ignore: leancode_lint/use_design_system_item
+    // ignore: aoc_lint/use_design_system_item_AocPadding
     return Padding(padding: padding, child: child);
   }
 }
@@ -22,13 +22,13 @@ class const AocSliverPadding({
   @override
   Widget build(BuildContext context) {
     // This is the definition
-    // ignore: leancode_lint/use_design_system_item
+    // ignore: aoc_lint/use_design_system_item_AocSliverPadding
     return SliverPadding(padding: padding, sliver: sliver);
   }
 }
 
 // This is the definition
-// ignore: leancode_lint/use_design_system_item
+// ignore: aoc_lint/use_design_system_item_AocEdgeInsets
 class AocEdgeInsets extends EdgeInsetsDirectional {
   const new all(AocUnit super.value) : super.all();
 

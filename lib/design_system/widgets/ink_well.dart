@@ -15,7 +15,7 @@ class const AocInkWell({
   @override
   Widget build(BuildContext context) {
     // This is the definition
-    // ignore: leancode_lint/use_design_system_item
+    // ignore: aoc_lint/use_design_system_item_AocInkWell
     return InkWell(
       statesController: DynamicWeight.maybeOf(context)?.controller,
       onTap: onTap,

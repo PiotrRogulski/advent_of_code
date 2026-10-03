@@ -11,7 +11,7 @@ class const SnowOverlay({super.key, required final Widget child})
     extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final settings = context.read<SettingsStore>();
+    final settings = context.watch<SettingsStore>();
     final christmasSpirit = useValueStream(settings.christmasSpirit);
 
     if (!christmasSpirit) {

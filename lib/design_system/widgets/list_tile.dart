@@ -16,7 +16,7 @@ class const AocListTile({
   @override
   Widget build(BuildContext context) {
     // This is the definition
-    // ignore: leancode_lint/use_design_system_item
+    // ignore: aoc_lint/use_design_system_item_AocListTile
     return ListTile(
       statesController: DynamicWeight.maybeOf(context)?.controller,
       title: title,
