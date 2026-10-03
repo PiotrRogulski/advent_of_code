@@ -11,12 +11,13 @@ import 'package:more/collection.dart' hide IndexedIterableExtension;
 
 typedef _I = MatrixInput<String>;
 
-class const Y2025D4Visualizer() extends DayVisualizer<_I> {
-  this : super(commonVisualizer: const .new(_part1and2));
-}
+const y2025D4Visualizer = DayVisualizer<_I>(
+  commonVisualizer: .new(_Part1And2.new),
+);
 
-Widget _part1and2(_I input) => HookBuilder(
-  builder: (context) {
+class const _Part1And2(final _I input) extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
     final s = context.l10n;
 
     final indicesToRemove = useState(<MatrixIndex>{});
@@ -88,8 +89,8 @@ Widget _part1and2(_I input) => HookBuilder(
         ],
       ),
     );
-  },
-);
+  }
+}
 
 class const _GridView({
   required final Matrix<String> grid,

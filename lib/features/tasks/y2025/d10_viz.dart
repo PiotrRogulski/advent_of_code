@@ -23,19 +23,29 @@ class const _Machine({
 });
 typedef _I = ListInput<_Machine>;
 
-class const Y2025D10Visualizer() extends DayVisualizer<_I> {
-  this : super(parts: const {1: .new(_part1), 2: .new(_part2)});
+const y2025D10Visualizer = DayVisualizer<_I>(
+  parts: {1: .new(_Part1.new), 2: .new(_Part2.new)},
+);
+
+class const _Part1(final _I input) extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return _MachineSwitcher(
+      machines: input.values,
+      builder: _MachineIndicatorLightSimulation.new,
+    );
+  }
 }
 
-Widget _part1(_I input) => _MachineSwitcher(
-  machines: input.values,
-  builder: _MachineIndicatorLightSimulation.new,
-);
-
-Widget _part2(_I input) => _MachineSwitcher(
-  machines: input.values,
-  builder: _MachineJoltageSimulation.new,
-);
+class const _Part2(final _I input) extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return _MachineSwitcher(
+      machines: input.values,
+      builder: _MachineJoltageSimulation.new,
+    );
+  }
+}
 
 class const _MachineSwitcher({
   required final List<_Machine> machines,

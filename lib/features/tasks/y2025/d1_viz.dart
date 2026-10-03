@@ -17,12 +17,13 @@ import 'package:more/collection.dart';
 
 typedef _I = ListInput<String>;
 
-class const Y2025D1Visualizer() extends DayVisualizer<_I> {
-  this : super(commonVisualizer: const .new(_part1and2));
-}
+const y2025D1Visualizer = DayVisualizer<_I>(
+  commonVisualizer: .new(_Part1And2.new),
+);
 
-Widget _part1and2(_I input) => HookBuilder(
-  builder: (context) {
+class const _Part1And2(final _I input) extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
     final itemIndex = useState(0);
 
     final tapeController = useDisposable(
@@ -143,8 +144,8 @@ Widget _part1and2(_I input) => HookBuilder(
         ),
       ],
     );
-  },
-);
+  }
+}
 
 const _tapeItemSize = 100.0;
 const _currentBorderGap = AocUnit.medium;

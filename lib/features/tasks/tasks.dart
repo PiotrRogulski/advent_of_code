@@ -161,11 +161,7 @@ const allYears = {
 };
 
 const visualizers = <int, Map<int, DayVisualizer>>{
-  2025: {
-    1: Y2025D1Visualizer(),
-    4: Y2025D4Visualizer(),
-    10: Y2025D10Visualizer(),
-  },
+  2025: {1: y2025D1Visualizer, 4: y2025D4Visualizer, 10: y2025D10Visualizer},
 };
 
 YearData getYear(int year) => allYears[year]!;
