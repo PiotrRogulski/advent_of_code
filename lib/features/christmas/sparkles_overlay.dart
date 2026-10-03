@@ -30,7 +30,8 @@ extension on _Sparkle {
   double get progress =>
       age.inMicroseconds / _SparklesOverlay._sparkleLifespan.inMicroseconds;
 
-  Offset get center => .new(x, y + 50 * pow(progress, 2).toDouble());
+  Offset get center =>
+      .new(x, y + 50 * progress + 100 * pow(progress, 2).toDouble());
 }
 
 class const _SparklesOverlay({required final Widget child}) extends HookWidget {

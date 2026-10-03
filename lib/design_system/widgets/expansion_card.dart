@@ -1,4 +1,5 @@
 import 'package:advent_of_code/design_system/border.dart';
+import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/unit.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
@@ -22,60 +23,66 @@ class const AocExpansionCard({
 
     final isExpanded = useState(false);
 
-    return Card(
-      margin: margin,
-      child: ExpansionTile(
-        title: Row(
-          mainAxisAlignment: .spaceBetween,
-          children: [
-            Expanded(
-              child: Row(
-                spacing: AocUnit.small,
-                children: [AocText(title), ?titleTrailing],
+    return DynamicWeight.builder(
+      builder: (context) => Card(
+        margin: margin,
+        child: ExpansionTile(
+          statesController: DynamicWeight.of(context).controller,
+          title: Row(
+            mainAxisAlignment: .spaceBetween,
+            children: [
+              Expanded(
+                child: Row(
+                  spacing: AocUnit.small,
+                  children: [
+                    Flexible(child: AocText(title)),
+                    ?titleTrailing,
+                  ],
+                ),
               ),
-            ),
-            ?trailing,
-            AocUnit.small.gap,
-            AnimatedRotation(
-              turns: isExpanded.value ? 0.25 : -0.25,
-              duration: Durations.medium1,
-              curve: Curves.easeInOutCubicEmphasized,
-              child: const AocIcon(.chevronLeft, size: .large),
+              ?trailing,
+              AocUnit.small.gap,
+              AnimatedRotation(
+                turns: isExpanded.value ? 0.25 : -0.25,
+                duration: Durations.medium1,
+                curve: Curves.easeInOutCubicEmphasized,
+                child: const AocIcon(.chevronLeft, size: .large),
+              ),
+            ],
+          ),
+          minTileHeight: AocUnit.xlarge * 2,
+          tilePadding: const AocEdgeInsets.only(start: .xlarge, end: .large),
+          maintainState: true,
+          expandedCrossAxisAlignment: .stretch,
+          expandedAlignment: .bottomCenter,
+          expansionAnimationStyle: .new(
+            curve: Curves.easeInOutCubicEmphasized,
+            reverseCurve: Curves.easeInOutCubicEmphasized.flipped,
+            duration: Durations.medium1,
+          ),
+          showTrailingIcon: false,
+          onExpansionChanged: (value) => isExpanded.value = value,
+          shape: const Border(),
+          collapsedShape: const Border(),
+          children: [
+            ?aboveBody,
+            Card(
+              margin: const AocEdgeInsets.only(
+                start: .small,
+                end: .small,
+                bottom: .small,
+              ),
+              color: colors.surface,
+              shape: AocBorder(.medium),
+              child: AnimatedSize(
+                duration: Durations.medium1,
+                curve: Curves.easeInOutCubicEmphasized,
+                alignment: bodyAlignment,
+                child: body,
+              ),
             ),
           ],
         ),
-        minTileHeight: AocUnit.xlarge * 2,
-        tilePadding: const AocEdgeInsets.only(start: .xlarge, end: .large),
-        maintainState: true,
-        expandedCrossAxisAlignment: .stretch,
-        expandedAlignment: .bottomCenter,
-        expansionAnimationStyle: .new(
-          curve: Curves.easeInOutCubicEmphasized,
-          reverseCurve: Curves.easeInOutCubicEmphasized.flipped,
-          duration: Durations.medium1,
-        ),
-        showTrailingIcon: false,
-        onExpansionChanged: (value) => isExpanded.value = value,
-        shape: const Border(),
-        collapsedShape: const Border(),
-        children: [
-          ?aboveBody,
-          Card(
-            margin: const AocEdgeInsets.only(
-              start: .small,
-              end: .small,
-              bottom: .small,
-            ),
-            color: colors.surface,
-            shape: AocBorder(.medium),
-            child: AnimatedSize(
-              duration: Durations.medium1,
-              curve: Curves.easeInOutCubicEmphasized,
-              alignment: bodyAlignment,
-              child: body,
-            ),
-          ),
-        ],
       ),
     );
   }
