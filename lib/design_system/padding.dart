@@ -1,12 +1,11 @@
 import 'package:advent_of_code/design_system/unit.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class AocPadding extends StatelessWidget {
-  const AocPadding({super.key, required this.padding, required this.child});
-
-  final AocEdgeInsets padding;
-  final Widget child;
-
+class const AocPadding({
+  super.key,
+  required final AocEdgeInsets padding,
+  required final Widget child,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // This is the definition
@@ -15,16 +14,11 @@ class AocPadding extends StatelessWidget {
   }
 }
 
-class AocSliverPadding extends StatelessWidget {
-  const AocSliverPadding({
-    super.key,
-    required this.padding,
-    required this.sliver,
-  });
-
-  final AocEdgeInsets padding;
-  final Widget sliver;
-
+class const AocSliverPadding({
+  super.key,
+  required final AocEdgeInsets padding,
+  required final Widget sliver,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // This is the definition
@@ -36,16 +30,16 @@ class AocSliverPadding extends StatelessWidget {
 // This is the definition
 // ignore: leancode_lint/use_design_system_item
 class AocEdgeInsets extends EdgeInsetsDirectional {
-  const AocEdgeInsets.all(AocUnit super.value) : super.all();
+  const new all(AocUnit super.value) : super.all();
 
-  const AocEdgeInsets.only({
+  const new only({
     AocUnit super.start = .zero,
     AocUnit super.top = .zero,
     AocUnit super.end = .zero,
     AocUnit super.bottom = .zero,
   }) : super.only();
 
-  const AocEdgeInsets.symmetric({
+  const new symmetric({
     AocUnit super.horizontal = .zero,
     AocUnit super.vertical = .zero,
   }) : super.symmetric();

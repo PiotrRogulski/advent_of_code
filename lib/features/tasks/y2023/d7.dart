@@ -10,8 +10,8 @@ typedef _HandWithBid = ({List<_Card> hand, int bid});
 typedef _I = ListInput<_HandWithBid>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D7 extends DayData<_I> {
-  const Y2023D7() : super(2023, 7, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D7() extends DayData<_I> {
+  this : super(2023, 7, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -28,8 +28,8 @@ class Y2023D7 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -40,8 +40,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -52,7 +52,7 @@ class _P2 extends PartImplementation<_I, _O> {
   );
 }
 
-enum _Card implements Comparable<_Card> {
+enum _Card(final String symbol) implements Comparable<_Card> {
   n2('2'),
   n3('3'),
   n4('4'),
@@ -67,10 +67,7 @@ enum _Card implements Comparable<_Card> {
   k('K'),
   a('A');
 
-  const _Card(this.symbol);
-  factory _Card.fromSymbol(String s) => values.firstWhere((e) => e.symbol == s);
-
-  final String symbol;
+  factory fromSymbol(String s) => values.firstWhere((e) => e.symbol == s);
 
   @override
   int compareTo(_Card other) => index.compareTo(other.index);
@@ -79,7 +76,7 @@ enum _Card implements Comparable<_Card> {
   String toString() => symbol;
 }
 
-enum _HandType implements Comparable<_HandType> {
+enum _HandType() implements Comparable<_HandType> {
   highCard,
   onePair,
   twoPair,

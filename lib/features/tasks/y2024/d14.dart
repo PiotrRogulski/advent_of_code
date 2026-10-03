@@ -11,8 +11,8 @@ typedef _O = NumericOutput<int>;
 
 typedef _Robot = ({({int x, int y}) position, ({int dx, int dy}) velocity});
 
-class Y2024D14 extends DayData<_I> {
-  const Y2024D14() : super(2024, 14, parts: const {1: _P1(), 2: _P2()});
+class const Y2024D14() extends DayData<_I> {
+  this : super(2024, 14, parts: const {1: _P1(), 2: _P2()});
 
   static final robotRegex = RegExp(
     r'p=(?<px>\d+),(?<py>\d+) v=(?<vx>(\d|-)+),(?<vy>(\d|-)+)',
@@ -42,8 +42,8 @@ class Y2024D14 extends DayData<_I> {
 
 const _boardSize = (width: 101, height: 103);
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -68,8 +68,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -107,4 +107,10 @@ extension on ({int dx, int dy}) {
   ({int dx, int dy}) operator *(int other) => (dx: dx * other, dy: dy * other);
 }
 
-enum _Quadrant { topLeft, topRight, bottomLeft, bottomRight, none }
+enum _Quadrant() {
+  topLeft,
+  topRight,
+  bottomLeft,
+  bottomRight,
+  none,
+}

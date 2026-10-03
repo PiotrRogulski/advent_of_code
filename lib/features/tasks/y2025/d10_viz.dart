@@ -11,8 +11,8 @@ import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:more/more.dart' hide IndexedIterableExtension;
 import 'package:z3/z3.dart';
 
@@ -23,9 +23,8 @@ typedef _Machine = ({
 });
 typedef _I = ListInput<_Machine>;
 
-class Y2025D10Visualizer extends DayVisualizer<_I> {
-  const Y2025D10Visualizer()
-    : super(2025, 10, parts: const {1: .new(_part1), 2: .new(_part2)});
+class const Y2025D10Visualizer() extends DayVisualizer<_I> {
+  this : super(2025, 10, parts: const {1: .new(_part1), 2: .new(_part2)});
 }
 
 Widget _part1(_I input) => _MachineSwitcher(
@@ -38,17 +37,15 @@ Widget _part2(_I input) => _MachineSwitcher(
   builder: _MachineJoltageSimulation.new,
 );
 
-class _MachineSwitcher extends HookWidget {
-  const _MachineSwitcher({required this.machines, required this.builder});
-
-  final List<_Machine> machines;
-  final Widget Function({
+class const _MachineSwitcher({
+  required final List<_Machine> machines,
+  required final Widget Function({
     required int index,
     required _Machine machine,
     required VoidCallback goToNext,
   })
-  builder;
-
+  builder,
+}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final currentMachineIndex = useState(0);
@@ -84,17 +81,11 @@ class _MachineSwitcher extends HookWidget {
   }
 }
 
-class _MachineIndicatorLightSimulation extends HookWidget {
-  const _MachineIndicatorLightSimulation({
-    required this.index,
-    required this.machine,
-    required this.goToNext,
-  });
-
-  final int index;
-  final _Machine machine;
-  final VoidCallback goToNext;
-
+class const _MachineIndicatorLightSimulation({
+  required final int index,
+  required final _Machine machine,
+  required final VoidCallback goToNext,
+}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final targetButtons = useMemoized(
@@ -153,21 +144,13 @@ class _MachineIndicatorLightSimulation extends HookWidget {
   }
 }
 
-class _MachineView extends StatelessWidget {
-  const _MachineView({
-    required this.index,
-    required this.machine,
-    required this.buttonBuilder,
-    required this.topRowBuilder,
-    required this.bottomRowBuilder,
-  });
-
-  final int index;
-  final _Machine machine;
-  final Widget Function(int index) buttonBuilder;
-  final Widget Function(int index) topRowBuilder;
-  final Widget Function(int index) bottomRowBuilder;
-
+class const _MachineView({
+  required final int index,
+  required final _Machine machine,
+  required final Widget Function(int index) buttonBuilder,
+  required final Widget Function(int index) topRowBuilder,
+  required final Widget Function(int index) bottomRowBuilder,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -232,9 +215,9 @@ class _MachineView extends StatelessWidget {
 }
 
 class _MachineLight extends StatelessWidget {
-  const _MachineLight({required this.isActive}) : size = AocUnit.xlarge * 2;
+  const new({required this.isActive}) : size = AocUnit.xlarge * 2;
 
-  const _MachineLight.small({required this.isActive}) : size = AocUnit.large;
+  const new small({required this.isActive}) : size = AocUnit.large;
 
   final bool isActive;
   final AocUnit size;
@@ -275,11 +258,8 @@ class _MachineLight extends StatelessWidget {
   }
 }
 
-class _MachineButton extends StatelessWidget {
-  const _MachineButton({required this.isPressed});
-
-  final bool isPressed;
-
+class const _MachineButton({required final bool isPressed})
+    extends StatelessWidget {
   static final size = AocUnit.xlarge * 2;
   static const borderRadius = AocUnit.medium;
 
@@ -333,17 +313,11 @@ class _MachineButton extends StatelessWidget {
   }
 }
 
-class _MachineJoltageSimulation extends HookWidget {
-  const _MachineJoltageSimulation({
-    required this.index,
-    required this.machine,
-    required this.goToNext,
-  });
-
-  final int index;
-  final _Machine machine;
-  final VoidCallback goToNext;
-
+class const _MachineJoltageSimulation({
+  required final int index,
+  required final _Machine machine,
+  required final VoidCallback goToNext,
+}) extends HookWidget {
   static List<int> _calculateCounts(_Machine machine) {
     setupZ3();
 
@@ -445,12 +419,15 @@ class _MachineJoltageSimulation extends HookWidget {
   }
 }
 
-enum _CounterSize { large, small }
+enum _CounterSize() {
+  large,
+  small,
+}
 
 class _MachineCounter extends HookWidget {
-  const _MachineCounter({required this.value}) : variant = .large;
+  const new({required this.value}) : variant = .large;
 
-  const _MachineCounter.small({required this.value}) : variant = .small;
+  const new small({required this.value}) : variant = .small;
 
   final int value;
   final _CounterSize variant;
@@ -511,11 +488,8 @@ class _MachineCounter extends HookWidget {
   }
 }
 
-class _MachineCounterButton extends HookWidget {
-  const _MachineCounterButton({required this.pressedCount});
-
-  final int pressedCount;
-
+class const _MachineCounterButton({required final int pressedCount})
+    extends HookWidget {
   static final size = AocUnit.xlarge * 2;
   static const borderRadius = AocUnit.medium;
 

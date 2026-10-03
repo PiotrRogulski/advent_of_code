@@ -10,16 +10,15 @@ import 'package:advent_of_code/design_system/unit.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:more/collection.dart';
 
 typedef _I = ListInput<String>;
 
-class Y2025D1Visualizer extends DayVisualizer<_I> {
-  const Y2025D1Visualizer()
-    : super(2025, 1, commonVisualizer: const .new(_part1and2));
+class const Y2025D1Visualizer() extends DayVisualizer<_I> {
+  this : super(2025, 1, commonVisualizer: const .new(_part1and2));
 }
 
 Widget _part1and2(_I input) => HookBuilder(
@@ -150,17 +149,11 @@ Widget _part1and2(_I input) => HookBuilder(
 const _tapeItemSize = 100.0;
 const _currentBorderGap = AocUnit.medium;
 
-class _TapeView extends StatelessWidget {
-  const _TapeView({
-    required this.input,
-    required this.itemIndex,
-    required this.controller,
-  });
-
-  final _I input;
-  final int itemIndex;
-  final FixedExtentScrollController controller;
-
+class const _TapeView({
+  required final _I input,
+  required final int itemIndex,
+  required final FixedExtentScrollController controller,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -227,12 +220,8 @@ class _TapeView extends StatelessWidget {
   }
 }
 
-class _TapeItem extends StatelessWidget {
-  const _TapeItem(this.item, {required this.current});
-
-  final String item;
-  final bool current;
-
+class const _TapeItem(final String item, {required final bool current})
+    extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -258,11 +247,8 @@ class _TapeItem extends StatelessWidget {
   }
 }
 
-class _DialView extends HookWidget {
-  const _DialView({required this.controller});
-
-  final AnimationController controller;
-
+class const _DialView({required final AnimationController controller})
+    extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -291,15 +277,10 @@ class _DialView extends HookWidget {
   }
 }
 
-class _DialPainter extends CustomPainter {
-  const _DialPainter({
-    required this.colorScheme,
-    required this.rotationRadians,
-  });
-
-  final ColorScheme colorScheme;
-  final double rotationRadians;
-
+class const _DialPainter({
+  required final ColorScheme colorScheme,
+  required final double rotationRadians,
+}) extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final dialSize = size.shortestSide * 2 / 3;
@@ -369,15 +350,10 @@ class _DialPainter extends CustomPainter {
       rotationRadians != oldDelegate.rotationRadians;
 }
 
-class _Stats extends StatelessWidget {
-  const _Stats({
-    required this.timesStoppedAtZero,
-    required this.timesPassedZero,
-  });
-
-  final int timesStoppedAtZero;
-  final int timesPassedZero;
-
+class const _Stats({
+  required final int timesStoppedAtZero,
+  required final int timesPassedZero,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;

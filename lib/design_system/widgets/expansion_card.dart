@@ -3,29 +3,19 @@ import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/unit.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 
-class AocExpansionCard extends HookWidget {
-  const AocExpansionCard({
-    super.key,
-    required this.title,
-    this.titleTrailing,
-    this.trailing,
-    this.margin,
-    this.bodyAlignment = .topCenter,
-    this.aboveBody,
-    this.body,
-  });
-
-  final String title;
-  final Widget? titleTrailing;
-  final Widget? trailing;
-  final AocEdgeInsets? margin;
-  final AlignmentGeometry bodyAlignment;
-  final Widget? aboveBody;
-  final Widget? body;
-
+class const AocExpansionCard({
+  super.key,
+  required final String title,
+  final Widget? titleTrailing,
+  final Widget? trailing,
+  final AocEdgeInsets? margin,
+  final AlignmentGeometry bodyAlignment = .topCenter,
+  final Widget? aboveBody,
+  final Widget? body,
+}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;

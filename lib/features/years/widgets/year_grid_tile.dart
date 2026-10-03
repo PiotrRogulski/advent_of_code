@@ -1,16 +1,10 @@
 part of '../years_page.dart';
 
-class _YearGridTile extends StatelessWidget {
-  const _YearGridTile({
-    required this.year,
-    required this.progress,
-    required this.completeProgress,
-  });
-
-  final int year;
-  final double progress;
-  final double completeProgress;
-
+class const _YearGridTile({
+  required final int year,
+  required final double progress,
+  required final double completeProgress,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -61,15 +55,10 @@ class _YearGridTile extends StatelessWidget {
   }
 }
 
-class _ProgressIndicator extends StatelessWidget {
-  const _ProgressIndicator({
-    required this.progress,
-    required this.completeProgress,
-  });
-
-  final double progress;
-  final double completeProgress;
-
+class const _ProgressIndicator({
+  required final double progress,
+  required final double completeProgress,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;

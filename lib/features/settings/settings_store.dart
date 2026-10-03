@@ -2,12 +2,12 @@ import 'package:advent_of_code/common/utils/persistent_store.dart';
 import 'package:advent_of_code/features/settings/app_locale.dart';
 import 'package:advent_of_code/shared_preferences.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rxdart/rxdart.dart';
 
-class SettingsStore extends PersistentStore<SettingsData> {
-  SettingsStore({required AppSharedPreferences prefs})
-    : super(read: prefs.readSettings, write: prefs.writeSettings);
+class SettingsStore({required AppSharedPreferences prefs})
+    extends PersistentStore<SettingsData> {
+  this : super(read: prefs.readSettings, write: prefs.writeSettings);
 
   @override
   SettingsData get data => .new(
@@ -31,15 +31,15 @@ class SettingsStore extends PersistentStore<SettingsData> {
   late final BehaviorSubject<bool> christmasSpirit;
 }
 
-class SettingsData with EquatableMixin {
-  const SettingsData({
+class SettingsData with Equatable {
+  const new({
     required this.themeMode,
     required this.useSystemTheme,
     required this.locale,
     required this.christmasSpirit,
   });
 
-  SettingsData.fromJson(Map<String, dynamic> json)
+  new fromJson(Map<String, dynamic> json)
     : themeMode = .values.byName(json['themeMode'] as String),
       useSystemTheme = json['useSystemTheme'] as bool,
       locale = .fromCode(json['locale'] as String?),

@@ -14,22 +14,16 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
-class PartStatus extends HookWidget {
-  const PartStatus({
-    super.key,
-    required this.store,
-    required this.data,
-    required this.partNumber,
-  });
-
-  final PartStatusStore store;
-  final PartInput data;
-  final int partNumber;
-
+class const PartStatus({
+  super.key,
+  required final PartStatusStore store,
+  required final PartInput data,
+  required final int partNumber,
+}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;
@@ -99,12 +93,10 @@ class PartStatus extends HookWidget {
   }
 }
 
-class _RunInfoTile extends StatelessWidget {
-  const _RunInfoTile({required this.run, required this.trailing});
-
-  final RunInfo run;
-  final Widget? trailing;
-
+class const _RunInfoTile({
+  required final RunInfo run,
+  required final Widget? trailing,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;

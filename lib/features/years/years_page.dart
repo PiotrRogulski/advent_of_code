@@ -12,20 +12,18 @@ import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:advent_of_code/router/routes.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 
 part 'widgets/year_grid_tile.dart';
 part 'widgets/year_list_tile.dart';
 
-class YearsPage extends AocPage {
-  const YearsPage() : super(child: const YearsScreen());
+class const YearsPage() extends AocPage {
+  this : super(child: const YearsScreen());
 }
 
-class YearsScreen extends StatelessWidget {
-  const YearsScreen({super.key});
-
+class const YearsScreen({super.key}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;

@@ -4,8 +4,8 @@ import 'package:advent_of_code/features/settings/settings_page.dart';
 import 'package:advent_of_code/features/years/year_page.dart';
 import 'package:advent_of_code/features/years/years_page.dart';
 import 'package:advent_of_code/router/app_shell.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 
 part 'branches/home.dart';
 part 'branches/settings.dart';
@@ -50,9 +50,7 @@ final router = GoRouter(
     ),
   ],
 )
-class MainRoute extends StatefulShellRouteData {
-  const MainRoute();
-
+class const MainRoute() extends StatefulShellRouteData {
   @override
   Widget builder(
     BuildContext context,

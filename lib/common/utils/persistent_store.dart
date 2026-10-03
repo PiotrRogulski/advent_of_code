@@ -2,12 +2,13 @@ import 'package:dispose_scope/dispose_scope.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
-abstract class PersistentStore<T extends Object> {
-  PersistentStore({required T? Function() read, required this.write}) {
+abstract class PersistentStore<T extends Object>({
+  required T? Function() read,
+  required final void Function(T) write,
+}) {
+  this {
     restore(read());
   }
-
-  final void Function(T) write;
 
   void restore(T? data);
 

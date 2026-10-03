@@ -4,13 +4,10 @@ import 'package:advent_of_code/design_system/unit.dart';
 import 'package:advent_of_code/design_system/widgets/icon_button.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class VisualizerDialog extends StatelessWidget {
-  const VisualizerDialog._({required this.partVisualizer});
-
-  final Widget partVisualizer;
-
+class const VisualizerDialog._({required final Widget partVisualizer})
+    extends StatelessWidget {
   static const _duration = Durations.medium4;
 
   static String heroTag({required int? partNumber}) =>

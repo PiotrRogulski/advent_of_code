@@ -4,13 +4,13 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:meta/meta.dart';
 
 typedef _I = ListInput<_Command>;
 typedef _O = NumericOutput<int>;
 
-class Y2022D7 extends DayData<_I> {
-  const Y2022D7() : super(2022, 7, parts: const {1: _P1(), 2: _P2()});
+class const Y2022D7() extends DayData<_I> {
+  this : super(2022, 7, parts: const {1: _P1(), 2: _P2()});
 
   static final _lineDelimRegex = RegExp(r'\n(?=\$)');
 
@@ -38,8 +38,8 @@ class Y2022D7 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -52,8 +52,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -69,56 +69,32 @@ class _P2 extends PartImplementation<_I, _O> {
   );
 }
 
-sealed class _Command {
-  const _Command();
-}
+sealed class const _Command();
 
-class _ChangeDirectory extends _Command {
-  const _ChangeDirectory(this.path);
-
-  final String path;
-
+class const _ChangeDirectory(final String path) extends _Command {
   @override
   String toString() => 'cd $path';
 }
 
-class _ListDirectory extends _Command {
-  const _ListDirectory(this.files);
-
-  final List<_FileListing> files;
-
+class const _ListDirectory(final List<_FileListing> files) extends _Command {
   @override
   String toString() => 'ls ${files.map((e) => e.toString()).join(', ')}';
 }
 
-sealed class _FileListing {
-  const _FileListing();
-}
+sealed class const _FileListing();
 
-class _DirectoryLsEntry extends _FileListing {
-  const _DirectoryLsEntry(this.name);
-
-  final String name;
-
+class const _DirectoryLsEntry(final String name) extends _FileListing {
   @override
   String toString() => 'dir $name';
 }
 
-class _FileLsEntry extends _FileListing {
-  const _FileLsEntry(this.name, this.size);
-
-  final String name;
-  final int size;
-
+class const _FileLsEntry(final String name, final int size)
+    extends _FileListing {
   @override
   String toString() => '$size $name';
 }
 
-sealed class _FsEntity {
-  const _FsEntity(this.name);
-
-  final String name;
-
+sealed class const _FsEntity(final String name) {
   int get size;
 
   String toRichString() => _toRichStringInternal(0);
@@ -127,12 +103,11 @@ sealed class _FsEntity {
   String _toRichStringInternal(int level);
 }
 
-class _Directory extends _FsEntity {
-  _Directory(super.name, List<_FsEntity> children)
-    : children = .new(EqualityBy((e) => e.name))..addAll(children);
-  _Directory.root() : this('', []);
+class _Directory(super.name, List<_FsEntity> children) extends _FsEntity {
+  new root() : this('', []);
 
-  final EqualitySet<_FsEntity> children;
+  final children = EqualitySet<_FsEntity>(EqualityBy((e) => e.name))
+    ..addAll(children);
 
   @override
   int get size => children.map((e) => e.size).sum;
@@ -152,12 +127,7 @@ class _Directory extends _FsEntity {
   String toString() => '$_Directory($name, ${children.length} children)';
 }
 
-class _File extends _FsEntity {
-  const _File(super.name, this.size);
-
-  @override
-  final int size;
-
+class const _File(super.name, @override final int size) extends _FsEntity {
   @override
   String _toRichStringInternal(int level) {
     final buffer = StringBuffer()
@@ -168,10 +138,7 @@ class _File extends _FsEntity {
   }
 }
 
-class _FsExplorer {
-  _FsExplorer(this.root);
-
-  final _Directory root;
+class _FsExplorer(final _Directory root) {
   late final List<_Directory> currentPath = [root];
 
   String get cwd => currentPath.map((e) => e.name).join('/');

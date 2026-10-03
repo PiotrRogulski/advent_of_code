@@ -9,8 +9,8 @@ import 'package:collection/collection.dart';
 typedef _I = ObjectInput<({Matrix<_Entity> map, List<_Move> moves})>;
 typedef _O = NumericOutput<int>;
 
-class Y2024D15 extends DayData<_I> {
-  const Y2024D15() : super(2024, 15, parts: const {1: _P1(), 2: _P2()});
+class const Y2024D15() extends DayData<_I> {
+  this : super(2024, 15, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -45,8 +45,8 @@ class Y2024D15 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -59,8 +59,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -202,48 +202,38 @@ void _push(Matrix<_Entity2> map, MatrixIndex box, MatrixIndexDelta dir) {
     ..setIndex(side, .empty);
 }
 
-enum _Entity {
+enum _Entity(final String symbol) {
   wall('#'),
   box('O'),
   robot('@'),
   empty('.');
 
-  const _Entity(this.symbol);
-  factory _Entity.fromSymbol(String symbol) =>
+  factory fromSymbol(String symbol) =>
       values.firstWhere((e) => e.symbol == symbol);
-
-  final String symbol;
 
   @override
   String toString() => symbol;
 }
 
-enum _Entity2 {
+enum _Entity2(final String symbol) {
   wall('#'),
   boxL('['),
   boxR(']'),
   robot('@'),
   empty('.');
 
-  const _Entity2(this.symbol);
-
-  final String symbol;
-
   @override
   String toString() => symbol;
 }
 
-enum _Move {
+enum _Move(final String symbol) {
   up('^'),
   down('v'),
   left('<'),
   right('>');
 
-  const _Move(this.symbol);
-  factory _Move.fromSymbol(String symbol) =>
+  factory fromSymbol(String symbol) =>
       values.firstWhere((e) => e.symbol == symbol);
-
-  final String symbol;
 
   @override
   String toString() => symbol;

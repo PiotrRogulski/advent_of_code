@@ -2,7 +2,7 @@ import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
-import 'package:flutter/material.dart';
+import 'package:characters/characters.dart';
 
 typedef _Cell = ({int r, int c});
 typedef _Delta = ({int dr, int dc});
@@ -11,8 +11,8 @@ typedef _Move = ({_Dir direction, int steps, String colorHex});
 typedef _I = ListInput<_Move>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D18 extends DayData<_I> {
-  const Y2023D18() : super(2023, 18, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D18() extends DayData<_I> {
+  this : super(2023, 18, parts: const {1: _P1(), 2: _P2()});
 
   static final _moveRegex = RegExp(
     r'^(?<dir>[UDLR]) (?<steps>\d+) \(#(?<colorHex>[0-9a-f]{6})\)$',
@@ -35,15 +35,15 @@ class Y2023D18 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(_area(inputData.values));
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -84,16 +84,13 @@ int _area(Iterable<({String colorHex, _Dir direction, int steps})> points) {
   return area + perimeter ~/ 2 + 1;
 }
 
-enum _Dir {
+enum _Dir(final String symbol) {
   up('U'),
   down('D'),
   left('L'),
   right('R');
 
-  const _Dir(this.symbol);
-  factory _Dir.fromSymbol(String s) => values.firstWhere((e) => e.symbol == s);
-
-  final String symbol;
+  factory fromSymbol(String s) => values.firstWhere((e) => e.symbol == s);
 
   @override
   String toString() => symbol;

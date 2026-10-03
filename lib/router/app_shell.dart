@@ -1,21 +1,19 @@
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
-import 'package:flutter/material.dart';
+// AdaptiveScaffold uses legacy Material library
+// ignore: migrate_design_widgets
+import 'package:flutter/material.dart' show NavigationDestination;
 import 'package:flutter/services.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart' hide NavigationDestination;
 
-class AocAppShell extends StatelessWidget {
-  const AocAppShell({
-    super.key,
-    required this.routerState,
-    required this.navigationShell,
-  });
-
-  final GoRouterState routerState;
-  final StatefulNavigationShell navigationShell;
-
+class const AocAppShell({
+  super.key,
+  required final GoRouterState routerState,
+  required final StatefulNavigationShell navigationShell,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;
@@ -67,32 +65,27 @@ class AocAppShell extends StatelessWidget {
   }
 }
 
-class _Destination extends NavigationDestination {
-  _Destination({
-    required AocIconData icon,
-    required super.label,
-    required int index,
-    required int currentIndex,
-  }) : super(
-         icon: _DestinationIcon(
-           icon: icon,
-           index: index,
-           currentIndex: currentIndex,
-         ),
-       );
+class _Destination({
+  required AocIconData icon,
+  required super.label,
+  required int index,
+  required int currentIndex,
+}) extends NavigationDestination {
+  this
+    : super(
+        icon: _DestinationIcon(
+          icon: icon,
+          index: index,
+          currentIndex: currentIndex,
+        ),
+      );
 }
 
-class _DestinationIcon extends StatelessWidget {
-  const _DestinationIcon({
-    required this.icon,
-    required this.index,
-    required this.currentIndex,
-  });
-
-  final AocIconData icon;
-  final int index;
-  final int currentIndex;
-
+class const _DestinationIcon({
+  required final AocIconData icon,
+  required final int index,
+  required final int currentIndex,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;

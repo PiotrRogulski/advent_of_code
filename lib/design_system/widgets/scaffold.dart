@@ -5,21 +5,15 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:advent_of_code/design_system/widgets/icon_button.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 
-class AocScaffold extends HookWidget {
-  const AocScaffold({
-    super.key,
-    required this.title,
-    this.bodySlivers = const [],
-    this.actions = const [],
-  });
-
-  final String title;
-  final List<Widget> bodySlivers;
-  final List<Widget> actions;
-
+class const AocScaffold({
+  super.key,
+  required final String title,
+  final List<Widget> bodySlivers = const [],
+  final List<Widget> actions = const [],
+}) extends HookWidget {
   static const _expandedHeight = 152.0;
   static const _collapsedHeight = 64.0;
   static const _titleArmedDistance = _expandedHeight - _collapsedHeight;

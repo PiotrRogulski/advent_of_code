@@ -1,19 +1,14 @@
 import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:advent_of_code/shared_preferences.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AocProviders extends StatelessWidget {
-  const AocProviders({
-    super.key,
-    required this.sharedPreferences,
-    required this.child,
-  });
-
-  final SharedPreferences sharedPreferences;
-  final Widget child;
-
+class const AocProviders({
+  super.key,
+  required final SharedPreferences sharedPreferences,
+  required final Widget child,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

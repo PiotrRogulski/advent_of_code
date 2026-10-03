@@ -4,26 +4,17 @@ import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/unit.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:advent_of_code/design_system/widgets/ink_well.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class AocIconButton extends StatelessWidget {
-  const AocIconButton({
-    super.key,
-    required this.icon,
-    required this.iconSize,
-    this.onPressed,
-    this.color,
-    this.fill,
-    this.iconPadding,
-  });
-
-  final AocIconData icon;
-  final AocUnit iconSize;
-  final VoidCallback? onPressed;
-  final Color? color;
-  final double? fill;
-  final AocEdgeInsets? iconPadding;
-
+class const AocIconButton({
+  super.key,
+  required final AocIconData icon,
+  required final AocUnit iconSize,
+  final VoidCallback? onPressed,
+  final Color? color,
+  final double? fill,
+  final AocEdgeInsets? iconPadding,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DynamicWeight(

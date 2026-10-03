@@ -13,24 +13,24 @@ import 'package:advent_of_code/features/day/widgets/part_status.dart';
 import 'package:advent_of_code/features/day/widgets/visualizer_button.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
-class DayPage extends MaterialPage<void> {
-  DayPage({required int year, required int day})
+class DayPage({required int year, required int day})
+    extends MaterialPage<void> {
+  this
     : super(
         child: DayScreen(year: year, day: day),
       );
 }
 
-class DayScreen extends HookWidget {
-  const DayScreen({super.key, required this.year, required this.day});
-
-  final int year;
-  final int day;
-
+class const DayScreen({
+  super.key,
+  required final int year,
+  required final int day,
+}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;
@@ -109,17 +109,11 @@ class DayScreen extends HookWidget {
   }
 }
 
-class _SliverBodyColumn extends StatelessWidget {
-  const _SliverBodyColumn({
-    required this.stores,
-    required this.inputData,
-    required this.useFullData,
-  });
-
-  final List<PartStatusStore> stores;
-  final ({PartInput example, PartInput full}) inputData;
-  final ValueNotifier<bool> useFullData;
-
+class const _SliverBodyColumn({
+  required final List<PartStatusStore> stores,
+  required final ({PartInput example, PartInput full}) inputData,
+  required final ValueNotifier<bool> useFullData,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;
@@ -166,17 +160,11 @@ class _SliverBodyColumn extends StatelessWidget {
   }
 }
 
-class _SliverBodySideBySide extends StatelessWidget {
-  const _SliverBodySideBySide({
-    required this.stores,
-    required this.inputData,
-    required this.useFullData,
-  });
-
-  final List<PartStatusStore> stores;
-  final ({PartInput example, PartInput full}) inputData;
-  final ValueNotifier<bool> useFullData;
-
+class const _SliverBodySideBySide({
+  required final List<PartStatusStore> stores,
+  required final ({PartInput example, PartInput full}) inputData,
+  required final ValueNotifier<bool> useFullData,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;
@@ -228,17 +216,11 @@ class _SliverBodySideBySide extends StatelessWidget {
   }
 }
 
-class _SliverPartList extends StatelessWidget {
-  const _SliverPartList({
-    required this.padding,
-    required this.stores,
-    required this.inputData,
-  });
-
-  final AocEdgeInsets padding;
-  final List<PartStatusStore> stores;
-  final PartInput inputData;
-
+class const _SliverPartList({
+  required final AocEdgeInsets padding,
+  required final List<PartStatusStore> stores,
+  required final PartInput inputData,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AocSliverPadding(
@@ -260,18 +242,12 @@ class _SliverPartList extends StatelessWidget {
   }
 }
 
-class _SliverInputView extends StatelessWidget {
-  const _SliverInputView({
-    super.key,
-    required this.label,
-    required this.padding,
-    required this.inputData,
-  });
-
-  final String label;
-  final AocEdgeInsets padding;
-  final PartInput inputData;
-
+class const _SliverInputView({
+  super.key,
+  required final String label,
+  required final AocEdgeInsets padding,
+  required final PartInput inputData,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AocSliverPadding(

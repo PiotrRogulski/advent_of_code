@@ -7,17 +7,15 @@ import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:advent_of_code/design_system/widgets/switch_list_tile.dart';
 import 'package:advent_of_code/features/settings/app_locale.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
-class SettingsPage extends AocPage {
-  const SettingsPage() : super(child: const SettingsScreen());
+class const SettingsPage() extends AocPage {
+  this : super(child: const SettingsScreen());
 }
 
-class SettingsScreen extends HookWidget {
-  const SettingsScreen({super.key});
-
+class const SettingsScreen({super.key}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;

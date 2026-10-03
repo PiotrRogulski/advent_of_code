@@ -1,23 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-sealed class PartOutput with EquatableMixin {
-  const PartOutput();
-}
+sealed class const PartOutput() with Equatable;
 
-class StringOutput extends PartOutput {
-  const StringOutput(this.value);
-
-  final String value;
-
+class const StringOutput(final String value) extends PartOutput {
   @override
   List<Object?> get props => [value];
 }
 
-class NumericOutput<T extends num> extends PartOutput {
-  const NumericOutput(this.value);
-
-  final T value;
-
+class const NumericOutput<T extends num>(final T value) extends PartOutput {
   @override
   List<Object?> get props => [value];
 }

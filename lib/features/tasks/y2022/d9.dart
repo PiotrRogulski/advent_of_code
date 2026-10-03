@@ -11,8 +11,8 @@ const _origin = (x: 0, y: 0);
 
 typedef _StepAccumulator = ({List<_Point> rope, Set<_Point> tailHistory});
 
-class Y2022D9 extends DayData<_I> {
-  const Y2022D9() : super(2022, 9, parts: const {1: _P1(), 2: _P2()});
+class const Y2022D9() extends DayData<_I> {
+  this : super(2022, 9, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -24,15 +24,15 @@ class Y2022D9 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => _run(inputData, 2);
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => _run(inputData, 10);
@@ -76,16 +76,12 @@ _StepAccumulator _performMove(_StepAccumulator acc, _Move move) {
   return (rope: newRope, tailHistory: {...tailHistory, newRope.last});
 }
 
-enum _Move {
+enum _Move(final String symbol) {
   right('R'),
   left('L'),
   up('U'),
   down('D');
 
-  const _Move(this.symbol);
-
-  factory _Move.fromSymbol(String symbol) =>
+  factory fromSymbol(String symbol) =>
       values.firstWhere((e) => e.symbol == symbol);
-
-  final String symbol;
 }

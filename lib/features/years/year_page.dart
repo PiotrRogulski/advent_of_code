@@ -7,17 +7,14 @@ import 'package:advent_of_code/design_system/widgets/scaffold.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
 import 'package:advent_of_code/router/routes.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class YearPage extends MaterialPage<void> {
-  YearPage({required int year}) : super(child: YearScreen(year: year));
+class YearPage({required int year}) extends MaterialPage<void> {
+  this : super(child: YearScreen(year: year));
 }
 
-class YearScreen extends StatelessWidget {
-  const YearScreen({super.key, required this.year});
-
-  final int year;
-
+class const YearScreen({super.key, required final int year})
+    extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;

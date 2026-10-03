@@ -12,28 +12,19 @@ import 'package:advent_of_code/design_system/widgets/icon.dart';
 import 'package:advent_of_code/design_system/widgets/ink_well.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
-class _LightsProgram {
-  const _LightsProgram({
-    required this.cycle,
-    required this.icon,
-    required this.intensity,
-  });
+class const _LightsProgram({
+  required final Duration cycle,
+  required final AocIconData icon,
+  required final double Function(int i, double cycleProgress) intensity,
+});
 
-  final Duration cycle;
-  final AocIconData icon;
-  final double Function(int i, double cycleProgress) intensity;
-}
-
-class LightsOverlay extends HookWidget {
-  const LightsOverlay({super.key, required this.child});
-
-  final Widget child;
-
+class const LightsOverlay({super.key, required final Widget child})
+    extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.read<SettingsStore>();
@@ -47,11 +38,7 @@ class LightsOverlay extends HookWidget {
   }
 }
 
-class _LightsOverlay extends HookWidget {
-  const _LightsOverlay({required this.child});
-
-  final Widget child;
-
+class const _LightsOverlay({required final Widget child}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final programIndex = useState(0);
@@ -114,15 +101,10 @@ class _LightsOverlay extends HookWidget {
   }
 }
 
-class _LightsProgramChooser extends StatelessWidget {
-  const _LightsProgramChooser({
-    required this.currentProgram,
-    required this.onProgramChosen,
-  });
-
-  final int currentProgram;
-  final ValueChanged<int> onProgramChosen;
-
+class const _LightsProgramChooser({
+  required final int currentProgram,
+  required final ValueChanged<int> onProgramChosen,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -146,19 +128,12 @@ class _LightsProgramChooser extends StatelessWidget {
   }
 }
 
-class _LightsProgramChooserButton extends HookWidget {
-  const _LightsProgramChooserButton({
-    required this.label,
-    required this.icon,
-    required this.selected,
-    required this.onSelected,
-  });
-
-  final String label;
-  final AocIconData icon;
-  final bool selected;
-  final VoidCallback onSelected;
-
+class const _LightsProgramChooserButton({
+  required final String label,
+  required final AocIconData icon,
+  required final bool selected,
+  required final VoidCallback onSelected,
+}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -202,12 +177,11 @@ class _LightsProgramChooserButton extends HookWidget {
   }
 }
 
-class _LightsPainter extends CustomPainter {
-  const _LightsPainter({required this.program, required this.controller})
-    : super(repaint: controller);
-
-  final _LightsProgram program;
-  final AnimationController controller;
+class const _LightsPainter({
+  required final _LightsProgram program,
+  required final AnimationController controller,
+}) extends CustomPainter {
+  this : super(repaint: controller);
 
   static const _cordColor = Color(0xFF53A553);
   static final _cordPaint = Paint()

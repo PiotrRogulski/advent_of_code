@@ -1,8 +1,8 @@
 import 'package:advent_of_code/design_system/border.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:more/more.dart';
 
-class AocTheme {
+class AocTheme() {
   static const _seedColor = Color(0xFF00FF00);
 
   static final dark = _makeTheme.bind0(.dark);
@@ -50,11 +50,8 @@ class AocTheme {
   );
 }
 
-class AocTextTheme extends StatelessWidget {
-  const AocTextTheme({super.key, required this.child});
-
-  final Widget child;
-
+class const AocTextTheme({super.key, required final Widget child})
+    extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final baseTheme = Theme.of(context);

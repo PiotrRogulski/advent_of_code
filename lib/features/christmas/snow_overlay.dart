@@ -2,16 +2,13 @@ import 'dart:math';
 
 import 'package:advent_of_code/common/hooks/use_value_stream.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:more/collection.dart';
 import 'package:provider/provider.dart';
 
-class SnowOverlay extends HookWidget {
-  const SnowOverlay({super.key, required this.child});
-
-  final Widget child;
-
+class const SnowOverlay({super.key, required final Widget child})
+    extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.read<SettingsStore>();
@@ -37,12 +34,10 @@ typedef _Snowflake = ({
   double rotation,
 });
 
-class _SnowOverlay extends HookWidget {
-  const _SnowOverlay({required this.availableSize, required this.child});
-
-  final Size availableSize;
-  final Widget child;
-
+class const _SnowOverlay({
+  required final Size availableSize,
+  required final Widget child,
+}) extends HookWidget {
   static const _spawnDelay = Duration(milliseconds: 200);
 
   static final _random = Random();
@@ -113,11 +108,8 @@ class _SnowOverlay extends HookWidget {
   }
 }
 
-class _SnowPainter extends CustomPainter {
-  const _SnowPainter({required this.snowflakes});
-
-  final List<_Snowflake> snowflakes;
-
+class const _SnowPainter({required final List<_Snowflake> snowflakes})
+    extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (final snowflake in snowflakes) {

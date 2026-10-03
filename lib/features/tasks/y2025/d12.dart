@@ -13,8 +13,8 @@ typedef _I =
     ObjectInput<({List<Matrix<String>> shapes, List<_Region> regions})>;
 typedef _O = NumericOutput<int>;
 
-class Y2025D12 extends DayData<_I> {
-  const Y2025D12() : super(2025, 12, parts: const {1: _P1()});
+class const Y2025D12() extends DayData<_I> {
+  this : super(2025, 12, parts: const {1: _P1()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -52,8 +52,8 @@ class Y2025D12 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(

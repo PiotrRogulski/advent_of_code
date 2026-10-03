@@ -2,30 +2,30 @@ import 'package:advent_of_code/features/part/part_implementation.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/part/part_output.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
+import 'package:characters/characters.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 
 typedef _Lens = ({String label, int focal});
 
 typedef _I = ListInput<String>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D15 extends DayData<_I> {
-  const Y2023D15() : super(2023, 15, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D15() extends DayData<_I> {
+  this : super(2023, 15, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(rawData.split(','));
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(inputData.values.map(_hash).sum);
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   static final _lensRegex = RegExp(r'^(?<label>\w+)(?:-|=(?<focal>\d+))$');
 

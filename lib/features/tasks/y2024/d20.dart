@@ -10,8 +10,8 @@ import 'package:more/more.dart' hide IndexedIterableExtension;
 typedef _I = MatrixInput<_Tile>;
 typedef _O = NumericOutput<int>;
 
-class Y2024D20 extends DayData<_I> {
-  const Y2024D20() : super(2024, 20, parts: const {1: _P1(), 2: _P2()});
+class const Y2024D20() extends DayData<_I> {
+  this : super(2024, 20, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -23,8 +23,8 @@ class Y2024D20 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -39,8 +39,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   static const toSave = 100;
   static const cheatLength = 20;
@@ -68,17 +68,14 @@ class _P2 extends PartImplementation<_I, _O> {
   );
 }
 
-enum _Tile {
+enum _Tile(final String symbol) {
   track('.'),
   wall('#'),
   start('S'),
   end('E');
 
-  const _Tile(this.symbol);
-  factory _Tile.fromSymbol(String symbol) =>
+  factory fromSymbol(String symbol) =>
       values.firstWhere((tile) => tile.symbol == symbol);
-
-  final String symbol;
 
   @override
   String toString() => symbol;

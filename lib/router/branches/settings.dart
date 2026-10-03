@@ -1,14 +1,10 @@
 part of '../routes.dart';
 
-class SettingsBranch extends StatefulShellBranchData {
-  const SettingsBranch();
-
+class const SettingsBranch() extends StatefulShellBranchData {
   static final $navigatorKey = navigatorKeys.branches.settings;
 }
 
-class SettingsRoute extends GoRouteData with $SettingsRoute {
-  const SettingsRoute();
-
+class const SettingsRoute() extends GoRouteData with $SettingsRoute {
   static final $parentNavigatorKey = SettingsBranch.$navigatorKey;
 
   @override

@@ -18,8 +18,8 @@ typedef _ComputerState = ({
   List<int> program,
 });
 
-class Y2024D17 extends DayData<_I> {
-  const Y2024D17() : super(2024, 17, parts: const {1: _P1(), 2: _P2()});
+class const Y2024D17() extends DayData<_I> {
+  this : super(2024, 17, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -42,8 +42,8 @@ class Y2024D17 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -62,8 +62,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
@@ -149,7 +149,7 @@ _ComputerState _compute(_ComputerState initialState) {
   return state;
 }
 
-enum _Op {
+enum _Op(final int opcode) {
   adv(0),
   bxl(1),
   bst(2),
@@ -159,11 +159,8 @@ enum _Op {
   bdv(6),
   cdv(7);
 
-  const _Op(this.opcode);
-  factory _Op.fromOpcode(int opcode) =>
+  factory fromOpcode(int opcode) =>
       values.firstWhere((op) => op.opcode == opcode);
-
-  final int opcode;
 }
 
 extension on _ComputerState {

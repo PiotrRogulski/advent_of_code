@@ -11,8 +11,8 @@ typedef _VertexDir<D extends _D?> = ({MatrixIndex v, D dir});
 typedef _I = MatrixInput<int>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D17 extends DayData<_I> {
-  const Y2023D17() : super(2023, 17, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D17() extends DayData<_I> {
+  this : super(2023, 17, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -23,32 +23,27 @@ class Y2023D17 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) =>
       .new(_dist(inputData.matrix, minStep: 1, maxStep: 3));
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) =>
       .new(_dist(inputData.matrix, minStep: 4, maxStep: 10));
 }
 
-enum _D {
+enum _D(final int dr, final int dc) {
   down(1, 0),
   right(0, 1),
   up(-1, 0),
   left(0, -1);
-
-  const _D(this.dr, this.dc);
-
-  final int dr;
-  final int dc;
 
   bool isOpposite(_D other) => dr == -other.dr && dc == -other.dc;
 

@@ -1,14 +1,10 @@
 part of '../routes.dart';
 
-class YearsBranch extends StatefulShellBranchData {
-  const YearsBranch();
-
+class const YearsBranch() extends StatefulShellBranchData {
   static final $navigatorKey = navigatorKeys.branches.years;
 }
 
-class YearsRoute extends GoRouteData with $YearsRoute {
-  const YearsRoute();
-
+class const YearsRoute() extends GoRouteData with $YearsRoute {
   static final $parentNavigatorKey = YearsBranch.$navigatorKey;
 
   @override
@@ -16,11 +12,9 @@ class YearsRoute extends GoRouteData with $YearsRoute {
       const YearsPage();
 }
 
-class YearRoute extends GoRouteData with $YearRoute {
-  const YearRoute({required this.year});
-
-  final int year;
-
+class const YearRoute({required final int year})
+    extends GoRouteData
+    with $YearRoute {
   static final $parentNavigatorKey = YearsBranch.$navigatorKey;
 
   @override
@@ -28,12 +22,9 @@ class YearRoute extends GoRouteData with $YearRoute {
       YearPage(year: year);
 }
 
-class DayRoute extends GoRouteData with $DayRoute {
-  const DayRoute({required this.year, required this.day});
-
-  final int year;
-  final int day;
-
+class const DayRoute({required final int year, required final int day})
+    extends GoRouteData
+    with $DayRoute {
   static final $parentNavigatorKey = YearsBranch.$navigatorKey;
 
   @override

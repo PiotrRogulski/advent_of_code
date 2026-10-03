@@ -8,8 +8,8 @@ import 'package:collection/collection.dart';
 typedef _I = MatrixInput<_Cell>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D14 extends DayData<_I> {
-  const Y2023D14() : super(2023, 14, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D14() extends DayData<_I> {
+  this : super(2023, 14, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -20,8 +20,8 @@ class Y2023D14 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => _O(
@@ -49,8 +49,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
@@ -78,15 +78,12 @@ class _P2 extends PartImplementation<_I, _O> {
   }
 }
 
-enum _Cell {
+enum _Cell(final String symbol) {
   empty('.'),
   round('O'),
   cube('#');
 
-  const _Cell(this.symbol);
-  factory _Cell.fromSymbol(String s) => values.firstWhere((e) => e.symbol == s);
-
-  final String symbol;
+  factory fromSymbol(String s) => values.firstWhere((e) => e.symbol == s);
 
   @override
   String toString() => symbol;

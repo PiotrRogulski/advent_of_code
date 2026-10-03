@@ -8,11 +8,8 @@ typedef MatrixCell<T> = ({MatrixIndex index, T value});
 typedef MatrixIndexDelta = ({int dr, int dc});
 typedef MatrixSize = ({int columns, int rows});
 
-class Matrix<T> with EquatableMixin {
-  Matrix.fromList(this._values)
-    : assert(_values.map((e) => e.length).toSet().length == 1);
-
-  final List<List<T>> _values;
+class Matrix<T>.fromList(final List<List<T>> _values) with Equatable {
+  this : assert(_values.map((e) => e.length).toSet().length == 1);
 
   int get rowCount => _values.length;
 

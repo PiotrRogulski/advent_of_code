@@ -5,15 +5,14 @@ import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/years/models/advent_structure.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:more/collection.dart' hide IndexedIterableExtension;
 
 typedef _I = MatrixInput<String>;
 
-class Y2025D4Visualizer extends DayVisualizer<_I> {
-  const Y2025D4Visualizer()
-    : super(2025, 4, commonVisualizer: const .new(_part1and2));
+class const Y2025D4Visualizer() extends DayVisualizer<_I> {
+  this : super(2025, 4, commonVisualizer: const .new(_part1and2));
 }
 
 Widget _part1and2(_I input) => HookBuilder(
@@ -92,12 +91,10 @@ Widget _part1and2(_I input) => HookBuilder(
   },
 );
 
-class _GridView extends StatelessWidget {
-  const _GridView({required this.grid, required this.toRemove});
-
-  final Matrix<String> grid;
-  final Set<MatrixIndex> toRemove;
-
+class const _GridView({
+  required final Matrix<String> grid,
+  required final Set<MatrixIndex> toRemove,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -112,17 +109,11 @@ class _GridView extends StatelessWidget {
   }
 }
 
-class _GridPainter extends CustomPainter {
-  const _GridPainter({
-    required this.grid,
-    required this.colorScheme,
-    required this.toRemove,
-  });
-
-  final Matrix<String> grid;
-  final ColorScheme colorScheme;
-  final Set<MatrixIndex> toRemove;
-
+class const _GridPainter({
+  required final Matrix<String> grid,
+  required final ColorScheme colorScheme,
+  required final Set<MatrixIndex> toRemove,
+}) extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final side = size.shortestSide;

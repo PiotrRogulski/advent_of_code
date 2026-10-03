@@ -2,20 +2,14 @@ import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/widgets/list_tile.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class AocSwitchListTile extends StatelessWidget {
-  const AocSwitchListTile({
-    super.key,
-    required this.title,
-    required this.onChanged,
-    required this.value,
-  });
-
-  final String title;
-  final ValueChanged<bool> onChanged;
-  final bool value;
-
+class const AocSwitchListTile({
+  super.key,
+  required final String title,
+  required final ValueChanged<bool> onChanged,
+  required final bool value,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DynamicWeight(

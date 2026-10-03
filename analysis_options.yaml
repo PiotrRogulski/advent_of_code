@@ -1,8 +1,9 @@
 include: package:leancode_lint/analysis_options.yaml
 
 plugins:
-  leancode_lint: ^20.0.0-dev.5
+  leancode_lint: ^27.0.0
 
+# FIXME: migrate config
 leancode_lint:
   application_prefix: Aoc
   use_design_system_item:
@@ -64,7 +65,11 @@ analyzer:
   exclude:
     - "**.g.dart"
     - "lib/l10n/*.dart"
+    - build/**
+    - android/**
+    - macos/**
+    - linux/**
 
 linter:
   rules:
-    unsafe_variance: false
+    migrate_design_widgets: true

@@ -8,20 +8,15 @@ import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:more/collection.dart' hide IndexedIterableExtension;
 
-class SliverDayInputView extends StatelessWidget {
-  const SliverDayInputView({
-    super.key,
-    required this.inputData,
-    required this.label,
-  });
-
-  final PartInput inputData;
-  final String label;
-
+class const SliverDayInputView({
+  super.key,
+  required final PartInput inputData,
+  required final String label,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -30,12 +25,11 @@ class SliverDayInputView extends StatelessWidget {
   }
 }
 
-class DayInputView extends HookWidget {
-  const DayInputView({super.key, required this.inputData, required this.label});
-
-  final PartInput inputData;
-  final String label;
-
+class const DayInputView({
+  super.key,
+  required final PartInput inputData,
+  required final String label,
+}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;
@@ -72,11 +66,8 @@ class DayInputView extends HookWidget {
   }
 }
 
-class _MatrixData<T> extends HookWidget {
-  const _MatrixData({required this.matrix});
-
-  final Matrix<T> matrix;
-
+class const _MatrixData<T>({required final Matrix<T> matrix})
+    extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
@@ -141,11 +132,7 @@ class _MatrixData<T> extends HookWidget {
   }
 }
 
-class _TextData extends StatelessWidget {
-  const _TextData(this.textSpan);
-
-  final TextSpan textSpan;
-
+class const _TextData(final TextSpan textSpan) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // No dynamic weight here
@@ -154,11 +141,8 @@ class _TextData extends StatelessWidget {
   }
 }
 
-class _ListData<T> extends StatelessWidget {
-  const _ListData({required this.values});
-
-  final List<T> values;
-
+class const _ListData<T>({required final List<T> values})
+    extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;

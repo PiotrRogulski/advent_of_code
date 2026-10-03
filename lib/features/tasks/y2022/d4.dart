@@ -7,8 +7,8 @@ typedef _Range = ({int from, int to});
 typedef _I = ListInput<(_Range, _Range)>;
 typedef _O = NumericOutput<int>;
 
-class Y2022D4 extends DayData<_I> {
-  const Y2022D4() : super(2022, 4, parts: const {1: _P1(), 2: _P2()});
+class const Y2022D4() extends DayData<_I> {
+  this : super(2022, 4, parts: const {1: _P1(), 2: _P2()});
 
   static final _lineRegex = RegExp(r'^(\d+)-(\d+),(\d+)-(\d+)$');
 
@@ -24,8 +24,8 @@ class Y2022D4 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) =>
@@ -36,8 +36,8 @@ class _P1 extends PartImplementation<_I, _O> {
       range2.from >= range1.from && range2.to <= range1.to;
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) =>

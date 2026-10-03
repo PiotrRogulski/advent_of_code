@@ -3,14 +3,13 @@ import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/widgets/list_tile.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class AocRadioListTile<T> extends StatelessWidget {
-  const AocRadioListTile({super.key, required this.title, required this.value});
-
-  final String title;
-  final T value;
-
+class const AocRadioListTile<T>({
+  super.key,
+  required final String title,
+  required final T value,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

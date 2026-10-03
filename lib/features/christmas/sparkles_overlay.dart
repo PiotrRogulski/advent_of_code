@@ -4,16 +4,13 @@ import 'dart:ui';
 
 import 'package:advent_of_code/common/hooks/use_value_stream.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:more/collection.dart';
 import 'package:provider/provider.dart';
 
-class SparklesOverlay extends HookWidget {
-  const SparklesOverlay({super.key, required this.child});
-
-  final Widget child;
-
+class const SparklesOverlay({super.key, required final Widget child})
+    extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.read<SettingsStore>();
@@ -36,11 +33,7 @@ extension on _Sparkle {
   Offset get center => .new(x, y + 50 * pow(progress, 2).toDouble());
 }
 
-class _SparklesOverlay extends HookWidget {
-  const _SparklesOverlay({required this.child});
-
-  final Widget child;
-
+class const _SparklesOverlay({required final Widget child}) extends HookWidget {
   static const _sparkleLifespan = Duration(milliseconds: 500);
   static const _sparkleCountLimit = 100;
 
@@ -117,11 +110,8 @@ class _SparklesOverlay extends HookWidget {
   }
 }
 
-class _SparklesPainter extends CustomPainter {
-  const _SparklesPainter({required this.sparkles});
-
-  final List<_Sparkle> sparkles;
-
+class const _SparklesPainter({required final List<_Sparkle> sparkles})
+    extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (final _Sparkle(:size, :progress, :center) in sparkles) {

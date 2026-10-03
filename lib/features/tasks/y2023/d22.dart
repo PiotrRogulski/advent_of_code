@@ -20,8 +20,8 @@ typedef _Coord = ({int x, int y, int z});
 typedef _I = ListInput<_Brick>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D22 extends DayData<_I> {
-  const Y2023D22() : super(2023, 22, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D22() extends DayData<_I> {
+  this : super(2023, 22, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -104,8 +104,8 @@ class Y2023D22 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
@@ -118,8 +118,8 @@ class _P1 extends PartImplementation<_I, _O> {
   }
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {

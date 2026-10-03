@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class BlurSwitcher extends StatelessWidget {
-  const BlurSwitcher({super.key, required this.child});
-
-  final Widget? child;
-
+class const BlurSwitcher({super.key, required final Widget? child})
+    extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
@@ -24,12 +21,11 @@ class BlurSwitcher extends StatelessWidget {
   }
 }
 
-class Blur extends StatelessWidget {
-  const Blur({super.key, required this.visibility, required this.child});
-
-  final double visibility;
-  final Widget? child;
-
+class const Blur({
+  super.key,
+  required final double visibility,
+  required final Widget? child,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sigma = 16 * (1 - visibility);
@@ -44,22 +40,16 @@ class Blur extends StatelessWidget {
   }
 }
 
-class AnimatedBlurVisibility extends StatelessWidget {
-  const AnimatedBlurVisibility({
-    super.key,
-    required this.visible,
-    this.builder,
-    required this.child,
-  });
-
-  final bool visible;
+class const AnimatedBlurVisibility({
+  super.key,
+  required final bool visible,
   final Widget Function(BuildContext context, double value, Widget child)?
-  builder;
-  final Widget child;
-
+  builder,
+  required final Widget child,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final builder = this.builder ?? (_, _, child) => child;
+    final builder = this.builder ?? (context, _, child) => child;
 
     return TweenAnimationBuilder(
       tween: Tween<double>(begin: 0, end: visible ? 1 : 0),

@@ -1,12 +1,11 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:material_ui/material_ui.dart';
 
-class BreakpointSelector extends StatelessWidget {
-  const BreakpointSelector({super.key, required this.builders});
-
-  final Map<Breakpoint?, WidgetBuilder> builders;
-
+class const BreakpointSelector({
+  super.key,
+  required final Map<Breakpoint?, WidgetBuilder> builders,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final builder =

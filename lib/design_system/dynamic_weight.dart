@@ -1,14 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 
-enum AocDynamicWeight {
+enum AocDynamicWeight(final double value) {
   light(200),
   regular(500),
-  bold(900);
-
-  const AocDynamicWeight(this.value);
-
-  final double value;
+  bold(900),
 }
 
 const _stateMap = {
@@ -24,9 +20,9 @@ typedef DynamicWeightData = ({
 });
 
 class DynamicWeight extends HookWidget {
-  const DynamicWeight({super.key, required this.child});
+  const new({super.key, required this.child});
 
-  DynamicWeight.builder({super.key, required WidgetBuilder builder})
+  new builder({super.key, required WidgetBuilder builder})
     : child = Builder(builder: builder);
 
   final Widget child;
@@ -74,18 +70,12 @@ class DynamicWeight extends HookWidget {
   }
 }
 
-class _DynamicWeightData extends InheritedWidget {
-  const _DynamicWeightData({
-    required this.weight,
-    required this.fill,
-    required this.controller,
-    required super.child,
-  });
-
-  final AocDynamicWeight weight;
-  final double fill;
-  final WidgetStatesController controller;
-
+class const _DynamicWeightData({
+  required final AocDynamicWeight weight,
+  required final double fill,
+  required final WidgetStatesController controller,
+  required super.child,
+}) extends InheritedWidget {
   @override
   bool updateShouldNotify(_DynamicWeightData old) =>
       weight != old.weight || fill != old.fill || controller != old.controller;

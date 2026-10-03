@@ -7,15 +7,15 @@ import 'package:characters/characters.dart';
 typedef _I = ListInput<String>;
 typedef _O = NumericOutput<int>;
 
-class Y2025D1 extends DayData<_I> {
-  const Y2025D1() : super(2025, 1, parts: const {1: _P1(), 2: _P2()});
+class const Y2025D1() extends DayData<_I> {
+  this : super(2025, 1, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(rawData.split('\n').toList());
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) =>
@@ -27,8 +27,8 @@ class _P1 extends PartImplementation<_I, _O> {
   }
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(

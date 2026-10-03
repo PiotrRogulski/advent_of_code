@@ -7,16 +7,16 @@ import 'package:advent_of_code/features/years/models/advent_structure.dart';
 typedef _I = MatrixInput<String>;
 typedef _O = NumericOutput<int>;
 
-class Y2025D4 extends DayData<_I> {
-  const Y2025D4() : super(2025, 4, parts: const {1: _P1(), 2: _P2()});
+class const Y2025D4() extends DayData<_I> {
+  this : super(2025, 4, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) =>
       .new(rawData.split('\n').map((l) => l.split('')).toList());
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -34,8 +34,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(_removeRolls(inputData.matrix));

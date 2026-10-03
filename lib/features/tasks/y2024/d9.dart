@@ -9,15 +9,15 @@ import 'package:equatable/equatable.dart';
 typedef _I = RawStringInput;
 typedef _O = NumericOutput<int>;
 
-class Y2024D9 extends DayData<_I> {
-  const Y2024D9() : super(2024, 9, parts: const {1: _P1(), 2: _P2()});
+class const Y2024D9() extends DayData<_I> {
+  this : super(2024, 9, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(rawData);
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -45,8 +45,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -62,10 +62,8 @@ class _P2 extends PartImplementation<_I, _O> {
           for (final file in l.whereType<File>().toList().reversed) {
             final fileIndex = l.indexOf(file);
             final emptySpaceInfo = findEmptySpace(l, file);
-            if (emptySpaceInfo case (
-              :final index,
-              :final emptySpace,
-            ) when index < fileIndex) {
+            if (emptySpaceInfo case (:final index, :final emptySpace)
+                when index < fileIndex) {
               l
                 ..[fileIndex] = EmptySpace(file.length)
                 ..replaceRange(index, index + 1, [
@@ -100,24 +98,14 @@ class _P2 extends PartImplementation<_I, _O> {
       : (index: index, emptySpace: diskMap[index] as EmptySpace);
 }
 
-sealed class DiskEntity with EquatableMixin {
-  DiskEntity(this.length);
+sealed class DiskEntity(final int length) with Equatable;
 
-  final int length;
-}
-
-class EmptySpace extends DiskEntity {
-  EmptySpace(super.length);
-
+class EmptySpace(super.length) extends DiskEntity {
   @override
   List<Object?> get props => [length];
 }
 
-class File extends DiskEntity {
-  File(this.id, super.length);
-
-  final int id;
-
+class File(final int id, super.length) extends DiskEntity {
   @override
   List<Object?> get props => [id, length];
 }

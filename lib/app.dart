@@ -5,13 +5,11 @@ import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:advent_of_code/l10n/app_localizations.dart';
 import 'package:advent_of_code/router/routes.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
-class AocApp extends StatelessWidget {
-  const AocApp({super.key});
-
+class const AocApp({super.key}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DynamicColorBuilder(

@@ -7,31 +7,21 @@ import 'package:collection/collection.dart';
 
 typedef _WorryLevel = int;
 
-class _Monkey {
-  _Monkey({
-    required this.div,
-    required this.id,
-    required this.ifFalse,
-    required this.ifTrue,
-    required this.items,
-    required this.op,
-    required this.inspectionCount,
-  });
-
-  final _WorryLevel div;
-  final int id;
-  final int ifFalse;
-  final int ifTrue;
-  final List<_WorryLevel> items;
-  final Operation op;
-  int inspectionCount;
-}
+class _Monkey({
+  required final _WorryLevel div,
+  required final int id,
+  required final int ifFalse,
+  required final int ifTrue,
+  required final List<_WorryLevel> items,
+  required final Operation op,
+  required var int inspectionCount,
+});
 
 typedef _I = ListInput<_Monkey>;
 typedef _O = NumericOutput<int>;
 
-class Y2022D11 extends DayData<_I> {
-  const Y2022D11() : super(2022, 11, parts: const {1: _P1(), 2: _P2()});
+class const Y2022D11() extends DayData<_I> {
+  this : super(2022, 11, parts: const {1: _P1(), 2: _P2()});
 
   static final _monkeyRegex = RegExp(
     r'Monkey (?<id>\d+):\n {2}Starting items: (?<items>.+?)\n {2}Operation: new = (?<op>.+?)\n {2}Test: divisible by (?<div>\d+)\n {4}If true: throw to monkey (?<true>\d+)\n {4}If false: throw to monkey (?<false>\d+)',
@@ -67,15 +57,15 @@ class Y2022D11 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => _run(inputData, 20, 3);
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => _run(inputData, 10000, 1);
@@ -112,9 +102,7 @@ void _evalRound(List<_Monkey> monkeys, {required _WorryLevel divisor}) {
   }
 }
 
-sealed class Operation {
-  const Operation();
-
+sealed class const Operation() {
   _WorryLevel eval(_WorryLevel old) => switch (this) {
     Add(:final value) => value + old,
     Multiply(:final value) => value * old,
@@ -122,18 +110,8 @@ sealed class Operation {
   };
 }
 
-class Add extends Operation {
-  const Add(this.value);
+class const Add(final _WorryLevel value) extends Operation;
 
-  final _WorryLevel value;
-}
+class const Multiply(final _WorryLevel value) extends Operation;
 
-class Multiply extends Operation {
-  const Multiply(this.value);
-
-  final _WorryLevel value;
-}
-
-class Square extends Operation {
-  const Square();
-}
+class const Square() extends Operation;

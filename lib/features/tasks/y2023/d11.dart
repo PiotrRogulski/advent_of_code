@@ -8,8 +8,8 @@ import 'package:more/more.dart' hide IndexedIterableExtension;
 typedef _I = MatrixInput<_SpaceCell>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D11 extends DayData<_I> {
-  const Y2023D11() : super(2023, 11, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D11() extends DayData<_I> {
+  this : super(2023, 11, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -20,29 +20,25 @@ class Y2023D11 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => _run(inputData, dilation: 2);
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => _run(inputData, dilation: 1_000_000);
 }
 
-enum _SpaceCell {
+enum _SpaceCell(final String symbol) {
   empty('.'),
   galaxy('#');
 
-  const _SpaceCell(this.symbol);
-  factory _SpaceCell.fromSymbol(String s) =>
-      values.firstWhere((e) => e.symbol == s);
-
-  final String symbol;
+  factory fromSymbol(String s) => values.firstWhere((e) => e.symbol == s);
 
   @override
   String toString() => symbol;

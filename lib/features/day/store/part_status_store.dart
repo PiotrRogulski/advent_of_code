@@ -3,13 +3,11 @@ import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:dispose_scope/dispose_scope.dart';
 import 'package:rxdart/rxdart.dart';
 
-class PartStatusStore {
-  PartStatusStore({required this.part}) {
+class PartStatusStore({required final PartImplementation part}) {
+  this {
     _running.disposedBy(_scope);
     _runs.disposedBy(_scope);
   }
-
-  final PartImplementation part;
 
   final _running = BehaviorSubject.seeded(false);
   ValueStream<bool> get running => _running.stream;

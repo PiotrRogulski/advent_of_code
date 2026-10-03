@@ -10,11 +10,10 @@ typedef RunInfo<O extends PartOutput> = ({
   ({Object error, StackTrace stackTrace})? error,
 });
 
-abstract class PartImplementation<I extends PartInput, O extends PartOutput> {
-  const PartImplementation({required this.completed});
-
-  final bool completed;
-
+abstract class const PartImplementation<
+  I extends PartInput,
+  O extends PartOutput
+>({required final bool completed}) {
   @protected
   FutureOr<O> runInternal(I inputData);
 

@@ -1,59 +1,44 @@
 import 'package:advent_of_code/common/widgets/breakpoint_selector.dart';
 import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/unit.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:material_ui/material_ui.dart';
 
-class SliverAdaptiveList<T> extends StatelessWidget {
-  const SliverAdaptiveList({
-    super.key,
-    required this.items,
-    required this.listItemBuilder,
-    required this.gridItemBuilder,
-    this.itemWrapper,
-    this.padding = const .all(.medium),
-  });
-
-  final Iterable<T> items;
-  final Widget Function(BuildContext, T) listItemBuilder;
-  final Widget Function(BuildContext, T) gridItemBuilder;
-  final Widget Function(BuildContext, Widget)? itemWrapper;
-  final AocEdgeInsets padding;
-
+class const SliverAdaptiveList<T>({
+  super.key,
+  required final Iterable<T> items,
+  required final Widget Function(BuildContext, T) listItemBuilder,
+  required final Widget Function(BuildContext, T) gridItemBuilder,
+  final Widget Function(BuildContext, Widget)? itemWrapper,
+  final AocEdgeInsets padding = const .all(.medium),
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BreakpointSelector(
       builders: {
-        Breakpoints.small: (_) => _SliverList(
+        Breakpoints.small: (context) => _SliverList(
           items: items,
           itemBuilder: listItemBuilder,
           padding: padding,
-          itemWrapper: itemWrapper ?? (_, child) => child,
+          itemWrapper: itemWrapper ?? (context, child) => child,
         ),
-        null: (_) => _SliverGrid(
+        null: (context) => _SliverGrid(
           items: items,
           itemBuilder: gridItemBuilder,
           padding: padding,
-          itemWrapper: itemWrapper ?? (_, child) => child,
+          itemWrapper: itemWrapper ?? (context, child) => child,
         ),
       },
     );
   }
 }
 
-class _SliverList<T> extends StatelessWidget {
-  const _SliverList({
-    required this.items,
-    required this.itemBuilder,
-    required this.padding,
-    required this.itemWrapper,
-  });
-
-  final Iterable<T> items;
-  final Widget Function(BuildContext, T) itemBuilder;
-  final AocEdgeInsets padding;
-  final Widget Function(BuildContext, Widget) itemWrapper;
-
+class const _SliverList<T>({
+  required final Iterable<T> items,
+  required final Widget Function(BuildContext, T) itemBuilder,
+  required final AocEdgeInsets padding,
+  required final Widget Function(BuildContext, Widget) itemWrapper,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AocSliverPadding(
@@ -73,19 +58,12 @@ class _SliverList<T> extends StatelessWidget {
   }
 }
 
-class _SliverGrid<T> extends StatelessWidget {
-  const _SliverGrid({
-    required this.items,
-    required this.itemBuilder,
-    required this.padding,
-    required this.itemWrapper,
-  });
-
-  final Iterable<T> items;
-  final Widget Function(BuildContext, T) itemBuilder;
-  final AocEdgeInsets padding;
-  final Widget Function(BuildContext, Widget) itemWrapper;
-
+class const _SliverGrid<T>({
+  required final Iterable<T> items,
+  required final Widget Function(BuildContext, T) itemBuilder,
+  required final AocEdgeInsets padding,
+  required final Widget Function(BuildContext, Widget) itemWrapper,
+}) extends StatelessWidget {
   static final baseItemSize = AocUnit.xlarge * 4;
 
   @override

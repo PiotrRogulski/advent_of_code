@@ -3,26 +3,20 @@ import 'package:advent_of_code/design_system/border.dart';
 import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/widgets/blur.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 
 class VisualizationStat extends HookWidget {
-  VisualizationStat.single({
-    super.key,
-    required this.value,
-    required this.label,
-  }) : shape = .horizontal(start: .large, end: .large);
+  new single({super.key, required this.value, required this.label})
+    : shape = .horizontal(start: .large, end: .large);
 
-  VisualizationStat.first({super.key, required this.value, required this.label})
+  new first({super.key, required this.value, required this.label})
     : shape = .horizontal(start: .large, end: .xsmall);
 
-  VisualizationStat.middle({
-    super.key,
-    required this.value,
-    required this.label,
-  }) : shape = .horizontal(start: .xsmall, end: .xsmall);
+  new middle({super.key, required this.value, required this.label})
+    : shape = .horizontal(start: .xsmall, end: .xsmall);
 
-  VisualizationStat.last({super.key, required this.value, required this.label})
+  new last({super.key, required this.value, required this.label})
     : shape = .horizontal(start: .xsmall, end: .large);
 
   final int value;

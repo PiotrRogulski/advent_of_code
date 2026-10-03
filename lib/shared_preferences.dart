@@ -4,13 +4,11 @@ import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/features/settings/settings_store.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum _Key { settings }
+enum _Key() {
+  settings,
+}
 
-class AppSharedPreferences {
-  const AppSharedPreferences(this.prefs);
-
-  final SharedPreferences prefs;
-
+class const AppSharedPreferences(final SharedPreferences prefs) {
   // region Settings
 
   SettingsData? readSettings() =>

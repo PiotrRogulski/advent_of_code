@@ -19,8 +19,8 @@ typedef _O = StringOutput;
 
 typedef _Equation = ({String arg1, String arg2, _Op op, String target});
 
-class Y2024D24 extends DayData<_I> {
-  const Y2024D24() : super(2024, 24, parts: const {1: _P1(), 2: _P2()});
+class const Y2024D24() extends DayData<_I> {
+  this : super(2024, 24, parts: const {1: _P1(), 2: _P2()});
 
   static final _initRegex = RegExp(r'(?<name>\w+): (?<value>\d+)');
   static final _eqRegex = RegExp(
@@ -62,8 +62,8 @@ class Y2024D24 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   Future<_O> runInternal(_I inputData) => inputData.value.equations
@@ -88,8 +88,8 @@ class _P1 extends PartImplementation<_I, _O> {
       .then(_O.new);
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
@@ -128,7 +128,7 @@ enum _Op {
   xor,
   or;
 
-  factory _Op.fromString(String s) => values.byName(s.toLowerCase());
+  factory fromString(String s) => values.byName(s.toLowerCase());
 
   String get symbol => switch (this) {
     and => '&',

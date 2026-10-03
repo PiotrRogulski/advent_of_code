@@ -1,16 +1,10 @@
 part of '../years_page.dart';
 
-class _YearListTile extends StatelessWidget {
-  const _YearListTile({
-    required this.year,
-    required this.progress,
-    required this.completeProgress,
-  });
-
-  final int year;
-  final double progress;
-  final double completeProgress;
-
+class const _YearListTile({
+  required final int year,
+  required final double progress,
+  required final double completeProgress,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -55,12 +49,10 @@ class _YearListTile extends StatelessWidget {
   }
 }
 
-class _ProgressBar extends HookWidget {
-  const _ProgressBar({required this.progress, required this.completeProgress});
-
-  final double progress;
-  final double completeProgress;
-
+class const _ProgressBar({
+  required final double progress,
+  required final double completeProgress,
+}) extends HookWidget {
   static const _height = AocUnit.small;
   static final _borderRadius = AocBorderRadius(_height * 0.5);
 

@@ -2,115 +2,52 @@
 
 import 'dart:io';
 
-import 'package:code_builder/code_builder.dart';
-import 'package:dart_style/dart_style.dart';
+import 'package:dio/dio.dart';
 
-const codepointFile = 'MaterialSymbolsRounded.codepoints';
+const fontName = 'MaterialSymbolsRounded';
+const baseName = '$fontName[FILL,GRAD,opsz,wght]';
+const baseUrl =
+    'https://raw.githubusercontent.com/google/material-design-icons/master/variablefont';
+
+const codepointsFile = '$fontName.codepoints';
+const fontFile = 'assets/fonts/$fontName.ttf';
 const outputFile = 'lib/design_system/icons.dart';
 
-void main() {
+const header = '''
+// This is the definition
+// ignore_for_file: aoc_lint/use_design_system_item_AocIconData
+
+import 'package:flutter/widgets.dart';
+
+enum AocIconData(final IconData iconData) {
+''';
+
+const footer = '''
+  static const fontFamily = 'Material Symbols Rounded';
+}''';
+
+Future<void> main() async {
   if (!File('pubspec.yaml').existsSync()) {
     throw Exception('Run this script from the root of the project');
   }
 
-  if (!File(codepointFile).existsSync()) {
-    throw Exception('$codepointFile not found in current directory');
-  }
+  final dio = Dio();
+  await dio.download('$baseUrl/$baseName.codepoints', codepointsFile);
+  await dio.download('$baseUrl/$baseName.ttf', fontFile);
 
-  final output = File(outputFile);
-  if (output.existsSync()) {
-    output.deleteSync();
-  }
+  final lines = File(codepointsFile).readAsLinesSync();
 
-  final lines = File(codepointFile).readAsLinesSync();
+  final libraryBuffer = StringBuffer()
+    ..write(header)
+    ..writeAll(lines.map(makeEnumValue), ',\n')
+    ..writeln(';')
+    ..writeln()
+    ..writeln(footer);
 
-  final iconDataLibrary = Library((l) {
-    l.comments.addAll([
-      'This is the definition',
-      'ignore_for_file: leancode_lint/use_design_system_item',
-    ]);
-    l.body.add(
-      Enum((e) {
-        e
-          ..name = 'AocIconData'
-          ..implements.add(refer('IconData', 'package:flutter/widgets.dart'))
-          ..annotations.add(
-            refer('staticIconProvider', 'package:flutter/widgets.dart'),
-          )
-          ..values.addAll([
-            for (final (:name, :codepoint) in lines.map(parseLine))
-              .new((ev) {
-                ev
-                  ..name = name
-                  ..arguments.add(CodeExpression(Code('0x$codepoint')));
-              }),
-          ])
-          ..constructors.add(
-            .new((c) {
-              c
-                ..constant = true
-                ..requiredParameters.add(
-                  .new((p) {
-                    p
-                      ..toThis = true
-                      ..name = 'codePoint';
-                  }),
-                );
-            }),
-          )
-          ..fields.addAll([
-            .new((f) {
-              f
-                ..name = 'codePoint'
-                ..type = refer('int')
-                ..modifier = .final$
-                ..annotations.add(refer('override'));
-            }),
-            .new((f) {
-              f
-                ..name = 'fontFamily'
-                ..modifier = .final$
-                ..annotations.add(refer('override'))
-                ..assignment = literalString('Material Symbols Rounded').code;
-            }),
-            .new((f) {
-              f
-                ..name = 'fontPackage'
-                ..type = refer('String?')
-                ..modifier = .final$
-                ..annotations.add(refer('override'))
-                ..assignment = literalNull.code;
-            }),
-            .new((f) {
-              f
-                ..name = 'fontFamilyFallback'
-                ..type = refer('List<String>?')
-                ..modifier = .final$
-                ..annotations.add(refer('override'))
-                ..assignment = literalNull.code;
-            }),
-            .new((f) {
-              f
-                ..name = 'matchTextDirection'
-                ..modifier = .final$
-                ..annotations.add(refer('override'))
-                ..assignment = literalFalse.code;
-            }),
-          ]);
-      }),
-    );
-  });
-
-  output.writeAsStringSync(
-    DartFormatter(languageVersion: DartFormatter.latestLanguageVersion).format(
-      iconDataLibrary
-          .accept(DartEmitter(allocator: .new(), orderDirectives: true))
-          .toString(),
-    ),
-  );
+  File(outputFile).writeAsStringSync(libraryBuffer.toString());
 }
 
-({String name, String codepoint}) parseLine(String line) {
+String makeEnumValue(String line) {
   var [name, codepoint] = line.split(' ');
   codepoint = codepoint.toUpperCase();
   if (RegExp('^([0-9]+)(.*)').firstMatch(name) case final match?) {
@@ -125,7 +62,7 @@ void main() {
     };
   }
 
-  return (name: sanitizeName(snakeToCamel(name)), codepoint: codepoint);
+  return '  ${sanitizeName(snakeToCamel(name))}(.new(0x$codepoint, fontFamily: fontFamily))';
 }
 
 String snakeToCamel(String input) => input.replaceAllMapped(

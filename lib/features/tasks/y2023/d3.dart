@@ -12,8 +12,8 @@ typedef _Cell<T extends _MapCell> = MatrixCell<T>;
 typedef _I = MatrixInput<_MapCell>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D3 extends DayData<_I> {
-  const Y2023D3() : super(2023, 3, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D3() extends DayData<_I> {
+  this : super(2023, 3, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -33,8 +33,8 @@ class Y2023D3 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -65,8 +65,8 @@ class _P1 extends PartImplementation<_I, _O> {
           .any((cell) => cell is _Symbol);
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -127,31 +127,19 @@ class _P2 extends PartImplementation<_I, _O> {
           );
 }
 
-sealed class _MapCell {
-  const _MapCell();
-}
+sealed class const _MapCell();
 
-class _Digit extends _MapCell {
-  const _Digit(this.value);
-
-  final int value;
-
+class const _Digit(final int value) extends _MapCell {
   @override
   String toString() => value.toString();
 }
 
-class _Symbol extends _MapCell {
-  const _Symbol(this.value);
-
-  final String value;
-
+class const _Symbol(final String value) extends _MapCell {
   @override
   String toString() => value;
 }
 
-class _Empty extends _MapCell {
-  const _Empty();
-
+class const _Empty() extends _MapCell {
   @override
   String toString() => '.';
 }

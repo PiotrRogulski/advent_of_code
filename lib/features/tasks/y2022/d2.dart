@@ -7,8 +7,8 @@ import 'package:collection/collection.dart';
 typedef _I = ListInput<(String, String)>;
 typedef _O = NumericOutput<int>;
 
-class Y2022D2 extends DayData<_I> {
-  const Y2022D2() : super(2022, 2, parts: const {1: _P1(), 2: _P2()});
+class const Y2022D2() extends DayData<_I> {
+  this : super(2022, 2, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -20,8 +20,8 @@ class Y2022D2 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -45,8 +45,8 @@ class _P1 extends PartImplementation<_I, _O> {
   }
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -74,31 +74,26 @@ class _P2 extends PartImplementation<_I, _O> {
   }
 }
 
-enum _Shape {
+enum _Shape(
+  final int score, {
+  required final String your,
+  required final String opponent,
+}) {
   rock(1, your: 'X', opponent: 'A'),
   paper(2, your: 'Y', opponent: 'B'),
   scissors(3, your: 'Z', opponent: 'C');
 
-  const _Shape(this.score, {required this.your, required this.opponent});
-  factory _Shape.fromYourSymbol(String symbol) =>
+  factory fromYourSymbol(String symbol) =>
       values.firstWhere((e) => e.your == symbol);
-  factory _Shape.fromOpponentSymbol(String symbol) =>
+  factory fromOpponentSymbol(String symbol) =>
       values.firstWhere((e) => e.opponent == symbol);
-
-  final int score;
-  final String your;
-  final String opponent;
 }
 
-enum _ExpectedOutcome {
+enum _ExpectedOutcome(final String symbol, final int score) {
   youLose('X', 0),
   draw('Y', 3),
   youWin('Z', 6);
 
-  const _ExpectedOutcome(this.symbol, this.score);
-  factory _ExpectedOutcome.fromSymbol(String symbol) =>
+  factory fromSymbol(String symbol) =>
       values.firstWhere((e) => e.symbol == symbol);
-
-  final String symbol;
-  final int score;
 }

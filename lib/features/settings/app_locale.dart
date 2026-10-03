@@ -3,20 +3,16 @@ import 'dart:ui';
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/l10n/app_localizations.dart';
 
-enum AppLocale {
+enum AppLocale(final String? localeCode) {
   systemDefault(null),
   english('en'),
   french('fr'),
   japanese('ja');
 
-  const AppLocale(this.localeCode);
-
-  factory AppLocale.fromCode(String? localeCode) => values.firstWhere(
+  factory fromCode(String? localeCode) => values.firstWhere(
     (e) => e.localeCode == localeCode,
     orElse: () => throw UnimplementedError('Unsupported locale: $localeCode'),
   );
-
-  final String? localeCode;
 
   Locale? get locale => localeCode?.apply(Locale.new);
 

@@ -1,29 +1,18 @@
 import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:advent_of_code/design_system/padding.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class AocListTile extends StatelessWidget {
-  const AocListTile({
-    super.key,
-    required this.title,
-    this.subtitle,
-    this.onTap,
-    this.dense,
-    this.leading,
-    this.trailing,
-    this.contentPadding,
-    this.tileColor,
-  });
-
-  final Widget title;
-  final Widget? subtitle;
-  final bool? dense;
-  final Widget? leading;
-  final Widget? trailing;
-  final VoidCallback? onTap;
-  final AocEdgeInsets? contentPadding;
-  final Color? tileColor;
-
+class const AocListTile({
+  super.key,
+  required final Widget title,
+  final Widget? subtitle,
+  final VoidCallback? onTap,
+  final bool? dense,
+  final Widget? leading,
+  final Widget? trailing,
+  final AocEdgeInsets? contentPadding,
+  final Color? tileColor,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // This is the definition

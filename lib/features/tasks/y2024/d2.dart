@@ -9,8 +9,8 @@ import 'package:more/collection.dart';
 typedef _I = ListInput<List<int>>;
 typedef _O = NumericOutput<int>;
 
-class Y2024D2 extends DayData<_I> {
-  const Y2024D2() : super(2024, 2, parts: const {1: _P1(), 2: _P2()});
+class const Y2024D2() extends DayData<_I> {
+  this : super(2024, 2, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -21,15 +21,15 @@ class Y2024D2 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(inputData.values.count(_isReportSafe));
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(

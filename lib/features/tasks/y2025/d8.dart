@@ -10,8 +10,8 @@ typedef _JunctionBox = ({int x, int y, int z});
 typedef _I = ListInput<_JunctionBox>;
 typedef _O = NumericOutput<int>;
 
-class Y2025D8 extends DayData<_I> {
-  const Y2025D8() : super(2025, 8, parts: const {1: _P1(), 2: _P2()});
+class const Y2025D8() extends DayData<_I> {
+  this : super(2025, 8, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -32,8 +32,8 @@ class Y2025D8 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(_connect(inputData.values, count: 1000));
@@ -53,8 +53,8 @@ class _P1 extends PartImplementation<_I, _O> {
   }
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(_connect(inputData.values));

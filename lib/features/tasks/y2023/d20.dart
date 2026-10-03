@@ -14,8 +14,8 @@ typedef _ModuleMessage = ({String destination, bool high, String sender});
 typedef _I = ListInput<_Module>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D20 extends DayData<_I> {
-  const Y2023D20() : super(2023, 20, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D20() extends DayData<_I> {
+  this : super(2023, 20, parts: const {1: _P1(), 2: _P2()});
 
   static final _moduleRegex = RegExp(
     r'^(broadcaster|%(?<flipFlop>\w+)|&(?<conj>\w+)) -> (?<dest>.+)$',
@@ -43,8 +43,8 @@ class Y2023D20 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
@@ -73,8 +73,8 @@ class _P1 extends PartImplementation<_I, _O> {
   }
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
@@ -106,7 +106,7 @@ class _P2 extends PartImplementation<_I, _O> {
   }
 }
 
-enum _ModType {
+enum _ModType() {
   broadcaster,
   flipFlop,
   conjunction;

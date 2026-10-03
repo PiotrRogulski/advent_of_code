@@ -9,8 +9,8 @@ import 'package:more/more.dart';
 typedef _I = ObjectInput<({List<String> patterns, List<String> designs})>;
 typedef _O = NumericOutput<int>;
 
-class Y2024D19 extends DayData<_I> {
-  const Y2024D19() : super(2024, 19, parts: const {1: _P1(), 2: _P2()});
+class const Y2024D19() extends DayData<_I> {
+  this : super(2024, 19, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -22,8 +22,8 @@ class Y2024D19 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -33,8 +33,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(

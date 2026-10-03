@@ -8,8 +8,8 @@ import 'package:more/more.dart';
 typedef _I = MatrixInput<_Tile>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D21 extends DayData<_I> {
-  const Y2023D21() : super(2023, 21, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D21() extends DayData<_I> {
+  this : super(2023, 21, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -20,8 +20,8 @@ class Y2023D21 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
@@ -53,8 +53,8 @@ class _P1 extends PartImplementation<_I, _O> {
   }
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   static const steps = 26_501_365;
 
@@ -108,16 +108,12 @@ class _P2 extends PartImplementation<_I, _O> {
   }
 }
 
-enum _Tile {
+enum _Tile(final String symbol) {
   start('S'),
   garden('.'),
   rocks('#');
 
-  const _Tile(this.symbol);
-  factory _Tile.fromSymbol(String s) =>
-      values.firstWhere((tile) => tile.symbol == s);
-
-  final String symbol;
+  factory fromSymbol(String s) => values.firstWhere((tile) => tile.symbol == s);
 
   @override
   String toString() => symbol;

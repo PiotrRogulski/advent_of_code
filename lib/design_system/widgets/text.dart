@@ -1,29 +1,19 @@
 import 'package:advent_of_code/common/hooks/use_spring.dart';
 import 'package:advent_of_code/design_system/dynamic_weight.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 
-class AocText extends HookWidget {
-  const AocText(
-    this.data, {
-    super.key,
-    this.style,
-    this.textAlign,
-    this.weight,
-    this.maxLines,
-    this.overflow,
-    this.monospaced = false,
-  });
-
-  final String data;
-  final TextStyle? style;
-  final TextAlign? textAlign;
-  final AocDynamicWeight? weight;
-  final int? maxLines;
-  final TextOverflow? overflow;
-  final bool monospaced;
-
+class const AocText(
+  final String data, {
+  super.key,
+  final TextStyle? style,
+  final TextAlign? textAlign,
+  final AocDynamicWeight? weight,
+  final int? maxLines,
+  final TextOverflow? overflow,
+  final bool monospaced = false,
+}) extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final weightValue = useValueSpring(

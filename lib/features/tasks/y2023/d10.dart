@@ -9,8 +9,8 @@ typedef _Cell = MatrixCell<_Pipe>;
 typedef _I = MatrixInput<_Pipe>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D10 extends DayData<_I> {
-  const Y2023D10() : super(2023, 10, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D10() extends DayData<_I> {
+  this : super(2023, 10, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(
@@ -22,8 +22,8 @@ class Y2023D10 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -35,8 +35,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) {
@@ -83,7 +83,7 @@ class _P2 extends PartImplementation<_I, _O> {
   }
 }
 
-enum _Pipe {
+enum _Pipe(final String symbol, final String ascii) {
   empty('.', '.'),
   vertical('|', '│'),
   horizontal('-', '─'),
@@ -93,11 +93,7 @@ enum _Pipe {
   bottomRight('J', '┘'),
   unknown('S', 'S');
 
-  const _Pipe(this.symbol, this.ascii);
-  factory _Pipe.fromSymbol(String s) => values.firstWhere((e) => e.symbol == s);
-
-  final String symbol;
-  final String ascii;
+  factory fromSymbol(String s) => values.firstWhere((e) => e.symbol == s);
 
   @override
   String toString() => ascii;

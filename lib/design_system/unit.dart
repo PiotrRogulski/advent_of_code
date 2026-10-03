@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:meta/meta.dart';
 
 extension type const AocUnit._(double _value) implements double {
@@ -25,18 +25,12 @@ extension type const AocUnit._(double _value) implements double {
 
   Widget get sliverGap => SliverGap(_value);
 
-  // That's okay
-  // ignore: experimental_member_use
   @redeclare
   AocUnit operator *(double factor) => ._(_value * factor);
 
-  // That's okay
-  // ignore: experimental_member_use
   @redeclare
   AocUnit operator /(double divisor) => ._(_value / divisor);
 
-  // That's okay
-  // ignore: experimental_member_use
   @redeclare
   AocUnit operator +(AocUnit other) => ._(_value + other._value);
 }

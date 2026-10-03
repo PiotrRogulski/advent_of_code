@@ -11,8 +11,8 @@ typedef _Map = ({List<_Move> moves, Map<String, _Node> nodes});
 typedef _I = ObjectInput<_Map>;
 typedef _O = NumericOutput<int>;
 
-class Y2023D8 extends DayData<_I> {
-  const Y2023D8() : super(2023, 8, parts: const {1: _P1(), 2: _P2()});
+class const Y2023D8() extends DayData<_I> {
+  this : super(2023, 8, parts: const {1: _P1(), 2: _P2()});
 
   static final _nodeRegex = RegExp(
     r'^(?<label>\w+) = \((?<left>\w+), (?<right>\w+)\)$',
@@ -43,8 +43,8 @@ class Y2023D8 extends DayData<_I> {
   );
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -52,8 +52,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   @override
   _O runInternal(_I inputData) => .new(
@@ -70,15 +70,11 @@ class _P2 extends PartImplementation<_I, _O> {
   );
 }
 
-enum _Move {
+enum _Move(final String symbol) {
   left('L'),
   right('R');
 
-  const _Move(this.symbol);
-
-  factory _Move.fromSymbol(String s) => values.firstWhere((v) => v.symbol == s);
-
-  final String symbol;
+  factory fromSymbol(String s) => values.firstWhere((v) => v.symbol == s);
 }
 
 int _findPathLength(

@@ -7,15 +7,15 @@ import 'package:collection/collection.dart';
 typedef _I = RawStringInput;
 typedef _O = NumericOutput<int>;
 
-class Y2024D3 extends DayData<_I> {
-  const Y2024D3() : super(2024, 3, parts: const {1: _P1(), 2: _P2()});
+class const Y2024D3() extends DayData<_I> {
+  this : super(2024, 3, parts: const {1: _P1(), 2: _P2()});
 
   @override
   _I parseInput(String rawData) => .new(rawData);
 }
 
-class _P1 extends PartImplementation<_I, _O> {
-  const _P1() : super(completed: true);
+class const _P1() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   static final _validInstructionRegex = RegExp(r'mul\((\d+),(\d+)\)');
 
@@ -28,8 +28,8 @@ class _P1 extends PartImplementation<_I, _O> {
   );
 }
 
-class _P2 extends PartImplementation<_I, _O> {
-  const _P2() : super(completed: true);
+class const _P2() extends PartImplementation<_I, _O> {
+  this : super(completed: true);
 
   static final _mulRegex = RegExp(r'(mul)\((\d+),(\d+)\)');
   static final _doRegex = RegExp(r'(do)\(\)');

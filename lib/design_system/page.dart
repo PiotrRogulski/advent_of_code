@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class AocPage extends MaterialPage<void> {
-  const AocPage({required super.child});
-}
+class const AocPage({required super.child}) extends MaterialPage<void>;

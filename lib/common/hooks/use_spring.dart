@@ -1,16 +1,11 @@
 import 'package:advent_of_code/common/hooks/use_unbounded_animation_controller.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 
-enum SpringState {
+enum SpringState({required final double value, required final double ratio}) {
   first(value: 0, ratio: 1),
-  second(value: 1, ratio: 0.4);
-
-  const SpringState({required this.value, required this.ratio});
-
-  final double value;
-  final double ratio;
+  second(value: 1, ratio: 0.4),
 }
 
 SpringDescription _spring({required double ratio, required double stiffness}) =>

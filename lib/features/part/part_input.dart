@@ -1,47 +1,31 @@
 import 'package:advent_of_code/common/utils/matrix.dart';
 import 'package:equatable/equatable.dart';
 
-sealed class PartInput with EquatableMixin {
-  const PartInput();
-}
+sealed class const PartInput() with Equatable;
 
-class RawStringInput extends PartInput {
-  const RawStringInput(this.value);
-
-  final String value;
-
+class const RawStringInput(final String value) extends PartInput {
   @override
   List<Object?> get props => [value];
 }
 
-class ListInput<T> extends PartInput {
-  const ListInput(this.values);
-
-  final List<T> values;
-
+class const ListInput<T>(final List<T> values) extends PartInput {
   @override
   List<Object?> get props => [values];
 }
 
-class MatrixInput<T> extends PartInput {
-  MatrixInput(List<List<T>> values, {this.dense = false})
-    : matrix = .fromList(values);
-
-  final Matrix<T> matrix;
-  final bool dense;
-
+class MatrixInput<T>(List<List<T>> values, {final bool dense = false})
+    extends PartInput {
+  final Matrix<T> matrix = .fromList(values);
   @override
   List<Object?> get props => [matrix, dense];
 }
 
-class ObjectInput<T> extends PartInput {
-  const ObjectInput(this.value, {this.stringifier});
-
-  final T value;
-  final String Function(T)? stringifier;
-
+class const ObjectInput<T>(
+  final T value, {
+  final String Function(T)? stringifier,
+}) extends PartInput {
   String toRichString() => stringifier?.call(value) ?? value.toString();
 
   @override
-  List<Object?> get props => [value];
+  List<Object?> get props => [value, stringifier];
 }

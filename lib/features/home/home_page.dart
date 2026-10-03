@@ -1,15 +1,13 @@
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/design_system/page.dart';
 import 'package:advent_of_code/design_system/widgets/scaffold.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class HomePage extends AocPage {
-  const HomePage() : super(child: const HomeScreen());
+class const HomePage() extends AocPage {
+  this : super(child: const HomeScreen());
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+class const HomeScreen({super.key}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.l10n;

@@ -2,24 +2,16 @@ import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/widgets/expansion_card.dart';
 import 'package:advent_of_code/design_system/widgets/radio_list_tile.dart';
 import 'package:advent_of_code/design_system/widgets/text.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
-class AocDropdownListTile<T> extends StatelessWidget {
-  const AocDropdownListTile({
-    super.key,
-    required this.title,
-    required this.onSelected,
-    required this.items,
-    required this.currentValue,
-    required this.itemLabelBuilder,
-  });
-
-  final String title;
-  final ValueChanged<T> onSelected;
-  final List<T> items;
-  final T currentValue;
-  final String Function(T) itemLabelBuilder;
-
+class const AocDropdownListTile<T>({
+  super.key,
+  required final String title,
+  required final ValueChanged<T> onSelected,
+  required final List<T> items,
+  required final T currentValue,
+  required final String Function(T) itemLabelBuilder,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData(:colorScheme, :textTheme) = Theme.of(context);

@@ -1,14 +1,10 @@
 part of '../routes.dart';
 
-class HomeBranch extends StatefulShellBranchData {
-  const HomeBranch();
-
+class const HomeBranch() extends StatefulShellBranchData {
   static final $navigatorKey = navigatorKeys.branches.home;
 }
 
-class HomeRoute extends GoRouteData with $HomeRoute {
-  const HomeRoute();
-
+class const HomeRoute() extends GoRouteData with $HomeRoute {
   static final $parentNavigatorKey = HomeBranch.$navigatorKey;
 
   @override
