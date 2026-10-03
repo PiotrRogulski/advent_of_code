@@ -25,13 +25,17 @@ class const AocApp({super.key}) extends StatelessWidget {
               themeMode: themeMode,
               theme: AocTheme.light(useSystemTheme ? lightDynamic : null),
               darkTheme: AocTheme.dark(useSystemTheme ? darkDynamic : null),
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              localizationsDelegates: const [
+                ...AppLocalizations.localizationsDelegates,
+                ...GlobalMaterialLocalizations.delegates,
+              ],
               supportedLocales: AppLocalizations.supportedLocales,
               locale: locale.locale,
               routerConfig: router,
               debugShowCheckedModeBanner: false,
-              builder: (context, child) =>
-                  AocTextTheme(child: ChristmasOverlay(child: child!)),
+              builder: (context, child) => MaterialUiCompatibilityBridge(
+                child: AocTextTheme(child: ChristmasOverlay(child: child!)),
+              ),
             );
           },
         );
