@@ -150,23 +150,16 @@ enum _Tile() {
   };
 }
 
-enum _Direction() {
-  up,
-  down,
-  left,
-  right;
+enum _Direction(final MatrixIndexDelta positionDelta) {
+  up(.up),
+  down(.down),
+  left(.left),
+  right(.right);
 
   _Direction get turnRight => switch (this) {
     up => right,
     right => down,
     down => left,
     left => up,
-  };
-
-  MatrixIndexDelta get positionDelta => switch (this) {
-    up => .up,
-    down => .down,
-    left => .left,
-    right => .right,
   };
 }

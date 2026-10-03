@@ -96,11 +96,11 @@ enum _Tile(final String symbol) {
   String toString() => symbol;
 }
 
-enum _D() {
-  up,
-  down,
-  left,
-  right;
+enum _D(final MatrixIndexDelta diff) {
+  up(.up),
+  down(.down),
+  left(.left),
+  right(.right);
 
   _D get rotR => switch (this) {
     up => right,
@@ -114,13 +114,6 @@ enum _D() {
     down => right,
     left => down,
     right => up,
-  };
-
-  MatrixIndexDelta get diff => switch (this) {
-    up => .up,
-    down => .down,
-    left => .left,
-    right => .right,
   };
 }
 

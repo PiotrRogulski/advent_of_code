@@ -224,22 +224,15 @@ enum _Entity2(final String symbol) {
   String toString() => symbol;
 }
 
-enum _Move(final String symbol) {
-  up('^'),
-  down('v'),
-  left('<'),
-  right('>');
+enum _Move(final String symbol, final MatrixIndexDelta diff) {
+  up('^', .up),
+  down('v', .down),
+  left('<', .left),
+  right('>', .right);
 
   factory fromSymbol(String symbol) =>
       values.firstWhere((e) => e.symbol == symbol);
 
   @override
   String toString() => symbol;
-
-  MatrixIndexDelta get diff => switch (this) {
-    up => .up,
-    down => .down,
-    left => .left,
-    right => .right,
-  };
 }

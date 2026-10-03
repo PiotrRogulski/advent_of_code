@@ -42,15 +42,13 @@ class const _P2() extends PartImplementation<_I, _O> {
       .new(_dist(inputData.matrix, minStep: 4, maxStep: 10));
 }
 
-enum _D(final int dr, final int dc) {
-  down(1, 0),
-  right(0, 1),
-  up(-1, 0),
-  left(0, -1);
+enum _D(final MatrixIndexDelta delta) {
+  down(.down),
+  right(.right),
+  up(.up),
+  left(.left);
 
-  bool isOpposite(_D other) => dr == -other.dr && dc == -other.dc;
-
-  MatrixIndexDelta get delta => .new(dr: dr, dc: dc);
+  bool isOpposite(_D other) => delta == -other.delta;
 }
 
 int _dist(Matrix<int> matrix, {required int minStep, required int maxStep}) =>

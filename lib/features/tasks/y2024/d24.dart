@@ -126,18 +126,12 @@ class const _P2() extends PartImplementation<_I, _O> {
   }
 }
 
-enum _Op {
-  and,
-  xor,
-  or;
+enum _Op(final String symbol) {
+  and('&'),
+  xor('^'),
+  or('|');
 
   factory fromString(String s) => values.byName(s.toLowerCase());
-
-  String get symbol => switch (this) {
-    and => '&',
-    xor => '^',
-    or => '|',
-  };
 
   @override
   String toString() => name.toUpperCase();

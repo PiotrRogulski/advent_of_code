@@ -90,21 +90,14 @@ int _area(Iterable<_Move> points) {
   return area + perimeter ~/ 2 + 1;
 }
 
-enum _Dir(final String symbol) {
-  up('U'),
-  down('D'),
-  left('L'),
-  right('R');
+enum _Dir(final String symbol, final _Delta delta) {
+  up('U', .up),
+  down('D', .down),
+  left('L', .left),
+  right('R', .right);
 
   factory fromSymbol(String s) => values.firstWhere((e) => e.symbol == s);
 
   @override
   String toString() => symbol;
-
-  _Delta get delta => switch (this) {
-    up => .up,
-    down => .down,
-    left => .left,
-    right => .right,
-  };
 }

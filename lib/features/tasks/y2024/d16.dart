@@ -79,18 +79,11 @@ class const _P2() extends PartImplementation<_I, _O> {
   }
 }
 
-enum _Direction() {
-  N,
-  E,
-  W,
-  S;
-
-  MatrixIndexDelta get delta => switch (this) {
-    N => .up,
-    E => .right,
-    W => .left,
-    S => .down,
-  };
+enum _Direction(final MatrixIndexDelta delta) {
+  N(.up),
+  E(.right),
+  W(.left),
+  S(.down);
 
   _Direction get clockwise => switch (this) {
     N => E,
