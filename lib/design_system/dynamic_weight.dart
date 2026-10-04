@@ -19,13 +19,13 @@ class const DynamicWeightData({
   required final WidgetStatesController controller,
 });
 
-class DynamicWeight extends HookWidget {
-  const new({super.key, required this.child});
-
-  new builder({super.key, required WidgetBuilder builder})
-    : child = Builder(builder: builder);
-
-  final Widget child;
+class const DynamicWeight({super.key, required final Widget child})
+    extends HookWidget {
+  new builder({Key? key, required WidgetBuilder builder})
+    : this(
+        key: key,
+        child: Builder(builder: builder),
+      );
 
   static DynamicWeightData? maybeOf(BuildContext context) {
     final data = context

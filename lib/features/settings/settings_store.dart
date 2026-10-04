@@ -31,19 +31,19 @@ class SettingsStore({required AppSharedPreferences prefs})
   late final BehaviorSubject<bool> christmasSpirit;
 }
 
-class SettingsData with Equatable {
-  const new({
-    required this.themeMode,
-    required this.useSystemTheme,
-    required this.locale,
-    required this.christmasSpirit,
-  });
-
+class const SettingsData({
+  required final ThemeMode themeMode,
+  required final bool useSystemTheme,
+  required final AppLocale locale,
+  required final bool christmasSpirit,
+}) with Equatable {
   new fromJson(Map<String, dynamic> json)
-    : themeMode = .values.byName(json['themeMode'] as String),
-      useSystemTheme = json['useSystemTheme'] as bool,
-      locale = .fromCode(json['locale'] as String?),
-      christmasSpirit = json['christmasSpirit'] as bool;
+    : this(
+        themeMode: .values.byName(json['themeMode'] as String),
+        useSystemTheme: json['useSystemTheme'] as bool,
+        locale: .fromCode(json['locale'] as String?),
+        christmasSpirit: json['christmasSpirit'] as bool,
+      );
 
   Map<String, dynamic> toJson() => {
     'themeMode': themeMode.name,
@@ -51,11 +51,6 @@ class SettingsData with Equatable {
     'locale': locale.localeCode,
     'christmasSpirit': christmasSpirit,
   };
-
-  final ThemeMode themeMode;
-  final bool useSystemTheme;
-  final AppLocale locale;
-  final bool christmasSpirit;
 
   @override
   List<Object?> get props => [
