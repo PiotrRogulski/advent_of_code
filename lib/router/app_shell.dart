@@ -1,11 +1,8 @@
 import 'package:advent_of_code/common/extensions.dart';
 import 'package:advent_of_code/design_system/icons.dart';
 import 'package:advent_of_code/design_system/widgets/icon.dart';
-// AdaptiveScaffold uses legacy Material library
-// ignore: migrate_design_widgets
-import 'package:flutter/material.dart' show NavigationDestination;
+import 'package:custom_adaptive_scaffold/custom_adaptive_scaffold.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart' hide NavigationDestination;
 
@@ -22,19 +19,19 @@ class const AocAppShell({
     final index = navigationShell.currentIndex;
 
     final destinations = [
-      _Destination(
+      _destination(
         icon: .home,
         label: s.home_title,
         index: 0,
         currentIndex: index,
       ),
-      _Destination(
+      _destination(
         icon: .calendarMonth,
         label: s.years_title,
         index: 1,
         currentIndex: index,
       ),
-      _Destination(
+      _destination(
         icon: .settings,
         label: s.settings_title,
         index: 2,
@@ -65,23 +62,15 @@ class const AocAppShell({
   }
 }
 
-// Bug in the lint: https://github.com/dart-lang/sdk/issues/64037
-// ignore: prefer_const_constructors_in_immutables
-class _Destination({
+NavigationDestination _destination({
   required AocIconData icon,
-  required super.label,
+  required String label,
   required int index,
   required int currentIndex,
-}) extends NavigationDestination {
-  this
-    : super(
-        icon: _DestinationIcon(
-          icon: icon,
-          index: index,
-          currentIndex: currentIndex,
-        ),
-      );
-}
+}) => .new(
+  icon: _DestinationIcon(icon: icon, index: index, currentIndex: currentIndex),
+  label: label,
+);
 
 class const _DestinationIcon({
   required final AocIconData icon,

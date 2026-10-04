@@ -11,13 +11,13 @@ dependencies:
   characters: ^1.4.1
   collection: ^1.19.1
   cupertino_ui: ^1.1.1
+  custom_adaptive_scaffold: ^6.0.0-dev.1
   dio: ^5.11.1
   dispose_scope: ^2.1.0
   dynamic_color: ^2.1.0
   equatable: ^2.1.0
   flutter:
     sdk: flutter
-  flutter_adaptive_scaffold: ^0.3.3+1
   flutter_localizations:
     sdk: flutter
   gap: ^3.0.1

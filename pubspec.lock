@@ -218,6 +218,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  custom_adaptive_scaffold:
+    dependency: "direct main"
+    description:
+      name: custom_adaptive_scaffold
+      sha256: "4be048d258b6c84e81c4c915e29076a4a2a437f8fba26dcfca6adcfcf9b9c427"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.0-dev.1"
   dart_console:
     dependency: transitive
     description:
@@ -343,14 +351,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_adaptive_scaffold:
-    dependency: "direct main"
-    description:
-      name: flutter_adaptive_scaffold
-      sha256: "5eb1d1d174304a4e67c4bb402ed38cb4a5ebdac95ce54099e91460accb33d295"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.3+1"
   flutter_hooks:
     dependency: transitive
     description:

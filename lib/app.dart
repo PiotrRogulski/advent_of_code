@@ -33,11 +33,8 @@ class const AocApp({super.key}) extends StatelessWidget {
               locale: locale.locale,
               routerConfig: router,
               debugShowCheckedModeBanner: false,
-              // Needed for AdaptiveScaffold
-              // ignore: deprecated_member_use
-              builder: (context, child) => MaterialUiCompatibilityBridge(
-                child: AocTextTheme(child: ChristmasOverlay(child: child!)),
-              ),
+              builder: (context, child) =>
+                  AocTextTheme(child: ChristmasOverlay(child: child!)),
             );
           },
         );

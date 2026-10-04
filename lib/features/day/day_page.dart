@@ -13,7 +13,7 @@ import 'package:advent_of_code/features/day/widgets/part_status.dart';
 import 'package:advent_of_code/features/day/widgets/visualizer_button.dart';
 import 'package:advent_of_code/features/part/part_input.dart';
 import 'package:advent_of_code/features/tasks/tasks.dart';
-import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:custom_adaptive_scaffold/custom_adaptive_scaffold.dart';
 import 'package:leancode_hooks/leancode_hooks.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';

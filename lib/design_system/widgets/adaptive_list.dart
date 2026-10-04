@@ -1,7 +1,7 @@
 import 'package:advent_of_code/common/widgets/breakpoint_selector.dart';
 import 'package:advent_of_code/design_system/padding.dart';
 import 'package:advent_of_code/design_system/unit.dart';
-import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:custom_adaptive_scaffold/custom_adaptive_scaffold.dart';
 import 'package:material_ui/material_ui.dart';
 
 class const SliverAdaptiveList<T>({
